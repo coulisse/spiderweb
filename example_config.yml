@@ -1,0 +1,6 @@
+mysql:
+        host: localhost
+        user: myuser
+        passwd: mypassword
+        db: dxcluster  
+

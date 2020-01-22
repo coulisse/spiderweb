@@ -5,16 +5,18 @@ import json
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
+with open('config.json') as json_data_file:
+        cfg = json.load(json_data_file)
+
 # A route to return all of the available entries in our catalog.
 @app.route('/', methods=['GET'])
 def spots(): 
 
-    db = my.connect(host='localhost',
-                    user='webdb',
-                    passwd='Zw73dp',
-                    db='dxcluster'
+    db = my.connect(host=cfg['mysql']['host'],
+                    user=cfg['mysql']['user'],
+                    passwd=cfg['mysql']['passwd'],
+                    db=cfg['mysql']['db']
                     )
-
     cursor = db.cursor()
     number_of_rows = cursor.execute('''SET NAMES 'utf8';''')
     number_of_rows = cursor.execute('''SELECT rowid, spotter, freq, spotcall, comment, time from dxcluster.spot ORDER BY rowid desc limit 100;''')
