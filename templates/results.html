@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script>
+		var myList = {{payload|tojson|safe}};
+ 
+// Builds tve HTML Table out of myList.
+function buildHtmlTable(selector) {
+
+	//header
+	var headerTr$ = $('<tr/>'); 
+	headerTr$.append($('<th/>').html('DX De')); 
+	headerTr$.append($('<th/>').html('Freq')); 
+	headerTr$.append($('<th/>').html('DX')); 
+	headerTr$.append($('<th/>').html('Comments')); 
+	headerTr$.append($('<th/>').html('UTC Time')); 
+	$(selector).append(headerTr$); 
+
+	//rows
+
+	for (var i = 0; i < myList.length; i++) {
+		var row$;	
+		row$=$('<tr/>');
+		row$.append($('<td/>').html(myList[i].spotter));
+		var freq = myList[i].freq.toString().replace(/\./gi, ",");
+		row$.append($('<td/>').html(freq));
+		row$.append($('<td/>').html(myList[i].spotcall));
+		row$.append($('<td/>').html(myList[i].comment));
+		var dt=new Date(myList[i].time * 1000);
+		var hh='00'+dt.getUTCHours();
+		hh=hh.substring(hh.length - 2, hh.length); 
+		var mi='00'+dt.getMinutes();
+		mi=mi.substring(mi.length - 2, mi.length);
+		var dd='00'+dt.getDate();
+		dd=dd.substring(dd.length - 2, dd.length);
+		var mo='00'+dt.getUTCMonth()+1;
+		mo=mo.substring(mo.length - 2, mo.length);
+		var yy=dt.getUTCFullYear();
+		dt=hh+':'+mi+' '+dd+'/'+mo+'/'+yy;
+		row$.append($('<td/>').html(dt));
+      		$(selector).append(row$);
+    	}
+}
+
+
+	</script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+	</head>
+	<body onLoad="buildHtmlTable('#spotsTable')">
+		<div class="container" id="header">
+			<h1>WEB DX Cluster For HAM Radio IU1BOW-2</h1>
+			Telnet access: <a href="telnet://dxcluster.iu1bow.it:7300">dxcluster.iu1bow.it 7300</a><br>
+	For connect your cluster node, write to	<a href="mailto:corrado.gerbaldo@gmail.com?Subject=Connect%20my%20DxCluster%20node" target="_top">corrado.gerbaldo@gmail.com</a>
+		</div>
+		<div class="container" id="results">
+	 	<table 	id="spotsTable"
+			class="table table-striped table-condensed" >
+	   	 </table>
+		</div>
+	</body>
+	<script>
+		
+		setInterval(function(){ buildHtmlTable('#spotsTable'); }, 30000);
+		    $(document).ready(function() {
+			            // auto refresh page after 1 second
+			            setInterval('refreshPage()', 30000);
+			        });
+ 
+    		function refreshPage() { 
+	          	location.reload(); 
+	        } 
+	</script>
+
+</html>
