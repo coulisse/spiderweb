@@ -22,7 +22,7 @@ def spotquery():
                     )
     cursor = db.cursor()
     number_of_rows = cursor.execute('''SET NAMES 'utf8';''')
-    number_of_rows = cursor.execute('''SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time from dxcluster.spot ORDER BY rowid desc limit 100;''')
+    number_of_rows = cursor.execute('''SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time from dxcluster.spot ORDER BY rowid desc limit 50;''')
     row_headers=[x[0] for x in cursor.description] #this will extract row headers
     rv=cursor.fetchall()
     payload=[]
@@ -30,25 +30,18 @@ def spotquery():
         payload.append(dict(zip(row_headers,result)))
 
     db.close()
-
     return payload
 
 @app.route('/spotlist', methods=['GET']) 
 def spotlist():
-    return json.dumps(spotquery())
+    response=flask.Response(json.dumps(spotquery()))
+    return response
 
-# A route to return all of the available entries in our catalog.
-@app.route('/', methods=['GET'])
-def spots(): 
-
+@app.route('/', methods=['GET']) 
+def spots():
     payload=spotquery()
-    return render_template(
-            'results.html',
-           # response=json.dumps(payload)
-           payload=payload
-    )
+    response=flask.Response(render_template('index.html',payload=payload))
+    return response
 
-#app.run(host='0.0.0.0',port=8080)
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=8080)
-
+    app.run(host='0.0.0.0')
