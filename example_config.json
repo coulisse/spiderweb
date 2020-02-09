@@ -4,5 +4,8 @@
             "user":"myusr",
             "passwd":"mypwd",
             "db":"dxcluster"
-	}
+	},
+	"timer":{
+			"interval":30000
+	}	
 }

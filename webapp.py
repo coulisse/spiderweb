@@ -40,7 +40,7 @@ def spotlist():
 @app.route('/', methods=['GET']) 
 def spots():
     payload=spotquery()
-    response=flask.Response(render_template('index.html',payload=payload))
+    response=flask.Response(render_template('index.html',payload=payload,timer_interval=cfg['timer']['interval']))
     return response
 
 if __name__ == '__main__':
