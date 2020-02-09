@@ -1,4 +1,14 @@
 // Builds the HTML Table.
+function transcodeArea(info){
+	if (info != undefined) {
+		var new_info=info;
+		new_info.areacode=new_info.areacode.replace('UK','GB');
+		new_info.areacode=new_info.areacode.replace('FL','FI');
+		return new_info;
+	} else {
+		return undefined;
+	};
+};
 function buildHtmlTable(selector,data,rl) {
 	//rows
 	var myRows=new Array();
@@ -13,8 +23,10 @@ function buildHtmlTable(selector,data,rl) {
 		if ( found == undefined && rl.length > 0) {
 			row$=$('<tr class="table-info"/>');
 		};
-		var de_info=callsign.getAmateurRadioInfoByCallsign(data[i].de);
-		var dx_info=callsign.getAmateurRadioInfoByCallsign(data[i].dx);
+
+		var de_info=transcodeArea(callsign.getAmateurRadioInfoByCallsign(data[i].de));
+		var dx_info=transcodeArea(callsign.getAmateurRadioInfoByCallsign(data[i].dx));
+
 		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].de+ '" target="_blank"><i class="fas fa-search"></i></a><span>&nbsp'+data[i].de+'</span>'));
 		try {
 			row$.append($('<td/>').html('<a href="#" data-toggle="tooltip" title="'+de_info.area+'"><img src="https://www.countryflags.io/'+de_info.areacode+'/shiny/24.png"></a>'));
