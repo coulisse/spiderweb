@@ -19,14 +19,18 @@ with open('cfg/config.json') as json_data_file:
 with open('cfg/bands.json') as json_bands:
         band_frequencies = json.load(json_bands)
 
+#load continents-cq file
+with open('cfg/continents.json') as json_continents:
+        continents_cq = json.load(json_continents)
+
 #load country file (and send it to front-end)
 def load_country():
     filename = os.path.join(app.static_folder, 'country.json')
     with open(filename) as country_file:
         return json.load(country_file)
 
-#find band in json frequency array
-def find_band_freq(json_object, name):
+#find id  in json : ie frequency / continent
+def find_id_json(json_object, name):
     return [obj for obj in json_object if obj['id']==name][0]
 
 def spotquery():
@@ -41,22 +45,46 @@ def spotquery():
         dxre=(request.args.getlist('x'))
 
         #construct band query decoding frequencis with json file
-        band_qry_string = '(('
+        band_qry_string = ' AND (('
         for i in range(len(band)):
-            freq=find_band_freq(band_frequencies["bands"],band[i])
+            freq=find_id_json(band_frequencies["bands"],band[i])
             if i > 0:
                 band_qry_string += ') OR ('
 
             band_qry_string += 'freq BETWEEN ' + str(freq["min"]) + ' AND ' + str(freq["max"])
 
         band_qry_string += '))'
-        query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot "                                  
-        if len(band) > 0:
-            query_string += " WHERE "   
-            query_string += band_qry_string
+
+        #construct DE continent region query
+        dere_qry_string = ' AND spottercq IN ('
+        for i in range(len(dere)):
+            continent=find_id_json(continents_cq["continents"],dere[i])
+            if i > 0:
+                dere_qry_string +=','
+            dere_qry_string += str(continent["cq"])
+        dere_qry_string +=')'
         
+        #construct DX continent region query
+        dxre_qry_string = ' AND spotcq IN ('
+        for i in range(len(dxre)):
+            continent=find_id_json(continents_cq["continents"],dxre[i])
+            if i > 0:
+                dxre_qry_string +=','
+            dxre_qry_string += str(continent["cq"])
+        dxre_qry_string +=')'
+
+        query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE 1=1"                                  
+        if len(band) > 0:
+            query_string += band_qry_string
+
+        if len(dere) > 0:
+            query_string += dere_qry_string
+
+        if len(dxre) > 0:
+            query_string += dxre_qry_string
+            
         query_string += " ORDER BY rowid desc limit 50;"  
-        print query_string
+        #print query_string
 
         #connect to db
         db = my.connect(host=cfg['mysql']['host'],

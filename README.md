@@ -18,9 +18,6 @@ For this application I've used:
 - **Bootstrap** for stylesheet CSS
 - **Fontawesone** I used it for icons
 - **Jquery** In the header you can find the link to MS link
-- **cassign** In the header you can find the link to this javascript; however you could download it from https://github.com/YuYanDev/callsign/   
-	This is a js library that it's usefull for get all information from a callsign. I use it for get the country.
-	 **Thx to YuYanDev**
 - **qrz.com** For each callsing found you can click on lens and you'll see him on qrz.com
 - **www.countryflags.io** I used it for show the country flags
 
