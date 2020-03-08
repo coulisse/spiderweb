@@ -36,10 +36,10 @@ function buildHtmlTable(selector,data,rl,countries) {
 
 		var country=findCountry(countries, data[i].spotdxcc);
 		//var dx_info=transcodeArea(callsign.getAmateurRadioInfoByCallsign(data[i].dx));
-		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].de+ '" target="_blank" rel="noopener"><i class="fas fa-search"></i></a><span>&nbsp'+data[i].de+'</span>'));
+		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].de+ '" target="_blank" rel="noopener"><i class="fas fa-search" aria-label="'+data[i].de+'"></i></a><span>&nbsp'+data[i].de+'</span>'));
 		var freq = Intl.NumberFormat('it-IT', { style: 'decimal' }).format(data[i].freq);
 		row$.append($('<td/>').html('<span class="badge badge-warning" style="width: 65px">'+freq+'</span>'));
-		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].dx+ '" target="_blank" rel="noopener"><i class="fas fa-search"></i></a><span>&nbsp'+data[i].dx+'</span>'));
+		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].dx+ '" target="_blank" rel="noopener"><i class="fas fa-search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+data[i].dx+'</span>'));
 		try {
   		//	row$.append($('<td/>').html('<a href="#" data-toggle="tooltip" title="'+dx_info.area+'"><img src="https://www.countryflags.io/'+dx_info.areacode+'/shiny/24.png"></a>'));
   			row$.append($('<td/>').html('<a href="#" data-toggle="tooltip" title="'+country.country+'"><img src="https://www.countryflags.io/'+country.ISO+'/shiny/24.png" alt="'+country.country+'"></a>'));

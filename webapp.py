@@ -8,7 +8,7 @@ __author__ = 'IU1BOW - Corrado'
 
 
 app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+app.config["DEBUG"] = False
 app.config['SECRET_KEY'] = 'secret!'
 
 #load config file
@@ -36,9 +36,6 @@ def find_id_json(json_object, name):
 def spotquery():
 
     try:
-        # trancodificare cqdx da regione AF a cq
-        # costruire query con nulla,  spotcq, spotde, band in successione 
-        
         #get url parameters
         band=(request.args.getlist('b'))
         dere=(request.args.getlist('e'))
