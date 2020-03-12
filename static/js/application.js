@@ -7,19 +7,6 @@ function findCountry(countries, wpx_to_find) {
 	};
 
 };
-
-function transcodeArea(info){
-	if (info != undefined) {
-		var new_info=info;
-		if (new_info.areacode != undefined) {
-			new_info.areacode=new_info.areacode.replace('UK','GB');
-			new_info.areacode=new_info.areacode.replace('FL','FI');
-		};
-		return new_info;
-	} else {
-		return undefined;
-	};
-};
 function buildHtmlTable(selector,data,rl,countries) {
 	//rows
 	var myRows=new Array();
@@ -30,18 +17,17 @@ function buildHtmlTable(selector,data,rl,countries) {
          myRows[i]=data[i].rowid;
 		var row$=$('<tr id="'+data[i].rowid+'"/>');
 		var found = rl.find(element => element ==data[i].rowid);
+
 		if ( found == undefined && rl.length > 0) {
 			row$=$('<tr class="table-primary" id="'+data[i].rowid+'"/>');
 		};
 
 		var country=findCountry(countries, data[i].spotdxcc);
-		//var dx_info=transcodeArea(callsign.getAmateurRadioInfoByCallsign(data[i].dx));
-		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].de+ '" target="_blank" rel="noopener"><i class="fas fa-search" aria-label="'+data[i].de+'"></i></a><span>&nbsp'+data[i].de+'</span>'));
+		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].de+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].de+'"></i></a><span>&nbsp'+data[i].de+'</span>'));
 		var freq = Intl.NumberFormat('it-IT', { style: 'decimal' }).format(data[i].freq);
 		row$.append($('<td/>').html('<span class="badge badge-warning" style="width: 65px">'+freq+'</span>'));
-		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].dx+ '" target="_blank" rel="noopener"><i class="fas fa-search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+data[i].dx+'</span>'));
+		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].dx+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+data[i].dx+'</span>'));
 		try {
-  		//	row$.append($('<td/>').html('<a href="#" data-toggle="tooltip" title="'+dx_info.area+'"><img src="https://www.countryflags.io/'+dx_info.areacode+'/shiny/24.png"></a>'));
   			row$.append($('<td/>').html('<a href="#" data-toggle="tooltip" title="'+country.country+'"><img src="https://www.countryflags.io/'+country.ISO+'/shiny/24.png" alt="'+country.country+'"></a>'));
 		} catch (err) {
 			row$.append($('<td/>'));
@@ -63,7 +49,12 @@ function buildHtmlTable(selector,data,rl,countries) {
 		row$.append($('<td class="d-none d-lg-table-cell d-xl-table-cell"/>').html(dt));
     		$(selector).append(row$);
    	}
-	return Array.from(myRows);
+
+	try {
+		return Array.from(myRows);
+	} catch (err) {
+		return;
+	}
 };
 function mySearch(event) {
 
@@ -78,6 +69,7 @@ function myTimer() {
 	selectedBands = [].map.call(document.getElementById('band').selectedOptions, option => option.value);
 	selectedDEre = [].map.call(document.getElementById('de_re').selectedOptions, option => option.value);
 	selectedDXre = [].map.call(document.getElementById('dx_re').selectedOptions, option => option.value);
+
 
 	//construct query parameters
 	var qryBands='';

@@ -17,10 +17,11 @@ The user could see 50 spots at time and filter them by band, spotter continent a
 
 For this application I've used:
 - **Bootstrap** for stylesheet CSS
-- **Fontawesone** I used it for icons
 - **Jquery** In the header you can find the link to MS link
 - **qrz.com** For each callsing found you can click on lens and you'll see him on qrz.com
 - **www.countryflags.io** I used it for show the country flags
+
+You can find my web site at [https://dxcluster.iu1bow.it](https://dxcluster.iu1bow.it)
 
 ### Install            
 
@@ -52,6 +53,13 @@ Then you have to install also **python-dev, ssl and mysql libraries**:
 foo@bar:~$ sudo apt-get install python-dev default-libmysqlclient-dev libssl-dev 
 foo@bar:~$ sudo -H pip install flask_mysqldb --system 
 ```
+**4) Configuration
+In the path `spiderweb/cfg/` rename `example_config.json` in `config.json`:
+```console
+foo@bar:~$ mv example_config.json config.json
+```
+then edit it and set the user and password of your database
+
 ### Run test
 Now you can run your web application with the following command:
 ```console
