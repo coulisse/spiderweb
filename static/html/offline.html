@@ -10,12 +10,14 @@
 	<link rel="shortcut icon" href="/static/favicon.png">  
 	<link rel="manifest" href="/static/manifest.json">
 	<link rel="apple-touch-icon" href="/static/images/icon-apple.png">
-	<link rel="stylesheet" href="/static/css/style.min.css"> 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">  
-	<!--
-	<link rel="dns-prefetch" href="https://www.countryflags.io">
 
-	-->
+	<link rel="stylesheet" href="/static/css/style.min.css"> 
+	<!-- <link rel="preload" href="/static/css/style.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	
+	<noscript><link rel="stylesheet" href="/static/css/style.min.css"></noscript> -->
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">  
+	<link rel="dns-prefetch" href="https://www.countryflags.io">
      </head>
      <body>
 	     <!-- <div class="mt-1 ml-0 mr-0"> -->
@@ -97,21 +99,14 @@
 			</table>
                </div>
             </div>
+            <div class="row bg-warning">
+		    <div class="p-3 mb-2 text-dark"><h3>Sorry, but you are off-line: check your connettivity.</h3></div>
+		</div>
 	     </div>
-	     <footer class="page-footer font-small blue">
+             <footer class="page-footer font-small blue">
 		     <div class="footer-copyright text-center py-3">2020 <span class="copyleft">&copy</span> Copyleft:
-			     <a href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">IU1BOW Spiderweb</a>
-	       </div>
-	     </footer>
+                             <a href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">IU1BOW Spiderweb</a>
+                    </div>
+               </footer>
      </body>
-	<script async type="application/javascript" src="static/js/load-sw.min.js"></script>
-	<script>
-		var my_countries_json='{{ country_data|tojson|safe }}';
-		var payload_json={{payload|tojson|safe}};
-		var timer_interval_json = {{timer_interval}};
-	</script>
-        <script defer src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-	<script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
-	<script defer type="application/javascript" src="static/js/application.min.js"></script>
-	<script defer type="application/javascript" src="static/js/application_inline.min.js"></script>
  </html>

@@ -3,12 +3,12 @@ SPIDERWEB
 
 ### Ham radio cluster web viewer for DxSpider
 
-**Author:** Corrado Gerbaldo - IU1BOW.
-**Mail:** <corrado.gerbaldo@gmail.com>
-**Version:** Beta
-**Last update:** 08/03/2020
-**Licensing:** Gpl V3.0 see ["LICENSE"](LICENSE) file.
-**Languages:** This application is written in Python/flask,Javascript and HTML
+- **Author:** Corrado Gerbaldo - IU1BOW.
+- **Mail:** <corrado.gerbaldo@gmail.com>
+- **Version:** Beta
+- **Last update:** 08/03/2020
+- **Licensing:** Gpl V3.0 see ["LICENSE"](LICENSE) file.
+- **Languages:** This application is written in Python/flask,Javascript and HTML
 ___
 
 **DXSpider** is a great DX Cluster softwar that has a usefull telnet interface. 
@@ -53,7 +53,7 @@ Then you have to install also **python-dev, ssl and mysql libraries**:
 foo@bar:~$ sudo apt-get install python-dev default-libmysqlclient-dev libssl-dev 
 foo@bar:~$ sudo -H pip install flask_mysqldb --system 
 ```
-**4) Configuration
+**4) Configuration**
 In the path `spiderweb/cfg/` rename `example_config.json` in `config.json`:
 ```console
 foo@bar:~$ mv example_config.json config.json

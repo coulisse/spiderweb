@@ -8,7 +8,7 @@ __author__ = 'IU1BOW - Corrado'
 
 
 app = flask.Flask(__name__)
-app.config["DEBUG"] = False
+app.config["DEBUG"] = True  
 app.config['SECRET_KEY'] = 'secret!'
 
 #load config file
@@ -112,12 +112,25 @@ def spotlist():
     return response
 
 @app.route('/', methods=['GET']) 
+@app.route('/index.html', methods=['GET']) 
 def spots():
     payload=spotquery()
     country_data=load_country()
     response=flask.Response(render_template('index.html',payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data))
-    #response=flask.Response(render_template('index.html',payload=payload,timer_interval=cfg['timer']['interval']))
     return response
+
+@app.route('/service-worker.js', methods=['GET'])
+def sw():
+    print "call service worker"
+    return app.send_static_file('service-worker.js')
+
+@app.route('/offline.html')
+def root():
+        return app.send_static_file('html/offline.html')
+
+@app.route('/sitemap.xml')
+def sitemap():
+        return app.send_static_file('sitemap.xml')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

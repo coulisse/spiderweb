@@ -25,7 +25,8 @@ function buildHtmlTable(selector,data,rl,countries) {
 		var country=findCountry(countries, data[i].spotdxcc);
 		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].de+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].de+'"></i></a><span>&nbsp'+data[i].de+'</span>'));
 		var freq = Intl.NumberFormat('it-IT', { style: 'decimal' }).format(data[i].freq);
-		row$.append($('<td/>').html('<span class="badge badge-warning" style="width: 65px">'+freq+'</span>'));
+//		row$.append($('<td/>').html('<span class="badge badge-warning" style="width: 65px">'+freq+'</span>'));
+		row$.append($('<td/>').html('<span class="badge badge-warning badge-responsive">'+freq+'</span>'));
 		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].dx+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+data[i].dx+'</span>'));
 		try {
   			row$.append($('<td/>').html('<a href="#" data-toggle="tooltip" title="'+country.country+'"><img src="https://www.countryflags.io/'+country.ISO+'/shiny/24.png" alt="'+country.country+'"></a>'));
