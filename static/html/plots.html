@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+  <title>DX Cluster from IU1BOW: Plots</title>
+  <meta charset="utf-8">
+  <meta name="KEYWORDS" content="dxcluster,iu1bow,cluster,ham radio,web dx cluster">
+  <meta name="description" content="dx cluster for hamradio, by IU1BOW">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
+  <meta name="theme-color" content="#2196f3">
+  <link rel="shortcut icon" href="/static/favicon.png">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="stylesheet" href="/static/css/style.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity=
+  "sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+  <header>
+	<!-- nav bar -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="/">
+				<img src="/static/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+IU1BOW
+			</a>	
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+	        </button>
+ 			<div class="collapse navbar-collapse" id="navbarToggler01">
+				<ul class="navbar-nav mr-auto">
+				 	<li class="nav-item">
+						<a class="nav-link active" href="/static/html/plots.html">Plots</a>
+					</li>
+				 	<li class="nav-item">
+                        <a class="nav-link" href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">Sources</a>
+					</li>
+				 	<li class="nav-item">
+                        <a class="nav-link" href="https://iu1bow.blogspot.com" target="blank" rel="noopener">My Blog</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/static/html/cookies.html">Cookies policy<span class="sr-only">Link</span></a>
+					</li>
+				</ul>
+	        </div>
+		</nav>
+  </header>
+  <main>
+    <!-- jumbotron -->
+    <div class="container-fluid mt-1 ml-0 mr-0 px-0">
+      <div class="jumbotron mx-3 ipcs">
+        <h1 class="display-4 text-white">PLOTS</h1>
+        <p class="lead text-light">WEB DX Cluster For HAM Radio</p>
+        <p class="text-light">Telnet access: <a href="telnet://dxcluster.iu1bow.it:7300" class="text-white">dxcluster.iu1bow.it 7300</a></p>
+        <p class="text-light">For connect your cluster, write to <a href="mailto:corrado.gerbaldo@gmail.com?Subject=Connect%20my%20DxCluster%20node" target=
+        "_top" class="text-white">corrado.gerbaldo@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="col mr-3" id="plotlist"></div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous">
+    </script> 
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity=
+    "sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+  </main>
+  <footer class="page-footer font-small blue">
+    <div class="footer-copyright text-center py-3">
+      2020 <span class="copyleft">©</span> Copyleft: <a href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">IU1BOW Spiderweb</a>
+    </div>
+    <script type="text/javascript" src=
+    "https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?thirdparty=1&amp;always=1&amp;showPolicyLink=1&amp;remember=365">
+    </script>
+  </footer>
+  <script>
+                function plotlist(){
+                    $("#plotlist").load("plots_body.html");
+					console.log("body reloaded");
+                };
+                $(document).ready(plotlist);
+                setInterval(plotlist,900000);
+  </script>
+</body>
+</html>
