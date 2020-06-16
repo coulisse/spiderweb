@@ -1,11 +1,14 @@
 {
     "mysql":{
             "host":"localhost",
-            "user":"myusr",
-            "passwd":"mypwd",
+            "user":"foo",
+            "passwd":"bar",
             "db":"dxcluster"
 	},
 	"timer":{
 			"interval":30000
+	},	
+	"plot_refresh_timer":{
+			"interval":900000
 	}	
 }

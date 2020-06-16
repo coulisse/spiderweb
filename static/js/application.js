@@ -123,3 +123,38 @@ function myTimer() {
 	}
 	request.send()
 };
+function buildHtmlPlots(selector,data) {
+	//TODO
+	$(selector).empty();
+
+	//bands activity
+	var contBandsActivity$=$('<div class="container justify-content-center"/>');
+	contBandsActivity$.append($('<h3  class="text-center"/>').html('Band Activity'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AF']+'.png" alt="propatation heatmap AF" srcset="/static/plots/'+data['propagation_heatmaps_AF']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AN']+'.png" alt="propatation heatmap AN" srcset="/static/plots/'+data['propagation_heatmaps_AN']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AS']+'.png" alt="propatation heatmap AF" srcset="/static/plots/'+data['propagation_heatmaps_AF']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_EU']+'.png" alt="propatation heatmap EU" srcset="/static/plots/'+data['propagation_heatmaps_EU']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_NA']+'.png" alt="propatation heatmap NA" srcset="/static/plots/'+data['propagation_heatmaps_NA']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_OC']+'.png" alt="propatation heatmap OC" srcset="/static/plots/'+data['propagation_heatmaps_OC']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_SA']+'.png" alt="propatation heatmap SA" srcset="/static/plots/'+data['propagation_heatmaps_SA']+'.svg">'));
+	$(selector).append(contBandsActivity$);
+
+	//qso per months
+	$(selector).append($('<hr>'));
+	var contQSOMonth$=$('<div class="container justify-content-center"/>');
+	contQSOMonth$.append($('<img class="img-fluid" src="/static/plots/'+data['qso_months']+'.png" alt="Qso per months" srcset="/static/plots/'+data['qso_months']+'.svg">'));
+	$(selector).append(contQSOMonth$);
+
+};
+function plotsTimer() {
+	var request = new XMLHttpRequest()
+	request.open('GET','plotlist',true)
+	request.onload = function(){
+		try {
+			plot_list = buildHtmlPlots('#plotlist',payload_json);
+		} catch (err) {
+			console.log(this.response);
+		}
+	}
+	request.send()
+};

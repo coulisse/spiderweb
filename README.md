@@ -32,6 +32,10 @@ ___
 - added nav bar
 - added plots
 
+___
+16/06/2020: 1.1
+- updated plots page in order to not cache images
+
 ### Install            
 
 **1) DXSpider**
@@ -103,10 +107,9 @@ After installed it you can configure
 ~  
 
 ### TODO
-- do not cache plots page and related images
 - add other plots
 - manage common html parts with "includes"
 - add callsign search
-- insert a spot
 - improve the mobile experience
+- pretty print of html pages
 

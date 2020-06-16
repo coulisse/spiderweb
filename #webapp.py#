@@ -128,27 +128,9 @@ def sw():
 def root():
         return app.send_static_file('html/offline.html')
 
-
-@app.route('/plotlist', methods=['GET']) 
-def plotlist():
-    #get url parameters
-    idxfile=os.path.join(app.root_path,os.path.basename(app.static_url_path),'plots','plots.json')
-    if os.path.exists(idxfile):
-        with open(idxfile,'r') as jsonfile:
-            json_content = json.load(jsonfile)
-    else:
-        json_content={}
-
-    #response=flask.Response(json.dumps(json_content))
-    response=json_content
-    return response
-
 @app.route('/plots.html')
 def plots():
-    payload=plotlist()  
-    response=flask.Response(render_template('plots.html',payload=payload,timer_interval=cfg['plot_refresh_timer']['interval']))
-    return response
-
+        return app.send_static_file('html/plots.html')
 
 @app.route('/cookies.html')
 def cookies():
@@ -160,21 +142,21 @@ def sitemap():
         return app.send_static_file('sitemap.xml')
 
 #this function return the file name of a plot  inside the idx file, in order to match it with the same, with timestamp
-#@app.route('/singleplot', methods=['GET']) 
-#def singleplot():
-#    #get url parameters
-#    standard_plot=(request.args.getlist('p')[0]+'.idx')
-#    filein=os.path.join(app.root_path,os.path.basename(app.static_url_path),'plots',standard_plot)
-#    try:
-#        f = open(filein, "r")
-#        response=flask.Response(f.read())
-#        f.close()
-#    except Exception as e:
-#        response=flask.Response('error')
-#    finally:
-#        #response=flask.Response(filein) #TODO: remove
-#        return response
-
+@app.route('/singleplot', methods=['GET']) 
+def singleplot():
+    #get url parameters
+    standard_plot=(request.args.getlist('p')[0]+'.idx')
+    filein=os.path.join(app.root_path,os.path.basename(app.static_url_path),'plots',standard_plot)
+    print(filein)
+    try:
+        f = open(filein, "r")
+        response=flask.Response(f.read())
+        f.close()
+    except Exception as e:
+        response=flask.Response('error')
+    finally:
+        #response=flask.Response(filein) #TODO: remove
+        return response
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
