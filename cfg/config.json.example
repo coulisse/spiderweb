@@ -9,6 +9,6 @@
 			"interval":30000
 	},	
 	"plot_refresh_timer":{
-			"interval":900000
+			"interval":450000
 	}	
 }

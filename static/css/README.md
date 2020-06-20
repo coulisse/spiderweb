@@ -1,4 +1,4 @@
-Make chagnes only on file without '.min.' in theri name, then minify it using **min.sh** 
+Make changes only on file without '.min.' in their name, then minify it using **min.sh** 
 ```console
 foo@bar:~$ ./min.sh
 ```

@@ -36,6 +36,10 @@ ___
 16/06/2020: 1.1
 - updated plots page in order to not cache images
 
+___
+20/06/2020: 1.1.1
+- managed plot refresh
+
 ### Install            
 
 **1) DXSpider**
@@ -73,9 +77,9 @@ foo@bar:~$ sudo -H pip install --upgrade matplotlib
 ```
 
 **4) Configuration**
-In the path `spiderweb/cfg/` rename `example_config.json` in `config.json`:
+In the path `spiderweb/cfg/` rename `config.json.example` in `config.json`:
 ```console
-foo@bar:~$ mv example_config.json config.json
+foo@bar:~$ mv config.json.example config.json
 ```
 then edit it and set the user and password of your database
 
@@ -96,7 +100,7 @@ Now you can run your web application with the following command:
 foo@bar:~$ python webapp.py
 ```
 The flask default port is 5000, so you can see your web app, typing `http://localhost:5000` in your web browser.
-Keep in mind that the flask web server, usually is used for a test server.
+Keep in mind that the flask web server, usually is used as a test server.
 
 ### Production
 If your would run your application a production web server, install it on **Gunicorn** and **NGINX** (obviously you can choose your preferred proxy/web server instead). I'm also using **certbot** in order to manage SSL *Let's encrypt* certificates.
@@ -107,6 +111,7 @@ After installed it you can configure
 ~  
 
 ### TODO
+- add comments to code
 - add other plots
 - manage common html parts with "includes"
 - add callsign search

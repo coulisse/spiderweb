@@ -124,7 +124,6 @@ function myTimer() {
 	request.send()
 };
 function buildHtmlPlots(selector,data) {
-	//TODO
 	$(selector).empty();
 
 	//bands activity
@@ -151,8 +150,9 @@ function plotsTimer() {
 	request.open('GET','plotlist',true)
 	request.onload = function(){
 		try {
-			plot_list = buildHtmlPlots('#plotlist',payload_json);
+			plot_list = buildHtmlPlots('#plotlist',JSON.parse(this.response));
 		} catch (err) {
+			console.log(err);
 			console.log(this.response);
 		}
 	}
