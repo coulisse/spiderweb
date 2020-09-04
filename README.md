@@ -40,6 +40,11 @@ ___
 20/06/2020: 1.1.1
 - managed plot refresh
 
+___
+04/09/2020: 1.1.2
+- Fix on continents.cfg
+- minor changes on html tags
+
 ### Install            
 
 **1) DXSpider**

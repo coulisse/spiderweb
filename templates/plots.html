@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-	<meta http-equiv="Pragma" content="no-cache" />
-	<meta http-equiv="Expires" content="0" />
   <title>DX Cluster from IU1BOW: Plots</title>
   <meta charset="utf-8">
   <meta name="KEYWORDS" content="dxcluster,iu1bow,cluster,ham radio,web dx cluster">
@@ -62,12 +59,11 @@ IU1BOW
     <div class="footer-copyright text-center py-3">
       2020 <span class="copyleft">©</span> Copyleft: <a href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">IU1BOW Spiderweb</a>
     </div>
-    <script type="text/javascript" src=
-    "https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?thirdparty=1&amp;always=1&amp;showPolicyLink=1&amp;remember=365">
+    <script src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?thirdparty=1&amp;always=1&amp;showPolicyLink=1&amp;remember=365">
     </script>
   </footer>
-</body>
-  <script async type="application/javascript" src="static/js/load-sw.min.js"></script>
+
+  <script async src="static/js/load-sw.min.js"></script>
   <script> 
 	var payload_json={{payload|tojson|safe}};
 	var timer_interval_json = {{timer_interval}};
@@ -75,6 +71,7 @@ IU1BOW
 
   <script defer src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>  
   <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
-  <script defer type="application/javascript" src="static/js/application.min.js"></script>      
-  <script defer type="application/javascript" src="static/js/plot_inline.min.js"></script> 
+  <script defer src="static/js/application.min.js"></script>      
+  <script defer src="static/js/plot_inline.min.js"></script> 
+</body>
 </html>

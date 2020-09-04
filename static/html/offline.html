@@ -22,12 +22,12 @@
 				<p class="text-light">Telnet access: <a href="telnet://dxcluster.iu1bow.it:7300" class="text-white">dxcluster.iu1bow.it 7300</a></p>
 				<p class="text-light">For connect your cluster,  write to <a href="mailto:corrado.gerbaldo@gmail.com?Subject=Connect%20my%20DxCluster%20node" target="_top" class="text-white">corrado.gerbaldo@gmail.com</a></p>
 			</div>
-			<div class="ml-3"">
+			<div class="ml-3">
 					<button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" aria-label="filter">
 					<span class="filter" aria-label="filter"></span>
 					</button>
 			</div>
-			<div class="row  ml-0"">
+			<div class="row  ml-0">
 					 <!--Sidebar content-->
                 <div class="collapse" id="collapseFilters">
                   <form id="form-filters" enctype="multipart/form-data" style="background-color: #F2F2F2;">	
@@ -45,7 +45,7 @@
 				<option selected value="40">40m</option>
 				<option selected value="60">60m</option>
 				<option selected value="80">80m</option>
-				<option selected value="160">&gt160m</option>
+				<option selected value="160">&gt;160m</option>
 			</select>
 			<p></p>
                      	<div class="container"><div class="row"><div class="col"><b>DE</b></div><div class="col"><b>DX</b></div></div></div>
@@ -74,19 +74,21 @@
 			</div>
 		</div>
 		<p></p>
-		<button type="submit" class="btn btn-primary btn-block"  aria-pressed="true" autocomplete="off">Search</button>
+		<button type="submit" class="btn btn-primary btn-block"  aria-pressed="true" >Search</button>
 	    </form>	
 	 </div>
                <div class="col mr-3">
 			<table id="spotsTable" class="table table-striped table-sm text-responsive">
 				<thead>
+					<tr>
 					<th>DX De</th>
 					<th>Freq</th>
 					<th>DX</th>
-					<th/>
+					<th></th>
 					<th class="d-none d-lg-table-cell d-xl-table-cell">Comments</th>
 					<th>UTC Time</th>
-					<th class="d-none d-lg-table-cell d-xl-table-cell"/>
+					<th class="d-none d-lg-table-cell d-xl-table-cell"></th>
+					</tr>	
 				</thead>
 				<tbody id="bodyspot">					
 				</tbody>
@@ -98,7 +100,7 @@
 		</div>
 	     </div>
              <footer class="page-footer font-small blue">
-		     <div class="footer-copyright text-center py-3">2020 <span class="copyleft">&copy</span> Copyleft:
+		     <div class="footer-copyright text-center py-3">2020 <span class="copyleft">&copy;</span> Copyleft:
                              <a href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">IU1BOW Spiderweb</a>
                     </div>
                </footer>
