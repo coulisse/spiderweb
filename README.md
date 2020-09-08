@@ -5,8 +5,6 @@ SPIDERWEB
 
 - **Author:** Corrado Gerbaldo - IU1BOW.
 - **Mail:** <corrado.gerbaldo@gmail.com>
-- **Version:** 1.0 
-- **Last update:** 02/06/2020
 - **Licensing:** Gpl V3.0 see ["LICENSE"](LICENSE) file.
 - **Languages:** This application is written in Python/flask,Javascript and HTML
 ___
@@ -44,6 +42,12 @@ ___
 04/09/2020: 1.1.2
 - Fix on continents.cfg
 - minor changes on html tags
+
+___
+08/09/2020: 1.1.3
+- pretty print html pages
+- removed horizontal scrollbar 
+- fixed icon apple not found
 
 ### Install            
 
@@ -121,5 +125,4 @@ After installed it you can configure
 - manage common html parts with "includes"
 - add callsign search
 - improve the mobile experience
-- pretty print of html pages
 

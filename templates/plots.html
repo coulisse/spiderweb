@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.2.0">
   <title>DX Cluster from IU1BOW: Plots</title>
   <meta charset="utf-8">
   <meta name="KEYWORDS" content="dxcluster,iu1bow,cluster,ham radio,web dx cluster">
@@ -10,37 +11,30 @@
   <link rel="shortcut icon" href="/static/favicon.png">
   <link rel="manifest" href="/static/manifest.json">
   <link rel="stylesheet" href="/static/css/style.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity=
-  "sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
   <header>
-	<!-- nav bar -->
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="/">
-				<img src="/static/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-IU1BOW
-			</a>	
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-	        </button>
- 			<div class="collapse navbar-collapse" id="navbarToggler01">
-				<ul class="navbar-nav mr-auto">
-				 	<li class="nav-item">
-						<a class="nav-link active" href="/plots.html">Plots</a>
-					</li>
-				 	<li class="nav-item">
-                        <a class="nav-link" href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">Sources</a>
-					</li>
-				 	<li class="nav-item">
-                        <a class="nav-link" href="https://iu1bow.blogspot.com" target="blank" rel="noopener">My Blog</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/cookies.html">Cookies policy<span class="sr-only">Link</span></a>
-					</li>
-				</ul>
-	        </div>
-		</nav>
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/"><img src="/static/favicon.png" width="30" height="30" class="d-inline-block align-top" alt=""> IU1BOW</a>
+      <div class="collapse navbar-collapse" id="navbarToggler01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/plots.html">Plots</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">Sources</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://iu1bow.blogspot.com" target="blank" rel="noopener">My Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cookies.html">Cookies policy<span class="sr-only">Link</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </header>
   <main>
     <!-- jumbotron -->
@@ -49,8 +43,7 @@ IU1BOW
         <h1 class="display-4 text-white">PLOTS</h1>
         <p class="lead text-light">WEB DX Cluster For HAM Radio</p>
         <p class="text-light">Telnet access: <a href="telnet://dxcluster.iu1bow.it:7300" class="text-white">dxcluster.iu1bow.it 7300</a></p>
-        <p class="text-light">For connect your cluster, write to <a href="mailto:corrado.gerbaldo@gmail.com?Subject=Connect%20my%20DxCluster%20node" target=
-        "_top" class="text-white">corrado.gerbaldo@gmail.com</a></p>
+        <p class="text-light">For connect your cluster, write to <a href="mailto:corrado.gerbaldo@gmail.com?Subject=Connect%20my%20DxCluster%20node" target="_top" class="text-white">corrado.gerbaldo@gmail.com</a></p>
       </div>
     </div>
     <div class="col mr-3" id="plotlist"></div>
@@ -62,16 +55,20 @@ IU1BOW
     <script src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?thirdparty=1&amp;always=1&amp;showPolicyLink=1&amp;remember=365">
     </script>
   </footer>
+  <script async src="static/js/load-sw.min.js">
+  </script> 
+  <script>
 
-  <script async src="static/js/load-sw.min.js"></script>
-  <script> 
-	var payload_json={{payload|tojson|safe}};
-	var timer_interval_json = {{timer_interval}};
+        var payload_json={{payload|tojson|safe}};
+        var timer_interval_json = {{timer_interval}};
+  </script> 
+  <script defer src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+  </script> 
+  <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+  </script> 
+  <script defer src="static/js/application.min.js">
+  </script> 
+  <script defer src="static/js/plot_inline.min.js">
   </script>
-
-  <script defer src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>  
-  <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
-  <script defer src="static/js/application.min.js"></script>      
-  <script defer src="static/js/plot_inline.min.js"></script> 
 </body>
 </html>
