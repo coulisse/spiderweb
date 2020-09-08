@@ -49,6 +49,10 @@ ___
 - removed horizontal scrollbar 
 - fixed icon apple not found
 
+___
+08/09/2020: 1.1.4
+- Fixed menu on cookies and plots
+
 ### Install            
 
 **1) DXSpider**
