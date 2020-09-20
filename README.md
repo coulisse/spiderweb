@@ -101,12 +101,12 @@ If you would to increase speed on callsign search, you could define some index o
 ### Screenshots
 Screenshot
 ----------
-![Main view on desktop](docs/images/01_desktop_main.jpg)
-![Plots on desktop](docs/images/02_desktop_plot.jpg)
-![Mobile install](docs/images/03_mobile_install.jpg)
-![Mobile icon](docs/images/04_mobile_icon.jpg)
-![Mobile splash screen](docs/images/05_mobile_splash.jpg)
-![Mobile main view](docs/images/06_mobile_main.jpg)
+![Main view on desktop](docs/images/01_desktop_main.jpg =512x)
+![Plots on desktop](docs/images/02_desktop_plot.jpg =512x)
+![Mobile install](docs/images/03_mobile_install.jpg =512x)
+![Mobile icon](docs/images/04_mobile_icon.jpg =512x)
+![Mobile splash screen](docs/images/05_mobile_splash.jpg =512x)
+![Mobile main view](docs/images/06_mobile_main.jpg =512x)
 
 ### TODO
 see it on file ["TODO.md"](docs/TODO.md)
