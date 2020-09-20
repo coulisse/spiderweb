@@ -10,4 +10,5 @@
 - [ ] add a "splash" screen page
 - [ ] testing automation
 - [ ] add page with connected nodes
+- [ ] add google analitics include on server side
 
