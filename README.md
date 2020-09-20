@@ -103,10 +103,10 @@ Screenshot
 ----------
 <img src="docs/images/01_desktop_main.jpg" width="300"/>
 <img src="docs/images/02_desktop_plot.jpg" width="300"/>
-<img src="docs/images/03_mobile_install.jpg" width="300"/>
-<img src="docs/images/04_mobile_icon.jpg" width="300"/>
-<img src="docs/images/05_mobile_splash.jpg" width="300"/>
-<img src="docs/images/06_mobile_main.jpg" width="300"/>
+<img src="docs/images/03_mobile_install.jpg" width="200"/>
+<img src="docs/images/04_mobile_icon.jpg" width="200"/>
+<img src="docs/images/05_mobile_splash.jpg" width="200"/>
+<img src="docs/images/06_mobile_main.jpg" width="200"/>
 
 ### TODO
 see it on file ["TODO.md"](docs/TODO.md)
