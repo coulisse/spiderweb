@@ -1,4 +1,9 @@
-Per collegare un altro nodo: 
-- da client IU1BOW fare set/spider ALTRONOMINATIVO 
-- salvare uno script in /spider/connect di connessione 
-- aprire il file /spider/cmd/crontab ed effettuare la connessione all'altro nodo 0,10,20,30,40,50 * * * * start_connect('ALTRONOMINATIVO') unless connected('ALTRONOMINATIVO') 
+how to connect dx-spider to another cluster node:
+- login on gnu/linux as sysop user
+- from your client (IU1BOW) send command: set/spider OHTERCALLSIGN
+- Open file /spider/local_cmd/crontab ed put  0,10,20,30,40,50 * * * * start_connect('OTHERCALLSIGN') unless connected('OTHERCALLSIGN')
+
+see:
+http://www.dxcluster.org/main/adminmanual_en-11.html
+https://tobit.co.uk/pipermail/dxspider-support/2014-November/012319.html
+

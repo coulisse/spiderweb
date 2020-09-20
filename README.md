@@ -21,37 +21,8 @@ For this application I've used:
 
 You can find my web site at [https://dxcluster.iu1bow.it](https://dxcluster.iu1bow.it)
 
-### Change log
-08/03/2020: beta release
-___
-02/06/2020: 1.0
-- added cookie bar
-- added cookie policy
-- added nav bar
-- added plots
-
-___
-16/06/2020: 1.1
-- updated plots page in order to not cache images
-
-___
-20/06/2020: 1.1.1
-- managed plot refresh
-
-___
-04/09/2020: 1.1.2
-- Fix on continents.cfg
-- minor changes on html tags
-
-___
-08/09/2020: 1.1.3
-- pretty print html pages
-- removed horizontal scrollbar 
-- fixed icon apple not found
-
-___
-08/09/2020: 1.1.4
-- Fixed menu on cookies and plots
+### Changelog
+see it on file ["CHANGELOG.md"](docs/CHANGELOG.md)
 
 ### Install            
 
@@ -121,12 +92,12 @@ If your would run your application a production web server, install it on **Guni
 [At this link](https://noviello.it/come-installare-flask-con-gunicorn-e-nginx-su-ubuntu-18-10/) (in italian language) you can find a guide for install certbot, gunicorn and NGINX 
 After installed it you can configure 
 
+**Search engine indexing**
+When you are on-line, if you would to index your website on search engines, you have to generate a file named sitemap.xml and put it in /static/ folder. There are many tool to generate sitemap.xml, for example https://www.xml-sitemaps.com/
+
+**Index on MySQL
+If you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on 'scripts/create_mysql_index.sql'
 ~  
 
 ### TODO
-- add comments to code
-- add other plots
-- manage common html parts with "includes"
-- add callsign search
-- improve the mobile experience
-
+see it on file ["TODO.md"](docs/TODO.md)

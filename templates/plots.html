@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.2.0">
-  <title>DX Cluster from IU1BOW: Plots</title>
+  <title>Some plots from the dx clustes node</title>
   <meta charset="utf-8">
-  <meta name="KEYWORDS" content="dxcluster,iu1bow,cluster,ham radio,web dx cluster">
-  <meta name="description" content="dx cluster for hamradio, by IU1BOW">
+  <meta name="KEYWORDS" content="Graph, plots, statistics">
+  <meta name="description" content="some informations about this dx cluster node">
   <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
   <meta name="theme-color" content="#2196f3">
   <link rel="shortcut icon" href="/static/favicon.png">
   <link rel="manifest" href="/static/manifest.json">
-  <link rel="stylesheet" href="/static/css/style.min.css">
+  <link rel="stylesheet" href="/static/css/min/style.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
@@ -40,6 +39,17 @@ IU1BOW
 						<a class="nav-link" href="/static/html/cookies.html">Cookies policy<span class="sr-only">Link</span></a>
 					</li>
 				</ul>
+                              <form class="form-inline"  id="form-callsign" enctype="application/x-www-form-urlencoded" >
+                                        <div class="input-group" id='input-group-callsign'>
+                                                <input type="text" class="form-control" placeholder="callsign" aria-label="callsign" aria-describedby="button-addon2" id="callsignInput" >
+                                                <div class="input-group-append">
+                                                        <button class="btn btn-secondary" type="submit" onclick="myCallsignSearch()" formaction='javascript:myCallsignSearch();'>
+                                                                <span class="search-callsign" aria-label="search-callsign"></span>
+                                                        </button> 
+                                                </div>
+                                        </div>
+                                </form> 
+
 	        </div>
 		</nav>
   </header>
@@ -48,7 +58,7 @@ IU1BOW
     <div class="container-fluid mt-1 ml-0 mr-0 px-0">
       <div class="jumbotron mx-3 ipcs">
         <h1 class="display-4 text-white">PLOTS</h1>
-        <p class="lead text-light">WEB DX Cluster For HAM Radio</p>
+        <p class="lead text-light">Some statistics about this node</p>
         <p class="text-light">Telnet access: <a href="telnet://dxcluster.iu1bow.it:7300" class="text-white">dxcluster.iu1bow.it 7300</a></p>
         <p class="text-light">For connect your cluster, write to <a href="mailto:corrado.gerbaldo@gmail.com?Subject=Connect%20my%20DxCluster%20node" target="_top" class="text-white">corrado.gerbaldo@gmail.com</a></p>
       </div>
@@ -62,20 +72,20 @@ IU1BOW
     <script src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?thirdparty=1&amp;always=1&amp;showPolicyLink=1&amp;remember=365">
     </script>
   </footer>
-  <script async src="static/js/load-sw.min.js">
+  <script async src="static/js/min/load-sw.min.js">
   </script> 
   <script>
 
         var payload_json={{payload|tojson|safe}};
         var timer_interval_json = {{timer_interval}};
   </script> 
-  <script defer src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+  <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous">	  
   </script> 
   <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
   </script> 
-  <script defer src="static/js/application.min.js">
+  <script defer src="static/js/min/application.min.js">
   </script> 
-  <script defer src="static/js/plot_inline.min.js">
+  <script defer src="static/js/min/plot_inline.min.js">
   </script>
 </body>
 </html>

@@ -33,6 +33,9 @@ def load_country():
 def find_id_json(json_object, name):
     return [obj for obj in json_object if obj['id']==name][0]
 
+#the main query to show spots
+#it gets url parameter in order to apply the build the right query
+#and apply the filter required. It returns a json with the spots
 def spotquery():
 
     try:
@@ -40,48 +43,63 @@ def spotquery():
         band=(request.args.getlist('b'))
         dere=(request.args.getlist('e'))
         dxre=(request.args.getlist('x'))
+        callsign=request.args.get('c')  
+        query_string=''
+        if callsign:
+            #construct the query, to show last 6 month
+#           query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE (spotter='"+callsign+"' OR spotcall='"+callsign+"')"                    
+#           query_string+=" AND  time > UNIX_TIMESTAMP()-16070400"
+#           query_string+=" ORDER BY  CASE spotter  WHEN '"+callsign+"' THEN 1 ELSE -1 END ASC, rowid desc limit 20;"
 
-        #construct band query decoding frequencis with json file
-        band_qry_string = ' AND (('
-        for i in range(len(band)):
-            freq=find_id_json(band_frequencies["bands"],band[i])
-            if i > 0:
-                band_qry_string += ') OR ('
+            query_string="(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE spotter='"+callsign+"'"                    
+            query_string+=" ORDER BY rowid desc limit 10)"
 
-            band_qry_string += 'freq BETWEEN ' + str(freq["min"]) + ' AND ' + str(freq["max"])
+            query_string+=" UNION "
 
-        band_qry_string += '))'
+            query_string+="(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE spotcall='"+callsign+"'" 
+            query_string+=" ORDER BY rowid desc limit 10);"
 
-        #construct DE continent region query
-        dere_qry_string = ' AND spottercq IN ('
-        for i in range(len(dere)):
-            continent=find_id_json(continents_cq["continents"],dere[i])
-            if i > 0:
-                dere_qry_string +=','
-            dere_qry_string += str(continent["cq"])
-        dere_qry_string +=')'
+        else:    
+            #construct band query decoding frequencis with json file
+            band_qry_string = ' AND (('
+            for i in range(len(band)):
+                freq=find_id_json(band_frequencies["bands"],band[i])
+                if i > 0:
+                    band_qry_string += ') OR ('
+
+                band_qry_string += 'freq BETWEEN ' + str(freq["min"]) + ' AND ' + str(freq["max"])
+
+            band_qry_string += '))'
+
+            #construct DE continent region query
+            dere_qry_string = ' AND spottercq IN ('
+            for i in range(len(dere)):
+                continent=find_id_json(continents_cq["continents"],dere[i])
+                if i > 0:
+                    dere_qry_string +=','
+                dere_qry_string += str(continent["cq"])
+            dere_qry_string +=')'
         
-        #construct DX continent region query
-        dxre_qry_string = ' AND spotcq IN ('
-        for i in range(len(dxre)):
-            continent=find_id_json(continents_cq["continents"],dxre[i])
-            if i > 0:
-                dxre_qry_string +=','
-            dxre_qry_string += str(continent["cq"])
-        dxre_qry_string +=')'
+            #construct DX continent region query
+            dxre_qry_string = ' AND spotcq IN ('
+            for i in range(len(dxre)):
+                continent=find_id_json(continents_cq["continents"],dxre[i])
+                if i > 0:
+                    dxre_qry_string +=','
+                dxre_qry_string += str(continent["cq"])
+            dxre_qry_string +=')'
 
-        query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE 1=1"                                  
-        if len(band) > 0:
-            query_string += band_qry_string
+            query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE 1=1"                                  
+            if len(band) > 0:
+                query_string += band_qry_string
 
-        if len(dere) > 0:
-            query_string += dere_qry_string
+            if len(dere) > 0:
+                query_string += dere_qry_string
 
-        if len(dxre) > 0:
-            query_string += dxre_qry_string
+            if len(dxre) > 0:
+                query_string += dxre_qry_string
             
-        query_string += " ORDER BY rowid desc limit 50;"  
-        #print query_string
+            query_string += " ORDER BY rowid desc limit 50;"  
 
         #connect to db
         db = my.connect(host=cfg['mysql']['host'],
@@ -92,6 +110,7 @@ def spotquery():
 
         cursor = db.cursor()
         number_of_rows = cursor.execute('''SET NAMES 'utf8';''')
+        #print (query_string)
         cursor.execute(query_string)
         row_headers=[x[0] for x in cursor.description] #this will extract row headers
         rv=cursor.fetchall()
@@ -159,22 +178,13 @@ def cookies():
 def sitemap():
         return app.send_static_file('sitemap.xml')
 
-#this function return the file name of a plot  inside the idx file, in order to match it with the same, with timestamp
-#@app.route('/singleplot', methods=['GET']) 
-#def singleplot():
-#    #get url parameters
-#    standard_plot=(request.args.getlist('p')[0]+'.idx')
-#    filein=os.path.join(app.root_path,os.path.basename(app.static_url_path),'plots',standard_plot)
-#    try:
-#        f = open(filein, "r")
-#        response=flask.Response(f.read())
-#        f.close()
-#    except Exception as e:
-#        response=flask.Response('error')
-#    finally:
-#        #response=flask.Response(filein) #TODO: remove
-#        return response
-
+@app.route('/callsign.html', methods=['GET']) 
+def callsign():
+    payload=spotquery()  
+    country_data=load_country()
+    callsign=request.args.get('c')
+    response=flask.Response(render_template('callsign.html',payload=payload,country_data=country_data,callsign=callsign))
+    return response
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

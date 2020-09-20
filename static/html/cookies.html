@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.2.0">
+  <meta name="robots" content="noindex, nofollow">
   <title>DX Cluster from IU1BOW: Cookies</title>
   <meta charset="utf-8">
   <meta name="KEYWORDS" content="dxcluster,iu1bow,cluster,ham radio,web dx cluster">
@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#2196f3">
   <link rel="shortcut icon" href="/static/favicon.png">
   <link rel="manifest" href="/static/manifest.json">
-  <link rel="stylesheet" href="/static/css/style.min.css">
+  <link rel="stylesheet" href="/static/css/min/style.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
@@ -40,6 +40,16 @@ IU1BOW
 						<a class="nav-link active" href="/static/html/cookies.html">Cookies policy<span class="sr-only">Link</span></a>
 					</li>
 				</ul>
+				<form class="form-inline"  id="form-callsign" enctype="application/x-www-form-urlencoded" >	
+					<div class="input-group" id='input-group-callsign'>
+  						<input type="text" class="form-control" placeholder="callsign" aria-label="callsign" aria-describedby="button-addon2" id="callsignInput" >
+						<div class="input-group-append">
+							<button class="btn btn-secondary" type="submit" onclick="myCallsignSearch()" formaction='javascript:myCallsignSearch();'>
+								<span class="search-callsign" aria-label="search-callsign"></span>
+							</button> 
+						</div>
+					</div>
+		    		</form>	
 	        </div>
 		</nav>
   </header>
@@ -90,7 +100,7 @@ IU1BOW
             <th class="d-none d-lg-table-cell d-xl-table-cell" scope="row">2</th>
             <td>necessary</td>
             <td>cookiebar</td>
-            <td>dxcluster.iu1bow.it</td>
+	    <td><script>document.write(window.location.hostname)</script></td>
             <td>Stores the user's cookie consent state for the current domain.</td>
             <td>365 days</td>
             <td class="d-none d-lg-table-cell d-xl-table-cell">HTTP Cookie</td>
@@ -98,11 +108,11 @@ IU1BOW
         </tbody>
       </table>
     </div>
-    <script defer src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous">
     </script> 
     <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script> 
-    <script defer src="/static/js/application.min.js">
+    <script defer src="/static/js/min/application.min.js">
     </script>
   </main>
   <footer class="page-footer font-small blue">

@@ -1,3 +1,13 @@
+/*==============================================================================
+ * Main javascript for all core functions of this application
+ * =============================================================================*/
+
+/*
+ * Decode countries
+ *
+ * @param countries {json} This is the json containing all the countries 
+ * @param wpx_to_find {string} The string received from the db of the cluster to decode
+ */
 function findCountry(countries, wpx_to_find) {
 
 	for (var i = 0; i < countries.length; i++) {
@@ -7,29 +17,66 @@ function findCountry(countries, wpx_to_find) {
 	};
 
 };
-function buildHtmlTable(selector,data,rl,countries) {
+
+/*
+ * Build the table with the spot
+ *
+ * @param selector {string} The html identifier where build the spots table
+ * @param data {json} The payload with all the spots received from cluster
+ * @param countries {json} This is the json containing all the countries 
+ * @param callsign {string} An optional parameter with the callsign to search
+ */
+function buildHtmlTable(selector,data,rl,countries,callsign) {
 	//rows
+
 	var myRows=new Array();
 
+	//get current date
+	var d=new Date();
+	var dd_current='00'+d.getUTCDate();
+        dd_current=dd_current.substring(dd_current.length - 2, dd_current.length);
+        var mo_current='00'+(Number(d.getUTCMonth())+1);
+        mo_current=mo_current.substring(mo_current.length - 2, mo_current.length);
+        var yy_current=d.getUTCFullYear();
+	dt_current=dd_current+'/'+mo_current+'/'+yy_current;
 	$(selector).empty();
 	for (var i = 0; i < data.length; i++) {
 
-         myRows[i]=data[i].rowid;
+		myRows[i]=data[i].rowid;
 		var row$=$('<tr id="'+data[i].rowid+'"/>');
 		var found = rl.find(element => element ==data[i].rowid);
-
-		if ( found == undefined && rl.length > 0) {
+		if ( callsign != undefined ) {
+			if ( callsign == data[i].de ) {
+				row$=$('<tr class="table-success" id="'+data[i].rowid+'"/>');
+			} else if ( callsign == data[i].dx ) {
+				row$=$('<tr class="table-info" id="'+data[i].rowid+'"/>');
+			}
+		} else if ( found == undefined && rl.length > 0) {
+//		if ( found == undefined && rl.length > 0) {
 			row$=$('<tr class="table-primary" id="'+data[i].rowid+'"/>');
 		};
 
 		var country=findCountry(countries, data[i].spotdxcc);
-		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].de+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].de+'"></i></a><span>&nbsp'+data[i].de+'</span>'));
+		if (data[i].de == callsign) {
+			de = '<b>'+data[i].de+'</b>'
+		} else {
+			de = data[i].de
+		};
+		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].de+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].de+'"></i></a><span>&nbsp'+de+'</span></b>'));
+
 		var freq = Intl.NumberFormat('it-IT', { style: 'decimal' }).format(data[i].freq);
-//		row$.append($('<td/>').html('<span class="badge badge-warning" style="width: 65px">'+freq+'</span>'));
 		row$.append($('<td/>').html('<span class="badge badge-warning badge-responsive">'+freq+'</span>'));
-		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].dx+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+data[i].dx+'</span>'));
+
+		if (data[i].dx == callsign) {
+			dx = '<b>'+data[i].dx+'</b>'
+		} else {
+			dx = data[i].dx
+		};
+
+
+		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].dx+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+dx+'</span>'));
 		try {
-  			row$.append($('<td/>').html('<a href="#" data-toggle="tooltip" title="'+country.country+'"><img src="https://www.countryflags.io/'+country.ISO+'/shiny/24.png" alt="'+country.country+'"></a>'));
+  			row$.append($('<td/>').html('<a href="#" data-toggle="tooltip" title="'+country.country+'"><img class="img-flag" src="https://www.countryflags.io/'+country.ISO+'/shiny/32.png" alt="'+country.country+'"></a>'));
 		} catch (err) {
 			row$.append($('<td/>'));
 		};
@@ -39,15 +86,20 @@ function buildHtmlTable(selector,data,rl,countries) {
 		hh=hh.substring(hh.length - 2, hh.length); 
 		var mi='00'+dt.getMinutes();
 		mi=mi.substring(mi.length - 2, mi.length);
-		var dd='00'+dt.getDate();
+		var dd='00'+dt.getUTCDate();
 		dd=dd.substring(dd.length - 2, dd.length);
 		var mo='00'+(Number(dt.getUTCMonth())+1);
 		mo=mo.substring(mo.length - 2, mo.length);
 		var yy=dt.getUTCFullYear();
 		tm=hh+':'+mi;
 		dt=dd+'/'+mo+'/'+yy;
-		row$.append($('<td/>').html(tm));
-		row$.append($('<td class="d-none d-lg-table-cell d-xl-table-cell"/>').html(dt));
+
+		//show date only if is different from current date
+		if (dt == dt_current) {
+			row$.append($('<td/>').html(tm))
+		} else {
+			row$.append($('<td/>').html('<table class="table-sm table-borderless"><tbody><tr style="background-color:transparent"><td>'+tm+'</td></tr><tr><td>'+dt+'</td></tr></tbody></table>'));
+		};
     		$(selector).append(row$);
    	}
 
@@ -57,6 +109,11 @@ function buildHtmlTable(selector,data,rl,countries) {
 		return;
 	}
 };
+
+/*
+ * Function to filter spot when pressed the search button on filter
+ * This function trigger the search, also triggered by timer
+ */
 function mySearch(event) {
 
 	event.preventDefault();
@@ -64,6 +121,12 @@ function mySearch(event) {
 
 };
 
+
+/*
+ * Search / Filter cluster spot based on filter settings            
+ * Gets the filter values, constructs the query parameter and 
+ * make the request to the server
+ */
 function myTimer() {
 	var request = new XMLHttpRequest()
 
@@ -123,6 +186,13 @@ function myTimer() {
 	}
 	request.send()
 };
+
+/*
+ * Build the html plots           
+ *
+ * @param selector {string} The html identifier where put the plots           
+ * @param data {array} List of the plots to show                              
+ */
 function buildHtmlPlots(selector,data) {
 	$(selector).empty();
 
@@ -145,6 +215,10 @@ function buildHtmlPlots(selector,data) {
 	$(selector).append(contQSOMonth$);
 
 };
+
+/*
+ * Timer for refresh the plot page 
+ */
 function plotsTimer() {
 	var request = new XMLHttpRequest()
 	request.open('GET','plotlist',true)
@@ -158,3 +232,15 @@ function plotsTimer() {
 	}
 	request.send()
 };
+
+/*
+ * Receive a callsign by the html form and make the request to server
+ */
+function myCallsignSearch() {
+	callsign=document.getElementById('callsignInput').value;
+	//construct query parameters
+	if (callsign.replace(/\s/g, "").length > 0) {
+		location.href = ('/callsign.html?c=').concat((callsign.trim()).toUpperCase());
+	};
+};
+

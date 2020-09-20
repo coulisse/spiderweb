@@ -1,10 +1,11 @@
  <!DOCTYPE html>
  <html lang="en">
      <head>
-        <title>DX Cluster / DX Spot for Hamradio</title>
+        <title>Spot search for a specific Callsign</title>
         <meta charset="utf-8">
-        <meta name="description" content="Amateur Radio DX Cluster online, iPhone, Android, Telnet, spots search">
-        <meta name="keywords" content=", ham radio dx cluster, telnet dx cluster, hf dx cluster, dx cluster search, vhf dx cluster, dxfun, dx cluster live, DX spots, dxfuncluster, dxfun cluster, cluster, radio, dx, ham cluster, webcluster, dxcc, iPhone cluster, dx cluster, dx info, locators, grid squares, grid locator, locator, cq, itu, qrz, entity, most wanted, callbook, qrz.com, ham radio, dx contest, amateur radio, spots, search spot, spot, cluster en tu web, lotw, log of the word, propagacion, ham, reportes, reports, propagation, bandas, band, ssb, cw, usb, lsb, fm, am, rtty, psk, psk31, qsl, qth, qso, real time spots, spots en tiempo real, dx spot, dx spots, qsl manager, qsl via, wpx, cqwwdx, iPhone Cluster"> 
+	<meta name="description" content="search spot for a specific callsign">
+	<meta name="description" content="Amateur Radio DX Cluster online, iPhone, Android, Telnet, spots search">
+	<meta name="keywords" content=", ham radio dx cluster, telnet dx cluster, hf dx cluster, dx cluster search, vhf dx cluster, dxfun, dx cluster live, DX spots, dxfuncluster, dxfun cluster, cluster, radio, dx, ham cluster, webcluster, dxcc, iPhone cluster, dx cluster, dx info, locators, grid squares, grid locator, locator, cq, itu, qrz, entity, most wanted, callbook, qrz.com, ham radio, dx contest, amateur radio, spots, search spot, spot, cluster en tu web, lotw, log of the word, propagacion, ham, reportes, reports, propagation, bandas, band, ssb, cw, usb, lsb, fm, am, rtty, psk, psk31, qsl, qth, qso, real time spots, spots en tiempo real, dx spot, dx spots, qsl manager, qsl via, wpx, cqwwdx, iPhone Cluster"> 
         <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
 	<meta name="theme-color" content="#2196f3">
 	<link rel="shortcut icon" href="/static/favicon.png">  
@@ -12,10 +13,6 @@
 	<link rel="apple-touch-icon" href="/static/images/icons/icon-apple.png">
 	<link rel="stylesheet" href="/static/css/min/style.min.css"> 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">  
-	<!--
-	<link rel="dns-prefetch" href="https://www.countryflags.io">
-
-	-->
      </head>
      <body>
 	<header>
@@ -52,75 +49,20 @@ IU1BOW
 							</button> 
 						</div>
 					</div>
-		    		</form>	
+	    			</form>	
 	        </div>
 		</nav>
 	</header>
 	     <!-- <div class="mt-1 ml-0 mr-0"> -->
 	     <div class="container-fluid mt-1 ml-0 mr-0 px-0">
 			<div class="jumbotron mx-3 ipcs"  >
-				<h1 class="display-4 text-white">WEB DX Cluster</h1>
-				<p class="lead text-light">Spot list</p>
+				<h1 class="display-4 text-white">{{callsign}}</h1>
+				<p class="lead text-light">Some statistics about this callsign</p>
 				<p class="text-light">Telnet access: <a href="telnet://dxcluster.iu1bow.it:7300" class="text-white">dxcluster.iu1bow.it 7300</a></p>
 				<p class="text-light">For connect your cluster,  write to <a href="mailto:corrado.gerbaldo@gmail.com?Subject=Connect%20my%20DxCluster%20node" target="_top" class="text-white">corrado.gerbaldo@gmail.com</a></p>
 			</div>
-			<div class="row mx-auto justify-content-between align-middle">
-				<div class="ml-3">
-					<button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" aria-label="filter">
-						<span class="filter" aria-label="filter"></span>
-					</button>
-				</div>
-			</div>
 			<div class="row  mx-auto">
 					 <!--Sidebar content-->
-                <div class="collapse" id="collapseFilters">
-                  <form id="form-filters" enctype="multipart/form-data" style="background-color: #F2F2F2;">	
-		     	<select class="custom-select" id="band" size="14" multiple>
-				<option selected value="SHF">SHF</option>
-				<option selected value="UHF">UHF</option>
-				<option selected value="VHF">VHF</option>
-				<option selected value="6">6m</option>
-				<option selected value="10">10m</option>
-				<option selected value="12">12m</option>
-				<option selected value="15">15m</option>
-				<option selected value="17">17m</option>
-				<option selected value="20">20m</option>
-				<option selected value="30">30m</option>
-				<option selected value="40">40m</option>
-				<option selected value="60">60m</option>
-				<option selected value="80">80m</option>
-				<option selected value="160">&gt;160m</option>
-			</select>
-			<p></p>
-                     	<div class="container"><div class="row"><div class="col"><b>DE</b></div><div class="col"><b>DX</b></div></div></div>
-		<div class="row">
-			<div class="col">
-			 	<select class="custom-select" id="de_re" size="7" multiple>
-					<option selected value="EU">EU</option>
-					<option selected value="NA">NA</option>
-					<option selected value="AS">AS</option>
-					<option selected value="AF">AF</option>
-					<option selected value="OC">OC</option>
-					<option selected value="SA">SA</option>
-					<option selected value="AN">AN</option>
-				</select>
-			</div>
-			<div class="col">
-				<select class="custom-select" id="dx_re" size="7" multiple>
-					<option selected value="EU">EU</option>
-					<option selected value="NA">NA</option>
-					<option selected value="AS">AS</option>
-					<option selected value="AF">AF</option>
-					<option selected value="OC">OC</option>
-					<option selected value="SA">SA</option>
-					<option selected value="AN">AN</option>
-				</select>
-			</div>
-		</div>
-		<p></p>
-		<button type="submit" class="btn btn-primary btn-block"  aria-pressed="true" >Search</button>
-	    </form>	
-	 </div>
                <div class="col mr-3">
 			<table id="spotsTable" class="table table-striped table-sm text-responsive">
 				<thead>
@@ -150,11 +92,11 @@ IU1BOW
 	<script>
 		var my_countries_json='{{ country_data|tojson|safe }}';
 		var payload_json={{payload|tojson|safe}};
-		var timer_interval_json = {{timer_interval}};
+		var my_callsign='{{callsign}}';
 	</script>
 	<script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
 	<script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
 	<script defer src="static/js/min/application.min.js"></script>
-	<script defer src="static/js/min/index_inline.min.js"></script>
+	<script defer src="static/js/min/callsign_inline.min.js"></script>
      </body>
  </html>

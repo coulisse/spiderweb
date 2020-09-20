@@ -33,6 +33,13 @@
 	.navbar-collapse {
 		max-height: none !important;
 	} 
+
+	.img-flag {
+		width: 24px;
+		height: 24px;
+
+	}
+
 }
 
 .ipcs {
@@ -46,8 +53,8 @@ span.filter {
     background-size: contain;
     cursor: pointer;
     display: inline-block;
-    height: 24px;
-    width: 24px;
+    height: 18px;
+    width: 20px;
 }
 
 i.search {
@@ -75,4 +82,19 @@ i.search:hover {
 	  display: inline-block;
 	    transform: rotate(180deg);
     }
+
+
+span.search-callsign {
+    background: url(/static/images/search-callsign.svg) no-repeat top left;
+    background-size: contain;
+    cursor: pointer;
+    display: inline-block;
+    height: 16px;
+    width: 20px;
+}
+
+#input-group-callsign {
+	margin-right: 1rem; 
+	margin-bottom: 0.5rem;
+}
 
