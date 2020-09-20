@@ -101,6 +101,7 @@ If you would to increase speed on callsign search, you could define some index o
 ### Screenshots
 Screenshot
 ----------
+<img src="docs/images/01_desktop_main.jpg" width="200"/>
 ![Main view on desktop](docs/images/01_desktop_main.jpg =250x250)
 ![Plots on desktop](docs/images/02_desktop_plot.jpg =250x250)
 ![Mobile install](docs/images/03_mobile_install.jpg =250x250)
