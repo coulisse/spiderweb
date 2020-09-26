@@ -1,0 +1,22 @@
+{
+        "mysql":{
+            "host":"localhost",
+            "user":"foo",
+            "passwd":"bar",
+            "db":"dxcluster"
+        },
+        "timer":{
+                        "interval":30000
+        },
+        "plot_refresh_timer":{
+                        "interval":450000
+        },
+	"mycallsign":"XXXXXX",
+        "menu": {
+          "menu_list": [
+            {"label":"Plots", "link": "/plots.html", "external": false},
+            {"label":"Sources", "link": "https://github.com/coulisse/spiderweb/" , "external": true},    
+            {"label":"Cookies policy", "link": "/cookies.html", "external": false}
+            ]
+        }
+}

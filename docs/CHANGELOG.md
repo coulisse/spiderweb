@@ -1,5 +1,11 @@
 ### Change log
 ___
+21/10/2020: 1.2.1
+- Added country column (only on desktop version)
+- Added external configurable menu
+- renamed json.config.example json.config.template
+- Added code of conduct and issue templates
+___
 08/09/2020: 1.2    
 - Modified cookies.html in order to insert dinamically the host name (instead of dxcluster.iu1bobw.it)
 - Removed sitemap.xml from git

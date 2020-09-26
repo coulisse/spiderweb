@@ -20,25 +20,22 @@
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="/">
 				<img src="/static/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-IU1BOW
+				{{ mycallsign }}
 			</a>	
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 	        </button>
  			<div class="collapse navbar-collapse" id="navbarToggler01">
 				<ul class="navbar-nav mr-auto">
-				 	<li class="nav-item">
-						<a class="nav-link" href="/plots.html">Plots</a>
-					</li>
-				 	<li class="nav-item">
-                        <a class="nav-link" href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">Sources</a>
-					</li>
-				 	<li class="nav-item">
-                        <a class="nav-link" href="https://iu1bow.blogspot.com" target="blank" rel="noopener">My Blog</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href="/static/html/cookies.html">Cookies policy<span class="sr-only">Link</span></a>
-					</li>
+					{% for dict_item in menu_list %}
+						<li class="nav-item">
+							<a class="nav-link  {% if request.path == dict_item["link"] %} active  {% endif %} " href="{{dict_item["link"]}}"   
+								{% if dict_item["external"] %} 
+									target="blank" rel="noopener" 
+								{% endif %} 
+							>{{dict_item["label"]}}<span class="sr-only">Link</span></a>
+						</li>
+					{% endfor %}
 				</ul>
 				<form class="form-inline"  id="form-callsign" enctype="application/x-www-form-urlencoded" >	
 					<div class="input-group" id='input-group-callsign'>
@@ -119,8 +116,7 @@ IU1BOW
     <div class="footer-copyright text-center py-3">
       2020 <span class="copyleft">©</span> Copyleft: <a href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">IU1BOW Spiderweb</a>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?thirdparty=1&amp;always=1&amp;showPolicyLink=1&amp;remember=365">
-    </script>
+          <script  src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?thirdparty=1&always=1&showPolicyLink=1&remember=365" crossorigin="anonymous"></script>
   </footer>
 </body>
 </html>

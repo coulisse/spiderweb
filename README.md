@@ -54,6 +54,7 @@ Then you have to install also **python-dev, ssl and mysql libraries**:
 foo@bar:~$ sudo apt-get install python-dev default-libmysqlclient-dev libssl-dev 
 foo@bar:~$ sudo -H pip install flask_mysqldb --system 
 ```
+
 Finally you have to install matplotlib in order to plots some graphics
 ```console
 foo@bar:~$ sudo apt-get install python-matplotlib 
@@ -61,11 +62,11 @@ foo@bar:~$ sudo -H pip install --upgrade matplotlib
 ```
 
 **4) Configuration**
-In the path `spiderweb/cfg/` rename `config.json.example` in `config.json`:
+In the path `spiderweb/cfg/` rename `config.json.template` in `config.json`:
 ```console
-foo@bar:~$ mv config.json.example config.json
+foo@bar:~$ mv config.json.template config.json
 ```
-then edit it and set the user and password of your database
+then edit it and set the user and password of your database and the menu items
 
 In order to show the right plots, you have to generate them! 
 To do so you have to run *.sh* files inside *scripts* folders, or the better way is to **schedule** them with your **crontab**
@@ -103,10 +104,13 @@ Screenshot
 ----------
 <img src="docs/images/01_desktop_main.jpg" width="300"/>
 <img src="docs/images/02_desktop_plot.jpg" width="300"/>
+<p float="left">
 <img src="docs/images/03_mobile_install.jpg" width="200"/>
 <img src="docs/images/04_mobile_icon.jpg" width="200"/>
 <img src="docs/images/05_mobile_splash.jpg" width="200"/>
 <img src="docs/images/06_mobile_main.jpg" width="200"/>
+</p>
+
 
 ### TODO
 see it on file ["TODO.md"](docs/TODO.md)

@@ -6,9 +6,8 @@ import json
 
 __author__ = 'IU1BOW - Corrado'
 
-
 app = flask.Flask(__name__)
-app.config["DEBUG"] = True  
+app.config["DEBUG"] = False 
 app.config['SECRET_KEY'] = 'secret!'
 
 #load config file
@@ -135,7 +134,9 @@ def spotlist():
 def spots():
     payload=spotquery()
     country_data=load_country()
-    response=flask.Response(render_template('index.html',payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data))
+    #y=json.loads(cfg['menu'])
+    #menu_list=json.dumps(cfg['menu']['menu_list'])
+    response=flask.Response(render_template('index.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data))
     return response
 
 @app.route('/service-worker.js', methods=['GET'])
@@ -165,14 +166,15 @@ def plotlist():
 @app.route('/plots.html')
 def plots():
     payload=plotlist()  
-    response=flask.Response(render_template('plots.html',payload=payload,timer_interval=cfg['plot_refresh_timer']['interval']))
+    response=flask.Response(render_template('plots.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['plot_refresh_timer']['interval']))
     return response
 
 
-@app.route('/cookies.html')
+@app.route('/cookies.html', methods=['GET'])
 def cookies():
-    	return app.send_static_file('html/cookies.html')
-
+#    	return app.send_static_file('html/cookies.html')
+    response=flask.Response(render_template('cookies.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list']))
+    return response
 
 @app.route('/sitemap.xml')
 def sitemap():
