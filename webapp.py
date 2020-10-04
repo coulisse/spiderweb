@@ -185,7 +185,7 @@ def callsign():
     payload=spotquery()  
     country_data=load_country()
     callsign=request.args.get('c')
-    response=flask.Response(render_template('callsign.html',payload=payload,country_data=country_data,callsign=callsign))
+    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,country_data=country_data,callsign=callsign))
     return response
     
 if __name__ == '__main__':
