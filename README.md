@@ -40,25 +40,32 @@ $dbpass = "your-password";
 If you would change some MariaDB parameters, then you can find them in  `/etc/mysql/my.cnf` or `/etc/my.cnf`, depending on your distro.
 
 **3) Python / Flask**
-This application is based on Flask (of course you have installed Python before...)
+First of all you have to install the python3 pip installer
+```console
+foo@bar:~$ sudo apt install python3-pip
+```
+
+This application is based on Flask 
 To install **Flask**:
 ```console
-foo@bar:~$ pip install flask 
+foo@bar:~$ pip3 install flask 
 ```
 or
 ```console
-foo@bar:~$ sudo -H pip install flask --system 
+foo@bar:~$ sudo -H pip3 install flask --system 
 ```
-Then you have to install also **python-dev, ssl and mysql libraries**:
+Then you have to install mysql libraries**:
 ```console
-foo@bar:~$ sudo apt-get install python-dev default-libmysqlclient-dev libssl-dev 
-foo@bar:~$ sudo -H pip install flask_mysqldb --system 
+foo@bar:~$ pip3 install flask_mysqldb  
+or
+foo@bar:~$ sudo -H pip3 install flask_mysqldb --system 
 ```
 
 Finally you have to install matplotlib in order to plots some graphics
 ```console
-foo@bar:~$ sudo apt-get install python-matplotlib 
-foo@bar:~$ sudo -H pip install --upgrade matplotlib   
+foo@bar:~$ pip3 install matplotlib 
+or
+foo@bar:~$ sudo -H pip3 install matplotlib --system   
 ```
 
 **4) Configuration**

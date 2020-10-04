@@ -1,2 +1,2 @@
 cd ~/spiderweb/scripts/
-python qso_months.py
+python3 qso_months.py

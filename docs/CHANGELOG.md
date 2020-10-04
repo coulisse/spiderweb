@@ -1,7 +1,12 @@
 ### Change log
 ___
+xx/xx/2020: 2     
+- Migrated to bootstrap 5                                                               
+- Migrated to python 3
+___
 04/10/2020: 1.2.2
 - Added config.sh utilty in script folder, in order to avoid edit manually config.json
+- fixex menu on callsign page
 ___
 21/09/2020: 1.2.1
 - Added country column (only on desktop version)

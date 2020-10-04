@@ -1,1 +1,1 @@
-python config.py
+python3 config.py

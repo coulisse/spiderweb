@@ -134,8 +134,8 @@ def view(cfg,t):
     return
 
 def user_input(caption):
-    return raw_input(caption) #for python 2
-#    return input(caption)    #for python 3
+#   return raw_input(caption) #for python 2
+    return input(caption)    #for python 3
 
 def edit_config(cfg):
     view(cfg,'c')
