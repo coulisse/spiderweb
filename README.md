@@ -66,9 +66,31 @@ In the path `spiderweb/cfg/` rename `config.json.template` in `config.json`:
 ```console
 foo@bar:~$ mv config.json.template config.json
 ```
-then edit it and set the user and password of your database and the menu items
+then edit it and set the user and password of your database and the menu items.
+Othewhise, if you preferr, you could use an utility for edit your configuration and menu. Go in "script" folder and run ./config.sh
 
-In order to show the right plots, you have to generate them! 
+```console
+foo@bar:~$ cd scripts
+foo@bar:~$ ./config.sh
+
+*** DxSpider configuration ***
+Configuration file loaded from: ../cfg/config.json
+
+   h:  help
+   vc: view config.
+   ec: edit config.
+   vm: view menu
+   em: edit menu
+   s:  save
+   t:  load config. from template
+
+   x:  exit
+
+Make your choiche: 
+
+```
+
+In order to show the right *plots*, you have to generate them! 
 To do so you have to run *.sh* files inside *scripts* folders, or the better way is to **schedule** them with your **crontab**
 ```console
 foo@bar:~$ crontab -e

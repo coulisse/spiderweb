@@ -1,9 +1,12 @@
 ### Change log
 ___
-21/10/2020: 1.2.1
+04/10/2020: 1.2.2
+- Added config.sh utilty in script folder, in order to avoid edit manually config.json
+___
+21/09/2020: 1.2.1
 - Added country column (only on desktop version)
 - Added external configurable menu
-- renamed json.config.example json.config.template
+- Renamed json.config.example json.config.template
 - Added code of conduct and issue templates
 ___
 08/09/2020: 1.2    
