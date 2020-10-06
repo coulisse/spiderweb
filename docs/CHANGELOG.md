@@ -1,5 +1,8 @@
 ### Change log
 ___
+06/10/2020: 1.2.3
+- Fixed AS plot                                                                            
+___
 04/10/2020: 1.2.2
 - Added config.sh utilty in script folder, in order to avoid edit manually config.json
 - Amend menu on search callsign page
