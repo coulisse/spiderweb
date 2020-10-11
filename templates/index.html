@@ -20,7 +20,7 @@
      <body>
 	<header>
 	<!-- nav bar -->
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<nav class="navbar px-2 navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="/">
 				<img src="/static/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
 				{{ mycallsign }}
@@ -55,11 +55,11 @@
 	</header>
 	     <!-- <div class="mt-1 ml-0 mr-0"> -->
 	     <div class="container-fluid mt-1 ml-0 mr-0 px-0">
-			<div class="ipcs bg-light p-5 rounded-lg m-2">
+			<div class="ipcs bg-light p-4 rounded-lg m-2">
 				<h1 class="display-4 text-white">WEB DX Cluster</h1>
-				<p class="lead text-light">Spot list</p>
-				<p class="text-light">Telnet access: <a href="telnet://dxcluster.iu1bow.it:7300" class="text-white">dxcluster.iu1bow.it 7300</a></p>
-				<p class="text-light">For connect your cluster,  write to <a href="mailto:corrado.gerbaldo@gmail.com?Subject=Connect%20my%20DxCluster%20node" target="_top" class="text-white">corrado.gerbaldo@gmail.com</a></p>
+				<p class="lead text-light">Spots list</p>
+				<p class="text-light">Telnet access: <a href="telnet://{{ telnet }}" class="text-white">{{ telnet }}</a></p>
+				<p class="text-light">For connect your cluster,  write to <a href="mailto:{{ mail }}?Subject=Connect%20my%20DxCluster%20node" target="_top" class="text-white">{{ mail }}</a></p>
 			</div>
 			<div class="row mx-auto justify-content-between align-middle">
 				<div class="mx-auto">
@@ -70,9 +70,9 @@
 			</div>
 			<div class="row  mx-auto">
 					 <!--Sidebar content-->
-                <div class="col-md-auto collapse" id="collapseFilters">
-                  <form method="POST" id="form-filters" enctype="multipart/form-data" style="background-color: #F2F2F2;">	
-		     	<select class="form-control" id="band" size="14" multiple>
+                <div class="col-md-auto collapse rounded-sm" id="collapseFilters">
+                  <form method="POST" id="form-filters" enctype="multipart/form-data">	
+		     	<select class="form-select" id="band" size="14" multiple>
 				<option selected value="SHF">SHF</option>
 				<option selected value="UHF">UHF</option>
 				<option selected value="VHF">VHF</option>
@@ -92,7 +92,7 @@
                      	<div class="container"><div class="row"><div class="col"><b>DE</b></div><div class="col"><b>DX</b></div></div></div>
 		<div class="row">
 			<div class="col">
-			 	<select class="form-control" id="de_re" size="7" multiple>
+			 	<select class="form-select" id="de_re" size="7" multiple>
 					<option selected value="EU">EU</option>
 					<option selected value="NA">NA</option>
 					<option selected value="AS">AS</option>
@@ -103,7 +103,7 @@
 				</select>
 			</div>
 			<div class="col">
-				<select class="form-control" id="dx_re" size="7" multiple>
+				<select class="form-select" id="dx_re" size="7" multiple>
 					<option selected value="EU">EU</option>
 					<option selected value="NA">NA</option>
 					<option selected value="AS">AS</option>
@@ -115,7 +115,7 @@
 			</div>
 		</div>
 		<p></p>
-		<button type="submit" class="btn btn-primary btn-block"  aria-pressed="true" >Search</button>
+		<button type="submit" class="btn btn-primary btn-block"  aria-pressed="true" data-toggle="collapse" data-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" aria-label="filter">Search</button>
 	    </form>	
 	 </div>
 	 <!-- table -->

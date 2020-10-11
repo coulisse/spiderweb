@@ -136,7 +136,7 @@ def spots():
     country_data=load_country()
     #y=json.loads(cfg['menu'])
     #menu_list=json.dumps(cfg['menu']['menu_list'])
-    response=flask.Response(render_template('index.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data))
+    response=flask.Response(render_template('index.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data))
     return response
 
 @app.route('/service-worker.js', methods=['GET'])

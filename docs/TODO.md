@@ -14,8 +14,8 @@
 - [x] add country on desktop version
 - [x] add configuration to menu
 - [x] edit configuration with cli interface
-- [x] migrate to python3  
-- [ ] migrate to boostrap5 (when ready.. end of 2020?)
+- [x] migrate to python 3  
+- [ ] migrate to boostrap 5 (when ready.. end of 2020?)
   - [x] fix frequency badge
   - [x] fix menu
   - [x] fix filter
@@ -26,14 +26,17 @@
   - [ ] check owasp security
   - [ ] check ssl
   - [ ] caching countries json
-  - [ ] add padding to menu in mobile version
-  - [ ] space between filter and table
+  - [x] add padding to menu in mobile version
+  - [x] space between filter and table
   - [x] fix black row at table start
-  - [ ] improve filter background (transparency on mobile?)
+  - [ ] remove transparent background filter on mobile
+  - [ ] reduce jumbotron on mobile
+  - [x] fix margin on cookies
 - [ ] set default icon image for images not found (es for 4U1UN)
 - [ ] implement CSRF protection. See:   https://flask-wtf.readthedocs.io/en/stable/csrf.html
 - [ ] manage country tooltip on mobile (maybe after bootstrap 5)
 - [ ] add ssb/cw/digi filter (required by IU5HES) 
 - [ ] on search collapse filter
-- [ ] improove offline page
+- [ ] improve offline page
+- [x] add telnet address and contatc mail to config.json (edit also the menu utility)
 

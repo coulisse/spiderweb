@@ -73,7 +73,7 @@ In the path `spiderweb/cfg/` rename `config.json.template` in `config.json`:
 ```console
 foo@bar:~$ mv config.json.template config.json
 ```
-then edit it and set the user and password of your database and the menu items.
+then edit it and set the user and password of your database, the menu items, and other stuffs (callsign, mail address...).
 Othewhise, if you preferr, you could use an utility for edit your configuration and menu. Go in "script" folder and run ./config.sh
 
 ```console
@@ -129,7 +129,6 @@ When you are on-line, if you would to index your website on search engines, you 
 If you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on 'scripts/create_mysql_index.sql'
 ~  
 ### Screenshots
-Screenshot
 ----------
 <img src="docs/images/01_desktop_main.jpg" width="300"/>
 <img src="docs/images/02_desktop_plot.jpg" width="300"/>

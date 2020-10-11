@@ -11,6 +11,8 @@ configs = [('mycallsign','Callsign_______________: '), \
            ('mysql/passwd','MySql password_________: '),\
            ('timer/interval','Spot page refresh(ms)__: ' ),\
            ('plot_refresh_timer/interval','Plot page refresh(ms)__: '),\
+           ('mail','Mail address___________: '),\
+           ('telnet','Telnet address_________: ')
           ]
 
 class bcolors:
@@ -134,8 +136,7 @@ def view(cfg,t):
     return
 
 def user_input(caption):
-#   return raw_input(caption) #for python 2
-    return input(caption)    #for python 3
+    return input(caption)    
 
 def edit_config(cfg):
     view(cfg,'c')

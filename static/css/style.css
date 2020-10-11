@@ -89,3 +89,15 @@ span.search-callsign {
 	margin-bottom: 0.5rem;
 }
 
+#collapseFilters {
+	margin-top: 10px;
+	background-color: #e4edf7;
+}
+
+#spotsTable {
+	margin-top: 10px;
+}
+
+#band {
+	margin-top: 5px;
+}

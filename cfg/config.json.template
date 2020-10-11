@@ -12,6 +12,8 @@
                         "interval":450000
         },
 	"mycallsign":"XXXXXX",
+        "mail":"foo@bar.com",
+	"telnet":"mysite:7300",
         "menu": {
           "menu_list": [
             {"label":"Plots", "link": "/plots.html", "external": false},
