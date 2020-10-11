@@ -111,7 +111,7 @@ then edit it in a manner like this:
 ### Run test
 Now you can run your web application with the following command:
 ```console
-foo@bar:~$ python webapp.py
+foo@bar:~$ python3 webapp.py
 ```
 The flask default port is 5000, so you can see your web app, typing `http://localhost:5000` in your web browser.
 Keep in mind that the flask web server, usually is used as a test server.

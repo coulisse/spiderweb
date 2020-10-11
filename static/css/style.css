@@ -16,18 +16,12 @@
 	#collapseFilters.collapsing {
 		position: absolute !important;
 		z-index: 20;
-		width: 90%;
-		left: 5px;
-		margin-left:10px; 
 	}
 
 	#collapseFilters.collapse.show {
 		display: block;
 		position: absolute;
 		z-index: 20;
-		width: 90%;
-		left: 5px;
-		margin-left:10px; 
 	}
 	
 	.navbar-collapse {
@@ -37,7 +31,6 @@
 	.img-flag {
 		width: 24px;
 		height: 24px;
-
 	}
 
 }
@@ -77,12 +70,10 @@ i.search:hover {
     vertical-align: bottom;
 }
 
-
 .copyleft {
 	  display: inline-block;
 	    transform: rotate(180deg);
     }
-
 
 span.search-callsign {
     background: url(/static/images/search-callsign.svg) no-repeat top left;

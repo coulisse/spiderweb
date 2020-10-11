@@ -53,7 +53,7 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
 			}
 		} else if ( found == undefined && rl.length > 0) {
 //		if ( found == undefined && rl.length > 0) {
-			row$=$('<tr class="table-primary" id="'+data[i].rowid+'"/>');
+			row$=$('<tr class="table-info" id="'+data[i].rowid+'"/>');
 		};
 
 		var country=findCountry(countries, data[i].spotdxcc);
@@ -65,7 +65,7 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
 		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].de+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].de+'"></i></a><span>&nbsp'+de+'</span></b>'));
 
 		var freq = Intl.NumberFormat('it-IT', { style: 'decimal' }).format(data[i].freq);
-		row$.append($('<td/>').html('<span class="badge badge-warning badge-responsive">'+freq+'</span>'));
+		row$.append($('<td/>').html('<span class="badge bg-warning text-dark badge-responsive">'+freq+'</span>'));
 
 		if (data[i].dx == callsign) {
 			dx = '<b>'+data[i].dx+'</b>'
@@ -75,13 +75,12 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
 
 
 		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].dx+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+dx+'</span>'));
-
-  		row$.append($('<td class="d-none d-lg-table-cell d-xl-table-cell"/>').html(country.country));
 		try {
   			row$.append($('<td/>').html('<a href="#" data-toggle="tooltip" title="'+country.country+'"><img class="img-flag" src="https://www.countryflags.io/'+country.ISO+'/shiny/32.png" alt="'+country.country+'"></a>'));
 		} catch (err) {
 			row$.append($('<td/>'));
 		};
+  		row$.append($('<td class="d-none d-lg-table-cell d-xl-table-cell"/>').html(country.country));
 		row$.append($('<td class="d-none d-lg-table-cell d-xl-table-cell"/>').html(data[i].comm));
 		var dt=new Date(data[i].time * 1000);
 		var hh='00'+dt.getUTCHours();

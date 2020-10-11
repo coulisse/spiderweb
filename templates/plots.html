@@ -32,7 +32,7 @@
 								{% if dict_item["external"] %} 
 									target="blank" rel="noopener" 
 								{% endif %} 
-							>{{dict_item["label"]}}<span class="sr-only">Link</span></a>
+							>{{dict_item["label"]}}<span class="sr-only"></span></a>
 						</li>
 					{% endfor %}
 				</ul>
@@ -53,7 +53,7 @@
   <main>
     <!-- jumbotron -->
     <div class="container-fluid mt-1 ml-0 mr-0 px-0">
-      <div class="jumbotron mx-3 ipcs">
+       <div class="ipcs bg-light p-5 rounded-lg m-2">
         <h1 class="display-4 text-white">PLOTS</h1>
         <p class="lead text-light">Some statistics about this node</p>
         <p class="text-light">Telnet access: <a href="telnet://dxcluster.iu1bow.it:7300" class="text-white">dxcluster.iu1bow.it 7300</a></p>
@@ -77,6 +77,7 @@
   </script> 
   <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous">	  
   </script> 
+  <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js" integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD" crossorigin="anonymous"></script>
   <script defer src="static/js/min/application.min.js">
   </script> 
   <script defer src="static/js/min/plot_inline.min.js">
