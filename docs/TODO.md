@@ -40,4 +40,5 @@
 - [ ] improve offline page
 - [x] add telnet address and contatc mail to config.json (edit also the menu utility)
 - [ ] add limit for number or parameters in query parameters
+- [ ] fix shell (.sh) scripts for launch plots
 

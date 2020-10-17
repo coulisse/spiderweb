@@ -132,7 +132,7 @@ def spotquery():
 
         cursor = db.cursor()
         number_of_rows = cursor.execute('''SET NAMES 'utf8';''')
-        print ("*** QUERY: "+query_string)   #TODO: eliminare
+        #print ("*** QUERY: "+query_string)   
         cursor.execute(query_string)
         row_headers=[x[0] for x in cursor.description] #this will extract row headers
         rv=cursor.fetchall()

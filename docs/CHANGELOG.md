@@ -7,6 +7,7 @@ xx/xx/2020: 2
 - In the spot list, moved the country columns, after flag
 - When press "search", collapse filters form
 - Added mode filter
+- fixed label on qso/months plot
 ___
 04/10/2020: 1.2.2
 - Added config.sh utilty in script folder, in order to avoid edit manually config.json

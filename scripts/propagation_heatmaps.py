@@ -134,10 +134,7 @@ for i in range(len(continents)):
     logging.debug(np.array(number_ar))
 
     LOGMIN = 0.1
-    im = plt.imshow(np.array(number_ar), cmap='hsv', interpolation='none', norm=LogNorm(vmin=10, vmax=35),vmin=max(np.array(number_ar).min(), LOGMIN))
-  #  axs[row,col].pcolormesh(np.array(number_ar), norm=LogNorm(), vmin=max(np.array(number_ar).min(), LOGMIN))
-#    im = axs[row,col].imshow(np.array(number_ar),cmap='YlOrRd', interpolation='none', vmin=0, vmax=15)
-    # remove all lines of frame
+    im = plt.imshow(np.array(number_ar), cmap='YlOrRd', interpolation='quadric', norm=LogNorm(vmin=10, vmax=35),vmin=max(np.array(number_ar).min(), LOGMIN))
     for spine in plt.gca().spines.values():
             spine.set_visible(False)
 

@@ -213,7 +213,7 @@ function buildHtmlPlots(selector,data) {
 	contBandsActivity$.append($('<h3  class="text-center"/>').html('Band Activity'));
 	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AF']+'.png" alt="propatation heatmap AF" srcset="/static/plots/'+data['propagation_heatmaps_AF']+'.svg">'));
 	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AN']+'.png" alt="propatation heatmap AN" srcset="/static/plots/'+data['propagation_heatmaps_AN']+'.svg">'));
-	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AS']+'.png" alt="propatation heatmap AF" srcset="/static/plots/'+data['propagation_heatmaps_AF']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AS']+'.png" alt="propatation heatmap AS" srcset="/static/plots/'+data['propagation_heatmaps_AS']+'.svg">'));
 	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_EU']+'.png" alt="propatation heatmap EU" srcset="/static/plots/'+data['propagation_heatmaps_EU']+'.svg">'));
 	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_NA']+'.png" alt="propatation heatmap NA" srcset="/static/plots/'+data['propagation_heatmaps_NA']+'.svg">'));
 	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_OC']+'.png" alt="propatation heatmap OC" srcset="/static/plots/'+data['propagation_heatmaps_OC']+'.svg">'));
