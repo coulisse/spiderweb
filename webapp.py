@@ -18,6 +18,10 @@ with open('cfg/config.json') as json_data_file:
 with open('cfg/bands.json') as json_bands:
         band_frequencies = json.load(json_bands)
 
+#load mode file
+with open('cfg/modes.json') as json_modes:
+        modes_frequencies = json.load(json_modes)
+
 #load continents-cq file
 with open('cfg/continents.json') as json_continents:
         continents_cq = json.load(json_continents)
@@ -32,6 +36,7 @@ def load_country():
 def find_id_json(json_object, name):
     return [obj for obj in json_object if obj['id']==name][0]
 
+
 #the main query to show spots
 #it gets url parameter in order to apply the build the right query
 #and apply the filter required. It returns a json with the spots
@@ -42,6 +47,7 @@ def spotquery():
         band=(request.args.getlist('b'))
         dere=(request.args.getlist('e'))
         dxre=(request.args.getlist('x'))
+        mode=(request.args.getlist('m'))
         callsign=request.args.get('c')  
         query_string=''
         if callsign:
@@ -59,7 +65,7 @@ def spotquery():
             query_string+=" ORDER BY rowid desc limit 10);"
 
         else:    
-            #construct band query decoding frequencis with json file
+            #construct band query decoding frequencies with json file
             band_qry_string = ' AND (('
             for i in range(len(band)):
                 freq=find_id_json(band_frequencies["bands"],band[i])
@@ -69,6 +75,19 @@ def spotquery():
                 band_qry_string += 'freq BETWEEN ' + str(freq["min"]) + ' AND ' + str(freq["max"])
 
             band_qry_string += '))'
+
+            #construct mode query 
+            mode_qry_string = ' AND  (('
+            for i in range(len(mode)):
+                single_mode=find_id_json(modes_frequencies["modes"],mode[i])
+                if i > 0: 
+                        mode_qry_string +=') OR ('
+                for j in range(len(single_mode["freq"])):
+                    if j > 0: 
+                        mode_qry_string +=') OR ('
+                    mode_qry_string += 'freq BETWEEN ' +str(single_mode["freq"][j]["min"]) + ' AND ' + str(single_mode["freq"][j]["max"])
+
+            mode_qry_string += '))'
 
             #construct DE continent region query
             dere_qry_string = ' AND spottercq IN ('
@@ -88,9 +107,13 @@ def spotquery():
                 dxre_qry_string += str(continent["cq"])
             dxre_qry_string +=')'
 
+
             query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE 1=1"                                  
             if len(band) > 0:
                 query_string += band_qry_string
+
+            if len(mode) > 0:
+                query_string += mode_qry_string
 
             if len(dere) > 0:
                 query_string += dere_qry_string
@@ -109,7 +132,7 @@ def spotquery():
 
         cursor = db.cursor()
         number_of_rows = cursor.execute('''SET NAMES 'utf8';''')
-        #print (query_string)
+        print ("*** QUERY: "+query_string)   #TODO: eliminare
         cursor.execute(query_string)
         row_headers=[x[0] for x in cursor.description] #this will extract row headers
         rv=cursor.fetchall()
@@ -134,8 +157,6 @@ def spotlist():
 def spots():
     payload=spotquery()
     country_data=load_country()
-    #y=json.loads(cfg['menu'])
-    #menu_list=json.dumps(cfg['menu']['menu_list'])
     response=flask.Response(render_template('index.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data))
     return response
 
@@ -159,7 +180,6 @@ def plotlist():
     else:
         json_content={}
 
-    #response=flask.Response(json.dumps(json_content))
     response=json_content
     return response
 
@@ -172,7 +192,6 @@ def plots():
 
 @app.route('/cookies.html', methods=['GET'])
 def cookies():
-#    	return app.send_static_file('html/cookies.html')
     response=flask.Response(render_template('cookies.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list']))
     return response
 

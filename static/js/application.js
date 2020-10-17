@@ -131,16 +131,16 @@ function mySearch(event) {
 function myTimer() {
 	var request = new XMLHttpRequest()
 
-	selectedBands = [].map.call(document.getElementById('band').selectedOptions, option => option.value);
+	selectedBand = [].map.call(document.getElementById('band').selectedOptions, option => option.value);
 	selectedDEre = [].map.call(document.getElementById('de_re').selectedOptions, option => option.value);
 	selectedDXre = [].map.call(document.getElementById('dx_re').selectedOptions, option => option.value);
-
+	selectedMode = [].map.call(document.getElementById('mode').selectedOptions, option => option.value);
 
 	//construct query parameters
-	var qryBands='';
+	var qryBand='';
 	var qryAll='';
-	if (selectedBands.length < 14) {
-		qryBands= selectedBands.map(function(el, idx) {
+	if (selectedBand.length < 14) {
+		qryBand= selectedBand.map(function(el, idx) {
 	    		return 'b=' + el;
 		}).join('&');
 	};
@@ -151,10 +151,10 @@ function myTimer() {
 	    		return 'e=' + el;
 		}).join('&');
 	};
-	if (qryBands && qryDEre){
-		qryAll=qryBands.concat('&'.concat(qryDEre));
+	if (qryBand && qryDEre){
+		qryAll=qryBand.concat('&'.concat(qryDEre));
 	} else {
-		qryAll=qryBands.concat(qryDEre);
+		qryAll=qryBand.concat(qryDEre);
 	};
 
 	var qryDXre='';
@@ -163,11 +163,22 @@ function myTimer() {
 	    		return 'x=' + el;
 		}).join('&');
 	};
-
 	if (qryAll && qryDXre) {
 		qryAll=qryAll.concat('&'.concat(qryDXre));
 	} else {
 		qryAll=qryAll.concat(qryDXre);
+	};
+
+	var qryMode='';
+	if (selectedMode.length < 3) {
+		qryMode= selectedMode.map(function(el, idx) {
+	    		return 'm=' + el;
+		}).join('&');
+	};
+	if (qryAll && qryMode) {
+		qryAll=qryAll.concat('&'.concat(qryMode));
+	} else {
+		qryAll=qryAll.concat(qryMode);
 	};
 
 	// Open a new connection, using the GET request on the URL endpoint

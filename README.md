@@ -22,6 +22,7 @@ For this application I've used:
 You can find my web site at [https://dxcluster.iu1bow.it](https://dxcluster.iu1bow.it)
 
 ### Changelog
+New Release 2.0. It use python 3 and bootstrap 5
 see it on file ["CHANGELOG.md"](docs/CHANGELOG.md)
 
 ### Install            

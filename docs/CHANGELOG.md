@@ -6,6 +6,7 @@ xx/xx/2020: 2
 - Added configuration in config.json for telnet and mail address (so you can avoid to change index.html file)
 - In the spot list, moved the country columns, after flag
 - When press "search", collapse filters form
+- Added mode filter
 ___
 04/10/2020: 1.2.2
 - Added config.sh utilty in script folder, in order to avoid edit manually config.json

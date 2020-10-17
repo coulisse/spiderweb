@@ -35,8 +35,9 @@
 - [ ] set default icon image for images not found (es for 4U1UN)
 - [ ] implement CSRF protection. See:   https://flask-wtf.readthedocs.io/en/stable/csrf.html
 - [ ] manage country tooltip on mobile (maybe after bootstrap 5)
-- [ ] add ssb/cw/digi filter (required by IU5HES) 
+- [x] add ssb/cw/digi filter (required by IU5HES) 
 - [ ] on search collapse filter
 - [ ] improve offline page
 - [x] add telnet address and contatc mail to config.json (edit also the menu utility)
+- [ ] add limit for number or parameters in query parameters
 
