@@ -76,7 +76,8 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
 
 		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].dx+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+dx+'</span>'));
 		try {
-  			row$.append($('<td/>').html('<a href="#" data-toggle="tooltip" title="'+country.country+'"><img class="img-flag" src="https://www.countryflags.io/'+country.ISO+'/shiny/32.png" alt="'+country.country+'"></a>'));
+  		//	row$.append($('<td/>').html('<a href="#" data-toggle="tooltip" title="'+country.country+'"><img class="img-flag" src="https://www.countryflags.io/'+country.ISO+'/shiny/32.png" alt="'+country.country+'"></a>'));
+  			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+country.ISO.toLowerCase()+'"></span>'));
 		} catch (err) {
 			row$.append($('<td/>'));
 		};

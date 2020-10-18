@@ -8,6 +8,8 @@ xx/xx/2020: 2
 - When press "search", collapse filters form
 - Added mode filter
 - fixed label on qso/months plot
+- removed link to country-flags.io and used https://github.com/lipis/flag-icon-css hosted at https://cdnjs.com/libraries/flag-icon-css/3.4.1 in order to improve performances and remove cookies
+- removed cookie bar
 ___
 04/10/2020: 1.2.2
 - Added config.sh utilty in script folder, in order to avoid edit manually config.json

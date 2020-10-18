@@ -27,12 +27,20 @@
 	.navbar-collapse {
 		max-height: none !important;
 	} 
+}
 
-	.img-flag {
-		width: 24px;
-		height: 24px;
-	}
-
+.img-flag {
+//	width: 80%;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        padding: 3px;
+	background-size:cover !important;
+	max-width: auto; 
+	max-height: auto; 
+	height: 22px !important; 
+	width: 36px !important;
 }
 
 .ipcs {
@@ -91,7 +99,7 @@ span.search-callsign {
 
 #collapseFilters {
 	margin-top: 10px;
-	background-color: #e4edf7;
+	background-color: #DAF7EF; 
 }
 
 #spotsTable {
@@ -101,3 +109,4 @@ span.search-callsign {
 #band {
 	margin-top: 5px;
 }
+

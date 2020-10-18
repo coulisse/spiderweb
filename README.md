@@ -16,7 +16,7 @@ For this application I've used:
 - **Bootstrap** for stylesheet CSS
 - **Jquery** In the header you can find the link to MS link
 - **qrz.com** For each callsing found you can click on lens and you'll see him on qrz.com
-- **www.countryflags.io** I used it for show the country flags
+- **flag-icon-css** [https://github.com/lipis/flag-icon-css](https://github.com/lipis/flag-icon-css) I used it for show the country flags 
 - **cookie-bar.eu** I use it for cookie bar
 
 You can find my web site at [https://dxcluster.iu1bow.it](https://dxcluster.iu1bow.it)

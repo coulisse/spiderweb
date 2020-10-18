@@ -19,26 +19,26 @@
   - [x] fix frequency badge
   - [x] fix menu
   - [x] fix filter
-  - [ ] fix heatmap on plots
+  - [x] fix heatmap on plots
   - [ ] check popup on mobile
   - [ ] check progressive webapp
   - [x] check jumbotron margin / padding
   - [ ] check owasp security
-  - [ ] check ssl
+  - [x] check ssl
   - [ ] caching countries json
   - [x] add padding to menu in mobile version
   - [x] space between filter and table
   - [x] fix black row at table start
-  - [ ] remove transparent background filter on mobile
-  - [ ] reduce jumbotron on mobile
+  - [x] remove transparent background filter on mobile
+  - [x] reduce jumbotron on mobile
   - [x] fix margin on cookies
-- [ ] set default icon image for images not found (es for 4U1UN)
+- [x] set default icon image for images not found (es for 4U1UN)
 - [ ] implement CSRF protection. See:   https://flask-wtf.readthedocs.io/en/stable/csrf.html
 - [ ] manage country tooltip on mobile (maybe after bootstrap 5)
 - [x] add ssb/cw/digi filter (required by IU5HES) 
-- [ ] on search collapse filter
+- [x] on search collapse filter
 - [ ] improve offline page
 - [x] add telnet address and contatc mail to config.json (edit also the menu utility)
 - [ ] add limit for number or parameters in query parameters
 - [ ] fix shell (.sh) scripts for launch plots
-
+- [ ] update README with cloudflare SSL
