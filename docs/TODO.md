@@ -10,7 +10,6 @@
 - [ ] add a "splash" screen page
 - [ ] testing automation
 - [ ] add page with connected nodes
-- [ ] add google analitics include on server side
 - [x] add country on desktop version
 - [x] add configuration to menu
 - [x] edit configuration with cli interface
@@ -20,7 +19,6 @@
   - [x] fix menu
   - [x] fix filter
   - [x] fix heatmap on plots
-  - [ ] check popup on mobile
   - [ ] check progressive webapp
   - [x] check jumbotron margin / padding
   - [ ] check owasp security
@@ -32,13 +30,14 @@
   - [x] remove transparent background filter on mobile
   - [x] reduce jumbotron on mobile
   - [x] fix margin on cookies
+  - [ ] use bootstrap 5 icons
 - [x] set default icon image for images not found (es for 4U1UN)
 - [ ] implement CSRF protection. See:   https://flask-wtf.readthedocs.io/en/stable/csrf.html
 - [ ] manage country tooltip on mobile (maybe after bootstrap 5)
 - [x] add ssb/cw/digi filter (required by IU5HES) 
 - [x] on search collapse filter
-- [ ] improve offline page
+- [x] improve offline page
 - [x] add telnet address and contatc mail to config.json (edit also the menu utility)
-- [ ] add limit for number or parameters in query parameters
-- [ ] fix shell (.sh) scripts for launch plots
-- [ ] update README with cloudflare SSL
+- [x] fix shell (.sh) scripts for launch plots
+- [x] update README with cloudflare SSL
+- [ ] try it on bjorne

@@ -19,7 +19,7 @@ For this application I've used:
 - **flag-icon-css** [https://github.com/lipis/flag-icon-css](https://github.com/lipis/flag-icon-css) I used it for show the country flags 
 - **cookie-bar.eu** I use it for cookie bar
 
-You can find my web site at [https://dxcluster.iu1bow.it](https://dxcluster.iu1bow.it)
+You can find my web site at [https://www.iu1bow.it](https://www.i1bow.it)
 
 ### Changelog
 New Release 2.0. It use python 3 and bootstrap 5
@@ -118,10 +118,92 @@ The flask default port is 5000, so you can see your web app, typing `http://loca
 Keep in mind that the flask web server, usually is used as a test server.
 
 ### Production
-If your would run your application a production web server, install it on **Gunicorn** and **NGINX** (obviously you can choose your preferred proxy/web server instead). I'm also using **certbot** in order to manage SSL *Let's encrypt* certificates.
+There are some ways to use it in production. 
 
-[At this link](https://noviello.it/come-installare-flask-con-gunicorn-e-nginx-su-ubuntu-18-10/) (in italian language) you can find a guide for install certbot, gunicorn and NGINX 
-After installed it you can configure 
+My configuration is:
+Cloudflare + Nginx + Bjoern
+
+**Bjoern is a lightweight WSGI for python.
+
+for insttall it: 
+```console
+foo@bar:~$ sudo apt install libev-dev libevdev2
+foo@bar:~$ pip3 install bjoern
+```
+
+If you want you can make it as a _daemon service_.
+Create and edit a file named for example spiderweb.service (in the systemd folder)
+
+```console
+foo@bar:~$ sudo nano /etc/systemd/system/spiderweb.service
+```
+Below an example of configuration:
+```console
+[Unit]
+Description=bjoern instance spiderweb
+After=network.target
+After=multi-user.target
+
+[Service]
+User=web
+Group=www-data
+Type=simple
+WorkingDirectory=/home/web/spiderweb
+Environment="PATH=/home/web/spiderweb"
+ExecStart=/usr/bin/python3 /home/web/spiderweb/wsgi.py
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Then you can install and start the daemon:
+```console
+foo@bar:~$ sudo systemctl enable spiderweb.service
+foo@bar:~$ sudo systemctl start spiderweb.service
+foo@bar:~$ sudo systemctl status spiderweb.service
+
+● spiderweb.service - bjoern instance spiderweb
+   Loaded: loaded (/etc/systemd/system/spiderweb.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sun 2020-10-25 09:56:35 UTC; 8h ago
+ Main PID: 6518 (python3)
+    Tasks: 1 (limit: 420)
+   CGroup: /system.slice/spiderweb.service
+           └─6518 /usr/bin/python3 /home/web/spiderweb/wsgi.py
+
+Oct 25 09:56:35 dxcluster01 systemd[1]: Started bjoern instance spiderweb.
+```
+Now you can install and configura NGINX
+
+Install with
+```console
+foo@bar:~$ sudo apt install nginx
+```
+
+Configure:
+```console
+sudo nano /etc/nginx/sites-available/myapp
+```
+
+```console
+server {
+    listen 80;
+    server_name iu1bow.it www.iu1bow.it;
+    location ^~ /.well-known/ {
+      alias /home/web/verify/.well-known/;
+    }
+
+    location / {
+        ssi off;
+        include proxy_params;
+        proxy_pass http://localhost:8080/;
+        proxy_set_header Host $host;
+    }
+}
+
+```
+
+For SSL I'm using [Cloudflare](https://www.cloudflare.com/). This is a free service that alow you to use https and a proxy cache. 
+
 
 **Search engine indexing**
 When you are on-line, if you would to index your website on search engines, you have to generate a file named sitemap.xml and put it in /static/ folder. There are many tool to generate sitemap.xml, for example https://www.xml-sitemaps.com/

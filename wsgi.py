@@ -1,5 +1,7 @@
 
+import bjoern
 from webapp import app
 
-if __name__ == "__main__":
-        app.run()
+
+bjoern.listen(app, '0.0.0.0', 8080)
+bjoern.run()

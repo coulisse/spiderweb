@@ -49,6 +49,7 @@ def spotquery():
         dxre=(request.args.getlist('x'))
         mode=(request.args.getlist('m'))
         callsign=request.args.get('c')  
+
         query_string=''
         if callsign:
             #construct the query, to show last 6 month
