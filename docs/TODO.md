@@ -1,5 +1,23 @@
 
 ### TODO
+- [ ] migrate to boostrap 5 (when ready.. end of 2020?)
+  - [x] fix frequency badge
+  - [x] fix menu
+  - [x] fix filter
+  - [x] fix heatmap on plots
+  - [x] check progressive webapp
+  - [x] check jumbotron margin / padding
+  - [x] check owasp security
+  - [x] check ssl
+  - [x] add padding to menu in mobile version
+  - [x] space between filter and table
+  - [x] fix black row at table start
+  - [x] remove transparent background filter on mobile
+  - [x] reduce jumbotron on mobile
+  - [x] fix margin on cookies
+  - [ ] use bootstrap 5 icons
+  - [ ] test bootstrap 5 beta
+  - [ ] test bootstrap 5 stable release
 - [x] add comments to code
 - [ ] add other plots (cpu load, memory used, disk used)
 - [ ] manage common html parts with "includes" https://jinja.palletsprojects.com/en/2.11.x/templates/#template-inheritance
@@ -14,30 +32,21 @@
 - [x] add configuration to menu
 - [x] edit configuration with cli interface
 - [x] migrate to python 3  
-- [ ] migrate to boostrap 5 (when ready.. end of 2020?)
-  - [x] fix frequency badge
-  - [x] fix menu
-  - [x] fix filter
-  - [x] fix heatmap on plots
-  - [ ] check progressive webapp
-  - [x] check jumbotron margin / padding
-  - [ ] check owasp security
-  - [x] check ssl
-  - [ ] caching countries json
-  - [x] add padding to menu in mobile version
-  - [x] space between filter and table
-  - [x] fix black row at table start
-  - [x] remove transparent background filter on mobile
-  - [x] reduce jumbotron on mobile
-  - [x] fix margin on cookies
-  - [ ] use bootstrap 5 icons
 - [x] set default icon image for images not found (es for 4U1UN)
 - [ ] implement CSRF protection. See:   https://flask-wtf.readthedocs.io/en/stable/csrf.html
-- [ ] manage country tooltip on mobile (maybe after bootstrap 5)
+- [x] manage country tooltip on mobile (maybe after bootstrap 5)
 - [x] add ssb/cw/digi filter (required by IU5HES) 
 - [x] on search collapse filter
 - [x] improve offline page
 - [x] add telnet address and contatc mail to config.json (edit also the menu utility)
 - [x] fix shell (.sh) scripts for launch plots
 - [x] update README with cloudflare SSL
-- [ ] try it on bjorne
+- [x] try it on bjorne
+- [ ] caching countries json
+- [x] change search callsign table (remove colors)
+- [ ] put all images on a CDN
+- [ ] define a new icon (favicon + progressive webapp icon)
+- [x] add script for send monitoring mail
+- [x] fix month plots
+- [ ] add native cookie bar
+- [ ] privacy policy

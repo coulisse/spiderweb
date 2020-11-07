@@ -211,6 +211,9 @@ When you are on-line, if you would to index your website on search engines, you 
 **Index on MySQL
 If you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on 'scripts/create_mysql_index.sql'
 ~  
+
+### Monitoring
+you can use the scritp "scripts/monitoring.sh" in order to monitoring your sistem. Check instruction inside this scripts.
 ### Screenshots
 ----------
 <img src="docs/images/01_desktop_main.jpg" width="300"/>

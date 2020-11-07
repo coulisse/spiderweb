@@ -27,7 +27,9 @@ function findCountry(countries, wpx_to_find) {
  * @param callsign {string} An optional parameter with the callsign to search
  */
 function buildHtmlTable(selector,data,rl,countries,callsign) {
-	//rows
+  if  ( data != null ){
+
+	//	$('[data-toggle="popover"]').popover('dispose');
 
 	var myRows=new Array();
 
@@ -47,12 +49,11 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
 		var found = rl.find(element => element ==data[i].rowid);
 		if ( callsign != undefined ) {
 			if ( callsign == data[i].de ) {
-				row$=$('<tr class="table-success" id="'+data[i].rowid+'"/>');
+				row$=$('<tr id="'+data[i].rowid+'"/>');
 			} else if ( callsign == data[i].dx ) {
-				row$=$('<tr class="table-info" id="'+data[i].rowid+'"/>');
+				row$=$('<tr id="'+data[i].rowid+'"/>');
 			}
 		} else if ( found == undefined && rl.length > 0) {
-//		if ( found == undefined && rl.length > 0) {
 			row$=$('<tr class="table-info" id="'+data[i].rowid+'"/>');
 		};
 
@@ -73,11 +74,10 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
 			dx = data[i].dx
 		};
 
-
 		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].dx+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+dx+'</span>'));
 		try {
-  		//	row$.append($('<td/>').html('<a href="#" data-toggle="tooltip" title="'+country.country+'"><img class="img-flag" src="https://www.countryflags.io/'+country.ISO+'/shiny/32.png" alt="'+country.country+'"></a>'));
-  			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+country.ISO.toLowerCase()+'"></span>'));
+			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+country.ISO+'" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="'+country.country+'"></span>'));
+//			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+country.ISO+'" data-toggle="tooltip" data-trigger="hover" title="'+country.country+'"></span>'));
 		} catch (err) {
 			row$.append($('<td/>'));
 		};
@@ -105,11 +105,18 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
     		$(selector).append(row$);
    	}
 
+	$(function () {
+  		$('[data-toggle="popover"]').popover({
+    			container: selector
+  		})
+	})
+
 	try {
 		return Array.from(myRows);
 	} catch (err) {
 		return;
 	}
+    }
 };
 
 /*
@@ -194,7 +201,8 @@ function myTimer() {
 		try {
 			rows_list=buildHtmlTable('#bodyspot',JSON.parse(this.response),rows_list,my_countries.country_codes );
 		} catch (err) {
-			console.log(this.response);
+			console.log(err);
+			console.log(err.stack);
 		}
 	}
 	request.send()
@@ -240,7 +248,7 @@ function plotsTimer() {
 			plot_list = buildHtmlPlots('#plotlist',JSON.parse(this.response));
 		} catch (err) {
 			console.log(err);
-			console.log(this.response);
+			console.log(err.stack);
 		}
 	}
 	request.send()
