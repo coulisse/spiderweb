@@ -16,10 +16,10 @@
 	"telnet":"mysite:7300",
         "menu": {
           "menu_list": [
-            {"label":"Plots", "link": "/plots.html", "external": false},
+            {"label":"Plots & stats", "link": "/plots.html", "external": false},
             {"label":"Sources", "link": "https://github.com/coulisse/spiderweb/" , "external": true},    
-            {"label":"Cookies policy", "link": "/cookies.html", "external": false}
-            {"label":"Privacy policy", "link": "../static/html/privacy.html", "external": false}
+            {"label":"Cookies", "link": "/cookies.html", "external": false}
+            {"label":"Privacy", "link": "/privacy.html", "external": false}
             ]
         }
 }

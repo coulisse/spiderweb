@@ -3,11 +3,12 @@ import flask
 from flask import request, render_template, jsonify
 import MySQLdb as my
 import json
+from dxtelnet import who
 
 __author__ = 'IU1BOW - Corrado'
 
 app = flask.Flask(__name__)
-app.config["DEBUG"] = False 
+app.config["DEBUG"] = False
 app.config['SECRET_KEY'] = 'secret!'
 
 #load config file
@@ -153,6 +154,11 @@ def spotlist():
     response=flask.Response(json.dumps(spotquery()))
     return response
 
+def who_is_connected():
+    host_port=cfg['telnet'].split(':')
+    response=who(host_port[0],host_port[1],cfg['mycallsign'])
+    return response
+
 @app.route('/', methods=['GET']) 
 @app.route('/index.html', methods=['GET']) 
 def spots():
@@ -187,13 +193,19 @@ def plotlist():
 @app.route('/plots.html')
 def plots():
     payload=plotlist()  
-    response=flask.Response(render_template('plots.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['plot_refresh_timer']['interval']))
+    whoj=who_is_connected()
+    response=flask.Response(render_template('plots.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['plot_refresh_timer']['interval'],who=whoj))
     return response
 
 
 @app.route('/cookies.html', methods=['GET'])
 def cookies():
     response=flask.Response(render_template('cookies.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list']))
+    return response
+
+@app.route('/privacy.html', methods=['GET'])
+def privacy():
+    response=flask.Response(render_template('privacy.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list']))
     return response
 
 @app.route('/sitemap.xml')
@@ -207,6 +219,8 @@ def callsign():
     callsign=request.args.get('c')
     response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,country_data=country_data,callsign=callsign))
     return response
+
+#@app.route('/who',methods=['GET'])
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

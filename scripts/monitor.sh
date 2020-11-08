@@ -14,6 +14,7 @@ DISK=/dev/sda1       # <--- CHANGE WITH YOUR DRIVE !!!
 
 #...................................................
 CONFIG=../cfg/config.json
+SSMTP=/usr/sbin/ssmtp
 LIM_DISK=80
 LIM_MEMPERC=80
 LIM_DATE=1800
@@ -108,7 +109,6 @@ else
 fi
 
 mailto=`grep -Po '"mail":.*?[^\/]",' ${CONFIG}|cut -d '"' -f 4`
-ssmtp ${mailto} < ${TMPFILE}
-#TODO: add logic in order to send mail only in case of fail (ora one mail per day)                                                    
+${SSMTP} ${mailto} < ${TMPFILE}
 cat ${TMPFILE}
 rm ${TMPFILE}

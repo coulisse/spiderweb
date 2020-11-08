@@ -206,14 +206,15 @@ For SSL I'm using [Cloudflare](https://www.cloudflare.com/). This is a free serv
 
 
 **Search engine indexing**
-When you are on-line, if you would to index your website on search engines, you have to generate a file named sitemap.xml and put it in /static/ folder. There are many tool to generate sitemap.xml, for example https://www.xml-sitemaps.com/
+When you are on-line, if you would to index your website on search engines, you have to generate a file named sitemap.xml and put it in /static/ folder. There are many tool to generate sitemap.xml, for example [www.xml-sitemaps.com] (https://www.xml-sitemaps.com/)
 
-**Index on MySQL
+**Index on MySQL**
 If you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on 'scripts/create_mysql_index.sql'
 ~  
 
 ### Monitoring
-you can use the scritp "scripts/monitoring.sh" in order to monitoring your sistem. Check instruction inside this scripts.
+you can use the scritp `scripts/monitoring.sh` in order to monitoring your sistem. Check instruction inside this scripts.
+
 ### Screenshots
 ----------
 <img src="docs/images/01_desktop_main.jpg" width="300"/>

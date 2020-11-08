@@ -58,7 +58,6 @@ plt.ylabel("QSO")
 plt.grid(False)
 plt.subplots_adjust(left=0.15)
 
-plt.bar(x, y, align='center')
 list_y = list(y)
 le=len(list_y)-1
 day=datetime.today().day
@@ -66,8 +65,10 @@ month=datetime.today().month
 year=datetime.today().year
 days_of_month=monthrange(year,month)
 list_y[le]=int(y[le]/day*days_of_month[1])
-y = tuple(list_y)
-plt.scatter(x,y)
+y1 = tuple(list_y)
+
+plt.bar(x, y1, align='center', color='lightsteelblue')
+plt.bar(x, y, align='center')
 
 saveplt(plt,file_output)
 

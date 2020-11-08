@@ -13,6 +13,7 @@ xx/xx/2020: 2.0
 - remove colors from callsing search resoults table
 - added popover on mobile
 - added monitor.sh in order to monitor your system
+- added connected nodes in plots page (renamed as "plots and stats")
 ___
 04/10/2020: 1.2.2
 - Added config.sh utilty in script folder, in order to avoid edit manually config.json

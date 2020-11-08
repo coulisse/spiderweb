@@ -27,7 +27,7 @@
 - [x] add optional index on MySQL table
 - [ ] add a "splash" screen page
 - [ ] testing automation
-- [ ] add page with connected nodes
+- [x] add page with connected nodes
 - [x] add country on desktop version
 - [x] add configuration to menu
 - [x] edit configuration with cli interface
@@ -49,4 +49,5 @@
 - [x] add script for send monitoring mail
 - [x] fix month plots
 - [ ] add native cookie bar
-- [ ] privacy policy
+- [x] privacy policy
+- [ ] add calendar with dx speditions

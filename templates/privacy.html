@@ -1,3 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <title>DX Cluster from IU1BOW: Cookies</title>
+  <meta charset="utf-8">
+  <meta name="KEYWORDS" content="dxcluster,iu1bow,cluster,ham radio,web dx cluster">
+  <meta name="description" content="dx cluster for hamradio, by IU1BOW">
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
+  <meta name="theme-color" content="#2196f3">
+  <link rel="shortcut icon" href="/static/favicon.png">
+  <link rel="manifest" href="/static/manifest.json">
+  <link rel="stylesheet" href="/static/css/min/style.min.css">
+
+	<link rel="preload" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" as="style" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous" onload="this.rel='stylesheet'">
+  	<noscript><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css"></noscript>
+  <script>
+    /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+    !function(a){"use strict";var b=function(b,c,d){function j(a){if(e.body)return a();setTimeout(function(){j(a)})}function l(){f.addEventListener&&f.removeEventListener("load",l),f.media=d||"all"}var g,e=a.document,f=e.createElement("link");if(c)g=c;else{var h=(e.body||e.getElementsByTagName("head")[0]).childNodes;g=h[h.length-1]}var i=e.styleSheets;f.rel="stylesheet",f.href=b,f.media="only x",j(function(){g.parentNode.insertBefore(f,c?g:g.nextSibling)});var k=function(a){for(var b=f.href,c=i.length;c--;)if(i[c].href===b)return a();setTimeout(function(){k(a)})};return f.addEventListener&&f.addEventListener("load",l),f.onloadcssdefined=k,k(l),f};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+    /*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+    !function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(a){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+  </script>
+</head>
+<body>
+  <header>
+
+	<!-- nav bar -->
+		<nav class="navbar px-2 navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="/">
+				<img src="/static/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+				{{ mycallsign }}
+			</a>	
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+	        </button>
+ 			<div class="collapse navbar-collapse" id="navbarToggler01">
+				<ul class="navbar-nav mr-auto">
+					{% for dict_item in menu_list %}
+						<li class="nav-item">
+							<a class="nav-link  {% if request.path == dict_item["link"] %} active  {% endif %} " href="{{dict_item["link"]}}"   
+								{% if dict_item["external"] %} 
+									target="blank" rel="noopener" 
+								{% endif %} 
+							>{{dict_item["label"]}}<span class="sr-only"></span></a>
+						</li>
+					{% endfor %}
+				</ul>
+				<form class="form-inline"  id="form-callsign" enctype="application/x-www-form-urlencoded" >	
+					<div class="input-group" id='input-group-callsign'>
+  						<input type="text" class="form-control" placeholder="callsign" aria-label="callsign" aria-describedby="button-addon2" id="callsignInput" >
+						<div class="input-group-append">
+							<button class="btn btn-secondary" type="submit" onclick="myCallsignSearch()" formaction='javascript:myCallsignSearch();'>
+								<span class="search-callsign" aria-label="search-callsign"></span>
+							</button> 
+						</div>
+					</div>
+		    		</form>	
+	        </div>
+		</nav>
+  </header>
+  <main>
+    <!-- jumbotron -->
+    <div class="container-fluid mt-1 ml-0 mr-0 px-0">
+       <div class="ipcs bg-light p-4 rounded-lg m-2">
+        <h1 class="display-4 text-white">PRIVACY</h1>
+        <p class="lead text-light">WEB DX Cluster For HAM Radio</p>
+        <p class="text-light">Telnet access: <a href="telnet://dxcluster.iu1bow.it:7300" class="text-white">dxcluster.iu1bow.it 7300</a></p>
+        <p class="text-light">For connect your cluster, write to <a href="mailto:corrado.gerbaldo@gmail.com?Subject=Connect%20my%20DxCluster%20node" target="_top" class="text-white">corrado.gerbaldo@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="col mr-3 px-2">
 <h1>Privacy Policy for this web site</h1>
 <p>At this web site, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by this web site and how we use it.</p>
 <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.</p>
@@ -49,3 +121,19 @@
 <h2>Children's Information</h2>
 <p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.</p>
 <p>this web site does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
+
+    </div>
+    <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous">
+    </script> 
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js" integrity="sha384-BOsAfwzjNJHrJ8cZidOg56tcQWfp6y72vEJ8xQ9w6Quywb24iOsW913URv1IS4GD" crossorigin="anonymous"></script>
+    <script defer src="/static/js/min/application.min.js">
+    </script>
+  </main>
+  <footer class="page-footer font-small blue">
+    <div class="footer-copyright text-center py-3">
+      2020 <span class="copyleft">©</span> Copyleft: <a href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">IU1BOW Spiderweb</a>
+    </div>
+  </footer>
+</body>
+</html>
+
