@@ -12,23 +12,35 @@
 	<link rel="manifest" href="/static/manifest.json">
 	<link rel="apple-touch-icon" href="/static/images/icons/icon-apple.png">
 	<link rel="stylesheet" href="/static/css/min/style.min.css"> 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+	<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" as="style" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" onload="this.rel='stylesheet'">
+  	<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"></noscript>
      </head>
      <body>
 	<header>
+
 	<!-- nav bar -->
 		<nav class="navbar px-2 navbar-expand-lg navbar-dark bg-dark">
+			<div class="container-fluid">
 			<a class="navbar-brand" href="/">
 				<img src="/static/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-				Offline
+				{{ mycallsign }}
 			</a>	
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" >
 				<span class="navbar-toggler-icon"></span>
 	        </button>
  			<div class="collapse navbar-collapse" id="navbarToggler01">
-				<ul class="navbar-nav mr-auto">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+					{% for dict_item in menu_list %}
+						<li class="nav-item">
+							<a class="nav-link  {% if request.path == dict_item["link"] %} active {% endif %}" href="{{dict_item["link"]}}"  
+								{% if dict_item["external"] %} 
+									target="blank" rel="noopener" 
+								{% endif %} 
+							>{{dict_item["label"]}}<span class="sr-only"></span></a>
+						</li>
+					{% endfor %}
 				</ul>
-				<form method="POST" class="form-inline"  id="form-callsign" enctype="application/x-www-form-urlencoded" >	
+				<form method="POST" class="d-flex"  id="form-callsign" enctype="application/x-www-form-urlencoded" >	
 					<div class="input-group" id='input-group-callsign'>
   						<input type="text" class="form-control" placeholder="callsign" aria-label="callsign" aria-describedby="button-addon2" id="callsignInput" >
 						<div class="input-group-append">
@@ -38,7 +50,8 @@
 						</div>
 					</div>
 		    		</form>	
-	        </div>
+	        	</div>
+			</div>
 		</nav>
 	</header>
 
@@ -51,7 +64,7 @@
 			</div>
 			<div class="row mx-auto justify-content-between align-middle">
 				<div class="mx-auto">
-					<button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" aria-label="filter">
+					<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" aria-label="filter">
 						<span class="filter" aria-label="filter"></span>
 					</button>
 				</div>

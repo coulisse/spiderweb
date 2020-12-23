@@ -29,8 +29,6 @@ function findCountry(countries, wpx_to_find) {
 function buildHtmlTable(selector,data,rl,countries,callsign) {
   if  ( data != null ){
 
-	//	$('[data-toggle="popover"]').popover('dispose');
-
 	var myRows=new Array();
 
 	//get current date
@@ -76,8 +74,7 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
 
 		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].dx+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+dx+'</span>'));
 		try {
-			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+country.ISO+'" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="'+country.country+'"></span>'));
-//			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+country.ISO+'" data-toggle="tooltip" data-trigger="hover" title="'+country.country+'"></span>'));
+			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+country.ISO+'" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="left" data-bs-content="'+country.country+'"></span>'));
 		} catch (err) {
 			row$.append($('<td/>'));
 		};
@@ -106,7 +103,7 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
    	}
 
 	$(function () {
-  		$('[data-toggle="popover"]').popover({
+  		$('[data-bs-toggle="popover"]').popover({
     			container: selector
   		})
 	})

@@ -16,7 +16,7 @@
   - [x] reduce jumbotron on mobile
   - [x] fix margin on cookies
   - [ ] use bootstrap 5 icons
-  - [ ] test bootstrap 5 beta
+  - [x] test bootstrap 5 beta
   - [ ] test bootstrap 5 stable release
 - [x] add comments to code
 - [ ] add other plots (cpu load, memory used, disk used)
@@ -44,7 +44,6 @@
 - [x] try it on bjorne
 - [ ] caching countries json
 - [x] change search callsign table (remove colors)
-- [ ] put all images on a CDN
 - [ ] define a new icon (favicon + progressive webapp icon)
 - [x] add script for send monitoring mail
 - [x] fix month plots
