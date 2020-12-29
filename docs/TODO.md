@@ -50,3 +50,4 @@
 - [ ] add native cookie bar
 - [x] privacy policy
 - [ ] add calendar with dx speditions
+- [ ] add requirements.txt file with all pythons dependancy

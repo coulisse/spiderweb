@@ -39,6 +39,7 @@ $dbuser = "your-user";
 $dbpass = "your-password"; 
 ```
 If you would change some MariaDB parameters, then you can find them in  `/etc/mysql/my.cnf` or `/etc/my.cnf`, depending on your distro.
+If the database will not be created automatically, please see ["DB_ISSUES.md"](docs/DB_ISSUES.md) 
 
 **3) Python / Flask**
 First of all you have to install the python3 pip installer
@@ -205,12 +206,9 @@ server {
 For SSL I'm using [Cloudflare](https://www.cloudflare.com/). This is a free service that alow you to use https and a proxy cache. 
 
 
-**Search engine indexing**
-When you are on-line, if you would to index your website on search engines, you have to generate a file named sitemap.xml and put it in /static/ folder. There are many tool to generate sitemap.xml, for example [www.xml-sitemaps.com] (https://www.xml-sitemaps.com/)
+**Search engine indexing:** when you are on-line, if you would to index your website on search engines, you have to generate a file named sitemap.xml and put it in /static/ folder. There are many tool to generate sitemap.xml, for example [www.xml-sitemaps.com] (https://www.xml-sitemaps.com/)
 
-**Index on MySQL**
-If you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on 'scripts/create_mysql_index.sql'
-~  
+**Index on MySQL:** if you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on 'scripts/create_mysql_index.sql'
 
 ### Monitoring
 you can use the scritp `scripts/monitoring.sh` in order to monitoring your sistem. Check instruction inside this scripts.
