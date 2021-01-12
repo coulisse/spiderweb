@@ -22,8 +22,9 @@ For this application I've used:
 You can find my web site at [https://www.iu1bow.it](https://www.i1bow.it)
 
 ### Changelog
-New Release 2.0. It use python 3 and bootstrap 5
-see it on file ["CHANGELOG.md"](docs/CHANGELOG.md)
+**New Release 2.0.!!!**
+It uses Python 3 and Bootstrap 5
+see file ["CHANGELOG.md"](docs/CHANGELOG.md)
 
 ### Install            
 
@@ -70,7 +71,8 @@ or
 foo@bar:~$ sudo -H pip3 install matplotlib --system   
 ```
 
-**4) Configuration**
+### Configuration  
+
 In the path `spiderweb/cfg/` rename `config.json.template` in `config.json`:
 ```console
 foo@bar:~$ mv config.json.template config.json
@@ -126,7 +128,7 @@ Cloudflare + Nginx + Bjoern
 
 **Bjoern is a lightweight WSGI for python.
 
-for insttall it: 
+for install it: 
 ```console
 foo@bar:~$ sudo apt install libev-dev libevdev2
 foo@bar:~$ pip3 install bjoern
@@ -208,7 +210,7 @@ For SSL I'm using [Cloudflare](https://www.cloudflare.com/). This is a free serv
 
 **Search engine indexing:** when you are on-line, if you would to index your website on search engines, you have to generate a file named sitemap.xml and put it in /static/ folder. There are many tool to generate sitemap.xml, for example [www.xml-sitemaps.com] (https://www.xml-sitemaps.com/)
 
-**Index on MySQL:** if you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on 'scripts/create_mysql_index.sql'
+**Index on MySQL:** if you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on ["create_mysql_index.sql"](scripts/create_mysql_index.sql)
 
 ### Monitoring
 you can use the scritp `scripts/monitoring.sh` in order to monitoring your sistem. Check instruction inside this scripts.

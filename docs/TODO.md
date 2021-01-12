@@ -42,7 +42,7 @@
 - [x] fix shell (.sh) scripts for launch plots
 - [x] update README with cloudflare SSL
 - [x] try it on bjorne
-- [ ] caching countries json
+- [ ] caching countries json or insert in zip file
 - [x] change search callsign table (remove colors)
 - [ ] define a new icon (favicon + progressive webapp icon)
 - [x] add script for send monitoring mail
@@ -51,3 +51,4 @@
 - [x] privacy policy
 - [ ] add calendar with dx speditions
 - [ ] add requirements.txt file with all pythons dependancy
+- [ ] add carousel on propagation charts
