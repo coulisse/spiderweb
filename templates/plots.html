@@ -83,7 +83,7 @@
 					<th>Callsign</th>
 					<th>Type</th>
 					<th>Started</th>
-					<th>Name</th>
+					<th class="d-none d-lg-table-cell d-xl-table-cell">Name</th>
 					<th>Avg RTT</th>
 					<th>Link</th>
 				</tr>
@@ -94,10 +94,10 @@
 					<td>{{dict_item["callsign"]}}</td>
 					<td>{{dict_item["type"]}}</td>
 					<td>{{dict_item["started"]}}</td>
-					<td>{{dict_item["name"]}}</td>
+					<td class="d-none d-lg-table-cell d-xl-table-cell">{{dict_item["name"]}}</td>
 					<td>{{dict_item["average_rtt"]}}</td>
 					<td>{{dict_item["link"]}}</td>
-				</tr>
+					</tr>
 	    			{% endfor %}
 	    		</tbody>
 		</table>
