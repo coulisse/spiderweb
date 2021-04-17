@@ -52,3 +52,6 @@
 - [ ] add calendar with dx speditions
 - [ ] add requirements.txt file with all pythons dependancy
 - [ ] add carousel on propagation charts
+- [ ] convert to single page application https://flask.palletsprojects.com/en/1.1.x/patterns/singlepageapplications/
+- [ ] find another image as top backgroud
+- [ ] document with doxygen

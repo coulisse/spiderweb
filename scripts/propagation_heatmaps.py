@@ -10,7 +10,7 @@ from datetime import datetime
 import logging
 import logging.config 
 import matplotlib.gridspec as gridspec 
-from qry import *
+from qry import qry
 from plotuty import saveplt
 from matplotlib.colors import LogNorm
 

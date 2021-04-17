@@ -14,7 +14,7 @@ def del_with_retention(filename, number,ext):
 #and delete al file except the last "number" passed by param, and ordered by name 
     logging.info('deleting old files')
     pattern=filename+'_????????-??????.'+ext
-    logging.debug('search parttern for delete files: '+pattern)
+    logging.debug('search pattern for delete files: '+pattern)
     files=glob.glob(pattern)
     length = len(files)
     if length>number:

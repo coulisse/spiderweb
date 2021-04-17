@@ -64,11 +64,13 @@ or
 foo@bar:~$ sudo -H pip3 install flask_mysqldb --system 
 ```
 
-Finally you have to install matplotlib in order to plots some graphics
+Finally you have to install matplotlib and pandas in order to plots some graphics
 ```console
 foo@bar:~$ pip3 install matplotlib 
+foo@bar:~$ pip3 install statsmodels
 or
 foo@bar:~$ sudo -H pip3 install matplotlib --system   
+foo@bar:~$ sudo -H pip3 install statsmodels --system   
 ```
 
 ### Configuration  
@@ -213,7 +215,7 @@ For SSL I'm using [Cloudflare](https://www.cloudflare.com/). This is a free serv
 **Index on MySQL:** if you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on ["create_mysql_index.sql"](scripts/create_mysql_index.sql)
 
 ### Monitoring
-you can use the scritp `scripts/monitoring.sh` in order to monitoring your sistem. Check instruction inside this scripts.
+you can use the scritp `scripts/monitoring.sh` in order to monitoring your system. Check instruction inside this scripts.
 
 ### Screenshots
 ----------

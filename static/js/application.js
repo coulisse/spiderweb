@@ -228,9 +228,18 @@ function buildHtmlPlots(selector,data) {
 
 	//qso per months
 	$(selector).append($('<hr>'));
-	var contQSOMonth$=$('<div class="container justify-content-center"/>');
-	contQSOMonth$.append($('<img class="img-fluid" src="/static/plots/'+data['qso_months']+'.png" alt="Qso per months" srcset="/static/plots/'+data['qso_months']+'.svg">'));
-	$(selector).append(contQSOMonth$);
+	var contQSO$=$('<div class="container justify-content-center"/>');
+	contQSO$.append($('<img class="img-fluid" src="/static/plots/'+data['qso_months']+'.png" alt="Qso per months" srcset="/static/plots/'+data['qso_months']+'.svg">'));
+	$(selector).append(contQSO$);
+	
+	//qso per bands and hour in last month
+	contQSO$.append($('<img class="img-fluid" src="/static/plots/'+data['qso_hour_band']+'.png" alt="Qso per hour/band"  srcset="/static/plots/'+data['qso_hour_band']+'.svg">'));
+	$(selector).append(contQSO$);
+
+	//qso trend
+	contQSO$.append($('<img class="img-fluid" src="/static/plots/'+data['qso_trend']+'.png" alt="Qso trend"  srcset="/static/plots/'+data['qso_trend']+'.svg">'));
+	$(selector).append(contQSO$);
+
 
 };
 
