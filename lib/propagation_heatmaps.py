@@ -1,3 +1,6 @@
+#*****************************************************************************************
+# plot propagation heat maps                               
+#*****************************************************************************************
 __author__ = 'IU1BOW - Corrado'
 
 import matplotlib
@@ -13,12 +16,12 @@ import matplotlib.gridspec as gridspec
 from qry import qry
 from plotuty import saveplt
 from matplotlib.colors import LogNorm
+import json
 
-logging.config.fileConfig("../cfg/log_config.ini", disable_existing_loggers=False)
+logging.config.fileConfig("../cfg/plots_log_config.ini", disable_existing_loggers=False)
+logger = logging.getLogger(__name__)
 file_output = '../static/plots/'+ os.path.splitext(os.path.basename(sys.argv[0]))[0]
 
-# Load logging configuration from "log_config.ini" file
-logging.config.fileConfig("../cfg/log_config.ini", disable_existing_loggers=False)
 
 #load band file
 with open('../cfg/bands.json') as json_bands:
@@ -28,8 +31,8 @@ with open('../cfg/bands.json') as json_bands:
 with open('../cfg/continents.json') as json_continents:
         continents_cq = json.load(json_continents)
 
-logging.info("Start")
-logging.info("doing query...")
+logger.info("Start")
+logger.info("doing query...")
 
 #construct bands query
 bands_qry_string = 'CASE '
@@ -61,17 +64,17 @@ qry_string ="""
         ;            
 """
 
-logging.debug(qry_string)
+logger.debug(qry_string)
 data=qry(qry_string)
 
-logging.info("query done")
-logging.debug (data)
+logger.info("query done")
+logger.debug (data)
 
 #plot
 if data is None or len(data)==0:
-    logging.warning("no data found")
+    logger.warning("no data found")
     sys.exit(1)
-logging.info("plotting...")
+logger.info("plotting...")
 
 #preparing data
 
@@ -115,8 +118,8 @@ def filter_de(data_list,continent,continents_list, band_list):
                 element.append(0)
                 cartesian_product.append(element)
 
-    logging.debug("cartesian product for continent: "+continent)
-    logging.debug(cartesian_product)
+    logger.debug("cartesian product for continent: "+continent)
+    logger.debug(cartesian_product)
     return cartesian_product
 
 #main
@@ -130,8 +133,8 @@ for i in range(len(continents)):
     for j in range(0, len(number), len(bands)):
         number_ar.append(number[j : j+len(bands)])
 
-    logging.debug("heatmap:")
-    logging.debug(np.array(number_ar))
+    logger.debug("heatmap:")
+    logger.debug(np.array(number_ar))
 
     LOGMIN = 0.1
     im = plt.imshow(np.array(number_ar), cmap='YlOrRd', interpolation='quadric', norm=LogNorm(vmin=10, vmax=35),vmin=max(np.array(number_ar).min(), LOGMIN))
@@ -154,5 +157,5 @@ for i in range(len(continents)):
     plt.clf()
 
 
-logging.info("End")
+logger.info("End")
 

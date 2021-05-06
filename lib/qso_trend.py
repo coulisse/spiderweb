@@ -1,3 +1,6 @@
+#**********************************************************************************
+# plot qso trend
+#**********************************************************************************
 __author__ = 'IU1BOW - Corrado'
 
 import matplotlib
@@ -19,11 +22,12 @@ from statsmodels.tsa.api import ExponentialSmoothing
 import warnings
 from statsmodels.tools.sm_exceptions import ConvergenceWarning
 
-logging.config.fileConfig("../cfg/log_config.ini", disable_existing_loggers=False)
+logging.config.fileConfig("../cfg/plots_log_config.ini", disable_existing_loggers=False)
+logger = logging.getLogger(__name__)
 file_output = '../static/plots/'+ os.path.splitext(os.path.basename(sys.argv[0]))[0]
 
-logging.info("Start")
-logging.info("doing query...")
+logger.info("Start")
+logger.info("doing query...")
 
 #construct final query string
 qry_string="""
@@ -35,15 +39,15 @@ qry_string="""
 	GROUP by 1
 ;
     """
-logging.debug(qry_string) 
+logger.debug(qry_string) 
 df=qry_pd(qry_string)
-logging.info("query done")
-logging.debug (df)  
+logger.info("query done")
+logger.debug (df)  
 
 if df is None ==0:
-    logging.warning("no data found")
+    logger.warning("no data found")
     sys.exit(1)
-logging.info("plotting...")
+logger.info("plotting...")
 
 warnings.simplefilter('ignore', ConvergenceWarning)
 df['day']=pd.to_datetime(df['day'])
@@ -70,7 +74,7 @@ model = ExponentialSmoothing(y, seasonal_periods =52, trend='add', seasonal='add
 fit=model.fit()
 fcast = fit.forecast(40)
 ax.plot(fcast,marker='',linestyle='-', color='#23B55E', linewidth=1, label='predicted')
-logging.debug(fcast)
+logger.debug(fcast)
 ax.fill_between(fcast.index,fcast,facecolor='#23B55E',alpha=0.4)
 
 # Minor ticks every month.
@@ -79,5 +83,5 @@ ax.xaxis.set_minor_locator(fmt_month)
 ax.legend()
 saveplt(plt,file_output)
 
-logging.info("End")
+logger.info("End")
 

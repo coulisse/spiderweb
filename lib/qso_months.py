@@ -1,3 +1,6 @@
+#*****************************************************************************************
+# plot qso per months                                      
+#*****************************************************************************************
 __author__ = 'IU1BOW - Corrado'
 
 import matplotlib
@@ -14,11 +17,12 @@ from qry import qry
 from plotuty import saveplt
 from calendar import monthrange
 
-logging.config.fileConfig("../cfg/log_config.ini", disable_existing_loggers=False)
+logging.config.fileConfig("../cfg/plots_log_config.ini", disable_existing_loggers=False)
+logger = logging.getLogger(__name__)
 file_output = '../static/plots/'+ os.path.splitext(os.path.basename(sys.argv[0]))[0]
 
-logging.info("Start")
-logging.info("doing query...")
+logger.info("Start")
+logger.info("doing query...")
 
 #construct final query string
 qry_string="""
@@ -77,16 +81,16 @@ select month(s1.ym) as referring_month,
 	group by referring_month
 ;
     """
-logging.debug(qry_string) 
+logger.debug(qry_string) 
 data=qry(qry_string)
 
-logging.info("query done")
-logging.debug (data)  
+logger.info("query done")
+logger.debug (data)  
 
 if data is None or len(data)==0:
-    logging.warning("no data found")
+    logger.warning("no data found")
     sys.exit(1)
-logging.info("plotting...")
+logger.info("plotting...")
 
 
 months, current_year, one_year_ago, two_year_ago = zip(*data)
@@ -135,6 +139,6 @@ plt.xticks(np.arange(min(months), max(months)+1, 1.0),rotation='horizontal')
 
 saveplt(plt,file_output)
 
-logging.info("End")
+logger.info("End")
 
 

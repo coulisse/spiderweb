@@ -18,6 +18,7 @@ For this application I've used:
 - **qrz.com** For each callsing found you can click on lens and you'll see him on qrz.com
 - **flag-icon-css** [https://github.com/lipis/flag-icon-css](https://github.com/lipis/flag-icon-css) I used it for show the country flags 
 - **cookie-bar.eu** I use it for cookie bar
+- **ng3k.com** [ng3k.com](http://ng3k.com/misc/adxo.html) I used to get information about "Announced Dx Operations". Thanks to Bill/NG3K !!!
 
 You can find my web site at [https://www.iu1bow.it](https://www.i1bow.it)
 
@@ -110,8 +111,10 @@ foo@bar:~$ crontab -e
 ```
 then edit it in a manner like this:
 ```crontab 
-0 23 * * * /foo/bar/spiderweb/scripts/qso_months.sh > /dev/null 2>&1
-*/15 * * * * /foo/bar/spiderweb/scripts/propagation_heatmaps.sh > /dev/null 2>&1
+0 23 * * * /home/web/spiderweb/scripts/qso_months.sh > /dev/null 2>&1
+*/15 * * * * /home/web/spiderweb/scripts/propagation_heatmaps.sh > /dev/null 2>&1
+0 1  * * * /home/web/spiderweb/scripts/qso_trend.sh > /dev/null 2>&1
+*/30 * * * * /home/web/spiderweb/scripts/qso_hour_band.sh > /dev/null 2>&1
 ```
 
 ### Run test

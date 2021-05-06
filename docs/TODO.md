@@ -1,6 +1,6 @@
 
 ### TODO
-- [ ] migrate to boostrap 5 (when ready.. end of 2020?)
+- [ ] migrate to boostrap 5 
   - [x] fix frequency badge
   - [x] fix menu
   - [x] fix filter
@@ -15,9 +15,10 @@
   - [x] remove transparent background filter on mobile
   - [x] reduce jumbotron on mobile
   - [x] fix margin on cookies
-  - [ ] use bootstrap 5 icons
-  - [x] test bootstrap 5 beta
-  - [ ] test bootstrap 5 stable release
+  - [x] use bootstrap 5 icons
+  - [x] test bootstrap 5 beta 1/2/3
+  - [x] test bootstrap 5 stable release
+  - [x] use last jquery version
 - [x] add comments to code
 - [ ] add other plots (cpu load, memory used, disk used)
 - [ ] manage common html parts with "includes" https://jinja.palletsprojects.com/en/2.11.x/templates/#template-inheritance
@@ -49,9 +50,14 @@
 - [x] fix month plots
 - [ ] add native cookie bar
 - [x] privacy policy
-- [ ] add calendar with dx speditions
+- [x] add indicator to a call sign  with dx spedition reference (ADXO)
 - [ ] add requirements.txt file with all pythons dependancy
 - [ ] add carousel on propagation charts
 - [ ] convert to single page application https://flask.palletsprojects.com/en/1.1.x/patterns/singlepageapplications/
 - [ ] find another image as top backgroud
 - [ ] document with doxygen
+- [ ] make an install procedure (i.e. ask for folder, launch config, create crontab ...)
+- [ ] manage version in github
+- [ ] add version number as a footer (or header) in website see also https://css-tricks.com/how-to-automate-project-versioning-and-releases-with-continuous-deployment/
+- [ ] add propagation plot http://sidc.be/silso/forecasts
+- [ ] add "thanks to/link" page (i.e. for adxo )

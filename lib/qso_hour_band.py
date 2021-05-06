@@ -1,3 +1,6 @@
+#*****************************************************************************************
+# plot qso per hour / band                                 
+#*****************************************************************************************
 __author__ = 'IU1BOW - Corrado'
 
 import matplotlib
@@ -16,7 +19,8 @@ from plotuty import saveplt
 from matplotlib.colors import LogNorm
 from calendar import monthrange
 
-logging.config.fileConfig("../cfg/log_config.ini", disable_existing_loggers=False)
+logging.config.fileConfig("../cfg/plots_log_config.ini", disable_existing_loggers=False)
+logger = logging.getLogger(__name__)
 file_output = '../static/plots/'+ os.path.splitext(os.path.basename(sys.argv[0]))[0]
 
 #load band file
@@ -24,8 +28,8 @@ with open('../cfg/bands.json') as json_bands:
         band_frequencies = json.load(json_bands)
 
 
-logging.info("Start")
-logging.info("doing query...")
+logger.info("Start")
+logger.info("doing query...")
 
 #construct bands query
 bands_qry_string = 'CASE '
@@ -58,17 +62,17 @@ select s1.hour, s1.band, s1.total from (
       ; 
 """
 
-logging.debug(qry_string)
+logger.debug(qry_string)
 data=qry(qry_string)
 
-logging.info("query done")
-logging.debug (data)
+logger.info("query done")
+logger.debug (data)
 
 #plot
 if data is None or len(data)==0:
-    logging.warning("no data found")
+    logger.warning("no data found")
     sys.exit(1)
-logging.info("plotting...")
+logger.info("plotting...")
 
 
 #main
@@ -89,5 +93,5 @@ plt.xticks(np.arange(1, 24, 2.0),rotation='horizontal')
 saveplt(plt,file_output)
 
 
-logging.info("End")
+logger.info("End")
 

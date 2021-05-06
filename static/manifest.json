@@ -13,7 +13,8 @@
     {
       "src": "images/icons/icon-72x72.png",
       "sizes": "72x72",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "images/icons/icon-96x96.png",

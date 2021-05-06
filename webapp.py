@@ -3,13 +3,21 @@ import flask
 from flask import request, render_template, jsonify
 import MySQLdb as my
 import json
-from dxtelnet import who
-
+import time, threading
+import logging
+import logging.config
+from lib.dxtelnet import who
+from lib.adxo import get_adxo_events
 __author__ = 'IU1BOW - Corrado'
+
+logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
+logger = logging.getLogger(__name__)
+logger.info("Start")
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = False
 app.config['SECRET_KEY'] = 'secret!'
+
 
 #load config file
 with open('cfg/config.json') as json_data_file:
@@ -36,7 +44,6 @@ def load_country():
 #find id  in json : ie frequency / continent
 def find_id_json(json_object, name):
     return [obj for obj in json_object if obj['id']==name][0]
-
 
 #the main query to show spots
 #it gets url parameter in order to apply the build the right query
@@ -134,20 +141,31 @@ def spotquery():
 
         cursor = db.cursor()
         number_of_rows = cursor.execute('''SET NAMES 'utf8';''')
-        #print ("*** QUERY: "+query_string)   
+        logger.debug('*** QUERY: '+query_string)
         cursor.execute(query_string)
         row_headers=[x[0] for x in cursor.description] #this will extract row headers
         rv=cursor.fetchall()
+        logger.debug(rv)
         payload=[]
         for result in rv:
             payload.append(dict(zip(row_headers,result)))
         cursor.close()
         return payload
     except Exception as e:
-        print(e)
+        logger.error(e)
 
     finally:
         db.close()
+
+#find adxo events
+adxo_events=None
+
+def get_adxo():
+    global adxo_events
+    adxo_events=get_adxo_events()
+    threading.Timer(12*3600,get_adxo).start()
+
+get_adxo()
 
 @app.route('/spotlist', methods=['GET']) 
 def spotlist():
@@ -164,12 +182,11 @@ def who_is_connected():
 def spots():
     payload=spotquery()
     country_data=load_country()
-    response=flask.Response(render_template('index.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data))
+    response=flask.Response(render_template('index.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data,adxo_events=adxo_events))
     return response
 
 @app.route('/service-worker.js', methods=['GET'])
 def sw():
-    print ("call service worker")
     return app.send_static_file('service-worker.js')
 
 @app.route('/offline.html')
@@ -217,7 +234,7 @@ def callsign():
     payload=spotquery()  
     country_data=load_country()
     callsign=request.args.get('c')
-    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,country_data=country_data,callsign=callsign))
+    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,country_data=country_data,callsign=callsign,adxo_events=adxo_events))
     return response
 
 #@app.route('/who',methods=['GET'])

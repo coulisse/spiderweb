@@ -8,6 +8,8 @@
  * @param countries {json} This is the json containing all the countries 
  * @param wpx_to_find {string} The string received from the db of the cluster to decode
  */
+var adxo_url='http://www.ng3k.com/misc/adxo.html'
+var qrz_url='https://www.qrz.com/db/'
 function findCountry(countries, wpx_to_find) {
 
 	for (var i = 0; i < countries.length; i++) {
@@ -16,6 +18,22 @@ function findCountry(countries, wpx_to_find) {
     			};
 	};
 
+};
+
+/*
+ * Decode Announced Dx Operation (ng3k)
+ *
+ * @param countries {json} This is the json containing all the dxo events
+ * @param callsign {string} The callsign of the current dx line
+ */
+function findAdxo(adxo, callsign_to_find) {
+	if (adxo) {
+		for (var i = 0; i < adxo.length; i++) {
+    			if (adxo[i].callsign == callsign_to_find) {
+        			return adxo[i];
+    			};
+		};
+	};
 };
 
 /*
@@ -57,22 +75,28 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
 
 		var country=findCountry(countries, data[i].spotdxcc);
 		if (data[i].de == callsign) {
-			de = '<b>'+data[i].de+'</b>'
+			de = '<mark>'+data[i].de+'</mark>'
 		} else {
 			de = data[i].de
 		};
-		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].de+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].de+'"></i></a><span>&nbsp'+de+'</span></b>'));
+		row$.append($('<td/>').html('<a href="'+qrz_url+data[i].de+ '" target="_blank" rel="noopener"><i class="bi-search" aria-label="'+data[i].de+'"></i></a><span>&nbsp'+de+'</span></b>'));
 
 		var freq = Intl.NumberFormat('it-IT', { style: 'decimal' }).format(data[i].freq);
 		row$.append($('<td/>').html('<span class="badge bg-warning text-dark badge-responsive">'+freq+'</span>'));
 
 		if (data[i].dx == callsign) {
-			dx = '<b>'+data[i].dx+'</b>'
+			dx = '<mark>'+data[i].dx+'</mark>'
 		} else {
 			dx = data[i].dx
 		};
 
-		row$.append($('<td/>').html('<a href="https://www.qrz.com/db/'+data[i].dx+ '" target="_blank" rel="noopener"><i class="search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+dx+'</span>'));
+		var adxo=findAdxo(my_adxo_events, data[i].dx);
+		var adxo_link='<a href='+adxo_url+' target=_blank rel=noopener >NG3K Website</a>'
+		if (adxo != undefined) {
+			dx=dx+'&nbsp<a tabindex="0" class="bi-megaphone-fill" style="color: cornflowerblue;" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-sanitize="true" data-bs-placement="auto" data-bs-html="true" data-bs-title="Announced DX Op.: '+adxo.summary+'" data-bs-content="'+adxo.description+" data from "+'&nbsp'+adxo_link+'"></a>'
+		};
+
+		row$.append($('<td/>').html('<a href="'+qrz_url+data[i].dx+ '" target="_blank" rel="noopener"><i class="bi-search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+dx+'</span>'));
 		try {
 			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+country.ISO+'" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="left" data-bs-content="'+country.country+'"></span>'));
 		} catch (err) {
@@ -217,13 +241,13 @@ function buildHtmlPlots(selector,data) {
 	//bands activity
 	var contBandsActivity$=$('<div class="container justify-content-center"/>');
 	contBandsActivity$.append($('<h3  class="text-center"/>').html('Band Activity'));
-	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AF']+'.png" alt="propatation heatmap AF" srcset="/static/plots/'+data['propagation_heatmaps_AF']+'.svg">'));
-	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AN']+'.png" alt="propatation heatmap AN" srcset="/static/plots/'+data['propagation_heatmaps_AN']+'.svg">'));
-	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AS']+'.png" alt="propatation heatmap AS" srcset="/static/plots/'+data['propagation_heatmaps_AS']+'.svg">'));
-	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_EU']+'.png" alt="propatation heatmap EU" srcset="/static/plots/'+data['propagation_heatmaps_EU']+'.svg">'));
-	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_NA']+'.png" alt="propatation heatmap NA" srcset="/static/plots/'+data['propagation_heatmaps_NA']+'.svg">'));
-	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_OC']+'.png" alt="propatation heatmap OC" srcset="/static/plots/'+data['propagation_heatmaps_OC']+'.svg">'));
-	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_SA']+'.png" alt="propatation heatmap SA" srcset="/static/plots/'+data['propagation_heatmaps_SA']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AF']+'.png" alt="propagation heatmap AF" srcset="/static/plots/'+data['propagation_heatmaps_AF']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AN']+'.png" alt="propagation heatmap AN" srcset="/static/plots/'+data['propagation_heatmaps_AN']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_AS']+'.png" alt="propagation heatmap AS" srcset="/static/plots/'+data['propagation_heatmaps_AS']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_EU']+'.png" alt="propagation heatmap EU" srcset="/static/plots/'+data['propagation_heatmaps_EU']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_NA']+'.png" alt="propagation heatmap NA" srcset="/static/plots/'+data['propagation_heatmaps_NA']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_OC']+'.png" alt="propagation heatmap OC" srcset="/static/plots/'+data['propagation_heatmaps_OC']+'.svg">'));
+	contBandsActivity$.append($('<img class="img-fluid" src="/static/plots/'+data['propagation_heatmaps_SA']+'.png" alt="propagation heatmap SA" srcset="/static/plots/'+data['propagation_heatmaps_SA']+'.svg">'));
 	$(selector).append(contBandsActivity$);
 
 	//qso per months

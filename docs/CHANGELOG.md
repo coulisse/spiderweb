@@ -1,5 +1,5 @@
 ### Change log
-xx/xx/2020: 2.0     
+06/05/2021: 2.0     
 - Migrated to bootstrap 5                                                               
 - Migrated to python 3
 - Added configuration in config.json for telnet and mail address (so you can avoid to change index.html file)
@@ -17,6 +17,12 @@ xx/xx/2020: 2.0
 - added hour / band qso plot
 - improved qso per month plot
 - added plot trend
+- improved logging
+- insert bootstrap icons
+- improved footer
+- added "Announced Dx Operation" integration with ng3k website 
+- used bootstrap icons instead of custom icons
+- migrated to last jquery version 3.6.0
 ___
 04/10/2020: 1.2.2
 - Added config.sh utilty in script folder, in order to avoid edit manually config.json

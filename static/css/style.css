@@ -1,3 +1,4 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css");
 .badge-responsive {
 	  width: 70px;
 }
@@ -51,35 +52,6 @@
 	background-image: url("/static/images/background.webp");
 	background-size: cover;
 	background-repeat: no-repeat;
-}
-
-span.filter {
-    background: url(/static/images/filter.svg) no-repeat top left;
-    background-size: contain;
-    cursor: pointer;
-    display: inline-block;
-    height: 18px;
-    width: 20px;
-}
-
-i.search {
-    background: url(/static/images/search.svg) no-repeat top left;
-    background-size: contain;
-    cursor: pointer;
-    display: inline-block;
-    height: 24px;
-    width: 24px;
-    vertical-align: bottom;
-}
-
-i.search:hover {
-    background: url(/static/images/search_hover.svg) no-repeat top left;
-    background-size: contain;
-    cursor: pointer;
-    display: inline-block;
-    height: 24px;
-    width: 24px;
-    vertical-align: bottom;
 }
 
 .copyleft {

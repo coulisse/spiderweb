@@ -1,3 +1,6 @@
+#*************************************************************************************
+# CLI Utility used for manage configuration file
+#*************************************************************************************
 __author__ = 'IU1BOW - Corrado'
 import os
 import os.path
@@ -142,7 +145,7 @@ def edit_config(cfg):
     view(cfg,'c')
     inp=''
     while inp!='x':
-        inp=str(user_input ('Type the number of config. you would to edit, X for end: '))
+        inp=str(user_input ('Type the number of config. you would to edit, x for end: '))
         inp.lower()   
         if inp.isdigit():
             inp=int(inp)
@@ -162,7 +165,7 @@ def menu_delete_entry(cfg):
     view(cfg,'m')
     inp=''
     while inp!='x':
-        inp=str(user_input ('Choose the menu you would to delete, X for end: '))
+        inp=str(user_input ('Choose the menu you would to delete, x for end: '))
         inp.lower()   
         if inp.isdigit():
             inp=int(inp)

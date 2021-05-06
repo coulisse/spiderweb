@@ -1,4 +1,8 @@
-import MySQLdb as my  
+#*****************************************************************************************
+# module used to make query to mysql                       
+# TODO: manage polymorfism and use only one qry sign
+#*****************************************************************************************
+import MySQLdb as my
 import logging          
 import json
 import pandas as pd
