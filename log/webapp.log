@@ -1,0 +1,3 @@
+2021-05-06 15:49:18,996 [INFO] (webapp.py) Start
+2021-05-06 15:49:19,002 [INFO] (adxo.py) connection to: http://dxcal.kj4z.com/dxcal
+2021-05-06 15:49:19,487 [INFO] (adxo.py) number ADXO events: 29
