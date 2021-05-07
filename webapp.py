@@ -6,8 +6,8 @@ import json
 import time, threading
 import logging
 import logging.config
-from libpy.dxtelnet import who
-from libpy.adxo import get_adxo_events
+from lib.dxtelnet import who
+from lib.adxo import get_adxo_events
 __author__ = 'IU1BOW - Corrado'
 
 logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
