@@ -10,7 +10,7 @@ var searchData=
   ['changelog_2emd',['CHANGELOG.md',['../CHANGELOG_8md.html',1,'']]],
   ['cmap',['cmap',['../namespacelib_1_1qso__hour__band.html#ad9da17aebd547d081eb4e06a07ad7678',1,'lib::qso_hour_band']]],
   ['code_5fof_5fconduct_2emd',['CODE_OF_CONDUCT.md',['../CODE__OF__CONDUCT_8md.html',1,'']]],
-  ['color',['color',['../namespacelib_1_1propagation__heatmaps.html#ab413ace1e568b0e2e6cd227bd29c3bc2',1,'lib.propagation_heatmaps.color()'],['../namespacelib_1_1qso__months.html#aa60298264c2274406701f5a979828340',1,'lib.qso_months.color()'],['../namespacelib_1_1qso__trend.html#ab4a192074052244f33be96add992a97c',1,'lib.qso_trend.color()']]],
+  ['color',['Color',['../namespaceMyLibrary.html#a79a9f4bbb675f6c082b09249c5a95ced',1,'MyLibrary::Color()'],['../namespacelib_1_1propagation__heatmaps.html#ab413ace1e568b0e2e6cd227bd29c3bc2',1,'lib.propagation_heatmaps.color()'],['../namespacelib_1_1qso__months.html#aa60298264c2274406701f5a979828340',1,'lib.qso_months.color()'],['../namespacelib_1_1qso__trend.html#ab4a192074052244f33be96add992a97c',1,'lib.qso_trend.color()']]],
   ['colors',['colors',['../namespacelib_1_1propagation__heatmaps.html#aeb208e5b098b8ee0e8c216e5a47a27a3',1,'lib::propagation_heatmaps']]],
   ['config_2epy',['config.py',['../config_8py.html',1,'']]],
   ['configs',['configs',['../namespacelib_1_1config.html#ac9cddf9507d692e2a8f113ee14f05eb8',1,'lib::config']]],

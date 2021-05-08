@@ -67,12 +67,16 @@ var menudata={children:[
 {text:"w",url:"namespacemembers_vars.html#index_w"},
 {text:"x",url:"namespacemembers_vars.html#index_x"},
 {text:"y",url:"namespacemembers_vars.html#index_y"},
-{text:"z",url:"namespacemembers_vars.html#index_z"}]}]}]},
+{text:"z",url:"namespacemembers_vars.html#index_z"}]},
+{text:"Enumerations",url:"namespacemembers_enum.html"},
+{text:"Enumerator",url:"namespacemembers_eval.html"}]}]},
 {text:"Classes",url:"annotated.html",children:[
 {text:"Class List",url:"annotated.html"},
 {text:"Class Index",url:"classes.html"},
+{text:"Class Hierarchy",url:"inherits.html"},
 {text:"Class Members",url:"functions.html",children:[
 {text:"All",url:"functions.html"},
+{text:"Functions",url:"functions_func.html"},
 {text:"Variables",url:"functions_vars.html"}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"},

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['webapp',['webapp',['../namespacewebapp.html',1,'']]],
-  ['wsgi',['wsgi',['../namespacewsgi.html',1,'']]]
+  ['mylibrary',['MyLibrary',['../namespaceMyLibrary.html',1,'']]]
 ];
