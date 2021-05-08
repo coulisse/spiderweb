@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['webapp_2epy',['webapp.py',['../webapp_8py.html',1,'']]],
-  ['wsgi_2epy',['wsgi.py',['../wsgi_8py.html',1,'']]]
+  ['readme_2emd',['README.md',['../README_8md.html',1,'(Global Namespace)'],['../static_2css_2README_8md.html',1,'(Global Namespace)'],['../static_2images_2README_8md.html',1,'(Global Namespace)'],['../static_2js_2README_8md.html',1,'(Global Namespace)']]]
 ];
