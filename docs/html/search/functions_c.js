@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['test',['test',['../classMyLibrary_1_1Example.html#a1c0046b0674eb4cad09c5d3e943912b8',1,'MyLibrary::Example']]]
+  ['user_5finput',['user_input',['../namespacelib_1_1config.html#a1d11147d24e45f870e9ddb8cece9b915',1,'lib::config']]]
 ];

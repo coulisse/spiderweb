@@ -12,6 +12,5 @@ var searchData=
   ['month',['month',['../namespacelib_1_1qso__months.html#abd58ca6decf522e373748d8193b3ba60',1,'lib::qso_months']]],
   ['months',['months',['../namespacelib_1_1qso__months.html#af5a0970b69b3598fa02bbedc1755c174',1,'lib::qso_months']]],
   ['months1',['months1',['../namespacelib_1_1qso__months.html#a0a98c66789ffb34897e4bf4691830c48',1,'lib::qso_months']]],
-  ['months2',['months2',['../namespacelib_1_1qso__months.html#a2a5e2549fa887993090f226ae61837c8',1,'lib::qso_months']]],
-  ['mylibrary',['MyLibrary',['../namespaceMyLibrary.html',1,'']]]
+  ['months2',['months2',['../namespacelib_1_1qso__months.html#a2a5e2549fa887993090f226ae61837c8',1,'lib::qso_months']]]
 ];

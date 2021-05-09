@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['page_2edox',['page.dox',['../page_8dox.html',1,'']]],
   ['parse_5fwho',['parse_who',['../namespacelib_1_1dxtelnet.html#a031b8b226757c96a3a9f47376433c9df',1,'lib::dxtelnet']]],
   ['plot_5finline_2ejs',['plot_inline.js',['../plot__inline_8js.html',1,'']]],
   ['plot_5finline_2emin_2ejs',['plot_inline.min.js',['../plot__inline_8min_8js.html',1,'']]],

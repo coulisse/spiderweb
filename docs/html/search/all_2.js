@@ -8,8 +8,6 @@ var searchData=
   ['bands_5fweight_5fqry_5fstring',['bands_weight_qry_string',['../namespacelib_1_1qso__hour__band.html#aca94d2ee83dbbf5a34e4c9d0026187dd',1,'lib::qso_hour_band']]],
   ['bbox',['bbox',['../namespacelib_1_1propagation__heatmaps.html#aa081404e4af4533a8c827c906033ec31',1,'lib::propagation_heatmaps']]],
   ['bcolors',['bcolors',['../classlib_1_1config_1_1bcolors.html',1,'lib::config']]],
-  ['blue',['blue',['../namespaceMyLibrary.html#a79a9f4bbb675f6c082b09249c5a95ceda3d4a113e58853e5d81725d92fbfceb4d',1,'MyLibrary']]],
   ['bold',['BOLD',['../classlib_1_1config_1_1bcolors.html#ad6cc6d40fb27641c651449159e585e0a',1,'lib::config::bcolors']]],
-  ['bottom',['bottom',['../namespacelib_1_1propagation__heatmaps.html#a383bde936236683de8f26449a7510648',1,'lib::propagation_heatmaps']]],
-  ['bug_20list',['Bug List',['../bug.html',1,'']]]
+  ['bottom',['bottom',['../namespacelib_1_1propagation__heatmaps.html#a383bde936236683de8f26449a7510648',1,'lib::propagation_heatmaps']]]
 ];
