@@ -1,8 +1,8 @@
-/*==============================================================================
+/********************************************************************************
  * Main javascript for all core functions of this application
- * =============================================================================*/
+ * ******************************************************************************/
 
-/*
+/**
  * Decode countries
  *
  * @param countries {json} This is the json containing all the countries 
@@ -20,7 +20,7 @@ function findCountry(countries, wpx_to_find) {
 
 };
 
-/*
+/**
  * Decode Announced Dx Operation (ng3k)
  *
  * @param countries {json} This is the json containing all the dxo events
@@ -36,7 +36,7 @@ function findAdxo(adxo, callsign_to_find) {
 	};
 };
 
-/*
+/**
  * Build the table with the spot
  *
  * @param selector {string} The html identifier where build the spots table
@@ -140,7 +140,7 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
     }
 };
 
-/*
+/**
  * Function to filter spot when pressed the search button on filter
  * This function trigger the search, also triggered by timer
  */
@@ -152,7 +152,7 @@ function mySearch(event) {
 };
 
 
-/*
+/**
  * Search / Filter cluster spot based on filter settings            
  * Gets the filter values, constructs the query parameter and 
  * make the request to the server
@@ -229,7 +229,7 @@ function myTimer() {
 	request.send()
 };
 
-/*
+/**
  * Build the html plots           
  *
  * @param selector {string} The html identifier where put the plots           
@@ -267,7 +267,7 @@ function buildHtmlPlots(selector,data) {
 
 };
 
-/*
+/**
  * Timer for refresh the plot page 
  */
 function plotsTimer() {
@@ -284,7 +284,7 @@ function plotsTimer() {
 	request.send()
 };
 
-/*
+/**
  * Receive a callsign by the html form and make the request to server
  */
 function myCallsignSearch() {
