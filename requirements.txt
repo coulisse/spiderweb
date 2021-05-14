@@ -18,7 +18,7 @@ numpy==1.19.5
 ordereddict==1.1
 pandas==1.1.5
 patsy==0.5.1
-Pillow==7.2.0
+Pillow==8.1.1
 pycosat==0.6.3
 pyparsing==2.4.7
 python-dateutil==2.8.1
