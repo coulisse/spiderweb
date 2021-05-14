@@ -1,0 +1,70 @@
+2021-05-14 12:05:42,175 [INFO] (qso_trend.py) Start
+2021-05-14 12:05:42,175 [INFO] (qso_trend.py) doing query...
+2021-05-14 12:06:29,376 [INFO] (qso_trend.py) query done
+2021-05-14 12:06:29,416 [INFO] (qso_trend.py) plotting...
+2021-05-14 12:06:30,314 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_trend_20210514-120629.svg
+2021-05-14 12:06:30,641 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_trend_20210514-120629.png
+2021-05-14 12:06:30,642 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2021-05-14 12:06:30,642 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:06:30,643 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:06:30,643 [INFO] (qso_trend.py) End
+2021-05-14 12:10:02,896 [INFO] (qso_months.py) Start
+2021-05-14 12:10:02,896 [INFO] (qso_months.py) doing query...
+2021-05-14 12:10:12,674 [INFO] (qso_months.py) query done
+2021-05-14 12:10:12,674 [INFO] (qso_months.py) plotting...
+2021-05-14 12:10:13,135 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_months_20210514-121012.svg
+2021-05-14 12:10:13,460 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_months_20210514-121012.png
+2021-05-14 12:10:13,460 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2021-05-14 12:10:13,460 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:10:13,461 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:10:13,461 [INFO] (qso_months.py) End
+2021-05-14 12:10:38,854 [INFO] (qso_hour_band.py) Start
+2021-05-14 12:10:38,855 [INFO] (qso_hour_band.py) doing query...
+2021-05-14 12:10:45,210 [INFO] (qso_hour_band.py) query done
+2021-05-14 12:10:45,210 [INFO] (qso_hour_band.py) plotting...
+2021-05-14 12:10:45,580 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_hour_band_20210514-121045.svg
+2021-05-14 12:10:45,802 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_hour_band_20210514-121045.png
+2021-05-14 12:10:45,802 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2021-05-14 12:10:45,803 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:10:45,803 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:10:45,803 [INFO] (qso_hour_band.py) End
+2021-05-14 12:15:49,877 [INFO] (propagation_heatmaps.py) Start
+2021-05-14 12:15:49,878 [INFO] (propagation_heatmaps.py) doing query...
+2021-05-14 12:15:50,274 [INFO] (propagation_heatmaps.py) query done
+2021-05-14 12:15:50,275 [INFO] (propagation_heatmaps.py) plotting...
+2021-05-14 12:15:50,889 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AF_20210514-121550.svg
+2021-05-14 12:15:51,325 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AF_20210514-121550.png
+2021-05-14 12:15:51,326 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2021-05-14 12:15:51,326 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:51,327 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:51,929 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AN_20210514-121551.svg
+2021-05-14 12:15:52,374 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AN_20210514-121551.png
+2021-05-14 12:15:52,375 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2021-05-14 12:15:52,375 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:52,376 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:52,973 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AS_20210514-121552.svg
+2021-05-14 12:15:53,420 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AS_20210514-121552.png
+2021-05-14 12:15:53,421 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2021-05-14 12:15:53,421 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:53,422 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:54,024 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_EU_20210514-121553.svg
+2021-05-14 12:15:54,473 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_EU_20210514-121553.png
+2021-05-14 12:15:54,473 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2021-05-14 12:15:54,473 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:54,474 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:55,068 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_NA_20210514-121554.svg
+2021-05-14 12:15:55,521 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_NA_20210514-121554.png
+2021-05-14 12:15:55,521 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2021-05-14 12:15:55,522 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:55,522 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:56,105 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_OC_20210514-121555.svg
+2021-05-14 12:15:56,551 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_OC_20210514-121555.png
+2021-05-14 12:15:56,552 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2021-05-14 12:15:56,552 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:56,552 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:57,136 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_SA_20210514-121556.svg
+2021-05-14 12:15:57,597 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_SA_20210514-121556.png
+2021-05-14 12:15:57,597 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2021-05-14 12:15:57,598 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:57,598 [INFO] (plotuty.py) deleting old files
+2021-05-14 12:15:57,630 [INFO] (propagation_heatmaps.py) End

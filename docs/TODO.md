@@ -1,4 +1,3 @@
-
 ### TODO
 - [ ] migrate to boostrap 5 
   - [x] fix frequency badge
@@ -51,7 +50,7 @@
 - [ ] add native cookie bar
 - [x] privacy policy
 - [x] add indicator to a call sign  with dx spedition reference (ADXO)
-- [ ] add requirements.txt file with all pythons dependancy
+- [x] add requirements.txt file with all pythons dependancy. See: https://blog.usejournal.com/why-and-how-to-make-a-requirements-txt-f329c685181e
 - [ ] add carousel on propagation charts
 - [ ] convert to single page application https://flask.palletsprojects.com/en/1.1.x/patterns/singlepageapplications/
 - [ ] find another image as top backgroud

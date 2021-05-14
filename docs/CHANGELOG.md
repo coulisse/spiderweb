@@ -1,4 +1,7 @@
 ### Change log
+14/05/2021: 2.0.1   
+- Addded installation with requirements                                                
+___
 06/05/2021: 2.0     
 - Migrated to bootstrap 5                                                               
 - Migrated to python 3

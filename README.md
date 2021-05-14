@@ -43,7 +43,16 @@ $dbpass = "your-password";
 If you would change some MariaDB parameters, then you can find them in  `/etc/mysql/my.cnf` or `/etc/my.cnf`, depending on your distro.
 If the database will not be created automatically, please see ["DB_ISSUES.md"](docs/DB_ISSUES.md) 
 
-**3) Python / Flask**
+**3) Python modules**
+You could install python modules using automatic or manual way.
+
+*3.1) Automatic modules install*
+after downloaded spiderweb move in the main folder and install using requirements.txt file
+```console
+ foo@bar:~$ cd spiderweb                                
+ foo@bar:~$ pip install -r requirements.txt
+```
+*3.2) Manual modules install*
 First of all you have to install the python3 pip installer
 ```console
 foo@bar:~$ sudo apt install python3-pip
