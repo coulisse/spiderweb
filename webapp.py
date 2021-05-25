@@ -1,13 +1,13 @@
 import os
 import flask
 from flask import request, render_template, jsonify
-import MySQLdb as my
 import json
 import time, threading
 import logging
 import logging.config
 from lib.dxtelnet import who
 from lib.adxo import get_adxo_events
+from lib.qry import query_manager
 __author__ = 'IU1BOW - Corrado'
 
 logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
@@ -35,6 +35,9 @@ with open('cfg/modes.json') as json_modes:
 with open('cfg/continents.json') as json_continents:
         continents_cq = json.load(json_continents)
 
+#create object query manager
+qm=query_manager()
+
 #load country file (and send it to front-end)
 def load_country():
     filename = os.path.join(app.static_folder, 'country.json')
@@ -61,17 +64,14 @@ def spotquery():
         query_string=''
         if callsign:
             #construct the query, to show last 6 month
-#           query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE (spotter='"+callsign+"' OR spotcall='"+callsign+"')"                    
-#           query_string+=" AND  time > UNIX_TIMESTAMP()-16070400"
-#           query_string+=" ORDER BY  CASE spotter  WHEN '"+callsign+"' THEN 1 ELSE -1 END ASC, rowid desc limit 20;"
-
-            query_string="(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE spotter='"+callsign+"'"                    
-            query_string+=" ORDER BY rowid desc limit 10)"
-
-            query_string+=" UNION "
-
-            query_string+="(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE spotcall='"+callsign+"'" 
-            query_string+=" ORDER BY rowid desc limit 10);"
+            if len(callsign)<=14:
+                query_string="(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE spotter='"+callsign+"'"                    
+                query_string+=" ORDER BY rowid desc limit 10)"
+                query_string+=" UNION "
+                query_string+="(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE spotcall='"+callsign+"'" 
+                query_string+=" ORDER BY rowid desc limit 10);"
+            else:
+                logging.warning('callsign too long')
 
         else:    
             #construct band query decoding frequencies with json file
@@ -129,33 +129,26 @@ def spotquery():
 
             if len(dxre) > 0:
                 query_string += dxre_qry_string
-            
+
             query_string += " ORDER BY rowid desc limit 50;"  
 
-        #connect to db
-        db = my.connect(host=cfg['mysql']['host'],
-                    user=cfg['mysql']['user'],
-                    passwd=cfg['mysql']['passwd'],
-                    db=cfg['mysql']['db']
-                    )
+        logger.debug(query_string)
+        qm.qry(query_string)
+        data=qm.get_data()
+        row_headers=qm.get_headers()
 
-        cursor = db.cursor()
-        number_of_rows = cursor.execute('''SET NAMES 'utf8';''')
-        logger.debug('*** QUERY: '+query_string)
-        cursor.execute(query_string)
-        row_headers=[x[0] for x in cursor.description] #this will extract row headers
-        rv=cursor.fetchall()
-        logger.debug(rv)
+        logger.debug("query done")
+        logger.debug (data)
+
+        if data is None or len(data)==0:
+              logger.warning("no data found")
+
         payload=[]
-        for result in rv:
+        for result in data:
             payload.append(dict(zip(row_headers,result)))
-        cursor.close()
         return payload
     except Exception as e:
         logger.error(e)
-
-    finally:
-        db.close()
 
 #find adxo events
 adxo_events=None

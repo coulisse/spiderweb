@@ -1,4 +1,10 @@
 ### Change log
+16/05/2021: 2.0.2   
+- Fixed frequency mode on 40 meters                                                    
+- Fixed unicode query
+- used qry.py also inside webapp.py
+- replaced MySqlDb with mysql.connector
+___
 14/05/2021: 2.0.1   
 - Addded installation with requirements                                                
 ___

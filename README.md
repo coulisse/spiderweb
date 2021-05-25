@@ -43,35 +43,30 @@ $dbpass = "your-password";
 If you would change some MariaDB parameters, then you can find them in  `/etc/mysql/my.cnf` or `/etc/my.cnf`, depending on your distro.
 If the database will not be created automatically, please see ["DB_ISSUES.md"](docs/DB_ISSUES.md) 
 
-**3) Python modules**
+**3) Python modules**  
 You could install python modules using automatic or manual way.
 
-*3.1) Automatic modules install*
+*3.1) Automatic modules install*  
 after downloaded spiderweb move in the main folder and install using requirements.txt file
 ```console
  foo@bar:~$ cd spiderweb                                
  foo@bar:~$ pip install -r requirements.txt
 ```
-*3.2) Manual modules install*
+*3.2) Manual modules install*  
 First of all you have to install the python3 pip installer
 ```console
 foo@bar:~$ sudo apt install python3-pip
 ```
-
 This application is based on Flask 
 To install **Flask**:
 ```console
 foo@bar:~$ pip3 install flask 
 ```
-or
-```console
-foo@bar:~$ sudo -H pip3 install flask --system 
-```
 Then you have to install mysql libraries**:
 ```console
-foo@bar:~$ pip3 install flask_mysqldb  
-or
-foo@bar:~$ sudo -H pip3 install flask_mysqldb --system 
+foo@bar:~$ pip install mysql-connector-python
+foo@bar:~$ pip install --upgrade mysql-connector-python==8.0.12
+
 ```
 
 Finally you have to install matplotlib and pandas in order to plots some graphics
@@ -124,6 +119,8 @@ then edit it in a manner like this:
 */15 * * * * /home/web/spiderweb/scripts/propagation_heatmaps.sh > /dev/null 2>&1
 0 1  * * * /home/web/spiderweb/scripts/qso_trend.sh > /dev/null 2>&1
 */30 * * * * /home/web/spiderweb/scripts/qso_hour_band.sh > /dev/null 2>&1
+39 * * * * /home/web/spiderweb/scripts/monitor.sh> /dev/null 2>&1
+__
 ```
 
 ### Run test
@@ -140,7 +137,7 @@ There are some ways to use it in production.
 My configuration is:
 Cloudflare + Nginx + Bjoern
 
-**Bjoern is a lightweight WSGI for python.
+**Bjoern is a lightweight WSGI for python.**
 
 for install it: 
 ```console
@@ -189,9 +186,9 @@ foo@bar:~$ sudo systemctl status spiderweb.service
 
 Oct 25 09:56:35 dxcluster01 systemd[1]: Started bjoern instance spiderweb.
 ```
-Now you can install and configura NGINX
+Now you can install and configur **NGINX**
 
-Install with
+Install with:  
 ```console
 foo@bar:~$ sudo apt install nginx
 ```

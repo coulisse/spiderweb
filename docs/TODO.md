@@ -60,3 +60,5 @@
 - [ ] add version number as a footer (or header) in website see also https://css-tricks.com/how-to-automate-project-versioning-and-releases-with-continuous-deployment/
 - [ ] add propagation plot http://sidc.be/silso/forecasts
 - [ ] add "thanks to/link" page (i.e. for adxo )
+- [ ] migrate from jquery to vuejs
+- [x] convert and manage qry.py to class

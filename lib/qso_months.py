@@ -13,7 +13,7 @@ from datetime import datetime
 import logging
 import logging.config
 import matplotlib.gridspec as gridspec
-from qry import qry
+from qry import query_manager
 from plotuty import saveplt
 from calendar import monthrange
 
@@ -82,7 +82,9 @@ select month(s1.ym) as referring_month,
 ;
     """
 logger.debug(qry_string) 
-data=qry(qry_string)
+qm=query_manager()
+qm.qry(qry_string)
+data=qm.get_data()
 
 logger.info("query done")
 logger.debug (data)  

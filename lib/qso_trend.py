@@ -14,7 +14,7 @@ import logging
 import logging.config
 import matplotlib.gridspec as gridspec
 import matplotlib.dates as mdates
-from qry import qry_pd
+from qry import query_manager
 from plotuty import saveplt
 import pandas as pd
 from statsmodels.tsa.api import ExponentialSmoothing
@@ -40,7 +40,9 @@ qry_string="""
 ;
     """
 logger.debug(qry_string) 
-df=qry_pd(qry_string)
+qm=query_manager()
+qm.qry_pd(qry_string)
+df=qm.get_data()
 logger.info("query done")
 logger.debug (df)  
 

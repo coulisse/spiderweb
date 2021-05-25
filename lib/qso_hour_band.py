@@ -14,7 +14,7 @@ import logging
 import logging.config 
 import json
 import matplotlib.gridspec as gridspec 
-from qry import qry
+from qry import query_manager
 from plotuty import saveplt
 from matplotlib.colors import LogNorm
 from calendar import monthrange
@@ -63,7 +63,9 @@ select s1.hour, s1.band, s1.total from (
 """
 
 logger.debug(qry_string)
-data=qry(qry_string)
+qm=query_manager()
+qm.qry(qry_string)
+data=qm.get_data()
 
 logger.info("query done")
 logger.debug (data)
