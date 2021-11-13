@@ -3,6 +3,7 @@
 - jquery upgraded to 3.6
 - bootstrap upgraded to 5.0.2
 - managed connection error to telnet host 
+___
 16/05/2021: 2.0.2   
 - Fixed frequency mode on 40 meters                                                    
 - Fixed unicode query
