@@ -1,4 +1,8 @@
 ### Change log
+13/11/2021: 2.0.3
+- jquery upgraded to 3.6
+- bootstrap upgraded to 5.0.2
+- managed connection error to telnet host 
 16/05/2021: 2.0.2   
 - Fixed frequency mode on 40 meters                                                    
 - Fixed unicode query

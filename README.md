@@ -237,6 +237,3 @@ you can use the scritp `scripts/monitoring.sh` in order to monitoring your syste
 <img src="docs/images/06_mobile_main.jpg" width="200"/>
 </p>
 
-
-### TODO
-see it on file ["TODO.md"](docs/TODO.md)
