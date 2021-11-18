@@ -1,1 +1,0 @@
-../../templates/replace_version.sh

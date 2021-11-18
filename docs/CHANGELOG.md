@@ -1,8 +1,9 @@
 ### Change log
-13/11/2021: 2.0.3
+xx/xx/2021: 2.1  
 - jquery upgraded to 3.6
 - bootstrap upgraded to 5.0.2
 - managed connection error to telnet host 
+- used a base template in order to put all csv/scripts on a page
 ___
 16/05/2021: 2.0.2   
 - Fixed frequency mode on 40 meters                                                    

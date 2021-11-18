@@ -204,18 +204,18 @@ def plotlist():
 def plots():
     payload=plotlist()  
     whoj=who_is_connected()
-    response=flask.Response(render_template('plots.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['plot_refresh_timer']['interval'],who=whoj))
+    response=flask.Response(render_template('plots.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['plot_refresh_timer']['interval'],who=whoj))
     return response
 
 
 @app.route('/cookies.html', methods=['GET'])
 def cookies():
-    response=flask.Response(render_template('cookies.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list']))
+    response=flask.Response(render_template('cookies.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list']))
     return response
 
 @app.route('/privacy.html', methods=['GET'])
 def privacy():
-    response=flask.Response(render_template('privacy.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list']))
+    response=flask.Response(render_template('privacy.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list']))
     return response
 
 @app.route('/sitemap.xml')
@@ -227,7 +227,8 @@ def callsign():
     payload=spotquery()  
     country_data=load_country()
     callsign=request.args.get('c')
-    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,country_data=country_data,callsign=callsign,adxo_events=adxo_events))
+#    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,country_data=country_data,callsign=callsign,adxo_events=adxo_events))
+    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data,callsign=callsign,adxo_events=adxo_events))
     return response
 
 #@app.route('/who',methods=['GET'])

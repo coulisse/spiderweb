@@ -1,76 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "_base.html" %}
 <head>
-  <meta name="robots" content="noindex, nofollow">
-  <title>DX Cluster from IU1BOW: Cookies</title>
-  <meta charset="utf-8">
-  <meta name="KEYWORDS" content="dxcluster,iu1bow,cluster,ham radio,web dx cluster">
-  <meta name="description" content="dx cluster for hamradio, by IU1BOW">
-  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=0">
-  <meta name="theme-color" content="#2196f3">
-  <link rel="shortcut icon" href="/static/favicon.png">
-  <link rel="manifest" href="/static/manifest.json">
-  <link rel="stylesheet" href="/static/css/min/style.min.css">
-
-	<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" as="style" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" onload="this.rel='stylesheet'">
-  	<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"></noscript>
-  <script>
-
-    /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
-    !function(a){"use strict";var b=function(b,c,d){function j(a){if(e.body)return a();setTimeout(function(){j(a)})}function l(){f.addEventListener&&f.removeEventListener("load",l),f.media=d||"all"}var g,e=a.document,f=e.createElement("link");if(c)g=c;else{var h=(e.body||e.getElementsByTagName("head")[0]).childNodes;g=h[h.length-1]}var i=e.styleSheets;f.rel="stylesheet",f.href=b,f.media="only x",j(function(){g.parentNode.insertBefore(f,c?g:g.nextSibling)});var k=function(a){for(var b=f.href,c=i.length;c--;)if(i[c].href===b)return a();setTimeout(function(){k(a)})};return f.addEventListener&&f.addEventListener("load",l),f.onloadcssdefined=k,k(l),f};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
-    /*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
-    !function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(a){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
-  </script>
+     {% block title %}
+  	<title>DX Cluster from IU1BOW: Cookies</title>
+     {% endblock %}
+	{% block head %}
+		{{ super() }}
+	{% endblock %}
 </head>
-<body>
-  <header>
-
-	<!-- nav bar -->
-		<nav class="navbar px-2 navbar-expand-lg navbar-dark bg-dark">
-			<div class="container-fluid">
-			<a class="navbar-brand" href="/">
-				<img src="/static/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-				{{ mycallsign }}
-			</a>	
-			<button class="navbar-toggler" type="button" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" >
-				<span class="navbar-toggler-icon"></span>
-	        </button>
- 			<div class="collapse navbar-collapse" id="navbarToggler01">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0" >
-					{% for dict_item in menu_list %}
-						<li class="nav-item">
-							<a class="nav-link  {% if request.path == dict_item["link"] %} active {% endif %}" href="{{dict_item["link"]}}"  
-								{% if dict_item["external"] %} 
-									target="blank" rel="noopener" 
-								{% endif %} 
-							>{{dict_item["label"]}}<span class="sr-only"></span></a>
-						</li>
-					{% endfor %}
-				</ul>
-				<form method="POST" class="d-flex"  id="form-callsign" enctype="application/x-www-form-urlencoded" >	
-					<div class="input-group" id='input-group-callsign'>
-  						<input type="text" class="form-control" placeholder="callsign" aria-label="callsign" aria-describedby="button-addon2" id="callsignInput" >
-						<div class="input-group-append">
-							<button class="btn btn-secondary" type="submit" onclick="myCallsignSearch()" formaction='javascript:myCallsignSearch();'>
-								<span class="bi-search" aria-label="search-callsign"></span>
-							</button> 
-						</div>
-					</div>
-		    		</form>	
-	        	</div>
-			</div>
-		</nav>
-  </header>
-  <main>
-    <!-- jumbotron -->
-    <div class="container-fluid mt-1 ml-0 mr-0 px-0">
-       <div class="ipcs bg-light p-4 rounded-lg m-2">
+	{% block titles %}
         <h1 class="display-4 text-white">COOKIES</h1>
         <p class="lead text-light">WEB DX Cluster For HAM Radio</p>
-        <p class="text-light">Telnet access: <a href="telnet://dxcluster.iu1bow.it:7300" class="text-white">dxcluster.iu1bow.it 7300</a></p>
-        <p class="text-light">For connect your cluster, write to <a href="mailto:corrado.gerbaldo@gmail.com?Subject=Connect%20my%20DxCluster%20node" target="_top" class="text-white">corrado.gerbaldo@gmail.com</a></p>
-      </div>
-    </div>
+    {% endblock %}
+	{% block filters %}
+	{% endblock %}
+	{% block contents %}
     <div class="col mr-3 px-2">
       <p class="text-justify"><span class="font-weight-bold">Cookies</span> are small text files that can be used by websites to make a user's experience more efficient. This site uses different types of cookies. You can at any time change or withdraw
       your consent from the Cookies page on my website. Some cookies are placed by third party services that appear on our pages, for example if you view or listen to any embedded audio or video content. I don't control the setting of these cookies, so
@@ -83,18 +26,8 @@
       valuable for publishers and third party advertisers.</p>
       <p class="text-justify"><span class="font-weight-bold">Unclassified</span> cookies are cookies that we are in the process of classifying, together with the providers of individual cookies.</p>
     </div>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js" integrity="sha512-6ORWJX/LrnSjBzwefdNUyLCMTIsGoNP6NftMy2UAm1JBm6PRZCO1d7OHBStWpVFZLO+RerTvqX/Z9mBFfCJZ4A==" crossorigin="anonymous">
-    </script> 
-<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script defer src="/static/js/min/application.min.js">
-    </script>
-  </main>
-  <footer class="page-footer font-small blue">
-    <div class="footer-copyright text-center py-3">
-      2020-<script>document.write(new Date().getFullYear())</script><span class="copyleft">©</span> Copyleft: <a href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">IU1BOW Spiderweb</a>
-    </div>
-  </footer>
-</body>
-</html>
-
-
+	{% endblock %}
+	{% block app_data %}
+	{% endblock %}
+	{% block app_scritps %}
+	{% endblock %}
