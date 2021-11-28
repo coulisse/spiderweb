@@ -2,7 +2,7 @@ SPIDERWEB
 ===
 
 ### Ham radio cluster web viewer for DxSpider
-
+- **Release:** v2.1
 - **Author:** Corrado Gerbaldo - IU1BOW.
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see ["LICENSE"](LICENSE) file.
@@ -23,8 +23,6 @@ For this application I've used:
 You can find my web site at [https://www.iu1bow.it](https://www.i1bow.it)
 
 ### Changelog
-**New Release 2.0.!!!**
-It uses Python 3 and Bootstrap 5
 see file ["CHANGELOG.md"](docs/CHANGELOG.md)
 
 ### Install            
@@ -60,7 +58,10 @@ foo@bar:~$ sudo apt install python3-pip
 This application is based on Flask 
 To install **Flask**:
 ```console
-foo@bar:~$ pip3 install flask 
+foo@bar:~$ pip install flask 
+foo@bar:~$ pip install Flask-minify
+foo@bar:~$ pip install staticjinja
+foo@bar:~$ pip install flask_wtf
 ```
 Then you have to install mysql libraries**:
 ```console

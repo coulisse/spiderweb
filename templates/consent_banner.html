@@ -1,0 +1,5 @@
+<input type="checkbox" id="category_{{ category.name }}"
+       {% if category.default %}checked="checked"{% endif %}
+       {% if category.is_required %}disabled="disabled"{% endif %}
+       name="flask_consent_category" value="{{ category.name }}"/>
+<label for="category_{{ category.name }}">{{ category.title }}</label>

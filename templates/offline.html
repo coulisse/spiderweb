@@ -8,6 +8,11 @@
 		{{ super() }}
 	{% endblock %}
 </head>
+	{% block menu %}
+		{{ super() }}
+		{% block callsign %}
+		{% endblock callsign %}
+	{% endblock menu %}
 	{% block titles %}
 		<h1 class="display-4 text-white">WEB DX Cluster</h1>
 		<p class="lead text-light">Spots list</p>

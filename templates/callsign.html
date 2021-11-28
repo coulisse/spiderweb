@@ -1,24 +1,16 @@
-{% extends "_base.html" %}
+{% extends "index.html" %}
 <head>
      {% block title %}
      <title>Spot search for a specific Callsign</title>
      {% endblock %}
-	{% block head %}
-		{{ super() }}
-	{% endblock %}
 </head>
 	{% block titles %}
 		<h1 class="display-4 text-white">{{callsign}}</h1>
 		<p class="lead text-light">Some statistics about this callsign</p>
     {% endblock %}
-	{% block app_data %}
-		{{ super() }}
-		var payload_json={{payload|tojson|safe}};
-		var timer_interval_json = {{timer_interval}};
-		var my_countries_json='{{ country_data|tojson|safe }}';
-		var my_adxo_events_json='{{ adxo_events|tojson|safe }}';
-	{% endblock app_data %}
-	{% block app_scripts %}
-	{{ super() }}
-		<script defer src="static/js/min/callsign_inline.min.js"></script>
-	{% endblock app_scripts %}
+	{% block filters %}
+       <div class="row  mx-auto">
+	{% endblock filters %}
+	{% block inline_scripts %}
+		<script defer src="static/js/callsign_inline.min.js"></script>
+	{% endblock %}

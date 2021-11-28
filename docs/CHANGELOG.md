@@ -1,9 +1,17 @@
 ### Change log
-xx/xx/2021: 2.1  
+Date: 27/11/2021                         
+Release: v2.1
 - jquery upgraded to 3.6
 - bootstrap upgraded to 5.0.2
 - managed connection error to telnet host 
 - used a base template in order to put all csv/scripts on a page
+- keywords changed
+- added version to page footer
+- created a build script in order to automating versioning and others
+- added security policy in meta tag
+- added cross-site request forgery security
+- added security headers
+- added cache control headers
 ___
 16/05/2021: 2.0.2   
 - Fixed frequency mode on 40 meters                                                    

@@ -79,7 +79,7 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
 		} else {
 			de = data[i].de
 		};
-		row$.append($('<td/>').html('<a href="'+qrz_url+data[i].de+ '" target="_blank" rel="noopener"><i class="bi-search" aria-label="'+data[i].de+'"></i></a><span>&nbsp'+de+'</span></b>'));
+		row$.append($('<td/>').html('<a href="'+qrz_url+data[i].de+ '" target="_blank" rel="noopener"><i class="bi-search" role="button" aria-label="'+data[i].de+'"></i></a><span>&nbsp'+de+'</span></b>'));
 
 		var freq = Intl.NumberFormat('it-IT', { style: 'decimal' }).format(data[i].freq);
 		row$.append($('<td/>').html('<span class="badge bg-warning text-dark badge-responsive">'+freq+'</span>'));
@@ -93,10 +93,11 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
 		var adxo=findAdxo(my_adxo_events, data[i].dx);
 		var adxo_link='<a href='+adxo_url+' target=_blank rel=noopener >NG3K Website</a>'
 		if (adxo != undefined) {
-			dx=dx+'&nbsp<a tabindex="0" class="bi-megaphone-fill" style="color: cornflowerblue;" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-sanitize="true" data-bs-placement="auto" data-bs-html="true" data-bs-title="Announced DX Op.: '+adxo.summary+'" data-bs-content="'+adxo.description+" data from "+'&nbsp'+adxo_link+'"></a>'
+			//dx=dx+'&nbsp<a tabindex="0" class="bi-megaphone-fill" style="color: cornflowerblue;" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-sanitize="true" data-bs-placement="auto" data-bs-html="true" data-bs-title="Announced DX Op.: '+adxo.summary+'" data-bs-content="'+adxo.description+" data from "+'&nbsp'+adxo_link+'"></a>'
+			dx=dx+'&nbsp<i tabindex="0" class="bi-megaphone-fill" style="color: cornflowerblue; " role="button" aria-label="dx_operations" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-sanitize="true" data-bs-placement="auto" data-bs-html="true" data-bs-title="Announced DX Op.: '+adxo.summary+'" data-bs-content="'+adxo.description+" data from "+'&nbsp'+adxo_link+'"></i>'
 		};
 
-		row$.append($('<td/>').html('<a href="'+qrz_url+data[i].dx+ '" target="_blank" rel="noopener"><i class="bi-search" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+dx+'</span>'));
+		row$.append($('<td/>').html('<a href="'+qrz_url+data[i].dx+ '" target="_blank" rel="noopener"><i class="bi-search" role="button" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+dx+'</span>'));
 		try {
 			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+country.ISO+'" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="left" data-bs-content="'+country.country+'"></span>'));
 		} catch (err) {

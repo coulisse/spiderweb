@@ -1,6 +1,8 @@
 import os
 import flask
 from flask import request, render_template, jsonify
+from flask_wtf.csrf import CSRFProtect
+from flask_minify import minify
 import json
 import time, threading
 import logging
@@ -10,6 +12,7 @@ from lib.adxo import get_adxo_events
 from lib.qry import query_manager
 __author__ = 'IU1BOW - Corrado'
 
+
 logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
 logger = logging.getLogger(__name__)
 logger.info("Start")
@@ -17,6 +20,16 @@ logger.info("Start")
 app = flask.Flask(__name__)
 app.config["DEBUG"] = False
 app.config['SECRET_KEY'] = 'secret!'
+app.config['WTF_CSRF_SECRET_KEY']='wtfsecret!'
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax',
+)
+
+csrf = CSRFProtect(app)
+minify(app=app, html=True, js=True,cssless=False)
+#minify(app=app, html=False, js=False,cssless=False)
 
 
 #load config file
@@ -40,9 +53,12 @@ qm=query_manager()
 
 #load country file (and send it to front-end)
 def load_country():
-    filename = os.path.join(app.static_folder, 'country.json')
-    with open(filename) as country_file:
-        return json.load(country_file)
+#    filename = os.path.join(app.static_folder, 'country.json')
+#    with open(filename) as country_file:
+#        return json.load(country_file)
+     with open('cfg/country.json') as json_country:
+        return  json.load(json_country)
+	
 
 #find id  in json : ie frequency / continent
 def find_id_json(json_object, name):
@@ -227,11 +243,23 @@ def callsign():
     payload=spotquery()  
     country_data=load_country()
     callsign=request.args.get('c')
-#    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],menu_list=cfg['menu']['menu_list'],payload=payload,country_data=country_data,callsign=callsign,adxo_events=adxo_events))
     response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data,callsign=callsign,adxo_events=adxo_events))
     return response
 
-#@app.route('/who',methods=['GET'])
+@app.after_request
+def add_security_headers(resp):
+#    resp.headers['Content-Security-Policy']='script-src \'self\' cdnjs.cloudflare.com cdn.jsdelivr.net \'unsafe-inline\''
+    resp.headers['Strict-Transport-Security']='max-age=1000'
+    resp.headers['X-Xss-Protection']='1; mode=block'
+    resp.headers['X-Frame-Options']='SAMEORIGIN'
+    resp.headers['X-Content-Type-Options']='nosniff'
+    resp.headers['Referrer-Policy']='strict-origin-when-cross-origin'
+    #resp.headers['Cache-Control']='no-store, max-age=0'
+    resp.headers['Cache-Control']='no-cache, no-store, must-revalidate'
+    resp.headers['Pragma']='no-cache'
+   # resp.headers['Access-Control-Allow-Origin']='https://cdnjs.cloudflare.com'
+    return resp
+	
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
