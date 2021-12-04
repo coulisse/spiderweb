@@ -108,11 +108,12 @@
 		var my_countries_json='{{ country_data|tojson|safe }}';
 		var my_adxo_events_json='{{ adxo_events|tojson|safe }}';
 	{% endblock app_data %}
-	{% block app_ascripts %}
+	{% block app_scripts %}
 		{{ super() }}
+		<script defer src="static/js/table.js"></script>
 	{% endblock %}
 	{% block inline_scripts %}
- 		<script defer src="static/js/index_inline.min.js"></script>
+ 		<script defer src="static/js/index_inline.js"></script>
 	{% endblock %}
 	
 

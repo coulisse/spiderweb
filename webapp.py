@@ -24,7 +24,7 @@ app.config['WTF_CSRF_SECRET_KEY']='wtfsecret!'
 app.config.update(
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SAMESITE='Lax',
+    SESSION_COOKIE_SAMESITE='Strict',
 )
 
 csrf = CSRFProtect(app)

@@ -1,6 +1,7 @@
 ### Change log
-Date: 27/11/2021                         
+Date: 04/12/2021                         
 Release: v2.1
+- created a new "spider" icon
 - jquery upgraded to 3.6
 - bootstrap upgraded to 5.0.2
 - managed connection error to telnet host 
