@@ -7,7 +7,7 @@ SPIDERWEB
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
 
-- **Release:** v2.1
+- **Release:** v2.2-beta
 - **Author:** Corrado Gerbaldo - IU1BOW.
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see ["LICENSE"](LICENSE) file.
@@ -231,6 +231,15 @@ For SSL I'm using [Cloudflare](https://www.cloudflare.com/). This is a free serv
 
 ### Monitoring
 you can use the scritp `scripts/monitoring.sh` in order to monitoring your system. Check instruction inside this scripts.
+
+### API
+**Spot list**
+
+You can retrive last spots calling "**/spotlist**"; For example  [www.iu1bow.com/spotlist] (https://www.iu1bow.com/spotlist)
+
+**country of a callsign**
+
+You cam retrive some informations about a callsign with **callsign**; For example  [www.iu1bow.com/callsign?c=IU1BOW] (https://www.iu1bow.com/callsign?c=IU1BOW)
 
 ### Screenshots
 ----------

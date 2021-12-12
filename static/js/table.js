@@ -2,29 +2,14 @@
  * Main javascript for all core functions of this application
  * ******************************************************************************/
 
-/**
- * Decode countries
- *
- * @param countries {json} This is the json containing all the countries 
- * @param wpx_to_find {string} The string received from the db of the cluster to decode
- */
 var adxo_url='http://www.ng3k.com/misc/adxo.html'
 var qrz_url='https://www.qrz.com/db/'
-function findCountry(countries, wpx_to_find) {
-
-	for (var i = 0; i < countries.length; i++) {
-    		if (countries[i].WPX == wpx_to_find) {
-        		return countries[i];
-    			};
-	};
-
-};
 
 /**
  * Decode Announced Dx Operation (ng3k)
  *
- * @param countries {json} This is the json containing all the dxo events
- * @param callsign {string} The callsign of the current dx line
+ * @param adxo {adxo} This is the json containing all the dxo events
+ * @param callsign_to_find {callsign_to_find} The callsign of the current dx line
  */
 function findAdxo(adxo, callsign_to_find) {
 	if (adxo) {
@@ -35,16 +20,17 @@ function findAdxo(adxo, callsign_to_find) {
 		};
 	};
 };
-
+function isNumeric(val) {
+    return /^-?\d+$/.test(val);
+}
 /**
  * Build the table with the spot
  *
  * @param selector {string} The html identifier where build the spots table
  * @param data {json} The payload with all the spots received from cluster
- * @param countries {json} This is the json containing all the countries 
  * @param callsign {string} An optional parameter with the callsign to search
  */
-function buildHtmlTable(selector,data,rl,countries,callsign) {
+function buildHtmlTable(selector,data,rl,callsign) {
   if  ( data != null ){
 
 	var myRows=new Array();
@@ -73,7 +59,6 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
 			row$=$('<tr class="table-info" id="'+data[i].rowid+'"/>');
 		};
 
-		var country=findCountry(countries, data[i].spotdxcc);
 		if (data[i].de == callsign) {
 			de = '<mark>'+data[i].de+'</mark>'
 		} else {
@@ -99,11 +84,11 @@ function buildHtmlTable(selector,data,rl,countries,callsign) {
 
 		row$.append($('<td/>').html('<a href="'+qrz_url+data[i].dx+ '" target="_blank" rel="noopener"><i class="bi-search" role="button" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+dx+'</span>'));
 		try {
-			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+country.ISO+'" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="left" data-bs-content="'+country.desc+'"></span>'));
+			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+data[i].iso+'" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="left" data-bs-content="'+data[i].country+'"></span>'));
 		} catch (err) {
 			row$.append($('<td/>'));
 		};
-  		row$.append($('<td class="d-none d-lg-table-cell d-xl-table-cell"/>').html(country.desc));
+  		row$.append($('<td class="d-none d-lg-table-cell d-xl-table-cell"/>').html(data[i].country));
 		row$.append($('<td class="d-none d-lg-table-cell d-xl-table-cell"/>').html(data[i].comm));
 		var dt=new Date(data[i].time * 1000);
 		var hh='00'+dt.getUTCHours();
@@ -152,6 +137,28 @@ function mySearch(event) {
 
 };
 
+/**
+* Function for construct query string for single value selection
+*/
+function getSingleFilter(id,param,qrystr) {
+
+try {
+		selectedFilter = document.getElementById(id).value;
+		var qryFilter='';
+		if (isNumeric(selectedFilter)) {
+			qryFilter= param+'='+selectedFilter;
+		};
+		if (qrystr && qryFilter) {
+			qrystr=qrystr.concat('&'.concat(qryFilter));
+		} else {
+			qrystr=qrystr.concat(qryFilter);
+		};
+	} catch (error) {
+
+	};		
+
+    return qrystr;
+}
 
 /**
  * Search / Filter cluster spot based on filter settings            
@@ -211,17 +218,22 @@ function myTimer() {
 		qryAll=qryAll.concat(qryMode);
 	};
 
+	qryAll=getSingleFilter('cqdeInput','qe',qryAll);
+	qryAll=getSingleFilter('cqdxInput','qx',qryAll);
+
+
 	// Open a new connection, using the GET request on the URL endpoint
 	var qryString='spotlist';
 	if (!!qryAll){
 		qryString=qryString.concat('?'.concat(qryAll));
 	};
 
+    console.log(qryString);
 	request.open('GET', qryString, true)
 	//when received data, constructs the tables
 	request.onload = function(){
 		try {
-			rows_list=buildHtmlTable('#bodyspot',JSON.parse(this.response),rows_list,my_countries.country_codes );
+			rows_list=buildHtmlTable('#bodyspot',JSON.parse(this.response),rows_list);
 		} catch (err) {
 			console.log(err);
 			console.log(err.stack);

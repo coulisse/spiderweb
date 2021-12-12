@@ -9,6 +9,7 @@ path_static_js=${path_static}'/js'
 path_static_css=${path_static}'/css'
 path_docs='../docs'
 readme='../README.md'
+manifest=${path_static}'/manifest.webmanifest'
 changelog=${path_docs}'/'CHANGELOG.md
 
 echo '*** SPIDERWEB  building process ***'
@@ -23,6 +24,13 @@ if [ ${ver} == "" ]; then
 	exit 20
 fi
 echo 'version: '${ver}
+
+echo 'writing version in '${manifest} '...'
+sed -i 's/v.*"/'$ver'"/g' ${manifest}
+if [ "$?" != "0" ]; then
+	echo 'ERROR writing version in '${manifest} 
+	exit 420
+fi
 
 echo 'writing version in '${readme} '...'
 sed -i  's/- \*\*Release:\*\* v.*/- \*\*\Release:\*\* '$ver'/g' ${readme}

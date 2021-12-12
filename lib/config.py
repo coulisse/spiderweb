@@ -15,7 +15,8 @@ configs = [('mycallsign','Callsign_______________: '), \
            ('timer/interval','Spot page refresh(ms)__: ' ),\
            ('plot_refresh_timer/interval','Plot page refresh(ms)__: '),\
            ('mail','Mail address___________: '),\
-           ('telnet','Telnet address_________: ')
+           ('telnet','Telnet address_________: '),\
+           ('enable_cq_filter','Enable cq filter_______: ')
           ]
 
 class bcolors:

@@ -10,6 +10,7 @@ import logging.config
 from lib.dxtelnet import who
 from lib.adxo import get_adxo_events
 from lib.qry import query_manager
+from lib.cty import prefix_table
 __author__ = 'IU1BOW - Corrado'
 
 
@@ -48,17 +49,19 @@ with open('cfg/modes.json') as json_modes:
 with open('cfg/continents.json') as json_continents:
         continents_cq = json.load(json_continents)
 
+#read and set default for enabling cq filter
+if cfg.get('enable_cq_filter'):
+    enable_cq_filter=cfg['enable_cq_filter'].upper()
+else:
+    enable_cq_filter='N'
+
+
+#define country table for search info on callsigns
+pfxt=prefix_table()
+
+
 #create object query manager
 qm=query_manager()
-
-#load country file (and send it to front-end)
-def load_country():
-#    filename = os.path.join(app.static_folder, 'country.json')
-#    with open(filename) as country_file:
-#        return json.load(country_file)
-     with open('cfg/country.json') as json_country:
-        return  json.load(json_country)
-	
 
 #find id  in json : ie frequency / continent
 def find_id_json(json_object, name):
@@ -71,11 +74,16 @@ def spotquery():
 
     try:
         #get url parameters
-        band=(request.args.getlist('b'))
-        dere=(request.args.getlist('e'))
-        dxre=(request.args.getlist('x'))
-        mode=(request.args.getlist('m'))
-        callsign=request.args.get('c')  
+        band=(request.args.getlist('b'))          #band filter
+        dere=(request.args.getlist('e'))          #DE continent filter
+        dxre=(request.args.getlist('x'))          #Dx continent filter
+        mode=(request.args.getlist('m'))          #mode filter
+        decq=(request.args.getlist('qe'))         #DE cq zone filter
+        dxcq=(request.args.getlist('qx'))         #DX cq zone filter
+        deitu=(request.args.getlist('ie'))        #DE ITU zone filter
+        dxitu=(request.args.getlist('ix'))        #DX ITU zone filter
+        callsign=request.args.get('c')            #search specific callsign
+
 
         query_string=''
         if callsign:
@@ -132,6 +140,30 @@ def spotquery():
                 dxre_qry_string += str(continent["cq"])
             dxre_qry_string +=')'
 
+            #construct de cq query            
+            decq_qry_string = ''
+            if len(decq)==1:
+               if decq[0].isnumeric():
+                   decq_qry_string = ' AND spottercq =' + decq[0]
+
+            #construct dx cq query
+            dxcq_qry_string = ''
+            if len(dxcq)==1:
+               if dxcq[0].isnumeric():
+                   dxcq_qry_string = ' AND spotcq =' + dxcq[0]
+
+            #construct de itu query
+            deitu_qry_string = ''
+            if len(deitu)==1:
+               if deitu[0].isnumeric():
+                   deitu_qry_string = ' AND spotteritu =' + deitu[0]
+
+            #construct dx itu query
+            dxitu_qry_string = ''
+            if len(dxitu)==1:
+               if dxitu[0].isnumeric():
+                   dxitu_qry_string = ' AND spotitu =' + dxitu[0]
+
 
             query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE 1=1"                                  
             if len(band) > 0:
@@ -145,6 +177,18 @@ def spotquery():
 
             if len(dxre) > 0:
                 query_string += dxre_qry_string
+
+            if len(decq_qry_string) > 0:
+                query_string += decq_qry_string
+
+            if len(dxcq_qry_string) > 0:
+                query_string += dxcq_qry_string
+
+            if len(deitu_qry_string) > 0:
+                query_string += deitu_qry_string
+
+            if len(dxitu_qry_string) > 0:
+                query_string += dxitu_qry_string
 
             query_string += " ORDER BY rowid desc limit 50;"  
 
@@ -161,7 +205,12 @@ def spotquery():
 
         payload=[]
         for result in data:
-            payload.append(dict(zip(row_headers,result)))
+            # create dictionary from recorset  
+            main_result=dict(zip(row_headers,result)) 
+            # find the country in prefix table
+            search_prefix=pfxt.find(main_result["dx"])         
+            # merge recordset and contry prefix 
+            payload.append({**main_result, **search_prefix})
         return payload
     except Exception as e:
         logger.error(e)
@@ -190,8 +239,7 @@ def who_is_connected():
 @app.route('/index.html', methods=['GET']) 
 def spots():
     payload=spotquery()
-    country_data=load_country()
-    response=flask.Response(render_template('index.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data,adxo_events=adxo_events))
+    response=flask.Response(render_template('index.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],enable_cq_filter=enable_cq_filter,payload=payload,timer_interval=cfg['timer']['interval'],adxo_events=adxo_events))
     return response
 
 @app.route('/service-worker.js', methods=['GET'])
@@ -201,7 +249,6 @@ def sw():
 @app.route('/offline.html')
 def root():
         return app.send_static_file('html/offline.html')
-
 
 @app.route('/plotlist', methods=['GET']) 
 def plotlist():
@@ -241,9 +288,19 @@ def sitemap():
 @app.route('/callsign.html', methods=['GET']) 
 def callsign():
     payload=spotquery()  
-    country_data=load_country()
+    #country_data=load_country()
     callsign=request.args.get('c')
-    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data,callsign=callsign,adxo_events=adxo_events))
+    #response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data,callsign=callsign,adxo_events=adxo_events))
+    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],callsign=callsign,adxo_events=adxo_events))
+    return response
+
+#API that search a callsign and return all informations about that
+@app.route('/callsign', methods=['GET']) 
+def find_callsign():
+    callsign=request.args.get('c')
+    response=pfxt.find(callsign)
+    if response is None:
+        response=flask.Response(status=204)
     return response
 
 @app.after_request

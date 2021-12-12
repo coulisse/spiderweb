@@ -12,7 +12,8 @@
                         "interval":450000
         },
 	"mycallsign":"XXXXXX",
-        "mail":"foo@bar.com",
+    "mail":"foo@bar.com",
+    "enable_cq_filter":"n",
 	"telnet":"mysite:7300",
         "menu": {
           "menu_list": [
