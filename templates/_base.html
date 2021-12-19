@@ -34,7 +34,7 @@
 			<a class="navbar-brand" href="/">
 				<img src="/static/images/icons/icon-72x72.png" width="30" height="30" class="d-inline-block align-top" alt="">
 				{{ mycallsign }}
-			</a>	
+	 		</a>	
 			<button class="navbar-toggler" type="button" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" >
 				<span class="navbar-toggler-icon"></span>
 	        </button>
@@ -50,6 +50,8 @@
 						</li>
 					{% endfor %}
 				</ul>
+			    <div id="MyClockDisplay" onload="showTime()" class="text-white-50 d-none d-lg-block"></div>
+			    <div class="text-white-50 d-none d-lg-block" >&nbsp (UTC) &nbsp &nbsp</div>
 				{% block callsign %}
 				<form method="POST" class="d-flex"  id="form-callsign"  enctype="application/x-www-form-urlencoded" >	
 					<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -88,6 +90,7 @@
 				<span id="version">v2.2-beta</span>
 	       </div> 
 	     </footer>
+	<script async src="static/js/clock.min.js"></script>
 	<script async src="static/js/copy_date.min.js"></script>
 	<script async src="static/js/load-sw.min.js"></script>
 	<script>
@@ -102,24 +105,29 @@
 	{% endblock app_scripts %}
 	{% block inline_scripts %}
 	{% endblock inline_scripts %}
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?theme=altblack&always=1&privacyPage=.%2Fcookies.html" integrity="sha256-jZ5W6hN8hKQX38Q8KwXJNVbtbQHHZwxzPYzXTp/xyb4=" crossorigin="anonymous"></script>
-	<!--- cookie banner:  https://github.com/dobarkod/cookie-banner -->
-    <!---
-	<script async  id="cookiebanner" src="https://cdn.jsdelivr.net/gh/dobarkod/cookie-banner@1.2.2/dist/cookiebanner.min.js" crossorigin="anonymous" integrity="sha256-yMTd5YyqT/43FMnYHf9OAEsz7SKMIBhxQTO9MvWN6kQ="
-		data-moreinfo="./cookies.html"
-		data-moreinfo-target="_self"
-		data-expires="7776000"
-		data-message="We only use techincal cookies."
-		data-height="48px"
-		data-bg="#000000"
-		data-fg="#ffffff"
-		data-link="#ffffff"
-		data-font-size="22px"
-		data-linkmsg="Cookie policy"
-		data-cookie-secure="true"
-	>
-	</script>
--->
+	<!-- cookie consent management -->
+	{% if cookies_check() %}
+	        {# then user has already consented so no requirement for consent banner #}
+	{% else %}
+    	    {# show a cookie consent banner #}
+        	<div class="modal" tabindex="-1" id="cookie-consent-container">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title">We use cookies</h5>
+			      </div>
+			      <div class="modal-body">
+			        <p>We use only technical cookies.</p>
+			        <p>Clicking &quot;I agree&quot;, you agree to the storing of cookies on your device. To learn more about how we use cookies, please see our cookies policy.</p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-primary" id="cookie-consent">I agree</button>
+			      </div>
+			    </div>
+			  </div>
+	        </div>
+			<script defer src="static/js/cookie_consent.min.js"></script>
+	{% endif %}
      </body>
  </html>
 

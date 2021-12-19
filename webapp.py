@@ -1,3 +1,4 @@
+__author__ = 'IU1BOW - Corrado'
 import os
 import flask
 from flask import request, render_template, jsonify
@@ -11,7 +12,6 @@ from lib.dxtelnet import who
 from lib.adxo import get_adxo_events
 from lib.qry import query_manager
 from lib.cty import prefix_table
-__author__ = 'IU1BOW - Corrado'
 
 
 logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
@@ -21,7 +21,6 @@ logger.info("Start")
 app = flask.Flask(__name__)
 app.config["DEBUG"] = False
 app.config['SECRET_KEY'] = 'secret!'
-app.config['WTF_CSRF_SECRET_KEY']='wtfsecret!'
 app.config.update(
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_HTTPONLY=True,
@@ -32,11 +31,12 @@ csrf = CSRFProtect(app)
 minify(app=app, html=True, js=True,cssless=False)
 #minify(app=app, html=False, js=False,cssless=False)
 
-
 #load config file
 with open('cfg/config.json') as json_data_file:
         cfg = json.load(json_data_file)
 
+logging.debug("CFG:")
+logging.debug(cfg)               
 #load bands file
 with open('cfg/bands.json') as json_bands:
         band_frequencies = json.load(json_bands)
@@ -55,10 +55,8 @@ if cfg.get('enable_cq_filter'):
 else:
     enable_cq_filter='N'
 
-
 #define country table for search info on callsigns
 pfxt=prefix_table()
-
 
 #create object query manager
 qm=query_manager()
@@ -80,10 +78,7 @@ def spotquery():
         mode=(request.args.getlist('m'))          #mode filter
         decq=(request.args.getlist('qe'))         #DE cq zone filter
         dxcq=(request.args.getlist('qx'))         #DX cq zone filter
-        deitu=(request.args.getlist('ie'))        #DE ITU zone filter
-        dxitu=(request.args.getlist('ix'))        #DX ITU zone filter
         callsign=request.args.get('c')            #search specific callsign
-
 
         query_string=''
         if callsign:
@@ -140,30 +135,17 @@ def spotquery():
                 dxre_qry_string += str(continent["cq"])
             dxre_qry_string +=')'
 
-            #construct de cq query            
-            decq_qry_string = ''
-            if len(decq)==1:
-               if decq[0].isnumeric():
-                   decq_qry_string = ' AND spottercq =' + decq[0]
-
-            #construct dx cq query
-            dxcq_qry_string = ''
-            if len(dxcq)==1:
-               if dxcq[0].isnumeric():
-                   dxcq_qry_string = ' AND spotcq =' + dxcq[0]
-
-            #construct de itu query
-            deitu_qry_string = ''
-            if len(deitu)==1:
-               if deitu[0].isnumeric():
-                   deitu_qry_string = ' AND spotteritu =' + deitu[0]
-
-            #construct dx itu query
-            dxitu_qry_string = ''
-            if len(dxitu)==1:
-               if dxitu[0].isnumeric():
-                   dxitu_qry_string = ' AND spotitu =' + dxitu[0]
-
+            if enable_cq_filter == 'Y':
+               #construct de cq query            
+               decq_qry_string = ''
+               if len(decq)==1:
+                  if decq[0].isnumeric():
+                      decq_qry_string = ' AND spottercq =' + decq[0]
+               #construct dx cq query
+               dxcq_qry_string = ''
+               if len(dxcq)==1:
+                  if dxcq[0].isnumeric():
+                      dxcq_qry_string = ' AND spotcq =' + dxcq[0]
 
             query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE 1=1"                                  
             if len(band) > 0:
@@ -178,17 +160,12 @@ def spotquery():
             if len(dxre) > 0:
                 query_string += dxre_qry_string
 
-            if len(decq_qry_string) > 0:
-                query_string += decq_qry_string
+            if enable_cq_filter == 'Y':
+               if len(decq_qry_string) > 0:
+                   query_string += decq_qry_string
 
-            if len(dxcq_qry_string) > 0:
-                query_string += dxcq_qry_string
-
-            if len(deitu_qry_string) > 0:
-                query_string += deitu_qry_string
-
-            if len(dxitu_qry_string) > 0:
-                query_string += dxitu_qry_string
+               if len(dxcq_qry_string) > 0:
+                   query_string += dxcq_qry_string
 
             query_string += " ORDER BY rowid desc limit 50;"  
 
@@ -210,7 +187,10 @@ def spotquery():
             # find the country in prefix table
             search_prefix=pfxt.find(main_result["dx"])         
             # merge recordset and contry prefix 
-            payload.append({**main_result, **search_prefix})
+            # payload.append({**main_result, **search_prefix})
+            main_result["country"]=search_prefix["country"]
+            main_result["iso"]=search_prefix["iso"]
+            payload.append({**main_result})
         return payload
     except Exception as e:
         logger.error(e)
@@ -290,7 +270,6 @@ def callsign():
     payload=spotquery()  
     #country_data=load_country()
     callsign=request.args.get('c')
-    #response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],country_data=country_data,callsign=callsign,adxo_events=adxo_events))
     response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],callsign=callsign,adxo_events=adxo_events))
     return response
 
@@ -302,6 +281,16 @@ def find_callsign():
     if response is None:
         response=flask.Response(status=204)
     return response
+
+@app.context_processor
+def inject_template_scope():
+    injections = dict()
+    def cookies_check():
+        value = request.cookies.get('cookie_consent')
+        return value == 'true'
+    injections.update(cookies_check=cookies_check)
+
+    return injections
 
 @app.after_request
 def add_security_headers(resp):
@@ -316,7 +305,8 @@ def add_security_headers(resp):
     resp.headers['Pragma']='no-cache'
    # resp.headers['Access-Control-Allow-Origin']='https://cdnjs.cloudflare.com'
     return resp
-	
+
+
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

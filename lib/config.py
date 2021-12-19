@@ -265,7 +265,7 @@ def edit_menu(cfg):
 
 def save_cfg(cfg):
     with open(USER_FILE, 'w') as outfile:
-        json.dump(cfg, outfile)
+        json.dump(cfg, outfile,indent=4)
     print ('configuration saved to: '+USER_FILE)
     return
 

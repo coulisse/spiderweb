@@ -91,6 +91,8 @@ In the path `spiderweb/cfg/` rename `config.json.template` in `config.json`:
 foo@bar:~$ mv config.json.template config.json
 ```
 then edit it and set the user and password of your database, the menu items, and other stuffs (callsign, mail address...).
+There is also a specific parameter, named "enable_cq_filter" used to enable the CQ Zone filtering.
+
 Othewhise, if you preferr, you could use an utility for edit your configuration and menu. Go in "script" folder and run ./config.sh
 
 ```console

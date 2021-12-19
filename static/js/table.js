@@ -78,7 +78,6 @@ function buildHtmlTable(selector,data,rl,callsign) {
 		var adxo=findAdxo(my_adxo_events, data[i].dx);
 		var adxo_link='<a href='+adxo_url+' target=_blank rel=noopener >NG3K Website</a>'
 		if (adxo != undefined) {
-			//dx=dx+'&nbsp<a tabindex="0" class="bi-megaphone-fill" style="color: cornflowerblue;" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-sanitize="true" data-bs-placement="auto" data-bs-html="true" data-bs-title="Announced DX Op.: '+adxo.summary+'" data-bs-content="'+adxo.description+" data from "+'&nbsp'+adxo_link+'"></a>'
 			dx=dx+'&nbsp<i tabindex="0" class="bi-megaphone-fill" style="color: cornflowerblue; " role="button" aria-label="dx_operations" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-sanitize="true" data-bs-placement="auto" data-bs-html="true" data-bs-title="Announced DX Op.: '+adxo.summary+'" data-bs-content="'+adxo.description+" data from "+'&nbsp'+adxo_link+'"></i>'
 		};
 
@@ -138,7 +137,19 @@ function mySearch(event) {
 };
 
 /**
+* Check if a string is numeric
+*
+* @param n {string} 
+*/
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+/**
 * Function for construct query string for single value selection
+*
+* @param id {string} The html identifier used for filter
+* @param param {string}the parameter for the query
+* @param qrystr  {string} Th initial query string to be completed with the new filter
 */
 function getSingleFilter(id,param,qrystr) {
 
@@ -158,7 +169,8 @@ try {
 	};		
 
     return qrystr;
-}
+};
+
 
 /**
  * Search / Filter cluster spot based on filter settings            
@@ -228,7 +240,6 @@ function myTimer() {
 		qryString=qryString.concat('?'.concat(qryAll));
 	};
 
-    console.log(qryString);
 	request.open('GET', qryString, true)
 	//when received data, constructs the tables
 	request.onload = function(){

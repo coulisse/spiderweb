@@ -26,7 +26,7 @@ fi
 echo 'version: '${ver}
 
 echo 'writing version in '${manifest} '...'
-sed -i 's/v.*"/'$ver'"/g' ${manifest}
+sed -i 's/v.*",/'$ver'",/g' ${manifest}
 if [ "$?" != "0" ]; then
 	echo 'ERROR writing version in '${manifest} 
 	exit 420
@@ -61,7 +61,8 @@ if [ "$?" != "0" ]; then
 fi
 
 echo 'generating static pages...'
-staticjinja build --srcpath=${path_static_html}/templates/ --outpath=${path_static_html}/ --log=info
+#staticjinja build --srcpath=${path_static_html}/templates/ --outpath=${path_static_html}/ --log=info
+python ../lib/static_build.py
 if [ "$?" != "0" ]; then
 	echo 'ERROR generating static pages'                
 	exit 50
