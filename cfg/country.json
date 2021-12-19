@@ -385,7 +385,7 @@
         { "WPX": "356", "ISO": "nl", "desc": "Sint Maarten" },
         { "WPX": "357", "ISO": "ss", "desc": "Republic of South Sudan" },
         { "WPX": "359", "ISO": "xk", "desc": "Republic of Kosovo" },
-        { "WPX": "666", "ISO": "bs", "desc": "Pirate Country" }
+        { "WPX": "666", "ISO": "", "desc": "Pirate Country" }
     ]
 }
 
