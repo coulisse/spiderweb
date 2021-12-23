@@ -6,8 +6,9 @@ SPIDERWEB
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
+[https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white](https://jquery.com/)
 
-- **Release:** v2.2-beta
+- **Release:** v2.2
 - **Author:** Corrado Gerbaldo - IU1BOW.
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see ["LICENSE"](LICENSE) file.
@@ -19,10 +20,9 @@ The user could see 50 spots at time and filter them by band, spotter continent a
 
 For this application I've used:
 - **Bootstrap** for stylesheet CSS
-- **Jquery** In the header you can find the link to MS link
+- **jQuery** In the header you can find the link to MS link
 - **qrz.com** For each callsing found you can click on lens and you'll see him on qrz.com
 - **flag-icon-css** [https://github.com/lipis/flag-icon-css](https://github.com/lipis/flag-icon-css) I used it for show the country flags 
-- **cookie-bar.eu** I use it for cookie bar
 - **ng3k.com** [ng3k.com](http://ng3k.com/misc/adxo.html) I used to get information about "Announced Dx Operations". Thanks to Bill/NG3K !!!
 
 You can find my web site at [https://www.iu1bow.it](https://www.i1bow.it)
@@ -93,7 +93,7 @@ foo@bar:~$ mv config.json.template config.json
 then edit it and set the user and password of your database, the menu items, and other stuffs (callsign, mail address...).
 There is also a specific parameter, named "enable_cq_filter" used to enable the CQ Zone filtering.
 
-Othewhise, if you preferr, you could use an utility for edit your configuration and menu. Go in "script" folder and run ./config.sh
+Othewhise, if you prefer, you could use an utility for edit your configuration and menu. Go in "script" folder and run ./config.sh
 
 ```console
 foo@bar:~$ cd scripts

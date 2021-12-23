@@ -312,6 +312,8 @@ class prefix_table:
             return data      
 
         #not found
+        data["country"]="unknown country"
+        data["iso"]="xx"
         return data
 
 

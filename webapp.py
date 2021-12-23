@@ -188,13 +188,12 @@ def spotquery():
             search_prefix=pfxt.find(main_result["dx"])         
             # merge recordset and contry prefix 
             #payload.append({**main_result, **search_prefix})
-            try:
-               main_result["country"]=search_prefix["country"]
-               main_result["iso"]=search_prefix["iso"]
-            except KeyError: 
-               main_result["country"]='Pirate country'
-               main_result["iso"]=''
-               print (main_result)
+#            try:
+            main_result["country"]=search_prefix["country"]
+            main_result["iso"]=search_prefix["iso"]
+#            except KeyError: 
+#               main_result["country"]='Pirate country'
+#               main_result["iso"]=''
                
             payload.append({**main_result})
         return payload

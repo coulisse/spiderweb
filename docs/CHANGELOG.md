@@ -1,11 +1,12 @@
 ### Change log
-Date: 19/12/2021                         
-Release: v2.2-beta
+Date: 23/12/2021                         
+Release: v2.2
 - amended country code of Curacao
 - managed CTY.dat file for a more precise localization of callsign
 - bootstrap upgraded to 5.1.3
 - added UTC clock in menu bar
 - added cookie consent banner
+- updated flag-icon-css
 ___
 Date: 04/12/2021                         
 Release: v2.1

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Main javascript for all core functions of this application
+ * javascript used to popolate main  table with spots            
  * ******************************************************************************/
 
 var adxo_url='http://www.ng3k.com/misc/adxo.html'
@@ -20,9 +20,6 @@ function findAdxo(adxo, callsign_to_find) {
 		};
 	};
 };
-function isNumeric(val) {
-    return /^-?\d+$/.test(val);
-}
 /**
  * Build the table with the spot
  *
@@ -149,28 +146,29 @@ function isNumeric(n) {
 *
 * @param id {string} The html identifier used for filter
 * @param param {string}the parameter for the query
+* @param len {number} The maximum number of element that could be selected; use -1 if the filter permits a single selection
 * @param qrystr  {string} Th initial query string to be completed with the new filter
 */
-function getSingleFilter(id,param,qrystr) {
+function getFilter(id,param,len,qrystr) {
 
-try {
-		selectedFilter = document.getElementById(id).value;
-		var qryFilter='';
-		if (isNumeric(selectedFilter)) {
-			qryFilter= param+'='+selectedFilter;
-		};
-		if (qrystr && qryFilter) {
-			qrystr=qrystr.concat('&'.concat(qryFilter));
-		} else {
-			qrystr=qrystr.concat(qryFilter);
-		};
-	} catch (error) {
-
-	};		
-
+	selectedFilter = [].map.call(document.getElementById(id).selectedOptions, option => option.value);
+	var qryFilter ='';
+	if (selectedFilter.length < len || len == -1) {
+		qryFilter = selectedFilter.map(function(el, idx) {
+			if (el) {
+	    		return param+'='+ el;
+			} else {
+				return '';
+			};
+		}).join('&');
+		qrystr=qrystr.concat('&'.concat(qryFilter));
+       if (qrystr.substring(0,1) == '&') {
+    		qrystr=qrystr.substring(1)
+	   };
+	};
+    
     return qrystr;
 };
-
 
 /**
  * Search / Filter cluster spot based on filter settings            
@@ -179,60 +177,14 @@ try {
  */
 function myTimer() {
 	var request = new XMLHttpRequest()
-
-	selectedBand = [].map.call(document.getElementById('band').selectedOptions, option => option.value);
-	selectedDEre = [].map.call(document.getElementById('de_re').selectedOptions, option => option.value);
-	selectedDXre = [].map.call(document.getElementById('dx_re').selectedOptions, option => option.value);
-	selectedMode = [].map.call(document.getElementById('mode').selectedOptions, option => option.value);
-
-	//construct query parameters
-	var qryBand='';
 	var qryAll='';
-	if (selectedBand.length < 14) {
-		qryBand= selectedBand.map(function(el, idx) {
-	    		return 'b=' + el;
-		}).join('&');
-	};
 
-	var qryDEre='';
-	if (selectedDEre.length < 7) {
-		qryDEre = selectedDEre.map(function(el, idx) {
-	    		return 'e=' + el;
-		}).join('&');
-	};
-	if (qryBand && qryDEre){
-		qryAll=qryBand.concat('&'.concat(qryDEre));
-	} else {
-		qryAll=qryBand.concat(qryDEre);
-	};
-
-	var qryDXre='';
-	if (selectedDXre.length< 7) {
-		qryDXre = selectedDXre.map(function(el, idx) {
-	    		return 'x=' + el;
-		}).join('&');
-	};
-	if (qryAll && qryDXre) {
-		qryAll=qryAll.concat('&'.concat(qryDXre));
-	} else {
-		qryAll=qryAll.concat(qryDXre);
-	};
-
-	var qryMode='';
-	if (selectedMode.length < 3) {
-		qryMode= selectedMode.map(function(el, idx) {
-	    		return 'm=' + el;
-		}).join('&');
-	};
-	if (qryAll && qryMode) {
-		qryAll=qryAll.concat('&'.concat(qryMode));
-	} else {
-		qryAll=qryAll.concat(qryMode);
-	};
-
-	qryAll=getSingleFilter('cqdeInput','qe',qryAll);
-	qryAll=getSingleFilter('cqdxInput','qx',qryAll);
-
+    qryAll=getFilter('band','b',14,qryAll);
+    qryAll=getFilter('de_re','e',7,qryAll);
+    qryAll=getFilter('dx_re','x',7,qryAll);
+    qryAll=getFilter('mode','m',3,qryAll);
+	qryAll=getFilter('cqdeInput','qe',-1,qryAll);
+	qryAll=getFilter('cqdxInput','qx',-1,qryAll);
 
 	// Open a new connection, using the GET request on the URL endpoint
 	var qryString='spotlist';
