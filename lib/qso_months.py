@@ -96,7 +96,10 @@ logger.info("plotting...")
 
 
 months, current_year, one_year_ago, two_year_ago = zip(*data)
-plt.style.use('seaborn-colorblind')
+#plt.style.use('seaborn-colorblind')
+#plt.style.use('fast')
+#plt.style.use('seaborn-bright')
+plt.style.use('tableau-colorblind10')
 fig, ax = plt.subplots()
 ax.get_yaxis().set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 plt.suptitle("QSO per month")
@@ -109,7 +112,6 @@ plt.grid(False)
 plt.subplots_adjust(left=0.15)
 
 width=0.30
-
 #plot current year and estimate trend of last month
 current_year_lst = list(current_year)
 le=len(current_year_lst)-1
@@ -117,7 +119,7 @@ day=datetime.today().day
 month=datetime.today().month
 year=datetime.today().year
 days_of_month=monthrange(year,month)
-current_year_lst[le]=int(current_year[le]/day*days_of_month[1])
+current_year_lst[month-1]=int(current_year[month-1]/day*days_of_month[1])
 plt.bar(months[month-1], tuple(current_year_lst),width=width, align='edge', color='lightsteelblue')
 plt.bar(months,current_year,width=width, align='edge',label=year)
 

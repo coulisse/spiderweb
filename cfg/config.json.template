@@ -17,7 +17,7 @@
 	"telnet":"mysite:7300",
         "menu": {
           "menu_list": [
-            {"label":"Plots & stats", "link": "/plots.html", "external": false},
+            {"label":"Graphs & stats", "link": "/plots.html", "external": false},
             {"label":"Sources", "link": "https://github.com/coulisse/spiderweb/" , "external": true},    
             {"label":"Cookies", "link": "/cookies.html", "external": false},
             {"label":"Privacy", "link": "/privacy.html", "external": false}

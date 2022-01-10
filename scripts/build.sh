@@ -12,7 +12,14 @@ readme='../README.md'
 manifest=${path_static}'/manifest.webmanifest'
 changelog=${path_docs}'/'CHANGELOG.md
 
-echo '*** SPIDERWEB  building process ***'
+#echo '*** SPIDERWEB  building process ***'
+#echo 'create modes.json from dxspider bands.pl'
+#python ../lib/get_dxcluster_modes.py /home/sysop/spider/data/bands.pl
+#if [ "$?" != "0" ]; then
+#	echo 'ERROR on creating modes.json from dxspider bands.pl'
+#	exit 5
+#fi
+
 echo 'get version from git'
 ver=`git describe --tags --abbrev=0`
 if [ "$?" != "0" ]; then
