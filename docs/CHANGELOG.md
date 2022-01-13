@@ -1,5 +1,5 @@
 ### Change log
-Date: 10/01/2022                         
+Date: 13/01/2022                         
 Release: v2.2
 - fixed country code of Curacao
 - managed CTY.dat file for a more precise localization of callsign
@@ -9,6 +9,7 @@ Release: v2.2
 - updated flag-icon-css
 - modified modes.json in order to improve modes filter
 - fixed forecast on  months plots
+- upgraded pillow library to 9.0 for security issues
 ___
 Date: 04/12/2021                         
 Release: v2.1
