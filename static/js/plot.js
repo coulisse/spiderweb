@@ -44,7 +44,7 @@ function plotsTimer() {
 	request.open('GET','plotlist',true)
 	request.onload = function(){
 		try {
-			plot_list = buildHtmlPlots('#plotlist',JSON.parse(this.response));
+			buildHtmlPlots('#plotlist',JSON.parse(this.response));
 		} catch (err) {
 			console.log(err);
 			console.log(err.stack);
@@ -56,5 +56,5 @@ function plotsTimer() {
  * script loaded inline page in order to prepare data
  * for next operations
  */
-plot_list = buildHtmlPlots('#plotlist',payload_json);
+buildHtmlPlots('#plotlist',payload_json);
 var myPlotRefresh = setInterval(plotsTimer, timer_interval_json);   

@@ -102,7 +102,7 @@ def show_menu(cfg,key):
     return
 
 def help():
-    print
+    print ()
     print ('   h:  help')
     print ('   vc: view config.')
     print ('   ec: edit config.')
@@ -112,17 +112,17 @@ def help():
     print ('   t:  load config. from template')
     print 
     print ('   x:  exit')
-    print
+    print ()
     return
 
 def help_menu_edit():
-    print
+    print ()
     print ('   n:  new menu entry')
     print ('   d:  delete menu entry')
     print ('   e:  edit menu entry')
-    print 
+    print ()
     print ('   x:  exit')
-    print
+    print ()
     return
 
 def view(cfg,t):
@@ -136,7 +136,7 @@ def view(cfg,t):
         print ('Menu:')
         show_menu(cfg,'menu/menu_list')
 
-    print
+    print()
     return
 
 def user_input(caption):
@@ -146,8 +146,7 @@ def edit_config(cfg):
     view(cfg,'c')
     inp=''
     while inp!='x':
-        inp=str(user_input ('Type the number of config. you would to edit, x for end: '))
-        inp.lower()   
+        inp=str(user_input ('Type the number of config. you would to edit, x for end: ')).lower()
         if inp.isdigit():
             inp=int(inp)
             try:
@@ -166,8 +165,7 @@ def menu_delete_entry(cfg):
     view(cfg,'m')
     inp=''
     while inp!='x':
-        inp=str(user_input ('Choose the menu you would to delete, x for end: '))
-        inp.lower()   
+        inp=str(user_input ('Choose the menu you would to delete, x for end: ')).lower()
         if inp.isdigit():
             inp=int(inp)
             element = cfg['menu']['menu_list']
@@ -193,8 +191,7 @@ def menu_input_entry(entry,new_entry):
     
     external = ''
     while external != 'y' and external != 'n':
-        external=str(user_input('open link external [y/n]: '))
-        external.lower()
+        external=str(user_input('open link external [y/n]: ')).lower()
 
     if external == 'y':
         external = True
@@ -211,8 +208,7 @@ def menu_edit_entry(cfg):
     view(cfg,'m')
     inp=''
     while inp!='x':
-        inp=str(user_input ('Choose the menu you would to edit, X for end: '))
-        inp.lower()   
+        inp=str(user_input ('Choose the menu you would to edit, X for end: ')).lower()
         if inp.isdigit():
             inp=int(inp)
             element = cfg['menu']['menu_list']
@@ -252,8 +248,7 @@ def edit_menu(cfg):
     inp=''
     while inp!='x':
         help_menu_edit()
-        inp=str(user_input ('Edit menu> make your choiche: '))
-        inp.lower()   
+        inp=str(user_input ('Edit menu> make your choiche: ')).lower()
         if (inp == 'n'):                               
             cfg=menu_new_entry(cfg)
         elif inp == 'd':
@@ -277,8 +272,7 @@ def main():
     cfg=get_cfg_json(finput)
     inp = ''
     while inp != 'x' and inp != 'exit':
-        inp = str(user_input('Main> make your choiche: '))   
-        inp = inp.lower()
+        inp = str(user_input('Main> make your choiche: ')).lower()
         if (inp == 'h' or inp =='?' or inp =='help'):
             help()
         elif inp == 'vc':

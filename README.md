@@ -8,7 +8,7 @@ SPIDERWEB
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
 [![made-with-jQuery](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)](https://jquery.com/)
 
-- **Release:** v2.2
+- **Release:** v2.3
 - **Author:** Corrado Gerbaldo - IU1BOW.
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see ["LICENSE"](LICENSE) file.

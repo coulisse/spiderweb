@@ -1,4 +1,9 @@
 ### Change log
+Date: 21/01/2022                         
+Release: v2.3
+- lint on code with sonarqube  
+
+___
 Date: 13/01/2022                         
 Release: v2.2
 - fixed country code of Curacao
