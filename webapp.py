@@ -169,7 +169,7 @@ def spotquery():
 
             query_string += " ORDER BY rowid desc limit 50;"  
 
-        logger.debug(query_string)
+        #logger.debug(query_string)
         qm.qry(query_string)
         data=qm.get_data()
         row_headers=qm.get_headers()
