@@ -22,8 +22,9 @@ changelog=${path_docs}'/'CHANGELOG.md
 #fi
 
 echo 'get version from git'
-ver=`git describe --tags --abbrev=0`
-if [ "$?" != "0" ]; then
+#ver=`git describe --tags --abbrev=0`
+if ! ver=$(git describe --tags --abbrev=0)
+then
 	echo 'ERROR on get version from git'
 	exit 10
 fi
@@ -34,8 +35,8 @@ fi
 echo 'version: '${ver}
 
 echo 'writing version in '${manifest} '...'
-sed -i 's/v.*",/'$ver'",/g' ${manifest}
-if [ "$?" != "0" ]; then
+if ! sed -i 's/v.*",/'$ver'",/g' ${manifest}
+then                      
 	echo 'ERROR writing version in '${manifest} 
 	exit 42
 fi
@@ -48,53 +49,52 @@ if [ "$?" != "0" ]; then
 fi
 
 echo 'writing version in '${changelog} '...'
-sed -i  '1,4s/Release: v.*/Release: '$ver'/g' ${changelog}
-if [ "$?" != "0" ]; then
+if ! sed -i  '1,4s/Release: v.*/Release: '$ver'/g' ${changelog}
+then                           
 	echo 'ERROR writing version in '${changelog}
 	exit 35
 fi
 
 echo 'writing date in '${changelog} '...'
-sed -i  '1,4s/Date: [0-9][0-9]\/[0-9][0-9]\/[0-9][0-9][0-9][0-9]/Date: '`date '+%d\/%m\/%Y'`'/g'  ${changelog}
-if [ "$?" != "0" ]; then
+#sed -i  '1,4s/Date: [0-9][0-9]\/[0-9][0-9]\/[0-9][0-9][0-9][0-9]/Date: '`date '+%d\/%m\/%Y'`'/g'  ${changelog}
+if ! sed -i  '1,4s/Date: [0-9][0-9]\/[0-9][0-9]\/[0-9][0-9][0-9][0-9]/Date: '$(date '+%d\/%m\/%Y')'/g'  ${changelog}
+then                            
 	echo 'ERROR writing date in '${changelog}
 	exit 35
 fi
 
 echo 'writing version in '${base_template} '...'
-sed -i 's/<span id="version">v.*<\/span>/<span id="version">'$ver'<\/span>/g' ${path_templates}/${base_template}
-if [ "$?" != "0" ]; then
+if ! sed -i 's/<span id="version">v.*<\/span>/<span id="version">'$ver'<\/span>/g' ${path_templates}/${base_template}
+then                          
 	echo 'ERROR writing version in '${base_template} 
 	exit 40
 fi
 
 echo 'generating static pages...'
 #staticjinja build --srcpath=${path_static_html}/templates/ --outpath=${path_static_html}/ --log=info
-python ../lib/static_build.py
-if [ "$?" != "0" ]; then
+if ! python ../lib/static_build.py
+then                               
 	echo 'ERROR generating static pages'                
 	exit 50
 fi
 
 echo 'writing requirements...'
-pip freeze|tee ../requirements.txt
-if [ "$?" != "0" ]; then
+if ! pip freeze|tee ../requirements.txt
+then                           
 	echo 'ERROR wrinting requirements'                
 	exit 60
 fi
 
 #used to minify the application javascript                            
 echo 'minify javascripts...'
-#for i in `ls -1 ${path_static_js}/ -I "*.min.*" -I "*.md"`
 shopt -s extglob
 for i in ${path_static_js}/!(*[m][i][n].js|*.md)
 do
     [[ -e ${i} ]] || break  # handle the case of no files found
 	echo ${i}
-    file_no_ext=`basename "${i%.js}"`
-	#curl -X POST --data-urlencode 'input@'${path_static_js}/${i} https://javascript-minifier.com/raw > ${path_static_js}/${file_no_ext}.min.js
-	curl -X POST -s --data-urlencode 'input@'${path_static_js}/${i} https://www.toptal.com/developers/javascript-minifier/raw > ${path_static_js}/${file_no_ext}.min.js
-	if [ "$?" != "0" ]; then
+    file_no_ext=$(basename "${i%.js}")
+	if ! curl -X POST -s --data-urlencode 'input@'${path_static_js}/${i} https://www.toptal.com/developers/javascript-minifier/raw > ${path_static_js}/${file_no_ext}.min.js
+	then                            
 		echo 'ERROR minifying javascript: '${i}          
 		shopt -u extglob
 		exit 80
@@ -104,15 +104,14 @@ done
 
 #used to minify css                            
 echo 'minify css...'
-#for i in `ls -1 ${path_static_css}/ -I "*.min.*" -I "*.md"`
 for i in ${path_static_css}/!(*[m][i][n].css|*.md)
 do
     [[ -e ${i} ]] || break  # handle the case of no files found
 	echo ${i}
-    file_no_ext=`basename "${i%.css}"`
+    file_no_ext=$(basename "${i%.css}")
 	#curl -X POST --data-urlencode 'input@'${path_static_css}/${i} https://cssminifier.com/raw > ${path_static_css}/${file_no_ext}.min.css
-	curl -X POST --data-urlencode 'input@'${i} https://cssminifier.com/raw > ${path_static_css}/${file_no_ext}.min.css
-	if [ "$?" != "0" ]; then
+	if ! curl -X POST --data-urlencode 'input@'${i} https://cssminifier.com/raw > ${path_static_css}/${file_no_ext}.min.css
+	then
 		echo 'ERROR minifying css: '${i}          
 		shopt -u extglob
 		exit 80
