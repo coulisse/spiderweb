@@ -36,7 +36,7 @@ echo 'writing version in '${manifest} '...'
 sed -i 's/v.*",/'$ver'",/g' ${manifest}
 if [ "$?" != "0" ]; then
 	echo 'ERROR writing version in '${manifest} 
-	exit 420
+	exit 42
 fi
 
 echo 'writing version in '${readme} '...'

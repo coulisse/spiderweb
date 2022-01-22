@@ -16,10 +16,10 @@ function findAdxo(adxo, callsign_to_find) {
 		for (var i = 0; i < adxo.length; i++) {
     			if (adxo[i].callsign == callsign_to_find) {
         			return adxo[i];
-    			};
-		};
-	};
-};
+    			}
+		}
+	}
+}
 /**
  * Build the table with the spot
  *
@@ -54,13 +54,13 @@ function buildHtmlTable(selector,data,rl,callsign) {
 			}
 		} else if ( found == undefined && rl.length > 0) {
 			row$=$('<tr class="table-info" id="'+data[i].rowid+'"/>');
-		};
+		}
 
 		if (data[i].de == callsign) {
 			de = '<mark>'+data[i].de+'</mark>'
 		} else {
 			de = data[i].de
-		};
+		}
 		row$.append($('<td/>').html('<a href="'+qrz_url+data[i].de+ '" target="_blank" rel="noopener"><i class="bi-search" role="button" aria-label="'+data[i].de+'"></i></a><span>&nbsp'+de+'</span></b>'));
 
 		var freq = Intl.NumberFormat('it-IT', { style: 'decimal' }).format(data[i].freq);
@@ -70,20 +70,20 @@ function buildHtmlTable(selector,data,rl,callsign) {
 			dx = '<mark>'+data[i].dx+'</mark>'
 		} else {
 			dx = data[i].dx
-		};
+		}
 
 		var adxo=findAdxo(my_adxo_events, data[i].dx);
 		var adxo_link='<a href='+adxo_url+' target=_blank rel=noopener >NG3K Website</a>'
 		if (adxo != undefined) {
 			dx=dx+'&nbsp<i tabindex="0" class="bi-megaphone-fill" style="color: cornflowerblue; " role="button" aria-label="dx_operations" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-sanitize="true" data-bs-placement="auto" data-bs-html="true" data-bs-title="Announced DX Op.: '+adxo.summary+'" data-bs-content="'+adxo.description+" data from "+'&nbsp'+adxo_link+'"></i>'
-		};
+		}
 
 		row$.append($('<td/>').html('<a href="'+qrz_url+data[i].dx+ '" target="_blank" rel="noopener"><i class="bi-search" role="button" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+dx+'</span>'));
 		try {
 			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+data[i].iso+'" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="left" data-bs-content="'+data[i].country+'"></span>'));
 		} catch (err) {
 			row$.append($('<td/>'));
-		};
+		}
   		row$.append($('<td class="d-none d-lg-table-cell d-xl-table-cell"/>').html(data[i].country));
 		row$.append($('<td class="d-none d-lg-table-cell d-xl-table-cell"/>').html(data[i].comm));
 		var dt=new Date(data[i].time * 1000);
@@ -104,7 +104,7 @@ function buildHtmlTable(selector,data,rl,callsign) {
 			row$.append($('<td/>').html(tm))
 		} else {
 			row$.append($('<td/>').html('<table class="table-sm table-borderless"><tbody><tr style="background-color:transparent"><td>'+tm+'</td></tr><tr><td>'+dt+'</td></tr></tbody></table>'));
-		};
+		}
     		$(selector).append(row$);
    	}
 
@@ -120,7 +120,7 @@ function buildHtmlTable(selector,data,rl,callsign) {
 		return;
 	}
     }
-};
+}
 
 /**
  * Function to filter spot when pressed the search button on filter
@@ -131,16 +131,8 @@ function mySearch(event) {
 	event.preventDefault();
 	myTimer(); //force the call of query 
 
-};
-
-/**
-* Check if a string is numeric
-*
-* @param n {string} 
-*/
-function isNumeric(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
 }
+
 /**
 * Function for construct query string for single value selection
 *
@@ -159,16 +151,16 @@ function getFilter(id,param,len,qrystr) {
 	    		return param+'='+ el;
 			} else {
 				return '';
-			};
+			}
 		}).join('&');
 		qrystr=qrystr.concat('&'.concat(qryFilter));
        if (qrystr.substring(0,1) == '&') {
     		qrystr=qrystr.substring(1)
-	   };
-	};
+	   }
+	}
     
     return qrystr;
-};
+}
 
 /**
  * Search / Filter cluster spot based on filter settings            
@@ -188,9 +180,9 @@ function myTimer() {
 
 	// Open a new connection, using the GET request on the URL endpoint
 	var qryString='spotlist';
-	if (!!qryAll){
+	if (qryAll){
 		qryString=qryString.concat('?'.concat(qryAll));
-	};
+	}
 
 	request.open('GET', qryString, true)
 	//when received data, constructs the tables
@@ -203,4 +195,4 @@ function myTimer() {
 		}
 	}
 	request.send()
-};
+}
