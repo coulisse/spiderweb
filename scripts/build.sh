@@ -1,3 +1,4 @@
+#! /bin/bash
 #***********************************************************************************
 # Script used to BUILD the progect (ie. replacing version, minify etc) 
 #***********************************************************************************
@@ -84,14 +85,18 @@ fi
 
 #used to minify the application javascript                            
 echo 'minify javascripts...'
-for i in `ls -1 ${path_static_js}/ -I "*.min.*" -I "*.md"`
+#for i in `ls -1 ${path_static_js}/ -I "*.min.*" -I "*.md"`
+shopt -s extglob
+for i in ${path_static_js}/!(*[m][i][n].js|*.md)
 do
+    [[ -e ${i} ]] || break  # handle the case of no files found
 	echo ${i}
     file_no_ext=`basename "${i%.js}"`
 	#curl -X POST --data-urlencode 'input@'${path_static_js}/${i} https://javascript-minifier.com/raw > ${path_static_js}/${file_no_ext}.min.js
 	curl -X POST -s --data-urlencode 'input@'${path_static_js}/${i} https://www.toptal.com/developers/javascript-minifier/raw > ${path_static_js}/${file_no_ext}.min.js
 	if [ "$?" != "0" ]; then
 		echo 'ERROR minifying javascript: '${i}          
+		shopt -u extglob
 		exit 80
 	fi
 	sleep 3
@@ -99,17 +104,21 @@ done
 
 #used to minify css                            
 echo 'minify css...'
-for i in `ls -1 ${path_static_css}/ -I "*.min.*" -I "*.md"`
+#for i in `ls -1 ${path_static_css}/ -I "*.min.*" -I "*.md"`
+for i in ${path_static_css}/!(*[m][i][n].css|*.md)
 do
+    [[ -e ${i} ]] || break  # handle the case of no files found
 	echo ${i}
     file_no_ext=`basename "${i%.css}"`
-	curl -X POST --data-urlencode 'input@'${path_static_css}/${i} https://cssminifier.com/raw > ${path_static_css}/${file_no_ext}.min.css
+	#curl -X POST --data-urlencode 'input@'${path_static_css}/${i} https://cssminifier.com/raw > ${path_static_css}/${file_no_ext}.min.css
+	curl -X POST --data-urlencode 'input@'${i} https://cssminifier.com/raw > ${path_static_css}/${file_no_ext}.min.css
 	if [ "$?" != "0" ]; then
 		echo 'ERROR minifying css: '${i}          
+		shopt -u extglob
 		exit 80
 	fi
 	sleep 3
 done
-
+shopt -u extglob
 echo
 echo Build ok
