@@ -187,13 +187,8 @@ def spotquery():
             # find the country in prefix table
             search_prefix=pfxt.find(main_result["dx"])         
             # merge recordset and contry prefix 
-            #payload.append({**main_result, **search_prefix})
-#            try:
             main_result["country"]=search_prefix["country"]
             main_result["iso"]=search_prefix["iso"]
-#            except KeyError: 
-#               main_result["country"]='Pirate country'
-#               main_result["iso"]=''
                
             payload.append({**main_result})
         return payload
@@ -273,7 +268,6 @@ def sitemap():
 @app.route('/callsign.html', methods=['GET']) 
 def callsign():
     payload=spotquery()  
-    #country_data=load_country()
     callsign=request.args.get('c')
     response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],callsign=callsign,adxo_events=adxo_events))
     return response
@@ -299,18 +293,14 @@ def inject_template_scope():
 
 @app.after_request
 def add_security_headers(resp):
-#    resp.headers['Content-Security-Policy']='script-src \'self\' cdnjs.cloudflare.com cdn.jsdelivr.net \'unsafe-inline\''
     resp.headers['Strict-Transport-Security']='max-age=1000'
     resp.headers['X-Xss-Protection']='1; mode=block'
     resp.headers['X-Frame-Options']='SAMEORIGIN'
     resp.headers['X-Content-Type-Options']='nosniff'
     resp.headers['Referrer-Policy']='strict-origin-when-cross-origin'
-    #resp.headers['Cache-Control']='no-store, max-age=0'
     resp.headers['Cache-Control']='no-cache, no-store, must-revalidate'
     resp.headers['Pragma']='no-cache'
-   # resp.headers['Access-Control-Allow-Origin']='https://cdnjs.cloudflare.com'
     return resp
-
 
     
 if __name__ == '__main__':

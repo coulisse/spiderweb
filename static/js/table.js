@@ -2,7 +2,7 @@
  * javascript used to popolate main  table with spots            
  * ******************************************************************************/
 
-var adxo_url='http://www.ng3k.com/misc/adxo.html'
+var adxo_url='https://www.ng3k.com/misc/adxo.html'
 var qrz_url='https://www.qrz.com/db/'
 
 /**

@@ -19,7 +19,7 @@ LIM_DISK=80
 LIM_MEMPERC=80
 LIM_DATE=1800
 
-DIR=`realpath -s $0|sed 's|\(.*\)/.*|\1|'`
+DIR=$(realpath -s $0|sed 's|\(.*\)/.*|\1|')
 echo Absolute path: ${DIR}
 cd ${DIR}
 
@@ -31,8 +31,8 @@ TMPFILE=$(mktemp)|| exit 1
 
 echo >> ${TMPFILE}
 echo 'RAM:' >> ${TMPFILE}
-mon_memperc=`free | grep Mem | awk '{print $3/$2 * 100}'`
-mon_memperc=`echo ${mon_memperc}| awk '{ printf "%d\n",$1 }'`
+mon_memperc=$(free | grep Mem | awk '{print $3/$2 * 100}')
+mon_memperc=$(echo ${mon_memperc}| awk '{ printf "%d\n",$1 }')
 free -h>>${TMPFILE}
 if [ ${mon_memperc} -gt ${LIM_MEMPERC} ]
 then
@@ -70,11 +70,11 @@ then
 	echo "ERROR: maria db is not running!">> ${TMPFILE}
 else 
 	echo 'Mysql dxspider' >> ${TMPFILE}
-	password=`grep -Po '"passwd":.*?[^\/]",' ${CONFIG}|cut -d '"' -f 4`
-	user=`grep -Po '"user":.*?[^\/]",' ${CONFIG}|cut -d '"' -f 4`
-	mon_sqlres=`mysql --user=$user --password=$password -Bse "use dxcluster;select time from spot order by 1 desc limit 1;"`
+	password=$(grep -Po '"passwd":.*?[^\/]",' ${CONFIG}|cut -d '"' -f 4)
+	user=$(grep -Po '"user":.*?[^\/]",' ${CONFIG}|cut -d '"' -f 4)
+	mon_sqlres=$(mysql --user=$user --password=$password -Bse "use dxcluster;select time from spot order by 1 desc limit 1;")
 
-	current_date=`date +"%s"`
+	current_date=$(date +"%s")
 	date_diff=$((current_date - mon_sqlres))
 	echo 'Last spot received: ' ${date_diff}' seconds ago' >> ${TMPFILE}
 	if [ ${date_diff} -gt ${LIM_DATE} ]
@@ -108,7 +108,7 @@ else
 	echo "$(echo 'Subject: Spider monitor'; cat ${TMPFILE})" > ${TMPFILE}
 fi
 
-mailto=`grep -Po '"mail":.*?[^\/]",' ${CONFIG}|cut -d '"' -f 4`
+mailto=$(grep -Po '"mail":.*?[^\/]",' ${CONFIG}|cut -d '"' -f 4)
 ${SSMTP} ${mailto} < ${TMPFILE}
 cat ${TMPFILE}
 rm ${TMPFILE}

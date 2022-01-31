@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 #***********************************************************************************
 # Script used to BUILD the progect (ie. replacing version, minify etc) 
 #***********************************************************************************
@@ -42,8 +42,8 @@ then
 fi
 
 echo 'writing version in '${readme} '...'
-sed -i  's/- \*\*Release:\*\* v.*/- \*\*\Release:\*\* '$ver'/g' ${readme}
-if [ "$?" != "0" ]; then
+if ! sed -i  's/- \*\*Release:\*\* v.*/- \*\*\Release:\*\* '$ver'/g' ${readme}
+then
 	echo 'ERROR writing version in '${readme} 
 	exit 30
 fi
@@ -93,7 +93,7 @@ do
     [[ -e ${i} ]] || break  # handle the case of no files found
 	echo ${i}
     file_no_ext=$(basename "${i%.js}")
-	if ! curl -X POST -s --data-urlencode 'input@'${path_static_js}/${i} https://www.toptal.com/developers/javascript-minifier/raw > ${path_static_js}/${file_no_ext}.min.js
+	if ! curl -X POST -s --data-urlencode 'input@'${i} https://www.toptal.com/developers/javascript-minifier/raw > ${path_static_js}/${file_no_ext}.min.js
 	then                            
 		echo 'ERROR minifying javascript: '${i}          
 		shopt -u extglob
