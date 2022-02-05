@@ -3,9 +3,10 @@
 # file, parse it and return a dictionary with these events
 #***********************************************************************************
 __author__ = 'IU1BOW - Corrado'
-import urllib.request
+import requests
 import logging
 from datetime import datetime
+import tempfile
 
 logging.basicConfig(level=logging.INFO,format='%(asctime)s [%(levelname)s]: %(message)s',datefmt='%m/%d/%Y %I:%M:%S')
 #format single line
@@ -35,37 +36,39 @@ def get_adxo_events():
     event_num=0
     try:
         logging.info('connection to: '+url)
-        req=urllib.request.urlretrieve(url)
+        req=requests.get(url)
         events=[]
         prop=dict()
         prop_name=''
-
-    #Parse .ICS file line by line
-        with open(req[0],encoding='utf8') as f:
-            for line in f:
+        with tempfile.TemporaryFile() as temp:
+            temp.write(req.content)
+            temp.seek(0)
+            lines=temp.readlines()
+            for line_bytes in lines:
+                line=line_bytes.decode()
                 line_num+=1
                 current_line_array=line.strip().split(':', 1)
                 if current_line_array[0]=='BEGIN':
                     if current_line_array[1]=='VCALENDAR':
-                        prop={}
+                         prop={}
                     if current_line_array[1]=='VEVENT':
-                        event_num+=1
-                        prop={}
+                         event_num+=1
+                         prop={}
                 else:
                     if current_line_array[0]=='END':
-                        if current_line_array[1]=='VCALENDAR':
-                            pass
-                        if current_line_array[1]=='VEVENT':
-                            prop=format(prop)
-                            if prop:
-                                events.append(prop)
+                         if current_line_array[1]=='VCALENDAR':
+                             pass
+                         if current_line_array[1]=='VEVENT':
+                             prop=format(prop)
+                             if prop:
+                                 events.append(prop)
                     else:
-                        if len(current_line_array)>1:
-                            prop_name=current_line_array[0]
-                            prop[prop_name]=current_line_array[1]
-                        else:
-                            if len(prop_name)>0:
-                                prop[prop_name]=prop[prop_name]+current_line_array[0]
+                         if len(current_line_array)>1:
+                             prop_name=current_line_array[0]
+                             prop[prop_name]=current_line_array[1]
+                         else:
+                             if len(prop_name)>0:
+                                 prop[prop_name]=prop[prop_name]+current_line_array[0]
 
         logging.debug('number of line reads: '+str(line_num))
         logging.info('number ADXO events: '+str(event_num))

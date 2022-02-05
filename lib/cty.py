@@ -2,7 +2,7 @@
 # Module used to download cty.dat country file and search callsign in it
 #*************************************************************************************
 __author__ = 'IU1BOW - Corrado'
-import urllib.request 
+import requests         
 import logging
 import os
 import time
@@ -22,10 +22,9 @@ url = 'https://www.country-files.com/cty/cty_wt_mod.dat'
 def download_cty(url,cty_local):
     try:
         logging.info('connection to: '+url)
-        response = urllib.request.urlopen(url)
-        cty_data = response.read()
+        req=requests.get(url)
         f=open(cty_local,'wb')
-        f.write(cty_data)
+        f.write(req.content)
         f.close()
         logging.info('cty file saved in: '+cty_local)
         return 0
