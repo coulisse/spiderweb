@@ -34,7 +34,7 @@ function buildHtmlPlots(selector,data) {
 	$(selector).append(contQSO$);
 
 
-};
+}
 
 /**
  * Timer for refresh the plot page 
@@ -51,10 +51,10 @@ function plotsTimer() {
 		}
 	}
 	request.send()
-};
+}
 /* 
  * script loaded inline page in order to prepare data
  * for next operations
  */
 buildHtmlPlots('#plotlist',payload_json);
-var myPlotRefresh = setInterval(plotsTimer, timer_interval_json);   
+setInterval(plotsTimer, timer_interval_json);   

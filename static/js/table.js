@@ -146,7 +146,7 @@ function getFilter(id,param,len,qrystr) {
 	selectedFilter = [].map.call(document.getElementById(id).selectedOptions, option => option.value);
 	var qryFilter ='';
 	if (selectedFilter.length < len || len == -1) {
-		qryFilter = selectedFilter.map(function(el, idx) {
+		qryFilter = selectedFilter.map(function(el) {
 			if (el) {
 	    		return param+'='+ el;
 			} else {
