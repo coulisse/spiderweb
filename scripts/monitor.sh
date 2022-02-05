@@ -5,10 +5,12 @@
 # Script for monitoring dxspider system
 #
 # To use this script you need to install and configure ssmtp
-# for enable sending mail using gmail:
-# 1) Login to your gmail account.
-# 2) Go to https://www.google.com/settings/security/lesssecureapps and Turn On this feature.
-# 3) Go to https://accounts.google.com/DisplayUnlockCaptcha and click Continue.
+# for enable sending mail using gmail (with 2-factor autentication):
+# 1. Log-in into Gmail with your account
+# 2. Navigate to https://security.google.com/settings/security/apppasswords
+# 3. In 'select app' choose 'custom', give it an arbitrary name and press generate
+# 4. It will give you 16 chars token.
+# 5. put the token in your config file
 #-------------------------------------------------------------------------
 DISK=/dev/sda1       # <--- CHANGE WITH YOUR DRIVE !!!
 
@@ -42,7 +44,7 @@ fi
 echo  >> ${TMPFILE}
 
 echo 'DISK' >> ${TMPFILE}
-mon_diskperc=`df ${DISK} | tail -n 1 | grep -E [[:digit:]]+% -o | grep -E [1-9]+ -o`
+mon_diskperc=$(df ${DISK} | tail -n 1 | grep -E "[[:digit:]]+%" -o | grep -E "[1-9]+" -o)
 df ${DISK} -h>>${TMPFILE}
 if [ ${mon_diskperc} -gt ${LIM_DISK} ]
 then
@@ -109,6 +111,9 @@ else
 fi
 
 mailto=$(grep -Po '"mail":.*?[^\/]",' ${CONFIG}|cut -d '"' -f 4)
-${SSMTP} ${mailto} < ${TMPFILE}
+mail_token=$(grep -Po '"mail_token":.*?[^\/]",' ${CONFIG}|cut -d '"' -f 4)
+echo ${mailto}
+#${SSMTP} ${mailto} < ${TMPFILE}
+${SSMTP} ${mailto} -au${mailto} -ap${mail_token} < ${TMPFILE}
 cat ${TMPFILE}
 rm ${TMPFILE}
