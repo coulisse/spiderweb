@@ -1,5 +1,5 @@
 if [ "$1" == "-b" ]; then
-	cd scripts
+	cd scripts || exit
 	./build.sh
 	cd ..
 fi
