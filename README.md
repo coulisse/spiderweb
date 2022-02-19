@@ -79,9 +79,13 @@ Finally you have to install matplotlib and pandas in order to plots some graphic
 ```console
 foo@bar:~$ pip3 install matplotlib 
 foo@bar:~$ pip3 install statsmodels
+foo@bar:~$ pip3 install geopandas   
+foo@bar:~$ pip3 install shapely     
 or
 foo@bar:~$ sudo -H pip3 install matplotlib --system   
 foo@bar:~$ sudo -H pip3 install statsmodels --system   
+foo@bar:~$ sudo -H pip3 install geopandas --system   
+foo@bar:~$ sudo -H pip3 install shapely --system   
 ```
 
 ### Configuration  
@@ -123,6 +127,7 @@ foo@bar:~$ crontab -e
 ```
 then edit it in a manner like this:
 ```crontab 
+0 22 * * * /home/web/spiderweb/scripts/qso_world_map.sh > /dev/null 2>&1
 0 23 * * * /home/web/spiderweb/scripts/qso_months.sh > /dev/null 2>&1
 */15 * * * * /home/web/spiderweb/scripts/propagation_heatmaps.sh > /dev/null 2>&1
 0 1  * * * /home/web/spiderweb/scripts/qso_trend.sh > /dev/null 2>&1

@@ -29,6 +29,10 @@ function buildHtmlPlots(selector,data) {
 	contQSO$.append($('<img class="img-fluid" src="/static/plots/'+data['qso_hour_band']+'.png" alt="Qso per hour/band"  srcset="/static/plots/'+data['qso_hour_band']+'.svg">'));
 	$(selector).append(contQSO$);
 
+	//qso in the world  and hour in last month
+	contQSO$.append($('<img class="img-fluid" src="/static/plots/'+data['qso_world_map']+'.png" alt="Qso per hour/band"  srcset="/static/plots/'+data['qso_world_map']+'.svg">'));
+	$(selector).append(contQSO$);
+
 	//qso trend
 	contQSO$.append($('<img class="img-fluid" src="/static/plots/'+data['qso_trend']+'.png" alt="Qso trend"  srcset="/static/plots/'+data['qso_trend']+'.svg">'));
 	$(selector).append(contQSO$);

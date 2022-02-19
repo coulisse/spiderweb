@@ -13,9 +13,9 @@ import json
 logging.basicConfig(level=logging.INFO,format='%(asctime)s [%(levelname)s]: %(message)s',datefmt='%m/%d/%Y %I:%M:%S')
 #TODO:  test   https://test.iu1bow.it/callsign?c=8J1RL
 #TODO: url from conf parameter
-cty_local='cfg/cty_wt_mod.dat'
 url = 'https://www.country-files.com/cty/cty_wt_mod.dat'
-
+cty_local=os.path.dirname(__file__)+'/../cfg/cty_wt_mod.dat'
+country_file=os.path.dirname(__file__)+'/../cfg/country.json'
 #-------------------------------------------------------------------------------------
 #  download country files cty.dat
 #-------------------------------------------------------------------------------------
@@ -139,7 +139,7 @@ def parse_alias(alias,master):
 #  load file from configuration, containing all world country, with related ISO codes
 #-------------------------------------------------------------------------------------
 def load_country():
-     with open('cfg/country.json') as json_country:
+     with open(country_file) as json_country:
         return  json.load(json_country)
 
 #-------------------------------------------------------------------------------------
@@ -222,7 +222,6 @@ class prefix_table:
     def refresh():
         
         logging.info('CTY: start initialization')  
-
         if get_cty(url,cty_local)>0:
             logging.error('there is a problem during downloading country files!')
             logging.info('continue with previous file')
