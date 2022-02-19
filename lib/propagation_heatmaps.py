@@ -81,7 +81,6 @@ logger.info("plotting...")
 #preparing data
 
 continents=continents_cq["continents"]
-band_frequencies["bands"]
 bands=band_frequencies["bands"]
 
 
@@ -160,4 +159,3 @@ for i in range(len(continents)):
 
 
 logger.info("End")
-
