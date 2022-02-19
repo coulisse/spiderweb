@@ -11,7 +11,6 @@ from datetime import datetime
 import json
 
 logging.basicConfig(level=logging.INFO,format='%(asctime)s [%(levelname)s]: %(message)s',datefmt='%m/%d/%Y %I:%M:%S')
-#TODO:  test   https://test.iu1bow.it/callsign?c=8J1RL
 #TODO: url from conf parameter
 url = 'https://www.country-files.com/cty/cty_wt_mod.dat'
 cty_local=os.path.dirname(__file__)+'/../cfg/cty_wt_mod.dat'
@@ -51,10 +50,12 @@ def get_cty(url,local):
         else:
            logging.info(cty_local+' updated ('+str(round(age,0))+' days), is not necessary to download it')
            return 0
-    else:
-        logging.info(cty_local+' not present: proceding to download it')
-        return download_cty(url,local)
+   # else:
+   #     logging.info(cty_local+' not present: proceding to download it')
+   #     return download_cty(url,local)
 
+    logging.info(cty_local+' not present: proceding to download it')
+    return download_cty(url,local)
 
 #-------------------------------------------------------------------------------------
 #  parsing alias and get exceptions
@@ -313,6 +314,3 @@ class prefix_table:
         data["country"]="unknown country"
         data["iso"]="xx"
         return data
-
-
-
