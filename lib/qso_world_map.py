@@ -50,11 +50,11 @@ if data is None or len(data)==0:
 
 #define country table for search info on callsigns
 pfxt=prefix_table()
-df = pd.DataFrame(columns=['id','dx','lat','lon'])
+df = pd.DataFrame(columns=['row_id','dx','lat','lon'])
 dx=[]
 lat=[]
 lon=[]
-id=[]
+row_id=[]
 idx=0
 #count=[]
 for result in data:
@@ -67,14 +67,14 @@ for result in data:
        lon.append(float(search_prefix["lat"]))
        lat.append(-float(search_prefix["lon"]))
        idx+=1
-       id.append(idx)
+       row_id.append(idx)
 
 del pfxt
 df['dx']=dx
 df['lat']=lat
 df['lon']=lon
-df['id']=id
-df_grp=df.groupby(["lat", "lon"])["id"].count().reset_index(name="count")
+df['row_id']=row_id
+df_grp=df.groupby(["lat", "lon"])["row_id"].count().reset_index(name="count")
 logger.info("plotting...")
 
 
@@ -100,7 +100,7 @@ gdf = GeoDataFrame(df_grp, geometry=geometry)
 world= gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
 world.plot(ax=ax,color=earth,edgecolor='grey')
 
-gdf.plot(column='count', ax=ax,  alpha=0.2, markersize=gdf['count']);
+gdf.plot(column='count', ax=ax,  alpha=0.2, markersize=gdf['count'])
 logger.debug(gdf.head)
 
 saveplt(plt,file_output)
