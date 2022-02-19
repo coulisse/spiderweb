@@ -10,7 +10,7 @@ import tempfile
 
 logging.basicConfig(level=logging.INFO,format='%(asctime)s [%(levelname)s]: %(message)s',datefmt='%m/%d/%Y %I:%M:%S')
 #format single line
-def format(prop):
+def format_line(prop):
     prop_out=dict()
     try:
         dtstart=datetime.strptime(prop['DTSTART;VALUE=DATE'], '%Y%m%d')
@@ -59,7 +59,7 @@ def get_adxo_events():
                          if current_line_array[1]=='VCALENDAR':
                              pass
                          if current_line_array[1]=='VEVENT':
-                             prop=format(prop)
+                             prop=format_line(prop)
                              if prop:
                                  events.append(prop)
                     else:
@@ -76,4 +76,3 @@ def get_adxo_events():
     except Exception as e1:
         logging.error(e1)
         return 
-

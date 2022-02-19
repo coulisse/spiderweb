@@ -72,4 +72,3 @@ def who(host,port,user):
         ret=''
 
     return ret
-

@@ -99,10 +99,10 @@ def show_menu(cfg,key):
         i+=1
         print(style_field(str(i)+'. external: ',str(element['external']))+style_field(', label: ',element['label']))
         print(style_field('   link____: ',element['link']))
-        print 
+        print() 
     return
 
-def help():
+def help_list():
     print ()
     print ('   h:  help')
     print ('   vc: view config.')
@@ -111,7 +111,7 @@ def help():
     print ('   em: edit menu')
     print ('   s:  save')
     print ('   t:  load config. from template')
-    print 
+    print () 
     print ('   x:  exit')
     print ()
     return
@@ -178,6 +178,9 @@ def menu_delete_entry(cfg):
 
     return cfg
 
+def is_external(val):
+    return val == 'y'
+
 def menu_input_entry(entry,new_entry):
     if not new_entry:
         print('label old value: '+entry['label'])
@@ -194,11 +197,12 @@ def menu_input_entry(entry,new_entry):
     while external != 'y' and external != 'n':
         external=str(user_input('open link external [y/n]: ')).lower()
 
-    if external == 'y':
-        external = True
-    else:
-        external = False
- 
+#    if external == 'y':
+#        external = True
+#    else:
+#        external = False
+    external=is_external(external) 
+
     entry['label']=label
     entry['link']=link
     entry['external']=external
@@ -266,16 +270,16 @@ def save_cfg(cfg):
     return
 
 def main():
-    print
+    print()
     print('*** DxSpider configuration ***')
     finput=get_cfg_file(False)
-    help()
+    help_list()
     cfg=get_cfg_json(finput)
     inp = ''
     while inp != 'x' and inp != 'exit':
         inp = str(user_input('Main> make your choiche: ')).lower()
         if (inp == 'h' or inp =='?' or inp =='help'):
-            help()
+            help_list()
         elif inp == 'vc':
             view(cfg,'c')
         elif inp == 'vm':
@@ -292,4 +296,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

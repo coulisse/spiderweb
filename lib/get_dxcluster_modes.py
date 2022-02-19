@@ -135,5 +135,3 @@ if parsed != "" :
     logging.info('DxSpider band file conversion completed')                    
 else:
     logging.error("error on parsing input file")
-
-
