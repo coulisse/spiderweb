@@ -85,37 +85,37 @@ bands=band_frequencies["bands"]
 
 
 continents_ar=[]
-for i in range(len(continents)):
-    continents_ar.append(continents[i]["id"])
+for i, item_continent in enumerate(continents):
+    continents_ar.append(item_continent["id"])
 
 bands_ar=[]
-for i in range(len(bands)):
-    bands_ar.append(bands[i]["id"])
+for i, item_band in enumerate(bands):
+    bands_ar.append(item_band["id"])
 
 # fucntion for search continent in the global data returned by query and making a cartesian product
 # in order to prepare data for heatmap
 def filter_de(data_list,continent,continents_list, band_list):
     data_filtered=[]
-    for i in range(len(data_list)):
-        if data_list[i][0]==continent and not (data_list[i][3] is None):
+    for i, item_data in enumerate(data_list):
+        if item_data[0]==continent and not (item_data[3] is None):
             element=[]
-            element.append(data_list[i][1])
-            element.append(data_list[i][2])
-            element.append(data_list[i][3])
+            element.append(item_data[1])
+            element.append(item_data[2])
+            element.append(item_data[3])
             data_filtered.append(element)
 
     cartesian_product = []
     for j in range(len(continents_list)):
-        for k in range(len(band_list)): 
+        for k, item_band in enumerate(band_list): 
             found=0
-            for l in range(len(data_filtered)):
-                if data_filtered[l][0]==continents_list[j]["id"] and data_filtered[l][1]==band_list[k]["id"]:
-                    cartesian_product.append(data_filtered[l])
+            for l, item_filtered in enumerate(data_filtered):
+                if item_filtered[0]==continents_list[j]["id"] and item_filtered[1]==item_band["id"]:
+                    cartesian_product.append(item_filtered)
                     found=1
             if found==0:
                 element=[]
                 element.append(continents_list[j]["id"])
-                element.append(band_list[k]["id"])
+                element.append(item_band["id"])
                 element.append(0)
                 cartesian_product.append(element)
 
@@ -125,8 +125,8 @@ def filter_de(data_list,continent,continents_list, band_list):
 
 #main
 dt_string = datetime.now().strftime("%d/%m/%Y %H:%M")
-for i in range(len(continents)):
-    continent=continents[i]["id"]
+for i, item in enumerate(continents):
+    continent=item["id"]
     data_de=filter_de(data,continent,continents,bands)
     dx, band, number=zip(*data_de)
 

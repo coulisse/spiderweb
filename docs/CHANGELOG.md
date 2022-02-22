@@ -1,8 +1,9 @@
 ### Change log
 Date: 19/02/2022                         
 Release: v2.3
-- lint on code with sonarqube  
-___
+- lint on code with codefactor
+- added new world qso in lasth month plot
+__
 Date: 13/01/2022                         
 Release: v2.2
 - fixed country code of Curacao
@@ -14,7 +15,7 @@ Release: v2.2
 - modified modes.json in order to improve modes filter
 - fixed forecast on  months plots
 - upgraded pillow library to 9.0 for security issues
-___
+__
 Date: 04/12/2021                         
 Release: v2.1
 - created a new "spider" icon
@@ -29,16 +30,16 @@ Release: v2.1
 - added cross-site request forgery security
 - added security headers
 - added cache control headers
-___
+__
 16/05/2021: 2.0.2   
 - Fixed frequency mode on 40 meters                                                    
 - Fixed unicode query
 - used qry.py also inside webapp.py
 - replaced MySqlDb with mysql.connector
-___
+__
 14/05/2021: 2.0.1   
 - Addded installation with requirements                                                
-___
+__
 06/05/2021: 2.0     
 - Migrated to bootstrap 5                                                               
 - Migrated to python 3
@@ -63,17 +64,17 @@ ___
 - added "Announced Dx Operation" integration with ng3k website 
 - used bootstrap icons instead of custom icons
 - migrated to last jquery version 3.6.0
-___
+__
 04/10/2020: 1.2.2
 - Added config.sh utilty in script folder, in order to avoid edit manually config.json
 - fixex menu on callsign page
-___
+__
 21/09/2020: 1.2.1
 - Added country column (only on desktop version)
 - Added external configurable menu
 - Renamed json.config.example json.config.template
 - Added code of conduct and issue templates
-___
+__
 08/09/2020: 1.2    
 - Modified cookies.html in order to insert dinamically the host name (instead of dxcluster.iu1bobw.it)
 - Removed sitemap.xml from git
@@ -82,30 +83,29 @@ ___
 - made flags responsive
 - some little changes on meta tag and pages descriptions
 - fixed day on datas 
-___
+__
 08/09/2020: 1.1.4
 - Fixed menu on cookies and plots
-___
+__
 08/09/2020: 1.1.3
 - pretty print html pages
 - removed horizontal scrollbar 
 - fixed icon apple not found
-___
+__
 04/09/2020: 1.1.2
 - Fix on continents.cfg
 - minor changes on html tags
-___
+__
 20/06/2020: 1.1.1
 - managed plot refresh
-___
+__
 16/06/2020: 1.1
 - updated plots page in order to not cache images
-___
+__
 02/06/2020: 1.0
 - added cookie bar
 - added cookie policy
 - added nav bar
 - added plots
-___
+__
 08/03/2020: beta release
-

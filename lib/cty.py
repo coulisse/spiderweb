@@ -47,9 +47,11 @@ def get_cty(url,local):
         if age>7:   
            logging.info(cty_local+' too old ('+str(round(age,0))+' days): proceding to download it')
            return download_cty(url,local)
-        else:
-           logging.info(cty_local+' updated ('+str(round(age,0))+' days), is not necessary to download it')
-           return 0
+#        else:
+#           logging.info(cty_local+' updated ('+str(round(age,0))+' days), is not necessary to download it')
+#           return 0
+        logging.info(cty_local+' updated ('+str(round(age,0))+' days), is not necessary to download it')
+        return 0
    # else:
    #     logging.info(cty_local+' not present: proceding to download it')
    #     return download_cty(url,local)
@@ -205,7 +207,7 @@ class prefix_table:
     def __init__(self):
         
         global prefix_master
-        prefix_master=dict()  #TODO: define how to reset         
+        prefix_master=dict()          
         initialization()
         return
 

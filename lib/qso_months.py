@@ -144,5 +144,3 @@ plt.xticks(np.arange(min(months), max(months)+1, 1.0),rotation='horizontal')
 saveplt(plt,file_output)
 
 logger.info("End")
-
-
