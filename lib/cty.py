@@ -249,8 +249,8 @@ class prefix_table:
             
             #split in array of lines terminated with semicolon
             table=data.split(';')
-            for i in range(len(table)):
-                row=table[i].split(':')
+            for i,item_table in enumerate(table):
+                row=item_table.split(':')
                 #remove trailing spaces and uppercasing
                 row = [x.strip(' ') for x in row]
                 if len(row)==9:

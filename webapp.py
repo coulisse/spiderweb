@@ -95,8 +95,8 @@ def spotquery():
         else:    
             #construct band query decoding frequencies with json file
             band_qry_string = ' AND (('
-            for i in range(len(band)):
-                freq=find_id_json(band_frequencies["bands"],band[i])
+            for i, item_band in enumerate(band):
+                freq=find_id_json(band_frequencies["bands"],item_band)
                 if i > 0:
                     band_qry_string += ') OR ('
 
@@ -106,8 +106,8 @@ def spotquery():
 
             #construct mode query 
             mode_qry_string = ' AND  (('
-            for i in range(len(mode)):
-                single_mode=find_id_json(modes_frequencies["modes"],mode[i])
+            for i,item_mode in enumerate(mode):
+                single_mode=find_id_json(modes_frequencies["modes"],item_mode)
                 if i > 0: 
                         mode_qry_string +=') OR ('
                 for j in range(len(single_mode["freq"])):
@@ -119,8 +119,8 @@ def spotquery():
 
             #construct DE continent region query
             dere_qry_string = ' AND spottercq IN ('
-            for i in range(len(dere)):
-                continent=find_id_json(continents_cq["continents"],dere[i])
+            for i, item_dere in enumerate(dere):
+                continent=find_id_json(continents_cq["continents"],item_dere)
                 if i > 0:
                     dere_qry_string +=','
                 dere_qry_string += str(continent["cq"])
@@ -128,8 +128,8 @@ def spotquery():
         
             #construct DX continent region query
             dxre_qry_string = ' AND spotcq IN ('
-            for i in range(len(dxre)):
-                continent=find_id_json(continents_cq["continents"],dxre[i])
+            for i, item_dxre in enumerate(dxre):
+                continent=find_id_json(continents_cq["continents"],item_dxre)
                 if i > 0:
                     dxre_qry_string +=','
                 dxre_qry_string += str(continent["cq"])
