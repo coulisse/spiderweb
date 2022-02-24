@@ -169,8 +169,8 @@ def query_build():
     except Exception as e:
         logger.error(e)
         query_string = ''
-    finally:
-        return query_string
+
+    return query_string
 
 #the main query to show spots
 #it gets url parameter in order to apply the build the right query
