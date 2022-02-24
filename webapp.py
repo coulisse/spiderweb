@@ -65,10 +65,7 @@ qm=query_manager()
 def find_id_json(json_object, name):
     return [obj for obj in json_object if obj['id']==name][0]
 
-#the main query to show spots
-#it gets url parameter in order to apply the build the right query
-#and apply the filter required. It returns a json with the spots
-def spotquery():
+def query_build():
 
     try:
         #get url parameters
@@ -168,8 +165,21 @@ def spotquery():
                    query_string += dxcq_qry_string
 
             query_string += " ORDER BY rowid desc limit 50;"  
+  
+    except Exception as e:
+        logger.error(e)
+        query_string = ''
+    finally:
+        return query_string
+
+#the main query to show spots
+#it gets url parameter in order to apply the build the right query
+#and apply the filter required. It returns a json with the spots
+def spotquery():
+   try:
 
         #logger.debug(query_string)
+        query_string=query_build()
         qm.qry(query_string)
         data=qm.get_data()
         row_headers=qm.get_headers()
@@ -192,7 +202,7 @@ def spotquery():
                
             payload.append({**main_result})
         return payload
-    except Exception as e:
+   except Exception as e:
         logger.error(e)
 
 #find adxo events

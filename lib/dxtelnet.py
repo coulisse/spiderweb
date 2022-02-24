@@ -31,11 +31,11 @@ def parse_who(lines):
             parse = fieldstruct.unpack_from
             fields =list(parse(line))
 
-            for j in range(len(fields)):
+            for j,item_field in enumerate(fields):
                 try:
-                    fields[j]=fields[j].decode('utf-8').strip()
+                    fields[j]=item_field.decode('utf-8').strip()
                 except AttributeError:
-                    print(fields[j])
+                    print(item_field)
             payload.append(dict(zip(row_headers,fields)))
 
  #   payload = json.dumps(payload)
