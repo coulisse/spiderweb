@@ -22,7 +22,7 @@ app = flask.Flask(__name__)
 app.config["DEBUG"] = False
 app.config['SECRET_KEY'] = 'secret!'
 app.config.update(
-    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_SECURE=True,     #If you use http change it to False
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE='Strict',
 )
@@ -65,6 +65,19 @@ qm=query_manager()
 def find_id_json(json_object, name):
     return [obj for obj in json_object if obj['id']==name][0]
 
+def query_build_callsign(callsign):
+    
+    query_string=''
+    if len(callsign)<=14:
+        query_string="(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE spotter='"+callsign+"'"                    
+        query_string+=" ORDER BY rowid desc limit 10)"
+        query_string+=" UNION "
+        query_string+="(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE spotcall='"+callsign+"'" 
+        query_string+=" ORDER BY rowid desc limit 10);"
+    else:
+        logging.warning('callsign too long')
+    return query_string        
+
 def query_build():
 
     try:
@@ -75,96 +88,84 @@ def query_build():
         mode=(request.args.getlist('m'))          #mode filter
         decq=(request.args.getlist('qe'))         #DE cq zone filter
         dxcq=(request.args.getlist('qx'))         #DX cq zone filter
-        callsign=request.args.get('c')            #search specific callsign
 
         query_string=''
-        if callsign:
-            #construct the query, to show last 6 month
-            if len(callsign)<=14:
-                query_string="(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE spotter='"+callsign+"'"                    
-                query_string+=" ORDER BY rowid desc limit 10)"
-                query_string+=" UNION "
-                query_string+="(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE spotcall='"+callsign+"'" 
-                query_string+=" ORDER BY rowid desc limit 10);"
-            else:
-                logging.warning('callsign too long')
 
-        else:    
-            #construct band query decoding frequencies with json file
-            band_qry_string = ' AND (('
-            for i, item_band in enumerate(band):
-                freq=find_id_json(band_frequencies["bands"],item_band)
-                if i > 0:
-                    band_qry_string += ') OR ('
+        #construct band query decoding frequencies with json file
+        band_qry_string = ' AND (('
+        for i, item_band in enumerate(band):
+            freq=find_id_json(band_frequencies["bands"],item_band)
+            if i > 0:
+                band_qry_string += ') OR ('
 
-                band_qry_string += 'freq BETWEEN ' + str(freq["min"]) + ' AND ' + str(freq["max"])
+            band_qry_string += 'freq BETWEEN ' + str(freq["min"]) + ' AND ' + str(freq["max"])
 
-            band_qry_string += '))'
+        band_qry_string += '))'
 
-            #construct mode query 
-            mode_qry_string = ' AND  (('
-            for i,item_mode in enumerate(mode):
-                single_mode=find_id_json(modes_frequencies["modes"],item_mode)
-                if i > 0: 
-                        mode_qry_string +=') OR ('
-                for j in range(len(single_mode["freq"])):
-                    if j > 0: 
-                        mode_qry_string +=') OR ('
-                    mode_qry_string += 'freq BETWEEN ' +str(single_mode["freq"][j]["min"]) + ' AND ' + str(single_mode["freq"][j]["max"])
+        #construct mode query 
+        mode_qry_string = ' AND  (('
+        for i,item_mode in enumerate(mode):
+            single_mode=find_id_json(modes_frequencies["modes"],item_mode)
+            if i > 0: 
+                    mode_qry_string +=') OR ('
+            for j in range(len(single_mode["freq"])):
+                if j > 0: 
+                    mode_qry_string +=') OR ('
+                mode_qry_string += 'freq BETWEEN ' +str(single_mode["freq"][j]["min"]) + ' AND ' + str(single_mode["freq"][j]["max"])
 
-            mode_qry_string += '))'
+        mode_qry_string += '))'
 
-            #construct DE continent region query
-            dere_qry_string = ' AND spottercq IN ('
-            for i, item_dere in enumerate(dere):
-                continent=find_id_json(continents_cq["continents"],item_dere)
-                if i > 0:
-                    dere_qry_string +=','
-                dere_qry_string += str(continent["cq"])
-            dere_qry_string +=')'
-        
-            #construct DX continent region query
-            dxre_qry_string = ' AND spotcq IN ('
-            for i, item_dxre in enumerate(dxre):
-                continent=find_id_json(continents_cq["continents"],item_dxre)
-                if i > 0:
-                    dxre_qry_string +=','
-                dxre_qry_string += str(continent["cq"])
-            dxre_qry_string +=')'
+        #construct DE continent region query
+        dere_qry_string = ' AND spottercq IN ('
+        for i, item_dere in enumerate(dere):
+            continent=find_id_json(continents_cq["continents"],item_dere)
+            if i > 0:
+                dere_qry_string +=','
+            dere_qry_string += str(continent["cq"])
+        dere_qry_string +=')'
+    
+        #construct DX continent region query
+        dxre_qry_string = ' AND spotcq IN ('
+        for i, item_dxre in enumerate(dxre):
+            continent=find_id_json(continents_cq["continents"],item_dxre)
+            if i > 0:
+                dxre_qry_string +=','
+            dxre_qry_string += str(continent["cq"])
+        dxre_qry_string +=')'
 
-            if enable_cq_filter == 'Y':
-               #construct de cq query            
-               decq_qry_string = ''
-               if len(decq)==1:
-                  if decq[0].isnumeric():
-                      decq_qry_string = ' AND spottercq =' + decq[0]
-               #construct dx cq query
-               dxcq_qry_string = ''
-               if len(dxcq)==1:
-                  if dxcq[0].isnumeric():
-                      dxcq_qry_string = ' AND spotcq =' + dxcq[0]
+        if enable_cq_filter == 'Y':
+            #construct de cq query            
+            decq_qry_string = ''
+            if len(decq)==1:
+                if decq[0].isnumeric():
+                    decq_qry_string = ' AND spottercq =' + decq[0]
+            #construct dx cq query
+            dxcq_qry_string = ''
+            if len(dxcq)==1:
+                if dxcq[0].isnumeric():
+                    dxcq_qry_string = ' AND spotcq =' + dxcq[0]
 
-            query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE 1=1"                                  
-            if len(band) > 0:
-                query_string += band_qry_string
+        query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE 1=1"                                  
+        if len(band) > 0:
+            query_string += band_qry_string
 
-            if len(mode) > 0:
-                query_string += mode_qry_string
+        if len(mode) > 0:
+            query_string += mode_qry_string
 
-            if len(dere) > 0:
-                query_string += dere_qry_string
+        if len(dere) > 0:
+            query_string += dere_qry_string
 
-            if len(dxre) > 0:
-                query_string += dxre_qry_string
+        if len(dxre) > 0:
+            query_string += dxre_qry_string
 
-            if enable_cq_filter == 'Y':
-               if len(decq_qry_string) > 0:
-                   query_string += decq_qry_string
+        if enable_cq_filter == 'Y':
+            if len(decq_qry_string) > 0:
+                query_string += decq_qry_string
 
-               if len(dxcq_qry_string) > 0:
-                   query_string += dxcq_qry_string
+            if len(dxcq_qry_string) > 0:
+                query_string += dxcq_qry_string
 
-            query_string += " ORDER BY rowid desc limit 50;"  
+        query_string += " ORDER BY rowid desc limit 50;"  
   
     except Exception as e:
         logger.error(e)
@@ -178,8 +179,13 @@ def query_build():
 def spotquery():
    try:
 
-        #logger.debug(query_string)
-        query_string=query_build()
+        callsign=request.args.get('c')            #search specific callsign
+       
+        if callsign:
+            query_string=query_build_callsign(callsign)
+        else: 
+            query_string=query_build()
+
         qm.qry(query_string)
         data=qm.get_data()
         row_headers=qm.get_headers()
@@ -188,7 +194,7 @@ def spotquery():
         logger.debug (data)
 
         if data is None or len(data)==0:
-              logger.warning("no data found")
+            logger.warning("no data found")
 
         payload=[]
         for result in data:
@@ -199,7 +205,7 @@ def spotquery():
             # merge recordset and contry prefix 
             main_result["country"]=search_prefix["country"]
             main_result["iso"]=search_prefix["iso"]
-               
+            
             payload.append({**main_result})
         return payload
    except Exception as e:

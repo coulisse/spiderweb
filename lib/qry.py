@@ -40,10 +40,10 @@ class query_manager:
         logging.info('db connection pool created')
 
     #normal query
-    def qry(self,qs):
+    def qry(self,qs,prepared_statement=False):
         try:
             cnx=self.__cnxpool.get_connection()
-            cursor = cnx.cursor()
+            cursor = cnx.cursor(prepared=prepared_statement)
             cursor.execute(qs)
             self.__data=cursor.fetchall()
             self.__row_headers=[x[0] for x in cursor.description] #this will extract row headers

@@ -236,6 +236,18 @@ For SSL I'm using [Cloudflare](https://www.cloudflare.com/). This is a free serv
 
 **Index on MySQL:** if you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on ["create_mysql_index.sql"](scripts/create_mysql_index.sql)
 
+
+**Cookie settings:** if you don't use https, but you use http, you have to change the following setting in webapp.py:
+```
+     SESSION_COOKIE_SECURE=True,    
+```
+to
+
+```
+     SESSION_COOKIE_SECURE=False,   
+```
+
+
 ### Monitoring
 you can use the scritp `scripts/monitoring.sh` in order to monitoring your system. Check instruction inside this scripts.
 
