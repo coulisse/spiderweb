@@ -1,4 +1,9 @@
 ### Change log
+Date: 28/04/2022                         
+Release: v2.3.1
+- Fixed bug on adxo json that block entire website!
+- upgraded Pillow library for security issues
+___
 Date: 04/03/2022                         
 Release: v2.3
 - lint on code with codefactor
