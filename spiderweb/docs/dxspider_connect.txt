@@ -1,0 +1,10 @@
+how to connect dx-spider to another cluster node:
+- login on gnu/linux as sysop user
+- go in spider/connect folder and create a file named OTHERCALLSIGN with the connection info of the other node
+- from your client (IU1BOW) send command: set/spider OHTERCALLSIGN
+- Open file /spider/local_cmd/crontab ed put  0,10,20,30,40,50 * * * * start_connect('OTHERCALLSIGN') unless connected('OTHERCALLSIGN')
+
+see:
+http://www.dxcluster.org/main/adminmanual_en-11.html
+https://tobit.co.uk/pipermail/dxspider-support/2014-November/012319.html
+

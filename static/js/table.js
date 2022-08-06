@@ -80,7 +80,7 @@ function buildHtmlTable(selector,data,rl,callsign) {
 
 		row$.append($('<td/>').html('<a href="'+qrz_url+data[i].dx+ '" target="_blank" rel="noopener"><i class="bi-search" role="button" aria-label="'+data[i].dx+'"></i></a><span>&nbsp'+dx+'</span>'));
 		try {
-			row$.append($('<td/>').html('<span class="img-flag flag-icon flag-icon-'+data[i].iso+'" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="left" data-bs-content="'+data[i].country+'"></span>'));
+			row$.append($('<td/>').html('<span class="img-flag fi fi-'+data[i].iso+'" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="left" data-bs-content="'+data[i].country+'"></span>'));
 		} catch (err) {
 			row$.append($('<td/>'));
 		}

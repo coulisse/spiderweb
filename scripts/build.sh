@@ -84,7 +84,7 @@ then
 	echo 'ERROR wrinting requirements'                
 	exit 60
 fi
-
+exit
 #used to minify the application javascript                            
 echo 'minify javascripts...'
 shopt -s extglob
@@ -93,13 +93,13 @@ do
     [[ -e ${i} ]] || break  # handle the case of no files found
 	echo ${i}
     file_no_ext=$(basename "${i%.js}")
-	if ! curl -X POST -s --data-urlencode 'input@'${i} https://www.toptal.com/developers/javascript-minifier/raw > ${path_static_js}/${file_no_ext}.min.js
+	if ! curl -X POST -s --data-urlencode 'input@'${i} http://www.toptal.com/developers/javascript-minifier/raw > ${path_static_js}/${file_no_ext}.min.js
 	then                            
 		echo 'ERROR minifying javascript: '${i}          
 		shopt -u extglob
 		exit 80
 	fi
-	sleep 3
+	sleep 5  
 done
 
 #used to minify css                            
@@ -110,13 +110,13 @@ do
 	echo ${i}
     file_no_ext=$(basename "${i%.css}")
 	#curl -X POST --data-urlencode 'input@'${path_static_css}/${i} https://cssminifier.com/raw > ${path_static_css}/${file_no_ext}.min.css
-	if ! curl -X POST --data-urlencode 'input@'${i} https://cssminifier.com/raw > ${path_static_css}/${file_no_ext}.min.css
+	if ! curl -X POST --data-urlencode 'input@'${i} http://cssminifier.com/raw > ${path_static_css}/${file_no_ext}.min.css
 	then
 		echo 'ERROR minifying css: '${i}          
 		shopt -u extglob
 		exit 80
 	fi
-	sleep 3
+	sleep 5  
 done
 shopt -u extglob
 echo

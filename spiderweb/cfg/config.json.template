@@ -1,0 +1,27 @@
+{
+        "mysql":{
+            "host":"localhost",
+            "user":"foo",
+            "passwd":"bar",
+            "db":"dxcluster"
+        },
+        "timer":{
+                        "interval":30000
+        },
+        "plot_refresh_timer":{
+                        "interval":450000
+        },
+	"mycallsign":"XXXXXX",
+    "mail":"foo@bar.com",
+    "mail_token": "foobar",
+    "enable_cq_filter":"n",
+	"telnet":"mysite:7300",
+        "menu": {
+          "menu_list": [
+            {"label":"Graphs & stats", "link": "/plots.html", "external": false},
+            {"label":"Sources", "link": "https://github.com/coulisse/spiderweb/" , "external": true},    
+            {"label":"Cookies", "link": "/cookies.html", "external": false},
+            {"label":"Privacy", "link": "/privacy.html", "external": false}
+            ]
+        }
+}

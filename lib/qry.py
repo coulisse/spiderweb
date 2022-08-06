@@ -33,8 +33,11 @@ class query_manager:
                     user=cfg['mysql']['user'],
                     passwd=cfg['mysql']['passwd'],
                     db=cfg['mysql']['db'],
-                    charset='utf8',
+                    charset='latin1',
+#                    charset='utf8mb4',
+#                    collation = 'utf8mb4_general_ci',
                     pool_name = "spider_pool",
+                    use_pure = True,
                     pool_size = 3
                  )
         logging.info('db connection pool created')

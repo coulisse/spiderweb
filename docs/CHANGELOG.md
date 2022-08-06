@@ -1,4 +1,11 @@
 ### Change log
+Date: 06/08/2022                         
+Release: v2.3.2
+- upgraded Numpy library for security issues
+- upgraded Mysql library for security issues
+- upgraded to bootstrap 5.2
+- upgraded flag-icon-css to 6.6.4
+___
 Date: 28/04/2022                         
 Release: v2.3.1
 - Fixed bug on adxo json that block entire website!

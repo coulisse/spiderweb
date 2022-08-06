@@ -1,0 +1,133 @@
+ <!DOCTYPE html>
+ <html lang="en">
+     <head>
+		{% block title %}
+		{% endblock title %}
+		{% block head %}
+ 		<meta http-equiv="Content-Security-Policy"
+          content="
+          script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'unsafe-inline'
+		">
+        <meta charset="utf-8">
+        <meta name="description" content="Web Ham Radio DX Cluster and spot search">
+        <meta name="keywords" content="ham radio, dx cluster, dx spots, cluster sposts,web dx cluster,dx cluster search, DX spots"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#2196f3">
+	<link rel="icon" href="/static/images/icons/favicon.ico" size="any">  
+	<link rel="icon" href="/static/images/icons/spider_ico_master.svg"  type="image/svg+xml">  
+	<link rel="apple-touch-icon" href="/static/images/icons/icon-apple.png">
+	<link rel="manifest" href="/static/manifest.webmanifest">
+	<link rel="stylesheet" href="/static/css/style.min.css"> 
+	<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" as="style" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" onload="this.rel='stylesheet'">
+  	<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"></noscript>
+	<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/css/flag-icons.min.css" as="style" integrity="sha512-UwbBNAFoECXUPeDhlKR3zzWU3j8ddKIQQsDOsKhXQGdiB5i3IHEXr9kXx82+gaHigbNKbTDp3VY/G6gZqva6ZQ==" crossorigin="anonymous" onload="this.rel='stylesheet'">
+  	<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/css/flag-icons.min.css"></noscript>
+	<script src="static/js/load_css.min.js"></script>
+	{% endblock head %}
+     </head>
+     <body>
+	<header>
+	{% block menu %}
+	<!-- nav bar -->
+		<nav class="navbar px-2 navbar-expand-lg navbar-dark bg-dark">
+			<div class="container-fluid">
+			<a class="navbar-brand" href="/">
+				<img src="/static/images/icons/icon-72x72.png" width="30" height="30" class="d-inline-block align-top" alt="">
+				{{ mycallsign }}
+	 		</a>	
+			<button class="navbar-toggler" type="button" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" >
+				<span class="navbar-toggler-icon"></span>
+	        </button>
+ 			<div class="collapse navbar-collapse" id="navbarToggler01">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+					{% for dict_item in menu_list %}
+						<li class="nav-item">
+							<a class="nav-link  {% if request.path == dict_item["link"] %} active {% endif %}" href="{{dict_item["link"]}}"  
+								{% if dict_item["external"] %} 
+									target="blank" rel="noopener" 
+								{% endif %} 
+							>{{dict_item["label"]}}<span class="sr-only"></span></a>
+						</li>
+					{% endfor %}
+				</ul>
+			    <div id="MyClockDisplay" onload="showTime()" class="text-white-50 d-none d-lg-block"></div>
+			    <div class="text-white-50 d-none d-lg-block" >&nbsp (UTC) &nbsp &nbsp</div>
+				{% block callsign %}
+				<form method="POST" class="d-flex"  id="form-callsign"  enctype="application/x-www-form-urlencoded" >	
+					<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+					<div class="input-group" id='input-group-callsign'>
+  						<input type="text" class="form-control" placeholder="callsign" aria-label="callsign" aria-describedby="button-addon2" id="callsignInput" >
+						<div class="input-group-append">
+							<button class="btn btn-secondary" type="submit" onclick="myCallsignSearch()" formaction='javascript:myCallsignSearch();'>
+								<span class="bi-search" role="button" aria-label="search-callsign"></span>
+							</button> 
+						</div>
+					</div>
+		    		</form>	
+				{% endblock callsign %}
+	        	</div>
+			</div>
+		</nav>
+	{% endblock menu %}
+	</header>
+	     <div class="container-fluid mt-1 ml-0 mr-0 px-0">
+			<div class="ipcs bg-light p-4 rounded-lg m-2">
+				{% block titles %}
+                {% endblock %}
+				<p class="text-light">Telnet access: <a href="telnet://{{ telnet }}" class="text-white">{{ telnet }}</a></p>
+				<p class="text-light">For connect your cluster,  write to <a href="mailto:{{ mail }}?Subject=Connect%20my%20DxCluster%20node" target="_top" class="text-white">{{ mail }}</a></p>
+			</div>
+			{% block filters %}
+		{% endblock filters %}
+		{% block contents %}
+		{% endblock contents %}
+	     </div>
+	     <footer class="page-footer font-small blue">
+		     <div class="footer-copyright text-center py-3">				
+				<span class="copyleft">&copy;</span> Copyleft:
+				<span id="copyDate"></span>
+			    <a href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">IU1BOW Spiderweb</a>
+				<span id="version">v2.3.1</span>
+	       </div> 
+	     </footer>
+	<script async src="static/js/clock.min.js"></script>
+	<script async src="static/js/copy_date.min.js"></script>
+	<script async src="static/js/load-sw.min.js"></script>
+	<script>
+		{% block app_data %}
+		var my_callsign='{{callsign}}';
+		{% endblock app_data %}
+	</script>
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js" integrity="sha512-6ORWJX/LrnSjBzwefdNUyLCMTIsGoNP6NftMy2UAm1JBm6PRZCO1d7OHBStWpVFZLO+RerTvqX/Z9mBFfCJZ4A==" crossorigin="anonymous"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	{% block app_scripts %}
+		<script async src="static/js/callsign_search.min.js"></script>
+	{% endblock app_scripts %}
+	{% block inline_scripts %}
+	{% endblock inline_scripts %}
+	<!-- cookie consent management -->
+	{% if cookies_check() %}
+	        {# then user has already consented so no requirement for consent banner #}
+	{% else %}
+    	    {# show a cookie consent banner #}
+        	<div class="modal" tabindex="-1" id="cookie-consent-container">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h1 class="modal-title">We use cookies</h1>
+			      </div>
+			      <div class="modal-body">
+			        <p>We use only technical cookies.</p>
+			        <p>Clicking &quot;I agree&quot;, you agree to the storing of cookies on your device. To learn more about how we use cookies, please see our cookies policy.</p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-primary" id="cookie-consent">I agree</button>
+			      </div>
+			    </div>
+			  </div>
+	        </div>
+			<script defer src="static/js/cookie_consent.min.js"></script>
+	{% endif %}
+     </body>
+ </html>
+

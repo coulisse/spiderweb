@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+<head>
+     {% block title %}
+     <title>Spot search for a specific Callsign</title>
+     {% endblock %}
+</head>
+	{% block titles %}
+		<h1 class="display-4 text-white">{{callsign}}</h1>
+		<p class="lead text-light">Some statistics about this callsign</p>
+    {% endblock %}
+	{% block filters %}
+       <div class="row  mx-auto">
+	{% endblock filters %}
+	{% block inline_scripts %}
+		<script defer src="static/js/callsign_inline.min.js"></script>
+	{% endblock %}
