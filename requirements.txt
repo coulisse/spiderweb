@@ -49,3 +49,4 @@ Werkzeug==2.2.1
 WTForms==3.0.1
 xxhash==3.0.0
 zipp==3.8.1
+
