@@ -7,16 +7,16 @@ import os.path
 from os import path
 import json
 
-configs = [('mycallsign','Callsign_______________: '), \
-           ('mysql/host','MySql host_____________: '),\
-           ('mysql/db','MySql database_________: '),\
-           ('mysql/user','MySql user_____________: '),\
-           ('mysql/passwd','MySql password_________: '),\
-           ('timer/interval','Spot page refresh(ms)__: ' ),\
-           ('plot_refresh_timer/interval','Plot page refresh(ms)__: '),\
-           ('mail','Mail address___________: '),\
-           ('mail_token','token google 2FA auth__: '),\
-           ('telnet','Telnet address_________: '),\
+configs = [('mycallsign','Callsign_______________: '), 
+           ('mysql/host','MySql host_____________: '),
+           ('mysql/db','MySql database_________: '),
+           ('mysql/user','MySql user_____________: '),
+           ('mysql/passwd','MySql password_________: '),
+           ('timer/interval','Spot page refresh(ms)__: ' ),
+           ('plot_refresh_timer/interval','Plot page refresh(ms)__: '),
+           ('mail','Mail address___________: '),
+           ('mail_token','token google 2FA auth__: '),
+           ('telnet','Telnet address_________: '),
            ('enable_cq_filter','Enable cq filter______: ')
           ]
 
