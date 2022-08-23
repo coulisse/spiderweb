@@ -108,7 +108,7 @@ def filter_de(data_list,continent,continents_list, band_list):
     for j, item_continent in enumerate(continents_list):
         for k, item_band in enumerate(band_list): 
             found=0
-            for l, item_filtered in enumerate(data_filtered):
+            for lis, item_filtered in enumerate(data_filtered):
                 if item_filtered[0]==item_continent["id"] and item_filtered[1]==item_band["id"]:
                     cartesian_product.append(item_filtered)
                     found=1

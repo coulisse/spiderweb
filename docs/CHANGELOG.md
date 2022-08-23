@@ -1,5 +1,10 @@
 ### Change log
-Date: 06/08/2022                         
+Date: 23/08/2022                         
+Release: v2.3.3
+- modified minified system
+- fixed qso_world_plot.py that hangs
+___
+Date: 23/08/2022                         
 Release: v2.3.2
 - upgraded Numpy library for security issues
 - upgraded Mysql library for security issues

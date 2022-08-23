@@ -21,11 +21,9 @@ logging.config.fileConfig("../cfg/plots_log_config.ini", disable_existing_logger
 logger = logging.getLogger(__name__)
 file_output = '../static/plots/'+ os.path.splitext(os.path.basename(sys.argv[0]))[0]
 
-
 logger.info("Start")
 logger.info("doing query...")
 
-   
 #construct final query string
 qry_string ="""
 select spotcall as dx
@@ -42,6 +40,7 @@ data=qm.get_data()
 row_headers=qm.get_headers()
 
 logger.info("query done")
+del qm
 logger.debug (data)
 #plot
 if data is None or len(data)==0:
@@ -93,18 +92,16 @@ water = 'lightsteelblue'
 earth = 'cornsilk'
 ax.set_aspect('equal')
 ax.set_facecolor(water)
-
-
 geometry=gpd.points_from_xy(df_grp.lat, df_grp.lon)
 gdf = GeoDataFrame(df_grp, geometry=geometry)
 world= gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
 world.plot(ax=ax,color=earth,edgecolor='grey')
 
-gdf.plot(column='count', ax=ax,  alpha=0.2, markersize=gdf['count'])
+gdf.plot(column='count', ax=ax,alpha=0.2, markersize=gdf['count'])
 logger.debug(gdf.head)
 
 saveplt(plt,file_output)
 
 logger.info("End")
 
-os._exit(0)
+#os._exit(0)

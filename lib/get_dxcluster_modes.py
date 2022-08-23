@@ -129,7 +129,7 @@ dxspider_band=sys.argv[1]
 parsed = parse(dxspider_band)
 if parsed != "" :
     json_output=create_output(parsed)
-    with open(output_modes,  'w') as outfile:
+    with open(output_modes,'w') as outfile:
         json.dump(json_output, outfile,indent=4)
     logging.info('modes saved to: '+output_modes)
     logging.info('DxSpider band file conversion completed')                    

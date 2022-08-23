@@ -84,7 +84,6 @@ then
 	echo 'ERROR wrinting requirements'                
 	exit 60
 fi
-exit
 #used to minify the application javascript                            
 echo 'minify javascripts...'
 shopt -s extglob
@@ -93,7 +92,7 @@ do
     [[ -e ${i} ]] || break  # handle the case of no files found
 	echo ${i}
     file_no_ext=$(basename "${i%.js}")
-	if ! curl -X POST -s --data-urlencode 'input@'${i} http://www.toptal.com/developers/javascript-minifier/raw > ${path_static_js}/${file_no_ext}.min.js
+	if ! curl -X POST -s --fail --compressed --data "code_type=js" --data "js_engine=closure" --data-urlencode 'code@'${i} https://htmlcompressor.com/compress > ${path_static_js}/${file_no_ext}.min.js
 	then                            
 		echo 'ERROR minifying javascript: '${i}          
 		shopt -u extglob
@@ -101,7 +100,6 @@ do
 	fi
 	sleep 5  
 done
-
 #used to minify css                            
 echo 'minify css...'
 for i in ${path_static_css}/!(*[m][i][n].css|*.md)
@@ -109,8 +107,7 @@ do
     [[ -e ${i} ]] || break  # handle the case of no files found
 	echo ${i}
     file_no_ext=$(basename "${i%.css}")
-	#curl -X POST --data-urlencode 'input@'${path_static_css}/${i} https://cssminifier.com/raw > ${path_static_css}/${file_no_ext}.min.css
-	if ! curl -X POST --data-urlencode 'input@'${i} http://cssminifier.com/raw > ${path_static_css}/${file_no_ext}.min.css
+	if ! curl -X POST -s --fail --compressed --data "code_type=css"  --data-urlencode 'code@'${i} https://htmlcompressor.com/compress  > ${path_static_css}/${file_no_ext}.min.css
 	then
 		echo 'ERROR minifying css: '${i}          
 		shopt -u extglob

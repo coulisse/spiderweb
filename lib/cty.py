@@ -6,7 +6,7 @@ import requests
 import logging
 import os
 import time
-import threading
+from threading import Timer
 from datetime import datetime
 import json
 
@@ -143,14 +143,14 @@ def parse_alias(alias,master):
 #-------------------------------------------------------------------------------------
 def load_country():
      with open(country_file) as json_country:
-        return  json.load(json_country)
+        return json.load(json_country)
 
 #-------------------------------------------------------------------------------------
 #  search for ISO code, transcoding the country description
 #-------------------------------------------------------------------------------------
 def add_country(table):
     country_data=load_country()
-    for key, value  in table.items():
+    for key, value in table.items():
         found=0
         for i in country_data['country_codes']:
             if i['desc'].upper()==value['country'].upper():
@@ -205,7 +205,7 @@ class prefix_table:
     #
     #-------------------------------------------------------------------------------------
     def __init__(self):
-        
+
         global prefix_master
         prefix_master=dict()          
         initialization()
@@ -214,7 +214,9 @@ class prefix_table:
     global initialization
     def initialization():
         refresh()
-        threading.Timer(3600*24,initialization).start() #try to refresh once a day
+        global timer
+        timer = Timer(3600*24,initialization) #try to refresh once a day
+        timer.start()
         return
 
 
@@ -316,3 +318,8 @@ class prefix_table:
         data["country"]="unknown country"
         data["iso"]="xx"
         return data
+
+    def __del__(self):
+        timer.cancel()
+        logging.info('prefix_table destroyed')
+        return
