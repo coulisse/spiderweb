@@ -1,4 +1,9 @@
 ### Change log
+Date: 28/09/2022                         
+Release: v.2.3.4
+- fixed issue #22 propagation_heatmaps.sh fails with 'Passing a Normalize instance simultaneously with vmin/vmax is not supported.' 
+- replaced seaborn styles since are deprecated
+___
 Date: 23/08/2022                         
 Release: v2.3.3
 - modified minified system

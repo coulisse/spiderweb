@@ -375,3 +375,380 @@
 2022-08-23 15:03:23,915 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:03:23] "GET /spotlist HTTP/1.0" 200 -
 2022-08-23 15:03:53,936 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:03:53] "GET /spotlist HTTP/1.0" 200 -
 2022-08-23 15:04:23,906 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:04:23] "GET /spotlist HTTP/1.0" 200 -
+2022-08-23 15:34:45,946 [INFO] (webapp.py) Start
+2022-08-23 15:34:45,980 [INFO] (cty.py) CTY: start initialization
+2022-08-23 15:34:45,981 [INFO] (cty.py) /home/web/spiderweb_working/lib/../cfg/cty_wt_mod.dat updated (0.0 days), is not necessary to download it
+2022-08-23 15:34:45,987 [INFO] (cty.py) number of lines reads: 8237
+2022-08-23 15:34:45,987 [INFO] (cty.py) number of valid lines: 7271
+2022-08-23 15:34:46,125 [INFO] (cty.py) number of entities: 346
+2022-08-23 15:34:46,126 [INFO] (cty.py) number of single alias: 27436
+2022-08-23 15:34:46,971 [INFO] (cty.py) memory used for prefix: 1310792 bytes
+2022-08-23 15:34:46,971 [INFO] (cty.py) CTY: initialization complete
+2022-08-23 15:34:46,972 [INFO] (qry.py) [Errno 2] No such file or directory: '../cfg/config.json'
+2022-08-23 15:34:46,972 [INFO] (qry.py) trying with other path...
+2022-08-23 15:34:46,973 [INFO] (qry.py) config file loaded
+2022-08-23 15:34:47,054 [INFO] (qry.py) db connection pool created
+2022-08-23 15:34:47,054 [INFO] (adxo.py) connection to: http://dxcal.kj4z.com/dxcal
+2022-08-23 15:34:47,630 [INFO] (adxo.py) number ADXO events: 46
+2022-08-23 15:34:47,639 [INFO] (_internal.py)  * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.4:5000 (Press CTRL+C to quit)
+2022-08-23 15:34:51,599 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:51] "GET / HTTP/1.0" 200 -
+2022-08-23 15:34:51,730 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:51] "GET /static/css/style.min.css HTTP/1.0" 200 -
+2022-08-23 15:34:51,783 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:51] "GET /static/js/load_css.min.js HTTP/1.0" 200 -
+2022-08-23 15:34:51,857 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:51] "GET /static/images/icons/icon-72x72.png HTTP/1.0" 200 -
+2022-08-23 15:34:51,873 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:51] "GET /static/images/background.webp HTTP/1.0" 200 -
+2022-08-23 15:34:52,077 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:52] "GET /static/js/copy_date.min.js HTTP/1.0" 200 -
+2022-08-23 15:34:52,079 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:52] "GET /static/js/clock.min.js HTTP/1.0" 200 -
+2022-08-23 15:34:52,118 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:52] "GET /static/js/load-sw.min.js HTTP/1.0" 200 -
+2022-08-23 15:34:52,127 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:52] "GET /static/js/table.min.js HTTP/1.0" 200 -
+2022-08-23 15:34:52,130 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:52] "GET /static/js/index_inline.min.js HTTP/1.0" 200 -
+2022-08-23 15:34:52,132 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:52] "GET /static/js/callsign_search.min.js HTTP/1.0" 200 -
+2022-08-23 15:34:52,664 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:52] "GET /static/manifest.webmanifest HTTP/1.0" 200 -
+2022-08-23 15:34:52,726 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:52] "GET /static/images/icons/icon-144x144.png HTTP/1.0" 200 -
+2022-08-23 15:34:54,164 [INFO] (_internal.py) 127.0.0.1 - - [23/Aug/2022 15:34:54] "GET /service-worker.js HTTP/1.0" 200 -
+2022-09-28 15:00:23,724 [INFO] (webapp.py) Start
+2022-09-28 15:00:23,728 [INFO] (cty.py) CTY: start initialization
+2022-09-28 15:00:23,728 [INFO] (cty.py) /home/web/spiderweb_working/lib/../cfg/cty_wt_mod.dat too old (36.0 days): proceding to download it
+2022-09-28 15:00:23,728 [INFO] (cty.py) connection to: https://www.country-files.com/cty/cty_wt_mod.dat
+2022-09-28 15:00:24,723 [INFO] (cty.py) cty file saved in: /home/web/spiderweb_working/lib/../cfg/cty_wt_mod.dat
+2022-09-28 15:00:24,727 [INFO] (cty.py) number of lines reads: 8245
+2022-09-28 15:00:24,728 [INFO] (cty.py) number of valid lines: 7280
+2022-09-28 15:00:24,865 [INFO] (cty.py) number of entities: 346
+2022-09-28 15:00:24,865 [INFO] (cty.py) number of single alias: 27481
+2022-09-28 15:00:25,676 [INFO] (cty.py) memory used for prefix: 1310792 bytes
+2022-09-28 15:00:25,677 [INFO] (cty.py) CTY: initialization complete
+2022-09-28 15:00:25,677 [INFO] (qry.py) [Errno 2] No such file or directory: '../cfg/config.json'
+2022-09-28 15:00:25,677 [INFO] (qry.py) trying with other path...
+2022-09-28 15:00:25,677 [INFO] (qry.py) config file loaded
+2022-09-28 15:00:25,696 [INFO] (qry.py) db connection pool created
+2022-09-28 15:00:25,696 [INFO] (adxo.py) connection to: http://dxcal.kj4z.com/dxcal
+2022-09-28 15:00:26,041 [INFO] (adxo.py) number ADXO events: 0
+2022-09-28 15:00:26,049 [INFO] (_internal.py)  * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.4:5000 (Press CTRL+C to quit)
+2022-09-28 15:00:29,919 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:29] "GET / HTTP/1.0" 200 -
+2022-09-28 15:00:30,069 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:30] "GET /static/css/style.min.css HTTP/1.0" 200 -
+2022-09-28 15:00:30,116 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:30] "GET /static/js/load_css.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:30,200 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:30] "GET /static/images/icons/icon-72x72.png HTTP/1.0" 200 -
+2022-09-28 15:00:30,201 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:30] "GET /static/images/background.webp HTTP/1.0" 200 -
+2022-09-28 15:00:30,403 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:30] "GET /static/js/clock.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:30,410 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:30] "GET /static/js/copy_date.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:30,432 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:30] "GET /static/js/table.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:30,453 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:30] "GET /static/js/load-sw.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:30,457 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:30] "GET /static/js/callsign_search.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:30,463 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:30] "GET /static/js/index_inline.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:30,465 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:30] "GET /static/js/cookie_consent.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:31,307 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:31] "GET /static/images/icons/spider_ico_master.svg HTTP/1.0" 200 -
+2022-09-28 15:00:31,391 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:31] "GET /static/images/icons/favicon.ico HTTP/1.0" 200 -
+2022-09-28 15:00:31,432 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:31] "GET /static/manifest.webmanifest HTTP/1.0" 200 -
+2022-09-28 15:00:31,506 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:31] "GET /static/images/icons/icon-144x144.png HTTP/1.0" 200 -
+2022-09-28 15:00:32,601 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:32] "GET /service-worker.js HTTP/1.0" 200 -
+2022-09-28 15:00:34,623 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /plots.html HTTP/1.0" 200 -
+2022-09-28 15:00:34,728 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/js/load_css.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:34,734 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/css/style.min.css HTTP/1.0" 200 -
+2022-09-28 15:00:34,821 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/images/background.webp HTTP/1.0" 200 -
+2022-09-28 15:00:34,831 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/images/icons/icon-72x72.png HTTP/1.0" 200 -
+2022-09-28 15:00:34,841 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/js/clock.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:34,848 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/js/copy_date.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:34,850 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/js/load-sw.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:34,856 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/js/plot.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:34,858 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/js/callsign_search.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:34,964 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/plots/propagation_heatmaps_AF_20220928-150012.svg HTTP/1.0" 200 -
+2022-09-28 15:00:34,968 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/plots/propagation_heatmaps_AN_20220928-150013.svg HTTP/1.0" 200 -
+2022-09-28 15:00:34,973 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/plots/propagation_heatmaps_AS_20220928-150013.svg HTTP/1.0" 200 -
+2022-09-28 15:00:34,977 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/plots/propagation_heatmaps_NA_20220928-150015.svg HTTP/1.0" 200 -
+2022-09-28 15:00:34,982 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/plots/propagation_heatmaps_EU_20220928-150014.svg HTTP/1.0" 200 -
+2022-09-28 15:00:34,986 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:34] "GET /static/plots/propagation_heatmaps_SA_20220928-150015.svg HTTP/1.0" 200 -
+2022-09-28 15:00:35,013 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:35] "[33mGET /static/plots/propagation_heatmaps_OC_20220928-150015.svg HTTP/1.0[0m" 404 -
+2022-09-28 15:00:35,021 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:35] "GET /static/plots/qso_months_20220823-080935.svg HTTP/1.0" 200 -
+2022-09-28 15:00:35,025 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:35] "GET /static/plots/qso_world_map_20220823-143430.svg HTTP/1.0" 200 -
+2022-09-28 15:00:35,043 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:35] "GET /static/plots/qso_hour_band_20220823-080806.svg HTTP/1.0" 200 -
+2022-09-28 15:00:35,050 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:35] "GET /static/plots/qso_trend_20220823-122506.svg HTTP/1.0" 200 -
+2022-09-28 15:00:35,481 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:35] "GET /static/manifest.webmanifest HTTP/1.0" 200 -
+2022-09-28 15:00:35,559 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:35] "GET /static/images/icons/icon-144x144.png HTTP/1.0" 200 -
+2022-09-28 15:00:37,031 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:37] "GET /service-worker.js HTTP/1.0" 200 -
+2022-09-28 15:00:43,736 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:43] "GET /plots.html HTTP/1.0" 200 -
+2022-09-28 15:00:43,851 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:43] "GET /static/css/style.min.css HTTP/1.0" 200 -
+2022-09-28 15:00:43,855 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:43] "GET /static/js/load_css.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:43,922 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:43] "GET /static/images/icons/icon-72x72.png HTTP/1.0" 200 -
+2022-09-28 15:00:43,933 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:43] "GET /static/images/background.webp HTTP/1.0" 200 -
+2022-09-28 15:00:43,942 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:43] "GET /static/js/clock.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:43,954 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:43] "GET /static/js/plot.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:43,957 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:43] "GET /static/js/load-sw.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:43,959 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:43] "GET /static/js/copy_date.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:43,961 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:43] "GET /static/js/callsign_search.min.js HTTP/1.0" 200 -
+2022-09-28 15:00:44,055 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/plots/propagation_heatmaps_AF_20220928-150012.svg HTTP/1.0" 200 -
+2022-09-28 15:00:44,060 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/plots/propagation_heatmaps_AN_20220928-150013.svg HTTP/1.0" 200 -
+2022-09-28 15:00:44,061 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/plots/propagation_heatmaps_AS_20220928-150013.svg HTTP/1.0" 200 -
+2022-09-28 15:00:44,067 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/plots/propagation_heatmaps_EU_20220928-150014.svg HTTP/1.0" 200 -
+2022-09-28 15:00:44,071 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/plots/propagation_heatmaps_NA_20220928-150015.svg HTTP/1.0" 200 -
+2022-09-28 15:00:44,074 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/plots/qso_months_20220823-080935.svg HTTP/1.0" 200 -
+2022-09-28 15:00:44,077 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/plots/qso_hour_band_20220823-080806.svg HTTP/1.0" 200 -
+2022-09-28 15:00:44,085 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/plots/propagation_heatmaps_SA_20220928-150015.svg HTTP/1.0" 200 -
+2022-09-28 15:00:44,087 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/plots/qso_world_map_20220823-143430.svg HTTP/1.0" 200 -
+2022-09-28 15:00:44,100 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "[33mGET /static/plots/propagation_heatmaps_OC_20220928-150015.svg HTTP/1.0[0m" 404 -
+2022-09-28 15:00:44,102 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/plots/qso_trend_20220823-122506.svg HTTP/1.0" 200 -
+2022-09-28 15:00:44,591 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/images/icons/spider_ico_master.svg HTTP/1.0" 200 -
+2022-09-28 15:00:44,594 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/manifest.webmanifest HTTP/1.0" 200 -
+2022-09-28 15:00:44,680 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/images/icons/favicon.ico HTTP/1.0" 200 -
+2022-09-28 15:00:44,691 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:44] "GET /static/images/icons/icon-144x144.png HTTP/1.0" 200 -
+2022-09-28 15:00:46,158 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:00:46] "GET /service-worker.js HTTP/1.0" 200 -
+2022-09-28 15:01:59,369 [INFO] (webapp.py) Start
+2022-09-28 15:01:59,371 [INFO] (cty.py) CTY: start initialization
+2022-09-28 15:01:59,372 [INFO] (cty.py) /home/web/spiderweb_working/lib/../cfg/cty_wt_mod.dat updated (0.0 days), is not necessary to download it
+2022-09-28 15:01:59,378 [INFO] (cty.py) number of lines reads: 8245
+2022-09-28 15:01:59,378 [INFO] (cty.py) number of valid lines: 7280
+2022-09-28 15:01:59,511 [INFO] (cty.py) number of entities: 346
+2022-09-28 15:01:59,512 [INFO] (cty.py) number of single alias: 27481
+2022-09-28 15:04:45,776 [INFO] (webapp.py) Start
+2022-09-28 15:04:45,779 [INFO] (cty.py) CTY: start initialization
+2022-09-28 15:04:45,779 [INFO] (cty.py) /home/web/spiderweb_working/lib/../cfg/cty_wt_mod.dat updated (0.0 days), is not necessary to download it
+2022-09-28 15:04:45,784 [INFO] (cty.py) number of lines reads: 8245
+2022-09-28 15:04:45,784 [INFO] (cty.py) number of valid lines: 7280
+2022-09-28 15:04:45,921 [INFO] (cty.py) number of entities: 346
+2022-09-28 15:04:45,923 [INFO] (cty.py) number of single alias: 27481
+2022-09-28 15:04:46,836 [INFO] (cty.py) memory used for prefix: 1310792 bytes
+2022-09-28 15:04:46,837 [INFO] (cty.py) CTY: initialization complete
+2022-09-28 15:04:46,837 [INFO] (qry.py) [Errno 2] No such file or directory: '../cfg/config.json'
+2022-09-28 15:04:46,837 [INFO] (qry.py) trying with other path...
+2022-09-28 15:04:46,838 [INFO] (qry.py) config file loaded
+2022-09-28 15:04:46,853 [INFO] (qry.py) db connection pool created
+2022-09-28 15:04:46,853 [INFO] (adxo.py) connection to: http://dxcal.kj4z.com/dxcal
+2022-09-28 15:04:47,354 [INFO] (adxo.py) number ADXO events: 47
+2022-09-28 15:04:47,360 [INFO] (_internal.py)  * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.4:5000 (Press CTRL+C to quit)
+2022-09-28 15:04:50,857 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:50] "GET /plots.html HTTP/1.0" 200 -
+2022-09-28 15:04:50,986 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:50] "GET /static/css/style.min.css HTTP/1.0" 200 -
+2022-09-28 15:04:50,988 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:50] "GET /static/js/load_css.min.js HTTP/1.0" 200 -
+2022-09-28 15:04:51,097 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/images/icons/icon-72x72.png HTTP/1.0" 200 -
+2022-09-28 15:04:51,099 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/images/background.webp HTTP/1.0" 200 -
+2022-09-28 15:04:51,131 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/js/load-sw.min.js HTTP/1.0" 200 -
+2022-09-28 15:04:51,135 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/js/callsign_search.min.js HTTP/1.0" 200 -
+2022-09-28 15:04:51,139 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/js/plot.min.js HTTP/1.0" 200 -
+2022-09-28 15:04:51,140 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/js/clock.min.js HTTP/1.0" 200 -
+2022-09-28 15:04:51,142 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/js/copy_date.min.js HTTP/1.0" 200 -
+2022-09-28 15:04:51,221 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/plots/qso_world_map_20220823-143430.svg HTTP/1.0" 200 -
+2022-09-28 15:04:51,227 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/plots/qso_months_20220823-080935.svg HTTP/1.0" 200 -
+2022-09-28 15:04:51,239 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/plots/propagation_heatmaps_AN_20220928-150433.svg HTTP/1.0" 200 -
+2022-09-28 15:04:51,245 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/plots/propagation_heatmaps_AS_20220928-150434.svg HTTP/1.0" 200 -
+2022-09-28 15:04:51,251 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/plots/propagation_heatmaps_AF_20220928-150432.svg HTTP/1.0" 200 -
+2022-09-28 15:04:51,256 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/plots/qso_trend_20220823-122506.svg HTTP/1.0" 200 -
+2022-09-28 15:04:51,264 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/plots/propagation_heatmaps_EU_20220928-150435.svg HTTP/1.0" 200 -
+2022-09-28 15:04:51,265 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/plots/propagation_heatmaps_NA_20220928-150435.svg HTTP/1.0" 200 -
+2022-09-28 15:04:51,272 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/plots/propagation_heatmaps_OC_20220928-150436.svg HTTP/1.0" 200 -
+2022-09-28 15:04:51,275 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/plots/propagation_heatmaps_SA_20220928-150437.svg HTTP/1.0" 200 -
+2022-09-28 15:04:51,278 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/plots/qso_hour_band_20220823-080806.svg HTTP/1.0" 200 -
+2022-09-28 15:04:51,734 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/images/icons/spider_ico_master.svg HTTP/1.0" 200 -
+2022-09-28 15:04:51,809 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/images/icons/favicon.ico HTTP/1.0" 200 -
+2022-09-28 15:04:51,815 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/manifest.webmanifest HTTP/1.0" 200 -
+2022-09-28 15:04:51,887 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:51] "GET /static/images/icons/icon-144x144.png HTTP/1.0" 200 -
+2022-09-28 15:04:53,316 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:04:53] "GET /service-worker.js HTTP/1.0" 200 -
+2022-09-28 15:06:05,587 [INFO] (webapp.py) Start
+2022-09-28 15:06:05,589 [INFO] (cty.py) CTY: start initialization
+2022-09-28 15:06:05,590 [INFO] (cty.py) /home/web/spiderweb_working/lib/../cfg/cty_wt_mod.dat updated (0.0 days), is not necessary to download it
+2022-09-28 15:06:05,594 [INFO] (cty.py) number of lines reads: 8245
+2022-09-28 15:06:05,594 [INFO] (cty.py) number of valid lines: 7280
+2022-09-28 15:06:05,718 [INFO] (cty.py) number of entities: 346
+2022-09-28 15:06:05,718 [INFO] (cty.py) number of single alias: 27481
+2022-09-28 15:06:06,560 [INFO] (cty.py) memory used for prefix: 1310792 bytes
+2022-09-28 15:06:06,561 [INFO] (cty.py) CTY: initialization complete
+2022-09-28 15:06:06,561 [INFO] (qry.py) [Errno 2] No such file or directory: '../cfg/config.json'
+2022-09-28 15:06:06,561 [INFO] (qry.py) trying with other path...
+2022-09-28 15:06:06,562 [INFO] (qry.py) config file loaded
+2022-09-28 15:06:06,578 [INFO] (qry.py) db connection pool created
+2022-09-28 15:06:06,578 [INFO] (adxo.py) connection to: http://dxcal.kj4z.com/dxcal
+2022-09-28 15:06:07,076 [INFO] (adxo.py) number ADXO events: 47
+2022-09-28 15:06:07,083 [INFO] (_internal.py)  * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.4:5000 (Press CTRL+C to quit)
+2022-09-28 15:06:26,704 [INFO] (webapp.py) Start
+2022-09-28 15:06:26,706 [INFO] (cty.py) CTY: start initialization
+2022-09-28 15:06:26,707 [INFO] (cty.py) /home/web/spiderweb_working/lib/../cfg/cty_wt_mod.dat updated (0.0 days), is not necessary to download it
+2022-09-28 15:06:26,711 [INFO] (cty.py) number of lines reads: 8245
+2022-09-28 15:06:26,711 [INFO] (cty.py) number of valid lines: 7280
+2022-09-28 15:06:26,836 [INFO] (cty.py) number of entities: 346
+2022-09-28 15:06:26,836 [INFO] (cty.py) number of single alias: 27481
+2022-09-28 15:06:27,643 [INFO] (cty.py) memory used for prefix: 1310792 bytes
+2022-09-28 15:06:27,644 [INFO] (cty.py) CTY: initialization complete
+2022-09-28 15:06:27,644 [INFO] (qry.py) [Errno 2] No such file or directory: '../cfg/config.json'
+2022-09-28 15:06:27,645 [INFO] (qry.py) trying with other path...
+2022-09-28 15:06:27,645 [INFO] (qry.py) config file loaded
+2022-09-28 15:06:27,660 [INFO] (qry.py) db connection pool created
+2022-09-28 15:06:27,660 [INFO] (adxo.py) connection to: http://dxcal.kj4z.com/dxcal
+2022-09-28 15:06:28,124 [INFO] (adxo.py) number ADXO events: 47
+2022-09-28 15:06:28,131 [INFO] (_internal.py)  * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.4:5000 (Press CTRL+C to quit)
+2022-09-28 15:06:29,449 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:29] "GET / HTTP/1.0" 200 -
+2022-09-28 15:06:29,656 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:29] "GET /static/css/style.min.css HTTP/1.0" 200 -
+2022-09-28 15:06:29,666 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:29] "GET /static/js/load_css.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:29,777 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:29] "GET /static/images/icons/icon-72x72.png HTTP/1.0" 200 -
+2022-09-28 15:06:29,793 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:29] "GET /static/images/background.webp HTTP/1.0" 200 -
+2022-09-28 15:06:30,037 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:30] "GET /static/js/copy_date.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:30,038 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:30] "GET /static/js/clock.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:30,041 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:30] "GET /static/js/load-sw.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:30,044 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:30] "GET /static/js/callsign_search.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:30,046 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:30] "GET /static/js/index_inline.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:30,116 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:30] "GET /static/js/table.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:30,981 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:30] "GET /static/manifest.webmanifest HTTP/1.0" 200 -
+2022-09-28 15:06:31,062 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:31] "GET /static/images/icons/icon-144x144.png HTTP/1.0" 200 -
+2022-09-28 15:06:31,686 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:31] "GET /plots.html HTTP/1.0" 200 -
+2022-09-28 15:06:31,779 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:31] "GET /static/css/style.min.css HTTP/1.0" 200 -
+2022-09-28 15:06:31,785 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:31] "GET /static/js/load_css.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:31,847 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:31] "GET /static/images/icons/icon-72x72.png HTTP/1.0" 200 -
+2022-09-28 15:06:31,872 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:31] "GET /static/images/background.webp HTTP/1.0" 200 -
+2022-09-28 15:06:31,891 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:31] "GET /static/js/copy_date.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:31,894 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:31] "GET /static/js/clock.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:31,896 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:31] "GET /static/js/load-sw.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:31,900 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:31] "GET /static/js/callsign_search.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:31,905 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:31] "GET /static/js/plot.min.js HTTP/1.0" 200 -
+2022-09-28 15:06:32,005 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/plots/propagation_heatmaps_AF_20220928-150619.svg HTTP/1.0" 200 -
+2022-09-28 15:06:32,009 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/plots/propagation_heatmaps_AS_20220928-150620.svg HTTP/1.0" 200 -
+2022-09-28 15:06:32,012 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/plots/propagation_heatmaps_AN_20220928-150620.svg HTTP/1.0" 200 -
+2022-09-28 15:06:32,016 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/plots/propagation_heatmaps_NA_20220928-150622.svg HTTP/1.0" 200 -
+2022-09-28 15:06:32,020 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/plots/propagation_heatmaps_OC_20220928-150622.svg HTTP/1.0" 200 -
+2022-09-28 15:06:32,027 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/plots/propagation_heatmaps_EU_20220928-150621.svg HTTP/1.0" 200 -
+2022-09-28 15:06:32,030 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/plots/propagation_heatmaps_SA_20220928-150623.svg HTTP/1.0" 200 -
+2022-09-28 15:06:32,035 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/plots/qso_months_20220823-080935.svg HTTP/1.0" 200 -
+2022-09-28 15:06:32,041 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/plots/qso_hour_band_20220823-080806.svg HTTP/1.0" 200 -
+2022-09-28 15:06:32,046 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/plots/qso_world_map_20220823-143430.svg HTTP/1.0" 200 -
+2022-09-28 15:06:32,056 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/plots/qso_trend_20220823-122506.svg HTTP/1.0" 200 -
+2022-09-28 15:06:32,415 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /service-worker.js HTTP/1.0" 200 -
+2022-09-28 15:06:32,545 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/manifest.webmanifest HTTP/1.0" 200 -
+2022-09-28 15:06:32,615 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:32] "GET /static/images/icons/icon-144x144.png HTTP/1.0" 200 -
+2022-09-28 15:06:34,359 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:06:34] "GET /service-worker.js HTTP/1.0" 200 -
+2022-09-28 15:23:08,704 [INFO] (webapp.py) Start
+2022-09-28 15:23:08,708 [INFO] (cty.py) CTY: start initialization
+2022-09-28 15:23:08,709 [INFO] (cty.py) /home/web/spiderweb_working/lib/../cfg/cty_wt_mod.dat updated (0.0 days), is not necessary to download it
+2022-09-28 15:23:08,717 [INFO] (cty.py) number of lines reads: 8245
+2022-09-28 15:23:08,717 [INFO] (cty.py) number of valid lines: 7280
+2022-09-28 15:23:08,853 [INFO] (cty.py) number of entities: 346
+2022-09-28 15:23:08,853 [INFO] (cty.py) number of single alias: 27481
+2022-09-28 15:23:09,695 [INFO] (cty.py) memory used for prefix: 1310792 bytes
+2022-09-28 15:23:09,696 [INFO] (cty.py) CTY: initialization complete
+2022-09-28 15:23:09,697 [INFO] (qry.py) [Errno 2] No such file or directory: '../cfg/config.json'
+2022-09-28 15:23:09,697 [INFO] (qry.py) trying with other path...
+2022-09-28 15:23:09,698 [INFO] (qry.py) config file loaded
+2022-09-28 15:23:09,747 [INFO] (qry.py) db connection pool created
+2022-09-28 15:23:09,748 [INFO] (adxo.py) connection to: http://dxcal.kj4z.com/dxcal
+2022-09-28 15:23:10,243 [INFO] (adxo.py) number ADXO events: 47
+2022-09-28 15:23:10,250 [INFO] (_internal.py)  * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.4:5000 (Press CTRL+C to quit)
+2022-09-28 15:23:16,597 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:16] "GET / HTTP/1.0" 200 -
+2022-09-28 15:23:16,804 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:16] "GET /static/js/load_css.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:16,879 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:16] "GET /static/css/style.min.css HTTP/1.0" 200 -
+2022-09-28 15:23:16,993 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:16] "GET /static/images/icons/icon-72x72.png HTTP/1.0" 200 -
+2022-09-28 15:23:17,006 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:17] "GET /static/images/background.webp HTTP/1.0" 200 -
+2022-09-28 15:23:17,213 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:17] "GET /static/js/clock.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:17,216 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:17] "GET /static/js/callsign_search.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:17,273 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:17] "GET /static/js/copy_date.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:17,278 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:17] "GET /static/js/index_inline.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:17,290 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:17] "GET /static/js/table.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:17,293 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:17] "GET /static/js/load-sw.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:17,888 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:17] "GET /static/manifest.webmanifest HTTP/1.0" 200 -
+2022-09-28 15:23:17,986 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:17] "GET /static/images/icons/icon-144x144.png HTTP/1.0" 200 -
+2022-09-28 15:23:19,346 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:19] "GET /service-worker.js HTTP/1.0" 200 -
+2022-09-28 15:23:22,500 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:22] "GET /callsign.html?c=IU1BOW HTTP/1.0" 200 -
+2022-09-28 15:23:22,608 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:22] "GET /static/js/load_css.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:22,677 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:22] "GET /static/css/style.min.css HTTP/1.0" 200 -
+2022-09-28 15:23:22,772 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:22] "GET /static/images/icons/icon-72x72.png HTTP/1.0" 200 -
+2022-09-28 15:23:22,775 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:22] "GET /static/js/load-sw.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:22,837 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:22] "GET /static/js/callsign_search.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:22,841 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:22] "GET /static/js/copy_date.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:22,843 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:22] "GET /static/js/clock.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:22,846 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:22] "GET /static/js/callsign_inline.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:22,852 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:22] "GET /static/js/table.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:22,858 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:22] "GET /static/images/background.webp HTTP/1.0" 200 -
+2022-09-28 15:23:23,188 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:23] "GET /static/manifest.webmanifest HTTP/1.0" 200 -
+2022-09-28 15:23:23,263 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:23] "GET /static/images/icons/icon-144x144.png HTTP/1.0" 200 -
+2022-09-28 15:23:24,689 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:24] "GET /service-worker.js HTTP/1.0" 200 -
+2022-09-28 15:23:27,041 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /plots.html HTTP/1.0" 200 -
+2022-09-28 15:23:27,136 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/css/style.min.css HTTP/1.0" 200 -
+2022-09-28 15:23:27,139 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/js/load_css.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:27,220 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/images/icons/icon-72x72.png HTTP/1.0" 200 -
+2022-09-28 15:23:27,226 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/images/background.webp HTTP/1.0" 200 -
+2022-09-28 15:23:27,247 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/js/clock.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:27,249 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/js/copy_date.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:27,266 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/js/load-sw.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:27,269 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/js/callsign_search.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:27,272 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/js/plot.min.js HTTP/1.0" 200 -
+2022-09-28 15:23:27,372 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/plots/propagation_heatmaps_AN_20220928-150620.svg HTTP/1.0" 200 -
+2022-09-28 15:23:27,375 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/plots/propagation_heatmaps_AF_20220928-150619.svg HTTP/1.0" 200 -
+2022-09-28 15:23:27,378 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/plots/propagation_heatmaps_AS_20220928-150620.svg HTTP/1.0" 200 -
+2022-09-28 15:23:27,380 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/plots/propagation_heatmaps_EU_20220928-150621.svg HTTP/1.0" 200 -
+2022-09-28 15:23:27,384 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/plots/propagation_heatmaps_NA_20220928-150622.svg HTTP/1.0" 200 -
+2022-09-28 15:23:27,386 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/plots/propagation_heatmaps_SA_20220928-150623.svg HTTP/1.0" 200 -
+2022-09-28 15:23:27,389 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/plots/propagation_heatmaps_OC_20220928-150622.svg HTTP/1.0" 200 -
+2022-09-28 15:23:27,392 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/plots/qso_months_20220928-151947.svg HTTP/1.0" 200 -
+2022-09-28 15:23:27,465 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/plots/qso_world_map_20220823-143430.svg HTTP/1.0" 200 -
+2022-09-28 15:23:27,466 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/plots/qso_hour_band_20220928-151903.svg HTTP/1.0" 200 -
+2022-09-28 15:23:27,484 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/plots/qso_trend_20220928-152106.svg HTTP/1.0" 200 -
+2022-09-28 15:23:27,939 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:27] "GET /static/manifest.webmanifest HTTP/1.0" 200 -
+2022-09-28 15:23:28,006 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:28] "GET /static/images/icons/icon-144x144.png HTTP/1.0" 200 -
+2022-09-28 15:23:29,624 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:23:29] "GET /service-worker.js HTTP/1.0" 200 -
+2022-09-28 15:39:59,780 [INFO] (webapp.py) Start
+2022-09-28 15:39:59,785 [INFO] (cty.py) CTY: start initialization
+2022-09-28 15:39:59,785 [INFO] (cty.py) /home/web/spiderweb_working/lib/../cfg/cty_wt_mod.dat updated (0.0 days), is not necessary to download it
+2022-09-28 15:39:59,791 [INFO] (cty.py) number of lines reads: 8245
+2022-09-28 15:39:59,791 [INFO] (cty.py) number of valid lines: 7280
+2022-09-28 15:39:59,931 [INFO] (cty.py) number of entities: 346
+2022-09-28 15:39:59,931 [INFO] (cty.py) number of single alias: 27481
+2022-09-28 15:40:00,742 [INFO] (cty.py) memory used for prefix: 1310792 bytes
+2022-09-28 15:40:00,743 [INFO] (cty.py) CTY: initialization complete
+2022-09-28 15:40:00,745 [INFO] (qry.py) [Errno 2] No such file or directory: '../cfg/config.json'
+2022-09-28 15:40:00,745 [INFO] (qry.py) trying with other path...
+2022-09-28 15:40:00,745 [INFO] (qry.py) config file loaded
+2022-09-28 15:40:00,798 [INFO] (qry.py) db connection pool created
+2022-09-28 15:40:00,798 [INFO] (adxo.py) connection to: http://dxcal.kj4z.com/dxcal
+2022-09-28 15:40:01,304 [INFO] (adxo.py) number ADXO events: 47
+2022-09-28 15:40:01,311 [INFO] (_internal.py)  * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.0.4:5000 (Press CTRL+C to quit)
+2022-09-28 15:40:06,014 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:06] "GET / HTTP/1.0" 200 -
+2022-09-28 15:40:06,172 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:06] "GET /static/css/style.min.css HTTP/1.0" 200 -
+2022-09-28 15:40:06,237 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:06] "GET /static/js/load_css.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:06,320 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:06] "GET /static/images/icons/icon-72x72.png HTTP/1.0" 200 -
+2022-09-28 15:40:06,344 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:06] "GET /static/images/background.webp HTTP/1.0" 200 -
+2022-09-28 15:40:06,534 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:06] "GET /static/js/clock.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:06,543 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:06] "GET /static/js/copy_date.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:06,615 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:06] "GET /static/js/load-sw.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:06,633 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:06] "GET /static/js/table.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:06,640 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:06] "GET /static/js/callsign_search.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:06,646 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:06] "GET /static/js/index_inline.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:07,444 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:07] "GET /static/manifest.webmanifest HTTP/1.0" 200 -
+2022-09-28 15:40:07,519 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:07] "GET /static/images/icons/icon-144x144.png HTTP/1.0" 200 -
+2022-09-28 15:40:08,993 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:08] "GET /service-worker.js HTTP/1.0" 200 -
+2022-09-28 15:40:09,207 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /plots.html HTTP/1.0" 200 -
+2022-09-28 15:40:09,314 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/css/style.min.css HTTP/1.0" 200 -
+2022-09-28 15:40:09,316 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/js/load_css.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:09,397 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/images/icons/icon-72x72.png HTTP/1.0" 200 -
+2022-09-28 15:40:09,413 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/images/background.webp HTTP/1.0" 200 -
+2022-09-28 15:40:09,447 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/js/clock.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:09,466 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/js/callsign_search.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:09,469 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/js/load-sw.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:09,472 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/js/plot.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:09,474 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/js/copy_date.min.js HTTP/1.0" 200 -
+2022-09-28 15:40:09,580 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/plots/propagation_heatmaps_AN_20220928-150620.svg HTTP/1.0" 200 -
+2022-09-28 15:40:09,585 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/plots/propagation_heatmaps_AF_20220928-150619.svg HTTP/1.0" 200 -
+2022-09-28 15:40:09,588 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/plots/propagation_heatmaps_AS_20220928-150620.svg HTTP/1.0" 200 -
+2022-09-28 15:40:09,591 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/plots/propagation_heatmaps_EU_20220928-150621.svg HTTP/1.0" 200 -
+2022-09-28 15:40:09,593 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/plots/propagation_heatmaps_NA_20220928-150622.svg HTTP/1.0" 200 -
+2022-09-28 15:40:09,596 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/plots/propagation_heatmaps_OC_20220928-150622.svg HTTP/1.0" 200 -
+2022-09-28 15:40:09,664 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/plots/qso_months_20220928-151947.svg HTTP/1.0" 200 -
+2022-09-28 15:40:09,675 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/plots/propagation_heatmaps_SA_20220928-150623.svg HTTP/1.0" 200 -
+2022-09-28 15:40:09,677 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/plots/qso_world_map_20220823-143430.svg HTTP/1.0" 200 -
+2022-09-28 15:40:09,690 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/plots/qso_trend_20220928-153917.svg HTTP/1.0" 200 -
+2022-09-28 15:40:09,691 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:09] "GET /static/plots/qso_hour_band_20220928-151903.svg HTTP/1.0" 200 -
+2022-09-28 15:40:10,299 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:10] "GET /static/manifest.webmanifest HTTP/1.0" 200 -
+2022-09-28 15:40:10,374 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:10] "GET /static/images/icons/icon-144x144.png HTTP/1.0" 200 -
+2022-09-28 15:40:11,861 [INFO] (_internal.py) 127.0.0.1 - - [28/Sep/2022 15:40:11] "GET /service-worker.js HTTP/1.0" 200 -

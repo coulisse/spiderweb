@@ -8,7 +8,7 @@ SPIDERWEB
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
 [![CodeFactor](https://www.codefactor.io/repository/github/coulisse/spiderweb/badge)](https://www.codefactor.io/repository/github/coulisse/spiderweb)
 
-- **Release:** v2.3.3
+- **Release:** v.2.3.4
 - **Author:** Corrado Gerbaldo - IU1BOW.
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see ["LICENSE"](LICENSE) file.

@@ -57,7 +57,7 @@ df=df.set_index('day')
 df=df.resample('D').interpolate(method='pad', limit_direction='forward', axis=0)
 df=df.rolling('30D').mean()
 y=df['total']
-plt.style.use('seaborn-colorblind')
+plt.style.use('tableau-colorblind10')
 fig, ax = plt.subplots(figsize=(14,3))
 plt.suptitle("QSO trend")
 dt_string = datetime.now().strftime("%d/%m/%Y %H:%M")

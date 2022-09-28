@@ -138,8 +138,7 @@ for i, item in enumerate(continents):
     logger.debug(np.array(number_ar))
 
     LOGMIN = 0.1
-    #im = plt.imshow(np.array(number_ar), cmap='YlOrRd', interpolation='quadric', norm=LogNorm(vmin=10, vmax=35),vmin=max(np.array(number_ar).min(), LOGMIN))
-    im = plt.imshow(np.array(number_ar), cmap='YlOrRd', interpolation='none', norm=LogNorm(vmin=10, vmax=35),vmin=max(np.array(number_ar).min(), LOGMIN))
+    im = plt.imshow(np.array(number_ar), cmap='YlOrRd', interpolation='none', norm=LogNorm(vmin=10, vmax=35))
     for spine in plt.gca().spines.values():
             spine.set_visible(False)
 

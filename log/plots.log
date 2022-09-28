@@ -1687,3 +1687,436 @@
 2022-08-23 14:34:31,172 [INFO] (plotuty.py) deleting old files
 2022-08-23 14:34:31,172 [INFO] (plotuty.py) deleted file:../static/plots/qso_world_map_20220823-143101.png
 2022-08-23 14:34:31,172 [INFO] (qso_world_map.py) End
+2022-09-28 12:12:00,324 [INFO] (propagation_heatmaps.py) Start
+2022-09-28 12:12:00,325 [INFO] (propagation_heatmaps.py) doing query...
+2022-09-28 12:12:00,326 [INFO] (qry.py) config file loaded
+2022-09-28 12:12:00,361 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 12:12:00,362 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 12:12:00,364 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 12:12:00,420 [INFO] (qry.py) db connection pool created
+2022-09-28 12:12:00,718 [INFO] (propagation_heatmaps.py) query done
+2022-09-28 12:12:00,718 [INFO] (propagation_heatmaps.py) plotting...
+2022-09-28 12:12:59,412 [INFO] (propagation_heatmaps.py) Start
+2022-09-28 12:12:59,413 [INFO] (propagation_heatmaps.py) doing query...
+2022-09-28 12:12:59,413 [INFO] (qry.py) config file loaded
+2022-09-28 12:12:59,424 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 12:12:59,424 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 12:12:59,427 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 12:12:59,450 [INFO] (qry.py) db connection pool created
+2022-09-28 12:12:59,472 [INFO] (propagation_heatmaps.py) query done
+2022-09-28 12:12:59,472 [INFO] (propagation_heatmaps.py) plotting...
+2022-09-28 12:12:59,829 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AF_20220928-121259.svg
+2022-09-28 12:13:00,088 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AF_20220928-121259.png
+2022-09-28 12:13:00,089 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 12:13:00,090 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:00,090 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AF_20220823-075803.svg
+2022-09-28 12:13:00,091 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:00,091 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AF_20220823-075803.png
+2022-09-28 12:13:00,424 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AN_20220928-121300.svg
+2022-09-28 12:13:00,671 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AN_20220928-121300.png
+2022-09-28 12:13:00,672 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 12:13:00,672 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:00,672 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AN_20220823-075804.svg
+2022-09-28 12:13:00,673 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:00,673 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AN_20220823-075804.png
+2022-09-28 12:13:01,007 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AS_20220928-121300.svg
+2022-09-28 12:13:01,255 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AS_20220928-121300.png
+2022-09-28 12:13:01,255 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 12:13:01,255 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:01,256 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AS_20220823-075804.svg
+2022-09-28 12:13:01,256 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:01,257 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AS_20220823-075804.png
+2022-09-28 12:13:01,590 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_EU_20220928-121301.svg
+2022-09-28 12:13:01,840 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_EU_20220928-121301.png
+2022-09-28 12:13:01,841 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 12:13:01,841 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:01,842 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_EU_20220823-075805.svg
+2022-09-28 12:13:01,842 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:01,842 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_EU_20220823-075805.png
+2022-09-28 12:13:02,178 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_NA_20220928-121301.svg
+2022-09-28 12:13:02,429 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_NA_20220928-121301.png
+2022-09-28 12:13:02,429 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 12:13:02,429 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:02,430 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_NA_20220823-075806.svg
+2022-09-28 12:13:02,430 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:02,431 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_NA_20220823-075806.png
+2022-09-28 12:13:02,767 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_OC_20220928-121302.svg
+2022-09-28 12:13:03,017 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_OC_20220928-121302.png
+2022-09-28 12:13:03,018 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 12:13:03,018 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:03,018 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_OC_20220823-075806.svg
+2022-09-28 12:13:03,019 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:03,019 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_OC_20220823-075806.png
+2022-09-28 12:13:03,353 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_SA_20220928-121303.svg
+2022-09-28 12:13:03,601 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_SA_20220928-121303.png
+2022-09-28 12:13:03,601 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 12:13:03,602 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:03,602 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_SA_20220823-075807.svg
+2022-09-28 12:13:03,602 [INFO] (plotuty.py) deleting old files
+2022-09-28 12:13:03,603 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_SA_20220823-075807.png
+2022-09-28 12:13:03,628 [INFO] (propagation_heatmaps.py) End
+2022-09-28 12:16:34,654 [INFO] (propagation_heatmaps.py) Start
+2022-09-28 12:16:34,655 [INFO] (propagation_heatmaps.py) doing query...
+2022-09-28 12:16:34,657 [INFO] (qry.py) config file loaded
+2022-09-28 12:16:34,667 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 12:16:34,667 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 12:16:34,671 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 12:16:34,682 [INFO] (qry.py) db connection pool created
+2022-09-28 12:16:34,704 [INFO] (propagation_heatmaps.py) query done
+2022-09-28 12:16:34,705 [INFO] (propagation_heatmaps.py) plotting...
+2022-09-28 12:18:25,234 [INFO] (propagation_heatmaps.py) Start
+2022-09-28 12:18:25,235 [INFO] (propagation_heatmaps.py) doing query...
+2022-09-28 12:18:25,235 [INFO] (qry.py) config file loaded
+2022-09-28 12:18:25,243 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 12:18:25,243 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 12:18:25,245 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 12:18:25,256 [INFO] (qry.py) db connection pool created
+2022-09-28 12:18:25,268 [INFO] (propagation_heatmaps.py) query done
+2022-09-28 12:18:25,268 [INFO] (propagation_heatmaps.py) plotting...
+2022-09-28 15:00:12,263 [INFO] (propagation_heatmaps.py) Start
+2022-09-28 15:00:12,263 [INFO] (propagation_heatmaps.py) doing query...
+2022-09-28 15:00:12,264 [INFO] (qry.py) config file loaded
+2022-09-28 15:00:12,275 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 15:00:12,275 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 15:00:12,277 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 15:00:12,286 [INFO] (qry.py) db connection pool created
+2022-09-28 15:00:12,401 [INFO] (propagation_heatmaps.py) query done
+2022-09-28 15:00:12,401 [INFO] (propagation_heatmaps.py) plotting...
+2022-09-28 15:00:12,795 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AF_20220928-150012.svg
+2022-09-28 15:00:13,080 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AF_20220928-150012.png
+2022-09-28 15:00:13,084 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:00:13,084 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:13,085 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AF_20220823-080834.svg
+2022-09-28 15:00:13,085 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:13,086 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AF_20220823-080834.png
+2022-09-28 15:00:13,460 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AN_20220928-150013.svg
+2022-09-28 15:00:13,743 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AN_20220928-150013.png
+2022-09-28 15:00:13,744 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:00:13,744 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:13,744 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AN_20220823-080835.svg
+2022-09-28 15:00:13,745 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:13,745 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AN_20220823-080835.png
+2022-09-28 15:00:14,085 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AS_20220928-150013.svg
+2022-09-28 15:00:14,368 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AS_20220928-150013.png
+2022-09-28 15:00:14,368 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:00:14,369 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:14,369 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AS_20220823-080835.svg
+2022-09-28 15:00:14,370 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:14,370 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AS_20220823-080835.png
+2022-09-28 15:00:14,712 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_EU_20220928-150014.svg
+2022-09-28 15:00:14,990 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_EU_20220928-150014.png
+2022-09-28 15:00:14,991 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:00:14,991 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:14,992 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_EU_20220823-080836.svg
+2022-09-28 15:00:14,992 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:14,993 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_EU_20220823-080836.png
+2022-09-28 15:00:15,390 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_NA_20220928-150015.svg
+2022-09-28 15:00:15,664 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_NA_20220928-150015.png
+2022-09-28 15:00:15,665 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:00:15,665 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:15,666 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_NA_20220823-080836.svg
+2022-09-28 15:00:15,666 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:15,666 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_NA_20220823-080836.png
+2022-09-28 15:00:15,765 [ERROR] (plotuty.py) minvalue must be less than or equal to maxvalue
+2022-09-28 15:00:15,766 [ERROR] (plotuty.py) error saving file: ../static/plots/propagation_heatmaps_OC_20220928-150015.svg
+2022-09-28 15:00:15,793 [ERROR] (plotuty.py) minvalue must be less than or equal to maxvalue
+2022-09-28 15:00:15,793 [ERROR] (plotuty.py) error saving file: ../static/plots/propagation_heatmaps_OC_20220928-150015.png
+2022-09-28 15:00:15,793 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:00:15,794 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:15,794 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:16,138 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_SA_20220928-150015.svg
+2022-09-28 15:00:16,416 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_SA_20220928-150015.png
+2022-09-28 15:00:16,416 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:00:16,417 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:16,417 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_SA_20220823-080838.svg
+2022-09-28 15:00:16,417 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:00:16,418 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_SA_20220823-080838.png
+2022-09-28 15:00:16,439 [INFO] (propagation_heatmaps.py) End
+2022-09-28 15:01:32,593 [INFO] (propagation_heatmaps.py) Start
+2022-09-28 15:01:32,594 [INFO] (propagation_heatmaps.py) doing query...
+2022-09-28 15:01:32,595 [INFO] (qry.py) config file loaded
+2022-09-28 15:01:32,601 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 15:01:32,602 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 15:01:32,602 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 15:01:32,617 [INFO] (qry.py) db connection pool created
+2022-09-28 15:01:32,622 [INFO] (propagation_heatmaps.py) query done
+2022-09-28 15:01:32,622 [INFO] (propagation_heatmaps.py) plotting...
+2022-09-28 15:01:32,996 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AF_20220928-150132.svg
+2022-09-28 15:01:33,278 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AF_20220928-150132.png
+2022-09-28 15:01:33,278 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:01:33,279 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:33,279 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AF_20220928-121259.svg
+2022-09-28 15:01:33,280 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:33,280 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AF_20220928-121259.png
+2022-09-28 15:01:33,658 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AN_20220928-150133.svg
+2022-09-28 15:01:33,934 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AN_20220928-150133.png
+2022-09-28 15:01:33,935 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:01:33,935 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:33,936 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AN_20220928-121300.svg
+2022-09-28 15:01:33,936 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:33,937 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AN_20220928-121300.png
+2022-09-28 15:01:34,275 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AS_20220928-150134.svg
+2022-09-28 15:01:34,553 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AS_20220928-150134.png
+2022-09-28 15:01:34,554 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:01:34,554 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:34,554 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AS_20220928-121300.svg
+2022-09-28 15:01:34,555 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:34,555 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AS_20220928-121300.png
+2022-09-28 15:01:34,899 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_EU_20220928-150134.svg
+2022-09-28 15:01:35,174 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_EU_20220928-150134.png
+2022-09-28 15:01:35,175 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:01:35,175 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:35,176 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_EU_20220928-121301.svg
+2022-09-28 15:01:35,176 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:35,176 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_EU_20220928-121301.png
+2022-09-28 15:01:35,519 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_NA_20220928-150135.svg
+2022-09-28 15:01:35,794 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_NA_20220928-150135.png
+2022-09-28 15:01:35,794 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:01:35,795 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:35,795 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_NA_20220928-121301.svg
+2022-09-28 15:01:35,795 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:35,796 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_NA_20220928-121301.png
+2022-09-28 15:01:35,896 [ERROR] (plotuty.py) minvalue must be less than or equal to maxvalue
+2022-09-28 15:01:35,896 [ERROR] (plotuty.py) error saving file: ../static/plots/propagation_heatmaps_OC_20220928-150135.svg
+2022-09-28 15:01:35,924 [ERROR] (plotuty.py) minvalue must be less than or equal to maxvalue
+2022-09-28 15:01:35,924 [ERROR] (plotuty.py) error saving file: ../static/plots/propagation_heatmaps_OC_20220928-150135.png
+2022-09-28 15:01:35,924 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:01:35,924 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:35,925 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:36,273 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_SA_20220928-150136.svg
+2022-09-28 15:01:36,549 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_SA_20220928-150136.png
+2022-09-28 15:01:36,549 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:01:36,549 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:36,550 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_SA_20220928-121303.svg
+2022-09-28 15:01:36,550 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:01:36,551 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_SA_20220928-121303.png
+2022-09-28 15:01:36,572 [INFO] (propagation_heatmaps.py) End
+2022-09-28 15:04:32,836 [INFO] (propagation_heatmaps.py) Start
+2022-09-28 15:04:32,836 [INFO] (propagation_heatmaps.py) doing query...
+2022-09-28 15:04:32,837 [INFO] (qry.py) config file loaded
+2022-09-28 15:04:32,847 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 15:04:32,847 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 15:04:32,850 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 15:04:32,860 [INFO] (qry.py) db connection pool created
+2022-09-28 15:04:32,875 [INFO] (propagation_heatmaps.py) query done
+2022-09-28 15:04:32,875 [INFO] (propagation_heatmaps.py) plotting...
+2022-09-28 15:04:33,310 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AF_20220928-150432.svg
+2022-09-28 15:04:33,637 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AF_20220928-150432.png
+2022-09-28 15:04:33,638 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:04:33,638 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:33,639 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AF_20220928-150012.svg
+2022-09-28 15:04:33,639 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:33,640 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AF_20220928-150012.png
+2022-09-28 15:04:34,073 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AN_20220928-150433.svg
+2022-09-28 15:04:34,407 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AN_20220928-150433.png
+2022-09-28 15:04:34,408 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:04:34,408 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:34,408 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AN_20220928-150013.svg
+2022-09-28 15:04:34,409 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:34,409 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AN_20220928-150013.png
+2022-09-28 15:04:34,812 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AS_20220928-150434.svg
+2022-09-28 15:04:35,137 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AS_20220928-150434.png
+2022-09-28 15:04:35,138 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:04:35,138 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:35,138 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AS_20220928-150013.svg
+2022-09-28 15:04:35,138 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:35,139 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AS_20220928-150013.png
+2022-09-28 15:04:35,548 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_EU_20220928-150435.svg
+2022-09-28 15:04:35,878 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_EU_20220928-150435.png
+2022-09-28 15:04:35,879 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:04:35,879 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:35,879 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_EU_20220928-150014.svg
+2022-09-28 15:04:35,879 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:35,880 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_EU_20220928-150014.png
+2022-09-28 15:04:36,293 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_NA_20220928-150435.svg
+2022-09-28 15:04:36,618 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_NA_20220928-150435.png
+2022-09-28 15:04:36,618 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:04:36,618 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:36,619 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_NA_20220928-150015.svg
+2022-09-28 15:04:36,619 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:36,620 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_NA_20220928-150015.png
+2022-09-28 15:04:37,021 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_OC_20220928-150436.svg
+2022-09-28 15:04:37,357 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_OC_20220928-150436.png
+2022-09-28 15:04:37,359 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:04:37,360 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:37,360 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_OC_20220823-080837.svg
+2022-09-28 15:04:37,360 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:37,361 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_OC_20220823-080837.png
+2022-09-28 15:04:37,763 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_SA_20220928-150437.svg
+2022-09-28 15:04:38,089 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_SA_20220928-150437.png
+2022-09-28 15:04:38,090 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:04:38,090 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:38,091 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_SA_20220928-150015.svg
+2022-09-28 15:04:38,091 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:04:38,091 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_SA_20220928-150015.png
+2022-09-28 15:04:38,113 [INFO] (propagation_heatmaps.py) End
+2022-09-28 15:06:19,411 [INFO] (propagation_heatmaps.py) Start
+2022-09-28 15:06:19,411 [INFO] (propagation_heatmaps.py) doing query...
+2022-09-28 15:06:19,411 [INFO] (qry.py) config file loaded
+2022-09-28 15:06:19,417 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 15:06:19,417 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 15:06:19,418 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 15:06:19,424 [INFO] (qry.py) db connection pool created
+2022-09-28 15:06:19,436 [INFO] (propagation_heatmaps.py) query done
+2022-09-28 15:06:19,436 [INFO] (propagation_heatmaps.py) plotting...
+2022-09-28 15:06:19,801 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AF_20220928-150619.svg
+2022-09-28 15:06:20,087 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AF_20220928-150619.png
+2022-09-28 15:06:20,088 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:06:20,088 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:20,089 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AF_20220928-150132.svg
+2022-09-28 15:06:20,089 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:20,090 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AF_20220928-150132.png
+2022-09-28 15:06:20,466 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AN_20220928-150620.svg
+2022-09-28 15:06:20,749 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AN_20220928-150620.png
+2022-09-28 15:06:20,749 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:06:20,749 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:20,751 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AN_20220928-150133.svg
+2022-09-28 15:06:20,751 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:20,751 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AN_20220928-150133.png
+2022-09-28 15:06:21,099 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AS_20220928-150620.svg
+2022-09-28 15:06:21,382 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_AS_20220928-150620.png
+2022-09-28 15:06:21,383 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:06:21,383 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:21,383 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AS_20220928-150134.svg
+2022-09-28 15:06:21,384 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:21,384 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_AS_20220928-150134.png
+2022-09-28 15:06:21,727 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_EU_20220928-150621.svg
+2022-09-28 15:06:22,013 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_EU_20220928-150621.png
+2022-09-28 15:06:22,013 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:06:22,013 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:22,014 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_EU_20220928-150134.svg
+2022-09-28 15:06:22,014 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:22,015 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_EU_20220928-150134.png
+2022-09-28 15:06:22,359 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_NA_20220928-150622.svg
+2022-09-28 15:06:22,645 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_NA_20220928-150622.png
+2022-09-28 15:06:22,646 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:06:22,646 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:22,647 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_NA_20220928-150135.svg
+2022-09-28 15:06:22,648 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:22,648 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_NA_20220928-150135.png
+2022-09-28 15:06:22,992 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_OC_20220928-150622.svg
+2022-09-28 15:06:23,280 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_OC_20220928-150622.png
+2022-09-28 15:06:23,280 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:06:23,280 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:23,282 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_OC_20220928-121302.svg
+2022-09-28 15:06:23,282 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:23,282 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_OC_20220928-121302.png
+2022-09-28 15:06:23,627 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_SA_20220928-150623.svg
+2022-09-28 15:06:23,914 [INFO] (plotuty.py) plotted saved on: ../static/plots/propagation_heatmaps_SA_20220928-150623.png
+2022-09-28 15:06:23,914 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:06:23,915 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:23,915 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_SA_20220928-150136.svg
+2022-09-28 15:06:23,915 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:06:23,916 [INFO] (plotuty.py) deleted file:../static/plots/propagation_heatmaps_SA_20220928-150136.png
+2022-09-28 15:06:23,937 [INFO] (propagation_heatmaps.py) End
+2022-09-28 15:18:55,566 [INFO] (qso_hour_band.py) Start
+2022-09-28 15:18:55,566 [INFO] (qso_hour_band.py) doing query...
+2022-09-28 15:18:55,567 [INFO] (qry.py) config file loaded
+2022-09-28 15:18:55,576 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 15:18:55,576 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 15:18:55,578 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 15:18:55,586 [INFO] (qry.py) db connection pool created
+2022-09-28 15:19:03,065 [INFO] (qso_hour_band.py) query done
+2022-09-28 15:19:03,065 [INFO] (qso_hour_band.py) plotting...
+2022-09-28 15:19:03,349 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_hour_band_20220928-151903.svg
+2022-09-28 15:19:03,518 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_hour_band_20220928-151903.png
+2022-09-28 15:19:03,520 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:19:03,520 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:19:03,520 [INFO] (plotuty.py) deleted file:../static/plots/qso_hour_band_20220823-075454.svg
+2022-09-28 15:19:03,521 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:19:03,521 [INFO] (plotuty.py) deleted file:../static/plots/qso_hour_band_20220823-075454.png
+2022-09-28 15:19:03,521 [INFO] (qso_hour_band.py) End
+2022-09-28 15:19:25,645 [INFO] (qso_months.py) Start
+2022-09-28 15:19:25,646 [INFO] (qso_months.py) doing query...
+2022-09-28 15:19:25,646 [INFO] (qry.py) config file loaded
+2022-09-28 15:19:25,657 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 15:19:25,657 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 15:19:25,658 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 15:19:25,669 [INFO] (qry.py) db connection pool created
+2022-09-28 15:19:46,987 [INFO] (qso_months.py) query done
+2022-09-28 15:19:46,989 [INFO] (qso_months.py) plotting...
+2022-09-28 15:19:47,411 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_months_20220928-151947.svg
+2022-09-28 15:19:47,627 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_months_20220928-151947.png
+2022-09-28 15:19:47,630 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:19:47,631 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:19:47,633 [INFO] (plotuty.py) deleted file:../static/plots/qso_months_20220823-075436.svg
+2022-09-28 15:19:47,633 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:19:47,634 [INFO] (plotuty.py) deleted file:../static/plots/qso_months_20220823-075436.png
+2022-09-28 15:19:47,634 [INFO] (qso_months.py) End
+2022-09-28 15:19:58,825 [INFO] (qso_trend.py) Start
+2022-09-28 15:19:58,828 [INFO] (qso_trend.py) doing query...
+2022-09-28 15:19:58,829 [INFO] (qry.py) config file loaded
+2022-09-28 15:19:59,005 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 15:19:59,005 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 15:19:59,041 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 15:19:59,099 [INFO] (qry.py) db connection pool created
+2022-09-28 15:20:09,822 [INFO] (qso_trend.py) query done
+2022-09-28 15:20:09,825 [INFO] (qso_trend.py) plotting...
+2022-09-28 15:20:10,561 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_trend_20220928-152010.svg
+2022-09-28 15:20:10,827 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_trend_20220928-152010.png
+2022-09-28 15:20:10,830 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:20:10,831 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:20:10,832 [INFO] (plotuty.py) deleted file:../static/plots/qso_trend_20220823-122413.svg
+2022-09-28 15:20:10,833 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:20:10,835 [INFO] (plotuty.py) deleted file:../static/plots/qso_trend_20220823-122413.png
+2022-09-28 15:20:10,835 [INFO] (qso_trend.py) End
+2022-09-28 15:20:55,747 [INFO] (qso_trend.py) Start
+2022-09-28 15:20:55,755 [INFO] (qso_trend.py) doing query...
+2022-09-28 15:20:55,756 [INFO] (qry.py) config file loaded
+2022-09-28 15:20:55,897 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 15:20:55,897 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 15:20:55,904 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 15:20:55,983 [INFO] (qry.py) db connection pool created
+2022-09-28 15:21:05,774 [INFO] (qso_trend.py) query done
+2022-09-28 15:21:05,778 [INFO] (qso_trend.py) plotting...
+2022-09-28 15:21:06,490 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_trend_20220928-152106.svg
+2022-09-28 15:21:06,755 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_trend_20220928-152106.png
+2022-09-28 15:21:06,758 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:21:06,758 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:21:06,759 [INFO] (plotuty.py) deleted file:../static/plots/qso_trend_20220823-122506.svg
+2022-09-28 15:21:06,759 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:21:06,760 [INFO] (plotuty.py) deleted file:../static/plots/qso_trend_20220823-122506.png
+2022-09-28 15:21:06,760 [INFO] (qso_trend.py) End
+2022-09-28 15:25:14,898 [INFO] (qso_trend.py) Start
+2022-09-28 15:25:14,915 [INFO] (qso_trend.py) doing query...
+2022-09-28 15:25:14,915 [INFO] (qry.py) config file loaded
+2022-09-28 15:25:15,153 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 15:25:15,154 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 15:25:15,160 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 15:25:15,307 [INFO] (qry.py) db connection pool created
+2022-09-28 15:25:25,283 [INFO] (qso_trend.py) query done
+2022-09-28 15:25:25,284 [INFO] (qso_trend.py) plotting...
+2022-09-28 15:25:25,922 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_trend_20220928-152525.svg
+2022-09-28 15:25:26,182 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_trend_20220928-152525.png
+2022-09-28 15:25:26,187 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:25:26,187 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:25:26,188 [INFO] (plotuty.py) deleted file:../static/plots/qso_trend_20220928-152010.svg
+2022-09-28 15:25:26,188 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:25:26,189 [INFO] (plotuty.py) deleted file:../static/plots/qso_trend_20220928-152010.png
+2022-09-28 15:25:26,189 [INFO] (qso_trend.py) End
+2022-09-28 15:38:15,623 [INFO] (qso_trend.py) Start
+2022-09-28 15:38:15,625 [INFO] (qso_trend.py) doing query...
+2022-09-28 15:38:15,626 [INFO] (qry.py) config file loaded
+2022-09-28 15:38:15,755 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 15:38:15,755 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 15:38:15,759 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 15:38:15,860 [INFO] (qry.py) db connection pool created
+2022-09-28 15:38:29,805 [INFO] (qso_trend.py) query done
+2022-09-28 15:38:29,806 [INFO] (qso_trend.py) plotting...
+2022-09-28 15:39:06,449 [INFO] (qso_trend.py) Start
+2022-09-28 15:39:06,451 [INFO] (qso_trend.py) doing query...
+2022-09-28 15:39:06,452 [INFO] (qry.py) config file loaded
+2022-09-28 15:39:06,612 [INFO] (authentication.py) package: mysql.connector.plugins
+2022-09-28 15:39:06,613 [INFO] (authentication.py) plugin_name: mysql_native_password
+2022-09-28 15:39:06,650 [INFO] (authentication.py) AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2022-09-28 15:39:06,755 [INFO] (qry.py) db connection pool created
+2022-09-28 15:39:16,725 [INFO] (qso_trend.py) query done
+2022-09-28 15:39:16,728 [INFO] (qso_trend.py) plotting...
+2022-09-28 15:39:17,411 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_trend_20220928-153917.svg
+2022-09-28 15:39:17,685 [INFO] (plotuty.py) plotted saved on: ../static/plots/qso_trend_20220928-153917.png
+2022-09-28 15:39:17,690 [INFO] (plotuty.py) ../static/plots/plots.json updated
+2022-09-28 15:39:17,690 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:39:17,693 [INFO] (plotuty.py) deleted file:../static/plots/qso_trend_20220928-152106.svg
+2022-09-28 15:39:17,693 [INFO] (plotuty.py) deleting old files
+2022-09-28 15:39:17,693 [INFO] (plotuty.py) deleted file:../static/plots/qso_trend_20220928-152106.png
+2022-09-28 15:39:17,694 [INFO] (qso_trend.py) End
