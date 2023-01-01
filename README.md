@@ -1,4 +1,4 @@
-SPIDERWEB
+<img  align="center"  src="static/images/icons/icon-72x72.png"/> SPIDERWEB
 ===
 
 ### Ham radio cluster web viewer for DxSpider
@@ -8,11 +8,12 @@ SPIDERWEB
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
 [![CodeFactor](https://www.codefactor.io/repository/github/coulisse/spiderweb/badge)](https://www.codefactor.io/repository/github/coulisse/spiderweb)
 
-- **Release:** v.2.3.4
+- **Release:** v2.4
 - **Author:** Corrado Gerbaldo - IU1BOW.
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see ["LICENSE"](LICENSE) file.
-- **Languages:** This application is written in Python/flask,Javascript and HTML
+- **Languages:** This application is written in Python 3.11/flask,Javascript and HTML
+
 ___
 **DXSpider** is a great DX Cluster software that has a usefull telnet interface. 
 I wrote this application in order to add a web user interface to DXSpider and show the spots collected.
@@ -20,10 +21,12 @@ The user could see 50 spots at time and filter them by band, spotter continent a
 
 For this application I've used:
 - **Bootstrap** for stylesheet CSS
-- **jQuery** In the header you can find the link to MS link
+- **jQuery** 
+- **Apache ECharts** for managing charts
 - **qrz.com** For each callsing found you can click on lens and you'll see him on qrz.com
 - **flag-icon-css** [https://github.com/lipis/flag-icon-css](https://github.com/lipis/flag-icon-css) I used it for show the country flags 
 - **ng3k.com** [ng3k.com](http://ng3k.com/misc/adxo.html) I used to get information about "Announced Dx Operations". Thanks to Bill/NG3K !!!
+- **silso** [sidc.be/silso](https://sidc.be/silso/) used to show propagation trend in "Chart & stats" secion
 
 You can find my web site at [https://www.iu1bow.it](https://www.i1bow.it)
 
@@ -65,27 +68,14 @@ To install **Flask**:
 ```console
 foo@bar:~$ pip install flask 
 foo@bar:~$ pip install Flask-minify
-foo@bar:~$ pip install staticjinja
 foo@bar:~$ pip install flask_wtf
+foo@bar:~$ pip install pandas
 ```
 Then you have to install mysql libraries**:
 ```console
 foo@bar:~$ pip install mysql-connector-python
 foo@bar:~$ pip install --upgrade mysql-connector-python==8.0.12
 
-```
-
-Finally you have to install matplotlib and pandas in order to plots some graphics
-```console
-foo@bar:~$ pip3 install matplotlib 
-foo@bar:~$ pip3 install statsmodels
-foo@bar:~$ pip3 install geopandas   
-foo@bar:~$ pip3 install shapely     
-or
-foo@bar:~$ sudo -H pip3 install matplotlib --system   
-foo@bar:~$ sudo -H pip3 install statsmodels --system   
-foo@bar:~$ sudo -H pip3 install geopandas --system   
-foo@bar:~$ sudo -H pip3 install shapely --system   
 ```
 
 ### Configuration  
@@ -120,21 +110,9 @@ Make your choiche:
 
 ```
 
-In order to show the right *plots*, you have to generate them! 
-To do so you have to run *.sh* files inside *scripts* folders, or the better way is to **schedule** them with your **crontab**
-```console
-foo@bar:~$ crontab -e
-```
-then edit it in a manner like this:
-```crontab 
-0 22 * * * /home/web/spiderweb/scripts/qso_world_map.sh > /dev/null 2>&1
-0 23 * * * /home/web/spiderweb/scripts/qso_months.sh > /dev/null 2>&1
-*/15 * * * * /home/web/spiderweb/scripts/propagation_heatmaps.sh > /dev/null 2>&1
-0 1  * * * /home/web/spiderweb/scripts/qso_trend.sh > /dev/null 2>&1
-*/30 * * * * /home/web/spiderweb/scripts/qso_hour_band.sh > /dev/null 2>&1
-39 * * * * /home/web/spiderweb/scripts/monitor.sh> /dev/null 2>&1
-__
-```
+### Crontab
+Starting from version 2.4, since all activities are managed by the application, you don't need to schedule anythings
+
 
 ### Run test
 Now you can run your web application with the following command:
@@ -248,8 +226,9 @@ to
 ```
 
 
-### Monitoring
-you can use the scritp `scripts/monitoring.sh` in order to monitoring your system. Check instruction inside this scripts.
+### Mobile
+This application is designed for desktop and mobile phone. It is a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app) so it could installed and used like an app on mobile.
+
 
 ### API
 **Spot list**
@@ -262,12 +241,18 @@ You cam retrive some informations about a callsign with **callsign**; For exampl
 
 ### Screenshots
 ----------
-<img src="docs/images/01_desktop_main.jpg" width="300"/>
-<img src="docs/images/02_desktop_plot.jpg" width="300"/>
+
+**desktop**
+
+<img src="docs/images/01_desktop_main.png" width="300"/>
+<img src="docs/images/02_desktop_plot.png" width="300"/>
 <p float="left">
-<img src="docs/images/03_mobile_install.jpg" width="200"/>
-<img src="docs/images/04_mobile_icon.jpg" width="200"/>
-<img src="docs/images/05_mobile_splash.jpg" width="200"/>
-<img src="docs/images/06_mobile_main.jpg" width="200"/>
+
+**mobile**
+
+<img src="docs/images/m01_mobile.png" width="200"/>
+<img src="docs/images/m02_mobile.png" width="200"/>
+<img src="docs/images/m03_mobile.png" width="200"/>
+<img src="docs/images/m04_mobile.png" width="200"/>
 </p>
 

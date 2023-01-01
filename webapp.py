@@ -12,7 +12,11 @@ from lib.dxtelnet import who
 from lib.adxo import get_adxo_events
 from lib.qry import query_manager
 from lib.cty import prefix_table
-
+from lib.plot_data_provider import ContinentsBandsProvider
+from lib.plot_data_provider import SpotsPerMounthProvider
+from lib.plot_data_provider import SpotsTrend
+from lib.plot_data_provider import HourBand
+from lib.plot_data_provider import WorldDxSpotsLive
 
 logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
 logger = logging.getLogger(__name__)
@@ -207,6 +211,7 @@ def spotquery():
             main_result["iso"]=search_prefix["iso"]
             
             payload.append({**main_result})
+        
         return payload
    except Exception as e:
         logger.error(e)
@@ -221,6 +226,14 @@ def get_adxo():
 
 get_adxo()
 
+#create data provider for charts
+heatmap_cbp=ContinentsBandsProvider(logger,qm,continents_cq,band_frequencies)
+bar_graph_spm=SpotsPerMounthProvider(logger,qm)
+line_graph_st=SpotsTrend(logger,qm)
+bubble_graph_hb=HourBand(logger,qm,band_frequencies)
+geo_graph_wdsl=WorldDxSpotsLive(logger,qm,pfxt)
+
+#ROUTINGS
 @app.route('/spotlist', methods=['GET']) 
 def spotlist():
     response=flask.Response(json.dumps(spotquery()))
@@ -235,7 +248,7 @@ def who_is_connected():
 @app.route('/index.html', methods=['GET']) 
 def spots():
     payload=spotquery()
-    response=flask.Response(render_template('index.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],enable_cq_filter=enable_cq_filter,payload=payload,timer_interval=cfg['timer']['interval'],adxo_events=adxo_events))
+    response=flask.Response(render_template('index.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],enable_cq_filter=enable_cq_filter,payload=payload,timer_interval=cfg['timer']['interval'],adxo_events=adxo_events,continents=continents_cq,bands=band_frequencies))
     return response
 
 @app.route('/service-worker.js', methods=['GET'])
@@ -244,26 +257,16 @@ def sw():
 
 @app.route('/offline.html')
 def root():
-        return app.send_static_file('html/offline.html')
+    return app.send_static_file('html/offline.html')
 
-@app.route('/plotlist', methods=['GET']) 
-def plotlist():
-    #get url parameters
-    idxfile=os.path.join(app.root_path,os.path.basename(app.static_url_path),'plots','plots.json')
-    if os.path.exists(idxfile):
-        with open(idxfile,'r') as jsonfile:
-            json_content = json.load(jsonfile)
-    else:
-        json_content={}
-
-    response=json_content
-    return response
+@app.route('/world.json')
+def world_data():
+   return app.send_static_file('data/world.json')        
 
 @app.route('/plots.html')
 def plots():
-    payload=plotlist()  
     whoj=who_is_connected()
-    response=flask.Response(render_template('plots.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['plot_refresh_timer']['interval'],who=whoj))
+    response=flask.Response(render_template('plots.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],who=whoj,continents=continents_cq,bands=band_frequencies))
     return response
 
 
@@ -285,7 +288,7 @@ def sitemap():
 def callsign():
     payload=spotquery()  
     callsign=request.args.get('c')
-    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],callsign=callsign,adxo_events=adxo_events))
+    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],callsign=callsign,adxo_events=adxo_events,continents=continents_cq,bands=band_frequencies))
     return response
 
 #API that search a callsign and return all informations about that
@@ -296,7 +299,48 @@ def find_callsign():
     if response is None:
         response=flask.Response(status=204)
     return response
+    
+@app.route('/plot_get_heatmap_data', methods=['GET']) 
+def get_heatmap_data():
+    continent=request.args.get('continent')
+    response=flask.Response(json.dumps(heatmap_cbp.get_data(continent)))
+    logger.debug(response)
+    if response is None:
+        response=flask.Response(status=204)    
+    return response
 
+@app.route('/plot_get_dx_spots_per_month', methods=['GET']) 
+def get_dx_spots_per_month():
+    response=flask.Response(json.dumps(bar_graph_spm.get_data()))
+    logger.debug(response)
+    if response is None:
+        response=flask.Response(status=204)    
+    return response    
+
+@app.route('/plot_get_dx_spots_trend', methods=['GET']) 
+def get_dx_spots_trend():
+    response=flask.Response(json.dumps(line_graph_st.get_data()))
+    logger.debug(response)
+    if response is None:
+        response=flask.Response(status=204)    
+    return response    
+
+@app.route('/plot_get_hour_band', methods=['GET']) 
+def get_dx_hour_band():
+    response=flask.Response(json.dumps(bubble_graph_hb.get_data()))
+    logger.debug(response)
+    if response is None:
+        response=flask.Response(status=204)    
+    return response 
+
+@app.route('/plot_get_world_dx_spots_live', methods=['GET']) 
+def get_world_dx_spots_live():
+    response=flask.Response(json.dumps(geo_graph_wdsl.get_data()))
+    logger.debug(response)
+    if response is None:
+        response=flask.Response(status=204)    
+    return response 
+    
 @app.context_processor
 def inject_template_scope():
     injections = dict()
@@ -304,7 +348,6 @@ def inject_template_scope():
         value = request.cookies.get('cookie_consent')
         return value == 'true'
     injections.update(cookies_check=cookies_check)
-
     return injections
 
 @app.after_request
@@ -314,10 +357,30 @@ def add_security_headers(resp):
     resp.headers['X-Frame-Options']='SAMEORIGIN'
     resp.headers['X-Content-Type-Options']='nosniff'
     resp.headers['Referrer-Policy']='strict-origin-when-cross-origin'
-    resp.headers['Cache-Control']='no-cache, no-store, must-revalidate'
+    resp.headers['Cache-Control']='public, no-cache'
     resp.headers['Pragma']='no-cache'
+
+    resp.headers['Content-Security-Policy']="\
+    default-src 'self';\
+    script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'unsafe-inline';\
+    style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net  'unsafe-inline';\
+    object-src 'none';base-uri 'self';\
+    connect-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com sidc.be;\
+    font-src 'self' cdn.jsdelivr.net;\
+    frame-src 'self';\
+    form-action 'none';\
+    frame-ancestors 'none';\
+    img-src 'self' data: cdnjs.cloudflare.com sidc.be;\
+    manifest-src 'self';\
+    media-src 'self';\
+        worker-src 'self';\
+    "
     return resp
 
-    
+#    style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx' 'sha512-uvXdJud8WaOlQFjlz9B15Yy2Au/bMAvz79F7Xa6OakCl2jvQPdHD0hb3dEqZRdSwG4/sknePXlE7GiarwA/9Wg==';\
+#    style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'unsafe-inline';\
+
+    #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'unsafe-inline'
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
+

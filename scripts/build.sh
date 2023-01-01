@@ -22,7 +22,6 @@ changelog=${path_docs}'/'CHANGELOG.md
 #fi
 
 echo 'get version from git'
-#ver=`git describe --tags --abbrev=0`
 if ! ver=$(git describe --tags --abbrev=0)
 then
 	echo 'ERROR on get version from git'
@@ -71,7 +70,6 @@ then
 fi
 
 echo 'generating static pages...'
-#staticjinja build --srcpath=${path_static_html}/templates/ --outpath=${path_static_html}/ --log=info
 if ! python ../lib/static_build.py
 then                               
 	echo 'ERROR generating static pages'                
@@ -84,6 +82,11 @@ then
 	echo 'ERROR wrinting requirements'                
 	exit 60
 fi
+
+echo 'remove some packages...'
+sed -i '/certifi==/d' ../requirements.txt
+sed -i '/staticjinja==/d' ../requirements.txt
+
 #used to minify the application javascript                            
 echo 'minify javascripts...'
 shopt -s extglob
@@ -98,7 +101,12 @@ do
 		shopt -u extglob
 		exit 80
 	fi
-	sleep 5  
+	if [ ! -s "${path_static_js}/${file_no_ext}.min.js" ]; then
+		echo "File is empty"
+		shopt -u extglob
+		exit 81
+	fi
+	sleep 3  
 done
 #used to minify css                            
 echo 'minify css...'
@@ -111,9 +119,14 @@ do
 	then
 		echo 'ERROR minifying css: '${i}          
 		shopt -u extglob
-		exit 80
+		exit 90
 	fi
-	sleep 5  
+	if [ ! -s "${path_static_css}/${file_no_ext}.min.css" ]; then
+		echo "File is empty"
+		shopt -u extglob
+		exit 91
+	fi	
+	sleep 3  
 done
 shopt -u extglob
 echo

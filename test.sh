@@ -3,5 +3,6 @@ if [ "$1" == "-b" ]; then
 	./build.sh
 	cd ..
 fi
-python3 webapp.py
+#python3 webapp.py
+flask --app webapp.py run
 

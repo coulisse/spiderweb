@@ -1,4 +1,11 @@
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css");
+
+@font-face {
+    font-display: swap;
+    font-family: 'bootstrap-icons';
+
+}
+
 .badge-responsive {
 	  width: 70px;
 }
@@ -10,7 +17,6 @@
 	    .badge-responsive {
 		      width: 40px;
 	    }
-
 }
 
 @media screen and (max-width: 768px) {
@@ -31,12 +37,10 @@
 }
 
 .img-flag {
-//	width: 80%;
-        background-color: white;
-//        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        border: 1px solid #ddd;
-        border-radius: 2px;
-        padding: 3px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    padding: 3px;
 	background-size:cover !important;
 	max-width: auto; 
 	max-height: auto; 
@@ -84,4 +88,41 @@ span.search-callsign {
 
 #band {
 	margin-top: 5px;
+}
+
+#dashboard {
+	padding:10px;
+	gap:10px;
+}
+
+#telnet-thead {
+	position: sticky;top: 0
+}
+
+#form-band_activity {
+	width: 600px; height: 500px;
+}
+
+#chart-band_activity {
+	width:100%; height:400px
+}
+
+#chart-world_dx_spots_live {
+	width: 600px; height: 500px; gap: 0px;
+}
+
+#chart-hour_band {
+	width: 600px; height: 500px;
+}
+
+#silo-propagation-img {
+	width: 480px; height: 400px;
+}
+
+#chart-dx_spots_x_month {
+	width: 600px; height: 400px;
+}
+
+#chart-dx_spots_trend {
+	width: 700px; height: 400px;
 }

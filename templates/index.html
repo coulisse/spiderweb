@@ -26,20 +26,9 @@
 					<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 					<strong>Band</strong>
 					<select class="form-select overflow-hidden" id="band" size="14" multiple>
-					<option selected value="SHF">SHF</option>
-						<option selected value="UHF">UHF</option>
-						<option selected value="VHF">VHF</option>
-						<option selected value="6">6m</option>
-						<option selected value="10">10m</option>
-						<option selected value="12">12m</option>
-						<option selected value="15">15m</option>
-						<option selected value="17">17m</option>
-						<option selected value="20">20m</option>
-						<option selected value="30">30m</option>
-						<option selected value="40">40m</option>
-						<option selected value="60">60m</option>
-						<option selected value="80">80m</option>
-						<option selected value="160">&gt;160m</option>
+						{% for dict_item in bands['bands']|reverse %}
+						<option selected value="{{dict_item['id']}}">{{dict_item["id"]}}</option>
+						{% endfor %}						
 					</select>
 					<p></p>
 					<div class="row">
@@ -55,25 +44,18 @@
 						<div class="col">
 							<strong>De</strong>
 							<select class="form-select overflow-hidden" id="de_re" size="7" multiple>
-								<option selected value="EU">EU</option>
-								<option selected value="NA">NA</option>
-								<option selected value="AS">AS</option>
-								<option selected value="AF">AF</option>
-								<option selected value="OC">OC</option>
-								<option selected value="SA">SA</option>
-								<option selected value="AN">AN</option>
+								{% for dict_item in continents['continents'] %}
+								<option selected value="{{dict_item['id']}}">{{dict_item["id"]}}</option>
+								{% endfor %}									
+							
 							</select>
 						</div>
 						<div class="col">
 							<strong>Dx</strong>
 							<select class="form-select overflow-hidden" id="dx_re" size="7" multiple>
-								<option selected value="EU">EU</option>
-								<option selected value="NA">NA</option>
-								<option selected value="AS">AS</option>
-								<option selected value="AF">AF</option>
-								<option selected value="OC">OC</option>
-								<option selected value="SA">SA</option>
-								<option selected value="AN">AN</option>
+								{% for dict_item in continents['continents'] %}
+								<option selected value="{{dict_item['id']}}">{{dict_item["id"]}}</option>
+								{% endfor %}	
 							</select>
 						</div>
 					</div>
@@ -212,6 +194,9 @@
 		var payload_json={{payload|tojson|safe}};
 		var timer_interval_json = {{timer_interval}};
 		var my_adxo_events_json='{{ adxo_events|tojson|safe }}';
+		var continents_cq={{continents["continents"]|tojson|safe}};
+		var band_frequencies={{bands["bands"]|tojson|safe}};
+
 	{% endblock app_data %}
 	{% block app_scripts %}
 		{{ super() }}

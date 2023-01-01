@@ -1,6 +1,18 @@
 ### Change log
-Date: 28/09/2022                         
-Release: v.2.3.4
+Date: 01/01/2023 
+Release v.2.4
+- migration to python 3.11
+- added descriptions to continents
+- fixed issue #23: Wrong flag for Cocos (Keeling) Islands
+- proposal for improvements #25 (charts titles, removed link from connected nodes)
+- reenginering of graph & stats
+- upgraded bootstrap icons
+- upgraded flag icons
+- added new propagation chart https://sidc.be/silso/
+- added Content Security Policy
+___
+Date: 28/09/2022 
+Release: v2.3.4
 - fixed issue #22 propagation_heatmaps.sh fails with 'Passing a Normalize instance simultaneously with vmin/vmax is not supported.' 
 - replaced seaborn styles since are deprecated
 ___

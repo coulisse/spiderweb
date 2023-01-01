@@ -4,10 +4,6 @@
 		{% block title %}
 		{% endblock title %}
 		{% block head %}
- 		<meta http-equiv="Content-Security-Policy"
-          content="
-          script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'unsafe-inline'
-		">
         <meta charset="utf-8">
         <meta name="description" content="Web Ham Radio DX Cluster and spot search">
         <meta name="keywords" content="ham radio, dx cluster, dx spots, cluster sposts,web dx cluster,dx cluster search, DX spots"> 
@@ -18,10 +14,13 @@
 	<link rel="apple-touch-icon" href="/static/images/icons/icon-apple.png">
 	<link rel="manifest" href="/static/manifest.webmanifest">
 	<link rel="stylesheet" href="/static/css/style.min.css"> 
-	<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" as="style" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" onload="this.rel='stylesheet'">
+
+	<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" as="style" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" onload="this.rel='stylesheet' ">
   	<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"></noscript>
-	<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.4/css/flag-icons.min.css" as="style" integrity="sha384-TeDUCuZ+Uyp1Vv0n275nnm//ANAlP5GFHCnSF4iiAdrYmBZMM6syYgykpq4kGTqL" crossorigin="anonymous" onload="this.rel='stylesheet'">
-  	<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.4/css/flag-icons.min.css"></noscript>
+	
+	<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css" as="style" integrity="sha512-uvXdJud8WaOlQFjlz9B15Yy2Au/bMAvz79F7Xa6OakCl2jvQPdHD0hb3dEqZRdSwG4/sknePXlE7GiarwA/9Wg==" crossorigin="anonymous" onload="this.rel='stylesheet'" >
+  	<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css"></noscript>
+	
 	<script src="static/js/load_css.min.js"></script>
 	{% endblock head %}
      </head>
@@ -87,18 +86,18 @@
 				<span class="copyleft">&copy;</span> Copyleft:
 				<span id="copyDate"></span>
 			    <a href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">IU1BOW Spiderweb</a>
-				<span id="version">v.2.3.4</span>
+				<span id="version">v2.4</span>
 	       </div> 
 	     </footer>
 	<script async src="static/js/clock.min.js"></script>
 	<script async src="static/js/copy_date.min.js"></script>
 	<script async src="static/js/load-sw.min.js"></script>
-	<script>
+	<script nonce="sedfGFG32xs">
 		{% block app_data %}
 		var my_callsign='{{callsign}}';
 		{% endblock app_data %}
 	</script>
-	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js" integrity="sha512-6ORWJX/LrnSjBzwefdNUyLCMTIsGoNP6NftMy2UAm1JBm6PRZCO1d7OHBStWpVFZLO+RerTvqX/Z9mBFfCJZ4A==" crossorigin="anonymous"></script>
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 	{% block app_scripts %}
 		<script async src="static/js/callsign_search.min.js"></script>
