@@ -4,9 +4,12 @@
 ### Ham radio cluster web viewer for DxSpider
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
-[![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
+[![made-with-python](https://img.shields.io/badge/B.e.-Python-1f425f.svg)](https://www.python.org/)
+[![made-with-javascript](https://img.shields.io/badge/F.e.-JavaScript-yellow)](https://www.javascript.com)
+[![bootstrap](https://img.shields.io/badge/CSS%20Fwk-Bootstrap-purple)](https://getbootstrap.com/)
+[![jQuery](https://img.shields.io/badge/JS%20Fwk-jQuery-blue)](https://jquery.com/)
 [![CodeFactor](https://www.codefactor.io/repository/github/coulisse/spiderweb/badge)](https://www.codefactor.io/repository/github/coulisse/spiderweb)
+
 
 - **Release:** v2.4
 - **Author:** Corrado Gerbaldo - IU1BOW.
@@ -246,10 +249,11 @@ You cam retrive some informations about a callsign with **callsign**; For exampl
 
 <img src="docs/images/01_desktop_main.png" width="300"/>
 <img src="docs/images/02_desktop_plot.png" width="300"/>
-<p float="left">
+
 
 **mobile**
 
+<p float="left">
 <img src="docs/images/m01_mobile.png" width="200"/>
 <img src="docs/images/m02_mobile.png" width="200"/>
 <img src="docs/images/m03_mobile.png" width="200"/>
