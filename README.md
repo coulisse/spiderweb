@@ -221,7 +221,7 @@ For SSL I'm using [Cloudflare](https://www.cloudflare.com/). This is a free serv
 **Cookie settings:** if you don't use https, but you use http, you have to change the following setting in webapp.py:
 ```
      SESSION_COOKIE_SECURE=True,    
-```
+``` 
 to
 
 ```
@@ -235,20 +235,19 @@ This application is designed for desktop and mobile phone. It is a [PWA](https:/
 
 ### API
 **Spot list**
-
-You can retrive last spots calling "**/spotlist**"; For example  [www.iu1bow.com/spotlist] (https://www.iu1bow.com/spotlist)
+You can retrive last spots calling "**/spotlist**"; For example  [www.iu1bow.com/spotlist](https://www.iu1bow.com/spotlist)
 
 **country of a callsign**
 
-You cam retrive some informations about a callsign with **callsign**; For example  [www.iu1bow.com/callsign?c=IU1BOW] (https://www.iu1bow.com/callsign?c=IU1BOW)
+You cam retrive some informations about a callsign with **callsign**; For example  [www.iu1bow.com/callsign?c=IU1BOW](https://www.iu1bow.com/callsign?c=IU1BOW)
 
 ### Screenshots
 ----------
 
 **desktop**
 
-<img src="docs/images/01_desktop_main.png" width="300"/>
-<img src="docs/images/02_desktop_plot.png" width="300"/>
+<img src="docs/images/01_desktop_main.png" width="400"/>
+<img src="docs/images/02_desktop_plot.png" width="400"/>
 
 
 **mobile**
