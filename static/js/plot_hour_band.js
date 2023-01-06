@@ -15,9 +15,10 @@ class hour_band {
 
       // Asynchronous Data Loading
 
-      $.getJSON(end_point).done(function(data) {
-          // Fill in the dat
-
+        fetch(end_point)
+        .then((response) => response.json())        
+        .then((data) => {               
+         // Fill in the dat
           var last_refresh=get_last_refresh(data);
           //set hour indicator names
           var hour_indicators=[];

@@ -13,24 +13,18 @@ class world_dx_spots_live {
   refresh(my_chart,end_point) {
 
       // Asynchronous Data Loading
-      $.getJSON(end_point).done(function(data) {
-
-        fetch('world.json', {
-          method: 'GET',
-          headers: {
-              'Accept': 'application/json',
-          },
-        })
+      fetch(end_point)
+        .then((response) => response.json())        
+        .then((data) => {  
+        fetch('world.json')
         .then(response => response.text())
         .then(geoJson => {
             var last_refresh=get_last_refresh(data);
             var dataMap=[];
             data["world_dx_spots_live"].forEach(function myFunction(item, index) {
               //lon, lat, number of qso
-              //dataMap.push({"value":[item["lon"],item["lat"],item["count"]]});              
               dataMap.push({"value":[item["lat"],item["lon"],item["count"]]});              
             });
-
 
             my_chart.hideLoading();
             echarts.registerMap('WR', geoJson);      

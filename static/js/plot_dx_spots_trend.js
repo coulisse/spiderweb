@@ -14,7 +14,10 @@ class dx_spots_trend {
 
         // Asynchronous Data Loading
 
-        $.getJSON(end_point).done(function(data) {
+        //$.getJSON(end_point).done(function(data) {
+          fetch(end_point)
+          .then((response) => response.json())        
+          .then((data) => {                 
             // Fill in the data
             var last_refresh=get_last_refresh(data);
             var dataMap=[];
