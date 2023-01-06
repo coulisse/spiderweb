@@ -21,7 +21,7 @@
 	<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css" as="style" integrity="sha512-uvXdJud8WaOlQFjlz9B15Yy2Au/bMAvz79F7Xa6OakCl2jvQPdHD0hb3dEqZRdSwG4/sknePXlE7GiarwA/9Wg==" crossorigin="anonymous" onload="this.rel='stylesheet'" >
   	<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css"></noscript>
 	
-	<script src="static/js/load_css.min.js"></script>
+	<script class="spiderscript" src="static/js/load_css.min.js"></script>
 	{% endblock head %}
      </head>
      <body>
@@ -89,9 +89,9 @@
 				<span id="version">v2.4.1</span>
 	       </div> 
 	     </footer>
-	<script async src="static/js/clock.min.js"></script>
-	<script async src="static/js/copy_date.min.js"></script>
-	<script async src="static/js/load-sw.min.js"></script>
+	<script async class="spiderscript" src="static/js/clock.min.js"></script>
+	<script async class="spiderscript" src="static/js/copy_date.min.js"></script>
+	<script async class="spiderscript" src="static/js/load-sw.min.js"></script>
 	<script nonce="sedfGFG32xs">
 		{% block app_data %}
 		var my_callsign='{{callsign}}';
@@ -103,7 +103,7 @@
 -->
 	<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 	{% block app_scripts %}
-		<script async src="static/js/callsign_search.min.js"></script>
+		<script async class="spiderscript" src="static/js/callsign_search.js"></script>
 	{% endblock app_scripts %}
 	{% block inline_scripts %}
 	{% endblock inline_scripts %}
@@ -112,24 +112,27 @@
 	        {# then user has already consented so no requirement for consent banner #}
 	{% else %}
     	    {# show a cookie consent banner #}
-        	<div class="modal" tabindex="-1" id="cookie-consent-container">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h1 class="modal-title">We use cookies</h1>
-			      </div>
-			      <div class="modal-body">
-			        <p>We use only technical cookies.</p>
-			        <p>Clicking &quot;I agree&quot;, you agree to the storing of cookies on your device. To learn more about how we use cookies, please see our cookies policy.</p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-primary" id="cookie-consent">I agree</button>
-			      </div>
-			    </div>
-			  </div>
-	        </div>
-			<script defer src="static/js/cookie_consent.min.js"></script>
-	{% endif %}
+
+			<!-- Modal  for cookie consent-->
+			<div class="modal fade" id="cookie_consent_modal" tabindex="-1" aria-labelledby="cookie-consent-container" aria-hidden="true">
+				<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">We use cookies</h5>
+					</div>
+					<div class="modal-body">
+						<p>We use only technical cookies.</p>
+						<p>Clicking &quot;I agree&quot;, you agree to the storing of cookies on your device. To learn more about how we use cookies, please see our cookies policy.</p>	
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="cookie_consent_btn">I agree</button>
+					</div>
+				</div>
+				</div>
+			</div>
+  
+			<script defer class="spiderscript" src="static/js/cookie_consent.js"></script>
+		{% endif %}
      </body>
  </html>
 

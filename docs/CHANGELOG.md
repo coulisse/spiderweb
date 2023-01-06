@@ -4,6 +4,7 @@ Release v.2.4
 - changed dimensions of spots in world dx spost charts
 - managed empty data in data providers for charts
 - removed jQuery: migrated to vanilla javascript
+- for spot refresh get only new spots starting from last rowid
 ___
 Date: 01/01/2023 
 Release v.2.4

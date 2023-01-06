@@ -11,7 +11,8 @@ fetch(qryString)
 .then((response) => response.json())
 .then((data) => {
     try {
-        rows_list = buildHtmlTable('bodyspot',data, rows_list, my_callsign);
+        //rows_list = buildHtmlTable('bodyspot',data, rows_list, my_callsign);
+        tb.build(data,my_callsign);
     } catch (err) {
         console.log(err);
         console.log(err.stack);

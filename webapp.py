@@ -86,12 +86,14 @@ def query_build():
 
     try:
         #get url parameters
+        last_rowid=request.args.get('lr')         #Last rowid fetched by front end
         band=(request.args.getlist('b'))          #band filter
         dere=(request.args.getlist('e'))          #DE continent filter
         dxre=(request.args.getlist('x'))          #Dx continent filter
         mode=(request.args.getlist('m'))          #mode filter
         decq=(request.args.getlist('qe'))         #DE cq zone filter
         dxcq=(request.args.getlist('qx'))         #DX cq zone filter
+
 
         query_string=''
 
@@ -149,7 +151,13 @@ def query_build():
                 if dxcq[0].isnumeric():
                     dxcq_qry_string = ' AND spotcq =' + dxcq[0]
 
-        query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE 1=1"                                  
+        if last_rowid is None:
+            last_rowid = "0"       
+        if not last_rowid.isnumeric():
+            last_rowid = 0
+
+        query_string="SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE rowid > "+last_rowid                                 
+        
         if len(band) > 0:
             query_string += band_qry_string
 
@@ -170,7 +178,7 @@ def query_build():
                 query_string += dxcq_qry_string
 
         query_string += " ORDER BY rowid desc limit 50;"  
-  
+
     except Exception as e:
         logger.error(e)
         query_string = ''
@@ -286,7 +294,7 @@ def sitemap():
 
 @app.route('/callsign.html', methods=['GET']) 
 def callsign():
-    payload=spotquery()  
+    #payload=spotquery()  
     callsign=request.args.get('c')
     response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],timer_interval=cfg['timer']['interval'],callsign=callsign,adxo_events=adxo_events,continents=continents_cq,bands=band_frequencies))
     return response

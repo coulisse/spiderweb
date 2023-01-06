@@ -1,11 +1,14 @@
 /*
  script used to acquire user conset to cookie banner (and set the cookie consent)
 */
-var fn = function () {
-    document.cookie = "cookie_consent=true;SameSite=Strict; Secure;max-age=2592000";
-//   	document.getElementById('cookie-consent-container').hidden = true;
-	$('#cookie-consent-container').modal('hide')     
+let cookie_modal = new bootstrap.Modal(document.getElementById('cookie_consent_modal'), {
+    keyboard: false
+})
+cookie_modal.show();
+
+//if button is pressed, setting cookie
+document.getElementById('cookie_consent_btn').onclick = function(){
+    setCookie('cookie_consent',true,30);
+    cookie_modal.hide(); 
 };
-document.getElementById('cookie-consent').onclick = fn;
-$('#cookie-consent-container').modal({backdrop:"static",keyboard:false})     
-$('#cookie-consent-container').modal('show')     
+    

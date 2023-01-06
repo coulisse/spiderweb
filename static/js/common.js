@@ -1,9 +1,9 @@
 /**
  * Create a cookie
  *
- * @param {String} cname  cookie name
- * @param {string} cvalue cookie value
- * @param {integer} exdays the number of the days for cookie expiration
+ * @param cname {String}  cookie name
+ * @param cvalue {string} cookie value
+ * @param exdays {integer}  the number of the days for cookie expiration
  */
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
@@ -15,8 +15,8 @@ function setCookie(cname, cvalue, exdays) {
 /**
 * get a cookie 
 *
-* @param {String} cname  cookie name
-* @returns {string} cookie value
+* @param cname {String} cookie name
+* @returns cookie value
 */
 function getCookie(cname) {
   let name = cname + "=";
@@ -38,8 +38,8 @@ function getCookie(cname) {
 /**
 * format the data refresh string for exhibit on charts
 *
-* @param {String} date date of the last refresh
-* @returns {string} string formatted
+* @param date {String}  date of the last refresh
+* @returns string formatted
 */
 function get_last_refresh(data) {
   var dt_refresh = new Date(0); // The 0 there is the key, which sets the date to the epoch
@@ -141,7 +141,16 @@ function setText(id, newvalue) {
 }
 
 
-
+function openModal() {
+  document.getElementById("backdrop").style.display = "block"
+  document.getElementById("exampleModal").style.display = "block"
+  document.getElementById("exampleModal").classList.add("show")
+}
+function closeModal() {
+  document.getElementById("backdrop").style.display = "none"
+  document.getElementById("exampleModal").style.display = "none"
+  document.getElementById("exampleModal").classList.remove("show")
+}
 
 /*
 function doRefresh(){
@@ -155,3 +164,4 @@ plot_dst.refresh(myChart,'/plot_get_dx_spots_trend');
 setInterval(function(){doRefresh()}, 5000);
 
 */
+
