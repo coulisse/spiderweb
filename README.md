@@ -7,12 +7,11 @@
 [![made-with-python](https://img.shields.io/badge/B.e.-Python-1f425f.svg)](https://www.python.org/)
 [![made-with-javascript](https://img.shields.io/badge/F.e.-JavaScript-yellow)](https://www.javascript.com)
 [![bootstrap](https://img.shields.io/badge/CSS%20Fwk-Bootstrap-purple)](https://getbootstrap.com/)
-[![jQuery](https://img.shields.io/badge/JS%20Fwk-jQuery-blue)](https://jquery.com/)
 [![CodeFactor](https://www.codefactor.io/repository/github/coulisse/spiderweb/badge)](https://www.codefactor.io/repository/github/coulisse/spiderweb)
 
 
-- **Release:** v2.4
-- **Author:** Corrado Gerbaldo - IU1BOW.
+- **Release:** v2.4.1
+- **Author:** Corrado Gerbaldo - [IU1BOW](https://www.qrz.com/db/IU1BOW)
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see ["LICENSE"](LICENSE) file.
 - **Languages:** This application is written in Python 3.11/flask,Javascript and HTML
@@ -24,7 +23,6 @@ The user could see 50 spots at time and filter them by band, spotter continent a
 
 For this application I've used:
 - **Bootstrap** for stylesheet CSS
-- **jQuery** 
 - **Apache ECharts** for managing charts
 - **qrz.com** For each callsing found you can click on lens and you'll see him on qrz.com
 - **flag-icon-css** [https://github.com/lipis/flag-icon-css](https://github.com/lipis/flag-icon-css) I used it for show the country flags 
@@ -39,7 +37,7 @@ see file ["CHANGELOG.md"](docs/CHANGELOG.md)
 ### Install            
 
 **1) DXSpider**
-First of all you have to installed [DXspider] (http://www.dxcluster.org/) and connected with some other cluster nodes.
+First of all you have to installed [DXspider](http://www.dxcluster.org/) and connected with some other cluster nodes.
 
 **2) MariaDB / MySQL**
 Then you have to install MariaDB on your web server, on the same server where DXSpider is running and configure DXSpider to use it: in your spider folder edit `local/DXVars.pm` adding these lines:
@@ -213,7 +211,7 @@ server {
 For SSL I'm using [Cloudflare](https://www.cloudflare.com/). This is a free service that alow you to use https and a proxy cache. 
 
 
-**Search engine indexing:** when you are on-line, if you would to index your website on search engines, you have to generate a file named sitemap.xml and put it in /static/ folder. There are many tool to generate sitemap.xml, for example [www.xml-sitemaps.com] (https://www.xml-sitemaps.com/)
+**Search engine indexing:** when you are on-line, if you would to index your website on search engines, you have to generate a file named sitemap.xml and put it in /static/ folder. There are many tool to generate sitemap.xml, for example [www.xml-sitemaps.com](https://www.xml-sitemaps.com/)
 
 **Index on MySQL:** if you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on ["create_mysql_index.sql"](scripts/create_mysql_index.sql)
 

@@ -20,7 +20,7 @@ db_insert () {
         spotteritu=$(shuf -i 1-90 -n 1)
         spottercq=$(shuf -i 1-40 -n 1)
         #for epoc use https://www.epochconverter.com/
-        timestamp=$(shuf -i 1609425866-1672497882 -n 1)
+        timestamp=$(shuf -i 1672781935-1672785538 -n 1)
 
         cs_letter_1=$(chr $(shuf -i 65-90 -n1))
         cs_letter_2=$(chr $(shuf -i 65-90 -n1))
@@ -34,7 +34,7 @@ db_insert () {
         
         sudo mysql -uroot dxcluster -e "INSERT INTO spot VALUES (${i},${freq},'${callsign}',${timestamp},'DUMMY TEST','IU1BOW',${spotdxcc},${spotterdxcc},'IU1BOW-2',${spotitu},${spotcq},${spotteritu},${spottercq},NULL,NULL,'5.198.229.129');"
         #sudo mysql -uroot dxcluster -e "INSERT INTO spot VALUES (${i},${freq},'${callsign}',UNIX_TIMESTAMP(),'DUMMY TEST','IU1BOW',${spotdxcc},${spotterdxcc},'IU1BOW-2',${spotitu},${spotcq},${spotteritu},${spottercq},NULL,NULL,'5.198.229.129');"
-        #sleep 0.5
+        sleep 0.5
         p=$(( ${i}*100/${n} ))
         echo -ne ${p}'% \r'
     done

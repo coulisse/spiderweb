@@ -91,11 +91,10 @@
 		
 	{% block app_scripts %}
 	{{ super() }}
-	<script defer src="static/js/plot_common.min.js"></script>	 	
-	<script defer src="static/js/plot_band_activity.min.js"></script>	 
-	<script defer src="static/js/plot_world_dx_spots_live.min.js"></script>	 	
-	<script defer src="static/js/plot_hour_band.min.js"></script>	 	
-	<script defer src="static/js/plot_dx_spots_trend.min.js"></script>	 
-	<script defer src="static/js/plot_dx_spots_per_month.min.js"></script>	 
+	<script defer class="spiderscript" src="static/js/plot_band_activity.js"></script>	 
+	<script defer class="spiderscript" src="static/js/plot_world_dx_spots_live.js"></script>	 	
+	<script defer class="spiderscript" src="static/js/plot_hour_band.js"></script>	 	
+	<script defer class="spiderscript" src="static/js/plot_dx_spots_trend.js"></script>	 
+	<script defer class="spiderscript" src="static/js/plot_dx_spots_per_month.js"></script>	 
 	
 	{% endblock app_scripts %}

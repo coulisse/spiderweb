@@ -191,7 +191,7 @@
 		{% endblock contents %}
 	{% block app_data %}
 		{{ super() }}
-		var payload_json={{payload|tojson|safe}};
+
 		var timer_interval_json = {{timer_interval}};
 		var my_adxo_events_json='{{ adxo_events|tojson|safe }}';
 		var continents_cq={{continents["continents"]|tojson|safe}};
@@ -200,10 +200,10 @@
 	{% endblock app_data %}
 	{% block app_scripts %}
 		{{ super() }}
-		<script defer src="static/js/table.min.js"></script>
+		<script defer class="spiderscript" src="static/js/table.js"></script>
 	{% endblock %}
 	{% block inline_scripts %}
- 		<script defer src="static/js/index_inline.min.js"></script>
+ 		<script defer class="spiderscript" src="static/js/index_inline.js"></script>
 	{% endblock %}
 	
 

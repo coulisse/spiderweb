@@ -90,6 +90,8 @@ class ContinentsBandsProvider(BaseDataProvider):
 		self.logger.debug(qry_string)
 		self.qm.qry(qry_string)
 		data=self.qm.get_data()
+		if len(data)==0:
+			self.logger.warning("no data found")
 
 		self.logger.info("query done")
 		self.logger.debug (data)
@@ -227,6 +229,8 @@ class SpotsPerMounthProvider(BaseDataProvider):
 		self.logger.debug(qry_string) 
 		self.qm.qry(qry_string)
 		data=self.qm.get_data()
+		if len(data)==0:
+			self.logger.warning("no data found")		
 
 		self.logger.info("query done")
 		self.logger.debug (data)  
@@ -286,7 +290,7 @@ class SpotsTrend(BaseDataProvider):
 		self.logger.info("query done")
 		self.logger.debug (df)  
 
-		if df is None ==0:
+		if len(df)==0:
 			self.logger.warning("no data found")
 
 		#normalize data eliminating peaks
@@ -368,6 +372,8 @@ class HourBand(BaseDataProvider):
 		self.logger.debug(qry_string) 
 		self.qm.qry(qry_string)
 		data=self.qm.get_data()
+		if len(data)==0:
+			self.logger.warning("no data found")		
 
 		self.logger.info("query done")
 		self.logger.debug (data)  
@@ -427,6 +433,8 @@ class WorldDxSpotsLive(BaseDataProvider):
 		self.qm.qry(qry_string)
 		data=self.qm.get_data()
 		row_headers=self.qm.get_headers()
+		if len(data)==0:
+			self.logger.warning("no data found")		
 
 		self.logger.info("query done")
 		self.logger.debug (data)  

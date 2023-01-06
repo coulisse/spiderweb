@@ -32,8 +32,8 @@ app.config.update(
 )
 
 csrf = CSRFProtect(app)
-minify(app=app, html=True, js=True,cssless=False)
-#minify(app=app, html=False, js=False,cssless=False)
+#minify(app=app, html=True, js=True,cssless=False)
+minify(app=app, html=False, js=False,cssless=False)
 
 #load config file
 with open('cfg/config.json') as json_data_file:
@@ -247,8 +247,8 @@ def who_is_connected():
 @app.route('/', methods=['GET']) 
 @app.route('/index.html', methods=['GET']) 
 def spots():
-    payload=spotquery()
-    response=flask.Response(render_template('index.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],enable_cq_filter=enable_cq_filter,payload=payload,timer_interval=cfg['timer']['interval'],adxo_events=adxo_events,continents=continents_cq,bands=band_frequencies))
+    #payload=spotquery()
+    response=flask.Response(render_template('index.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],enable_cq_filter=enable_cq_filter,timer_interval=cfg['timer']['interval'],adxo_events=adxo_events,continents=continents_cq,bands=band_frequencies))
     return response
 
 @app.route('/service-worker.js', methods=['GET'])
@@ -288,7 +288,7 @@ def sitemap():
 def callsign():
     payload=spotquery()  
     callsign=request.args.get('c')
-    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],payload=payload,timer_interval=cfg['timer']['interval'],callsign=callsign,adxo_events=adxo_events,continents=continents_cq,bands=band_frequencies))
+    response=flask.Response(render_template('callsign.html',mycallsign=cfg['mycallsign'],telnet=cfg['telnet'],mail=cfg['mail'],menu_list=cfg['menu']['menu_list'],timer_interval=cfg['timer']['interval'],callsign=callsign,adxo_events=adxo_events,continents=continents_cq,bands=band_frequencies))
     return response
 
 #API that search a callsign and return all informations about that
@@ -368,7 +368,6 @@ def add_security_headers(resp):
     connect-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com sidc.be;\
     font-src 'self' cdn.jsdelivr.net;\
     frame-src 'self';\
-    form-action 'none';\
     frame-ancestors 'none';\
     img-src 'self' data: cdnjs.cloudflare.com sidc.be;\
     manifest-src 'self';\
