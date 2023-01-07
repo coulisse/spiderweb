@@ -13,7 +13,7 @@
 - **Release:** v2.4.1
 - **Author:** Corrado Gerbaldo - [IU1BOW](https://www.qrz.com/db/IU1BOW)
 - **Mail:** <corrado.gerbaldo@gmail.com>
-- **Licensing:** Gpl V3.0 see ["LICENSE"](LICENSE) file.
+- **Licensing:** Gpl V3.0 see [LICENSE](LICENSE) file.
 - **Languages:** This application is written in Python 3.11/flask,Javascript and HTML
 
 ___
@@ -233,11 +233,68 @@ This application is designed for desktop and mobile phone. It is a [PWA](https:/
 
 ### API
 **Spot list**
+
 You can retrive last spots calling "**/spotlist**"; For example  [www.iu1bow.com/spotlist](https://www.iu1bow.com/spotlist)
 
-**country of a callsign**
+**Country of a callsign**
 
 You cam retrive some informations about a callsign with **callsign**; For example  [www.iu1bow.com/callsign?c=IU1BOW](https://www.iu1bow.com/callsign?c=IU1BOW)
+
+
+### Development
+**Directory structure**
+```
+/                 . main application files
+├── cfg           . configuration files (put here your config.json with your setting)
+├── docs          . documentation
+├── lib           . python libs used for the application
+├── log           . application log
+├── scripts       . utility scripts for testing, build etc.
+├── static        . static files css, js, data, html, images etc.
+│   ├── css       .
+│   │   ├── dev   . development css not minifyed/uglifyed
+│   │   └── rel   . release css minifyed/uglifyed  (do not change these files)
+│   ├── data      . application data (world.json)
+│   ├── html      .
+│   │   └── dev   . html templates used for build release static html (for offline)
+│   │   └── rel   . release static html (for offline)
+│   ├── images    . static images
+│   │   └── icons . static icons
+│   └── js        .
+│       ├── dev   . development js not minifyed/uglifyed
+│       └── rel   . release js minifyed/uglifyed  (do not change these files)
+└── templates     . html templates used by python flask for serve the web pages
+```
+**Application description**
+
+The main **server** application ```webapp.py``` is in the root folder. In this application there are routing to html dynamic templates and serves also back-end API. This is whapped by ```wsgi.py``` for using with **bjoern** server.
+
+Static files (css, js...) are in ```static``` directory: here there are subdirectories: 
+- ```dev```  where you can edit and modify sources
+- ```rel```  here there are release files created with the building process and used in producion
+
+**Lint**
+
+For lint javascript I use **ESLint**. You can install with ```npm init @eslint/config```
+ pylint        ```pip install pylint```
+
+**Building process**
+
+Prerequisites:
+| **Component** | **Description**                                    | **Install command**             |
+|---------------|----------------------------------------------------|---------------------------------|
+| npm           | a packet manager for javascript                                  |  depend on your os. See [official page](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) |
+| uglify-js     | npm component used to minify and uglify javascript | ```npm install uglify-js -g```  |
+| css-minify    | npm component used to minify css                   | ```npm install css-minify -g``` |
+| staticjinja   | python module used to create static page starting from a html template                | ```pip install staticjinja```   |
+
+
+You can build the software for test (dev), or for production (release) environements.
+In ```scripts``` directory launch:
+- ```./build.sh -d``` for dev environment
+
+- ```./build.sh -r``` for release environment
+
 
 ### Screenshots
 ----------

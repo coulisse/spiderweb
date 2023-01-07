@@ -1,13 +1,15 @@
 ### Change log
-Date: 02/01/2023 
-Release v.2.4
+Date: 07/01/2023 
+Release: v2.4.1
 - changed dimensions of spots in world dx spost charts
 - managed empty data in data providers for charts
 - removed jQuery: migrated to vanilla javascript
 - for spot refresh get only new spots starting from last rowid
+- modified building script 
+- moved cty file in data directory
 ___
 Date: 01/01/2023 
-Release v.2.4
+Release: v2.4
 - migration to python 3.11
 - added descriptions to continents
 - fixed issue #23: Wrong flag for Cocos (Keeling) Islands

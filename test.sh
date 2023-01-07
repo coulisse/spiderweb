@@ -1,8 +1,21 @@
-if [ "$1" == "-b" ]; then
+if [ $# -gt 0 ]
+  then
 	cd scripts || exit
-	./build.sh
+	if ! ./build.sh ${1}
+	then
+		cd ..
+		echo "terminated"
+		exit 1
+	fi
 	cd ..
 fi
-#python3 webapp.py
-flask --app webapp.py run
+
+if [ "$1" == "-d" ]; then
+	flask --app webapp.py --debug run 
+else
+	flask --app webapp.py run 
+fi
+
+
+
 

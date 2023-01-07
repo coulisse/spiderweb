@@ -3,4 +3,4 @@
 config.json
 __init__
 __pycache__
-
+.vscode/
