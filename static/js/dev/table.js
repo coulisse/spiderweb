@@ -289,21 +289,30 @@ function mySearch(event) {
  */
 function getFilter(id, param, len, qrystr) {
 
-	let selectedFilter = [].map.call(document.getElementById(id).selectedOptions, option => option.value);
-	let qryFilter = '';
-	if (selectedFilter.length < len || len == -1) {
-		qryFilter = selectedFilter.map(function (el) {
-			if (el) {
-				return param + '=' + el;
-			} else {
-				return '';
+	try {
+		let selectedFilter = [].map.call(document.getElementById(id).selectedOptions, option => option.value);
+		let qryFilter = '';
+		if (selectedFilter.length < len || len == -1) {
+			qryFilter = selectedFilter.map(function (el) {
+				if (el) {
+					return param + '=' + el;
+				} else {
+					return '';
+				}
+			}).join('&');
+			qrystr = qrystr.concat('&'.concat(qryFilter));
+			if (qrystr.substring(0, 1) == '&') {
+				qrystr = qrystr.substring(1);
 			}
-		}).join('&');
-		qrystr = qrystr.concat('&'.concat(qryFilter));
-		if (qrystr.substring(0, 1) == '&') {
-			qrystr = qrystr.substring(1);
-		}
+		}		
 	}
+	catch (err) {
+		if (err.name == 'TypeError') { 
+			/* error managed: it is ok: probabilly ther is no filter on cq region */ 
+		} else {
+			throw err;
+		}
+	} 
 
 	return qrystr;
 }
