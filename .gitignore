@@ -1,6 +1,6 @@
 .old
 .old2
 config.json
-__init__
-__pycache__
+__init__/
+__pycache__/
 .vscode/
