@@ -1,5 +1,5 @@
 ### Change log
-Date: 07/01/2023 
+Date: 08/01/2023 
 Release: v2.4.1
 - changed dimensions of spots in world dx spost charts
 - managed empty data in data providers for charts
@@ -7,6 +7,8 @@ Release: v2.4.1
 - for spot refresh get only new spots starting from last rowid
 - modified building script 
 - moved cty file in data directory
+- fixed issue #28
+- cut comments too long
 ___
 Date: 01/01/2023 
 Release: v2.4

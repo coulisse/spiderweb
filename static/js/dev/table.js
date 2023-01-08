@@ -165,7 +165,11 @@ class table_builder {
 		//Column: Comment			
 		const td_comm = document.createElement('td');
 		td_comm.className = 'd-none d-lg-table-cell d-xl-table-cell';
-		td_comm.textContent = line.comm;
+		try {
+			td_comm.textContent = line.comm.substring(0,100);
+		} catch (err) {
+			td_comm.textContent = '';
+		}
 		row.appendChild(td_comm);
 
 		//Column: UTC			
@@ -349,8 +353,6 @@ function refresh_timer() {
 		qryString = qryString.concat('&'.concat(qryAll));
 	}
 
-
-	console.log(qryString);
 
 	//Open a new connection, using the GET request on the URL endpoint
 	fetch(qryString)

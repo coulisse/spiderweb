@@ -17,17 +17,17 @@
 - **Languages:** This application is written in Python 3.11/flask,Javascript and HTML
 
 ___
-**DXSpider** is a great DX Cluster software that has a usefull telnet interface. 
+**DXSpider** is a great DX Cluster software that has useful telnet interface. 
 I wrote this application in order to add a web user interface to DXSpider and show the spots collected.
 The user could see 50 spots at time and filter them by band, spotter continent and spotted continent.
 
-For this application I've used:
+For this application, I've used:
 - **Bootstrap** for stylesheet CSS
 - **Apache ECharts** for managing charts
-- **qrz.com** For each callsing found you can click on lens and you'll see him on qrz.com
-- **flag-icon-css** [https://github.com/lipis/flag-icon-css](https://github.com/lipis/flag-icon-css) I used it for show the country flags 
+- **qrz.com** For each callsing, found you can click on lens and you'll see him on qrz.com
+- **flag-icon-css** [https://github.com/lipis/flag-icon-css](https://github.com/lipis/flag-icon-css) I used it to show the country flags 
 - **ng3k.com** [ng3k.com](http://ng3k.com/misc/adxo.html) I used to get information about "Announced Dx Operations". Thanks to Bill/NG3K !!!
-- **silso** [sidc.be/silso](https://sidc.be/silso/) used to show propagation trend in "Chart & stats" secion
+- **silso** [sidc.be/silso](https://sidc.be/silso/) used to show propagation trend in "Chart & stats" section
 
 You can find my web site at [https://www.iu1bow.it](https://www.i1bow.it)
 
@@ -88,7 +88,7 @@ foo@bar:~$ mv config.json.template config.json
 then edit it and set the user and password of your database, the menu items, and other stuffs (callsign, mail address...).
 There is also a specific parameter, named "enable_cq_filter" used to enable the CQ Zone filtering.
 
-Othewhise, if you prefer, you could use an utility for edit your configuration and menu. Go in "script" folder and run ./config.sh
+Othewhise, if you prefer, you could use a utility to edit your configuration and menu. Go in "script" folder and run ./config.sh
 
 ```console
 foo@bar:~$ cd scripts
@@ -107,16 +107,16 @@ Configuration file loaded from: ../cfg/config.json
 
    x:  exit
 
-Make your choiche: 
+Make your choice: 
 
 ```
 
 ### Crontab
-Starting from version 2.4, since all activities are managed by the application, you don't need to schedule anythings
+Starting from version 2.4, since all activities are managed by the application, you don't need to schedule anything.
 
 
 ### Run test
-Now you can run your web application with the following command:
+Now, you can run your web application with the following command:
 ```console
 foo@bar:~$ python3 webapp.py
 ```
@@ -131,7 +131,7 @@ Cloudflare + Nginx + Bjoern
 
 **Bjoern is a lightweight WSGI for python.**
 
-for install it: 
+for installing it: 
 ```console
 foo@bar:~$ sudo apt install libev-dev libevdev2
 foo@bar:~$ pip3 install bjoern
@@ -178,7 +178,7 @@ foo@bar:~$ sudo systemctl status spiderweb.service
 
 Oct 25 09:56:35 dxcluster01 systemd[1]: Started bjoern instance spiderweb.
 ```
-Now you can install and configur **NGINX**
+Now you can install and configure **NGINX**
 
 Install with:  
 ```console
@@ -208,10 +208,10 @@ server {
 
 ```
 
-For SSL I'm using [Cloudflare](https://www.cloudflare.com/). This is a free service that alow you to use https and a proxy cache. 
+For SSL, I'm using [Cloudflare](https://www.cloudflare.com/). This is a free service that allow you to use https and a proxy cache. 
 
 
-**Search engine indexing:** when you are on-line, if you would to index your website on search engines, you have to generate a file named sitemap.xml and put it in /static/ folder. There are many tool to generate sitemap.xml, for example [www.xml-sitemaps.com](https://www.xml-sitemaps.com/)
+**Search engine indexing:** when you are on-line, if you would to index your website on search engines, you have to generate a file named sitemap.xml and put it in /static/ folder. There are many tools to generate sitemap.xml, for example [www.xml-sitemaps.com](https://www.xml-sitemaps.com/)
 
 **Index on MySQL:** if you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on ["create_mysql_index.sql"](scripts/create_mysql_index.sql)
 
@@ -228,17 +228,17 @@ to
 
 
 ### Mobile
-This application is designed for desktop and mobile phone. It is a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app) so it could installed and used like an app on mobile.
+This application is designed for desktop and mobile phone. It is a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app), so it could be installed and used like an app on mobile.
 
 
 ### API
 **Spot list**
 
-You can retrive last spots calling "**/spotlist**"; For example  [www.iu1bow.com/spotlist](https://www.iu1bow.com/spotlist)
+You can retrieve last spots calling "**/spotlist**"; For example  [www.iu1bow.com/spotlist](https://www.iu1bow.com/spotlist)
 
 **Country of a callsign**
 
-You cam retrive some informations about a callsign with **callsign**; For example  [www.iu1bow.com/callsign?c=IU1BOW](https://www.iu1bow.com/callsign?c=IU1BOW)
+You can retrive some information about a callsign with **callsign**; for example:  [www.iu1bow.com/callsign?c=IU1BOW](https://www.iu1bow.com/callsign?c=IU1BOW)
 
 
 ### Development
@@ -267,11 +267,11 @@ You cam retrive some informations about a callsign with **callsign**; For exampl
 ```
 **Application description**
 
-The main **server** application ```webapp.py``` is in the root folder. In this application there are routing to html dynamic templates and serves also back-end API. This is whapped by ```wsgi.py``` for using with **bjoern** server.
+The main **server** application ```webapp.py``` is in the root folder. In this application there are routing to html dynamic templates and serves also back-end API. This is wrapped by ```wsgi.py``` for using with **bjoern** server.
 
 Static files (css, js...) are in ```static``` directory: here there are subdirectories: 
 - ```dev```  where you can edit and modify sources
-- ```rel```  here there are release files created with the building process and used in producion
+- ```rel```  here there are release files created with the building process and used in production
 
 **Lint**
 
@@ -289,7 +289,7 @@ Prerequisites:
 | staticjinja   | python module used to create static page starting from a html template                | ```pip install staticjinja```   |
 
 
-You can build the software for test (dev), or for production (release) environements.
+You can build the software for test (dev), or for production (release) environments.
 In ```scripts``` directory launch:
 - ```./build.sh -d``` for dev environment
 

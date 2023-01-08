@@ -122,7 +122,7 @@ if [ "$1" == "-r" ]; then
 	sed -i '/certifi==/d' ../requirements.txt
 	sed -i '/staticjinja==/d' ../requirements.txt
 
-	if ! sed -i 's/level=DEBUG/level=INFO/g' ${app_ini}; then               
+	if ! sed -i '13,20s/level=DEBUG/level=INFO/g' ${app_ini}; then               
 		echo 'ERROR settimg loglevel=INFO '
 		exit 12
 	fi
@@ -133,7 +133,7 @@ if [ "$1" == "-d" ]; then
 	echo 'creating DEBUG application'
 	html_change_references -d
 
-	if ! sed -i 's/level=INFO/level=DEBUG/g' ${app_ini}; then               
+	if ! sed -i '13,20s/level=INFO/level=DEBUG/g' ${app_ini}; then               
 		echo 'ERROR settimg loglevel=DEBUG '
 		exit 12
 	fi
