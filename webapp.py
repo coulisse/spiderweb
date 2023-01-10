@@ -315,7 +315,6 @@ def root():
 def world_data():
     return app.send_static_file("data/world.json")
 
-
 @app.route("/plots.html")
 def plots():
     whoj = who_is_connected()
@@ -454,7 +453,7 @@ def inject_template_scope():
 
     injections.update(cookies_check=cookies_check)
     return injections
-
+    
 
 @app.after_request
 def add_security_headers(resp):
@@ -466,12 +465,10 @@ def add_security_headers(resp):
     resp.headers["Cache-Control"] = "public, no-cache"
     resp.headers["Pragma"] = "no-cache"
 
-    resp.headers[
-        "Content-Security-Policy"
-    ] = "\
+    resp.headers["Content-Security-Policy"] = "\
     default-src 'self';\
     script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'unsafe-inline';\
-    style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net  'unsafe-inline';\
+    style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net;\
     object-src 'none';base-uri 'self';\
     connect-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com sidc.be;\
     font-src 'self' cdn.jsdelivr.net;\
@@ -480,14 +477,11 @@ def add_security_headers(resp):
     img-src 'self' data: cdnjs.cloudflare.com sidc.be;\
     manifest-src 'self';\
     media-src 'self';\
-        worker-src 'self';\
+    worker-src 'self';\
     "
     return resp
+   
+    #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-sedfGFG32xs';\
 
-
-#    style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx' 'sha512-uvXdJud8WaOlQFjlz9B15Yy2Au/bMAvz79F7Xa6OakCl2jvQPdHD0hb3dEqZRdSwG4/sknePXlE7GiarwA/9Wg==';\
-#    style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'unsafe-inline';\
-
-# script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'unsafe-inline'
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

@@ -12,3 +12,5 @@ var myRefresh = setInterval(refresh_timer, timer_interval_json);
 window.onload = () => {
 	document.getElementById('form-filters').addEventListener('submit', mySearch);
 };
+
+document.getElementById('MyClockDisplay').addEventListener('load',showTime());
