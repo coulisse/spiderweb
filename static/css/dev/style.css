@@ -101,38 +101,12 @@ span.search-callsign {
 	top: 0
 }
 
-#form-band_activity {
-	width: 600px;
-	height: 500px;
-}
-
 #chart-band_activity {
 	width: 100%;
-	height: 400px
-}
-
-#chart-world_dx_spots_live {
-	width: 600px;
-	height: 500px;
-	gap: 0px;
-}
-
-#chart-hour_band {
-	width: 600px;
-	height: 500px;
-}
-
-#silo-propagation-img {
-	width: 480px;
 	height: 400px;
 }
 
-#chart-dx_spots_x_month {
+.spider_chart {
 	width: 600px;
-	height: 400px;
-}
-
-#chart-dx_spots_trend {
-	width: 700px;
-	height: 400px;
+	height: 480px;
 }

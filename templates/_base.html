@@ -65,7 +65,7 @@
 	<!--
 			   <form method="POST" class="d-flex"  id="form-callsign"  enctype="application/x-www-form-urlencoded" >				   
 -->				
-			   <form method="POST" class="d-flex"  id="form-callsign"  enctype="application/x-www-form-urlencoded">	
+			   <form method="GET" class="d-flex"  id="form-callsign"  enctype="multipart/form-data">	
 				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 				<div class="input-group" id='input-group-callsign'>
 					  <input type="text" class="form-control" placeholder="callsign" aria-label="callsign" aria-describedby="button-addon2" id="callsignInput" >
@@ -74,7 +74,7 @@
 						<button  class="btn btn-secondary" type="submit" onclick="myCallsignSearch()" formaction='javascript:myCallsignSearch();'>
 						-->
 
-						<button id = "btn-callsign-search" class="btn btn-secondary" type="submit" >							
+						<button id = "btn-callsign-search" class="btn btn-secondary" type="submit" >		
 			
 							<span class="bi-search" role="button" aria-label="search-callsign"></span>
 						</button> 
@@ -110,7 +110,8 @@
    <script async src="static/js/rel/clock.min.js"></script>
    <script async src="static/js/rel/copy_date.min.js"></script>
    <script async src="static/js/rel/load-sw.min.js"></script>
-   <script nonce="sedfGFG32xs">
+   <!--- <script nonce="sedfGFG32xs"> -->
+   <script nonce="{{ inline_script_nonce }}">
 	   {% block app_data %}
 	   var my_callsign='{{callsign}}';
 	   {% endblock app_data %}

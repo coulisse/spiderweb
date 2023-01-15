@@ -7,9 +7,13 @@
 	{% block head %}
 	{{ super() }}
 	<meta http-equiv="refresh" content="300">
+
 	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.1/echarts.min.js"
 		integrity="sha512-OTbGFYPLe3jhy4bUwbB8nls0TFgz10kn0TLkmyA+l3FyivDs31zsXCjOis7YGDtE2Jsy0+fzW+3/OVoPVujPmQ=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!--
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.1/echarts.js" integrity="sha512-ZYpFIosmEiTC+nL/30hJsFwTKXarRcUQeW1kV97gKOo6xzWhVzHwmEDLRMFceo9ALdXwyVLviVz6vm389kBexQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+-->
 	{% endblock %}
 
 </head>
@@ -21,8 +25,8 @@
 {% endblock %}
 {% block contents %}
 
-<div class="d-flex flex-wrap" id="dashboard">
-	<div class="shadow-lg bg-body mb-5 rounded" id="form-band_activity">
+<div id="dashboard" class="d-flex flex-wrap">
+	<div class="shadow-lg mb-5 rounded spider_chart" id="form-band_activity">
 		<div class="d-flex flex-column">
 			<form method="POST" id="form-continents" enctype="multipart/form-data">
 				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
@@ -40,18 +44,16 @@
 		<small><sup id="txt_continent"></sup></small>
 	</div>
 
-	<div class="shadow-lg mb-5 bg-body rounded" id="chart-world_dx_spots_live"></div>
+	<div class="shadow-lg mb-5 bg-body rounded spider_chart" id="chart-world_dx_spots_live"></div>
+	<div class="shadow-lg mb-5 bg-body rounded spider_chart" id="chart-hour_band"></div>
 
-	<div class="shadow-lg mb-5 bg-body rounded" id="chart-hour_band"></div>
-
-	<a class="shadow-lg mb-5 bg-body rounded" href="https://sidc.be/silso/" target="_blank" rel="noopener noreferrer">
-		<img src="https://sidc.be/silso/IMAGES/GRAPHICS/prediSC.png" class="img-fluid" id="silo-propagation-img"
+	<a class="shadow-lg mb-5 bg-body rounded " href="https://sidc.be/silso/" target="_blank" rel="noopener noreferrer">
+		<img src="https://sidc.be/silso/IMAGES/GRAPHICS/prediSC.png" class="spider_chart" id="silo-propagation-img"
 			alt="propagation trend">
 	</a>
+	<div class="shadow-lg mb-5 bg-body rounded spider_chart" id="chart-dx_spots_x_month"></div>
+	<div class="shadow-lg mb-5 bg-body rounded spider_chart" id="chart-dx_spots_trend"></div>
 
-	<div class="shadow-lg mb-5 bg-body rounded" id="chart-dx_spots_x_month"></div>
-
-	<div class="shadow-lg mb-5 bg-body rounded" id="chart-dx_spots_trend"></div>
 
 	<div class="container-fluid">
 		<div class="shadow-lg mb-5 bg-body rounded">

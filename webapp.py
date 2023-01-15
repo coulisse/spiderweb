@@ -1,34 +1,33 @@
 __author__ = "IU1BOW - Corrado"
-import os
 import flask
-from flask import request, render_template, jsonify
+import secrets
+from flask import request, render_template
 from flask_wtf.csrf import CSRFProtect
 from flask_minify import minify
 import json
-import time, threading
+import threading
 import logging
 import logging.config
 from lib.dxtelnet import who
 from lib.adxo import get_adxo_events
 from lib.qry import query_manager
 from lib.cty import prefix_table
-from lib.plot_data_provider import ContinentsBandsProvider
-from lib.plot_data_provider import SpotsPerMounthProvider
-from lib.plot_data_provider import SpotsTrend
-from lib.plot_data_provider import HourBand
-from lib.plot_data_provider import WorldDxSpotsLive
+from lib.plot_data_provider import ContinentsBandsProvider, SpotsPerMounthProvider, SpotsTrend, HourBand, WorldDxSpotsLive
+
 
 logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
 logger = logging.getLogger(__name__)
 logger.info("Start")
 
 app = flask.Flask(__name__)
-app.config["SECRET_KEY"] = "secret!"
+app.config["SECRET_KEY"] = secrets.token_hex(16)
 app.config.update(
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE="Strict",
 )
+
+inline_script_nonce = ""
 
 csrf = CSRFProtect(app)
 logger.debug(app.config)
@@ -279,14 +278,19 @@ def who_is_connected():
     response = who(host_port[0], host_port[1], cfg["mycallsign"])
     return response
 
+#Calculate nonce token used in inline script and in csp "script-src" header
+def get_nonce():
+    global inline_script_nonce
+    inline_script_nonce = secrets.token_hex()
+    return inline_script_nonce
 
 @app.route("/", methods=["GET"])
 @app.route("/index.html", methods=["GET"])
 def spots():
-    # payload=spotquery()
     response = flask.Response(
         render_template(
             "index.html",
+            inline_script_nonce=get_nonce(),
             mycallsign=cfg["mycallsign"],
             telnet=cfg["telnet"],
             mail=cfg["mail"],
@@ -321,6 +325,7 @@ def plots():
     response = flask.Response(
         render_template(
             "plots.html",
+            inline_script_nonce=get_nonce(),          
             mycallsign=cfg["mycallsign"],
             telnet=cfg["telnet"],
             mail=cfg["mail"],
@@ -338,6 +343,7 @@ def cookies():
     response = flask.Response(
         render_template(
             "cookies.html",
+            inline_script_nonce=get_nonce(),          
             mycallsign=cfg["mycallsign"],
             telnet=cfg["telnet"],
             mail=cfg["mail"],
@@ -352,6 +358,7 @@ def privacy():
     response = flask.Response(
         render_template(
             "privacy.html",
+            inline_script_nonce=get_nonce(),          
             mycallsign=cfg["mycallsign"],
             telnet=cfg["telnet"],
             mail=cfg["mail"],
@@ -373,6 +380,7 @@ def callsign():
     response = flask.Response(
         render_template(
             "callsign.html",
+            inline_script_nonce=get_nonce(),              
             mycallsign=cfg["mycallsign"],
             telnet=cfg["telnet"],
             mail=cfg["mail"],
@@ -453,10 +461,11 @@ def inject_template_scope():
 
     injections.update(cookies_check=cookies_check)
     return injections
-    
+
 
 @app.after_request
 def add_security_headers(resp):
+
     resp.headers["Strict-Transport-Security"] = "max-age=1000"
     resp.headers["X-Xss-Protection"] = "1; mode=block"
     resp.headers["X-Frame-Options"] = "SAMEORIGIN"
@@ -467,13 +476,14 @@ def add_security_headers(resp):
 
     resp.headers["Content-Security-Policy"] = "\
     default-src 'self';\
-    script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'unsafe-inline';\
-    style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net;\
+    script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-"+inline_script_nonce+"';\
+    style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'unsafe-inline';\
     object-src 'none';base-uri 'self';\
     connect-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com sidc.be;\
     font-src 'self' cdn.jsdelivr.net;\
     frame-src 'self';\
     frame-ancestors 'none';\
+    form-action 'none';\
     img-src 'self' data: cdnjs.cloudflare.com sidc.be;\
     manifest-src 'self';\
     media-src 'self';\

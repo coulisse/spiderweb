@@ -1,7 +1,8 @@
 /**
  * Receive a callsign by the html form and make the request to server
  */
-function myCallsignSearch() {
+function myCallsignSearch(event) {
+	event.preventDefault();
 
 	callsign=document.getElementById('callsignInput').value;
 
@@ -14,20 +15,4 @@ function myCallsignSearch() {
 	
 }
 
-//var frm_callsign = document.getElementById('btn-callsign-search').formAction;
-//document.getElementById('btn-callsign-search').addEventListener('click',myCallsignSearch());
-//document.getElementById('btn-callsign-search').addEventListener('submit',myCallsignSearch());
-
-/*
-const form_callsign = document.getElementById('form-callsign');
-form_callsign.addEventListener('submit',myCallsignSearch());
-*/
-
-
-const btn_callsign = document.getElementById('btn-callsign-search');
-btn_callsign.formAction='javascript:myCallsignSearch()';
-
-
-/*
-btn_callsign.formAction = 'javascript:myCallsignSearch()'; 
-*/
+document.getElementById('form-callsign').addEventListener('submit', myCallsignSearch);  

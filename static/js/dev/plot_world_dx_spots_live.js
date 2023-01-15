@@ -34,7 +34,7 @@ class world_dx_spots_live {
 							visualMap: {
 								show: false,
 								min: 0,
-								max: 50,
+								max: 30,
 								inRange: {
 									symbolSize: [5, 20]
 								}            
@@ -45,16 +45,16 @@ class world_dx_spots_live {
 								map: 'WR',
 								roam: true,
 								zoom: 1.2,
-								aspectScale: 0.70,
+								aspectScale: 1,
 								layoutCenter: ['50%', '54%'],
 								layoutSize: '100%',
 								itemStyle: {
 									normal: {
-										areaColor: '#323c48',
+										areaColor: '#91cc75',
 										borderColor: '#111'
 									},
 									emphasis: {
-										areaColor: '#2a333d'
+										areaColor: '#3ba272' //3ba272 91cc75
 									}                  
 								},
 								label: {
@@ -77,10 +77,7 @@ class world_dx_spots_live {
 								showTitle: false,
 								orient: 'vertical',
 								left: 'right',
-								top: 'center',
-								iconStyle: {
-									borderColor: '#fff',
-								},                
+								top: 'center',         
 								feature: {
 									mark: { show: true },
 									dataView: { show: true, readOnly: false },
@@ -91,19 +88,11 @@ class world_dx_spots_live {
 							legend: {
 								show: false
 							},
-							//backgroundColor: '#404a59',
-							backgroundColor: '#596475',
 							title: {
 								text: 'World DX SPOTS in last hour',
 								subtext: last_refresh,
 								top: 'top',
 								right:'right',
-								textStyle: {
-									color: '#fff'
-								},  
-								subtextStyle: {
-									color: '#fff'
-								}                               
 							},                               
 							series: [ 
 								{
@@ -118,9 +107,10 @@ class world_dx_spots_live {
 									},
 									itemStyle: {
 										normal: {
-											color: '#eea638'
+											color: '#fc8452',
+											borderColor: '#fa0a0a',
 										}
-									},      
+									},     
 									/*                              
                   symbolSize: function (val) {
                     return val[2] / 4;

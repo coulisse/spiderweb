@@ -1,5 +1,5 @@
 ### Change log
-Date: 10/01/2023 
+Date: 15/01/2023 
 Release: v2.4.1
 - changed dimensions of spots in world dx spost charts
 - managed empty data in data providers for charts
@@ -9,6 +9,8 @@ Release: v2.4.1
 - moved cty file in data directory
 - fixed issue #28
 - cut comments too long
+- charts layout changed
+
 ___
 Date: 01/01/2023 
 Release: v2.4

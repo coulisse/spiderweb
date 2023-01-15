@@ -5,6 +5,7 @@
  * Moreover, add an event to the button of the filter form
  */
 //var my_adxo_events=jQuery.parseJSON(my_adxo_events_json.replaceAll("\t",""));
+
 var my_adxo_events=JSON.parse(my_adxo_events_json.replaceAll('\t',''));
 
 refresh_timer(); //run first data fetch
