@@ -492,6 +492,7 @@ def add_security_headers(resp):
     return resp
    
     #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-sedfGFG32xs';\
+    #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-"+inline_script_nonce+"';\
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

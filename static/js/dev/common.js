@@ -140,6 +140,18 @@ function setText(id, newvalue) {
 	s.innerHTML = newvalue;
 }
 
+function showTime(){
+	let date=new Date();
+	let utc = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+	let time = utc.toTimeString().split(' ')[0];
+	time = time.split(':')[0]+':'+time.split(':')[1];
+	document.getElementById("MyClockDisplay").innerText = time;
+	document.getElementById("MyClockDisplay").textContent = time;
+	setTimeout(showTime, 1000); 
+}
+
+
+document.getElementById('copyDate').innerHTML='2020-'.concat(new Date().getFullYear());
 /*
 function doRefresh(){
 

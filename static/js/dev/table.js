@@ -36,6 +36,7 @@ class table_builder {
 	*/
 	#buildRow(line, isnew, dt_current, callsign = '') {
 		const row = document.createElement('tr');
+/*
 		row.id = line.rowid;
 
 		if (callsign.length > 0) {
@@ -44,6 +45,15 @@ class table_builder {
 			} else if (callsign == line.dx) {
 				row.id = line.rowid;
 			}
+		} else if (isnew) {
+			row.className = 'table-info';
+		}
+*/
+
+		if (callsign.length > 0) {
+			/* 
+			do not check new lines 
+			*/
 		} else if (isnew) {
 			row.className = 'table-info';
 		}
