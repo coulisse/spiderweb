@@ -9,11 +9,10 @@ function setCookie(cname, cvalue, exdays) {
 	const d = new Date();
 	d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
 	let expires = 'expires=' + d.toUTCString();
-	try {
+	if (location.protocol == 'https:') {
 		document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/' + ';Samesite=Strict;Secure=True';
-	}
-	catch {
-		console.log('could not set secure cookie: try with Samsite Lax...');
+	} else {
+		console.log('Warning: could not set secure cookie: try with Samsite Lax...');
 		document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/' + ';Samesite=Lax';
 	}
 }

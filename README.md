@@ -216,20 +216,8 @@ For SSL, I'm using [Cloudflare](https://www.cloudflare.com/). This is a free ser
 **Index on MySQL:** if you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on ["create_mysql_index.sql"](scripts/create_mysql_index.sql)
 
 
-**Cookie settings:** if you don't use https, but you use http, you have to change the following setting in webapp.py:
-```
-     SESSION_COOKIE_SECURE=True,    
-``` 
-to
-
-```
-     SESSION_COOKIE_SECURE=False,   
-```
-
-
 ### Mobile
 This application is designed for desktop and mobile phone. It is a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app), so it could be installed and used like an app on mobile.
-
 
 ### API
 **Spot list**
