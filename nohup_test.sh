@@ -1,1 +1,1 @@
-nohup ./test.sh -r >/dev/null 2>&1 &
+nohup ./test.sh >/dev/null 2>&1 &

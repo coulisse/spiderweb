@@ -111,3 +111,8 @@ span.search-callsign {
 	width: 600px;
 	height: 480px;
 }
+
+#silo-propagation-img {
+	width: 95%;
+	height: auto;
+}
