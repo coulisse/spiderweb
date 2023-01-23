@@ -1,5 +1,10 @@
 ### Change log
 Date: 23/01/2023 
+Release: v2.4.1.2
+- fixed issue #30  bug on callsign search
+
+___
+Date: 23/01/2023 
 Release: v2.4.1.1
 - fixed issue #29  bug on callsign search
 
