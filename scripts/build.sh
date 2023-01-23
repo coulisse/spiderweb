@@ -150,7 +150,8 @@ fi
 #fi
 
 echo 'get version from git'
-if ! ver=$(git describe --tags --abbrev=0)
+#if ! ver=$(git describe --tags --abbrev=0)
+if ! ver=$(git tag|tail -1)
 then
 	echo 'ERROR on get version from git'
 	exit 10

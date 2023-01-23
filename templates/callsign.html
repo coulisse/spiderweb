@@ -1,5 +1,4 @@
 {% extends "index.html" %}
-
 <head>
 	{% block title %}
 	<title>Spot search for a specific Callsign</title>
@@ -10,8 +9,12 @@
 <p class="lead text-light">Some statistics about this callsign</p>
 {% endblock %}
 {% block filters %}
-<div class="row  mx-auto">
-	{% endblock filters %}
-	{% block inline_scripts %}
+	<div class="row  mx-auto">
+{% endblock filters %}
+{% block app_data %}
+	{{ super() }}
+	var callsign = '{{callsign}}';
+{% endblock app_data %}
+{% block inline_scripts %}
 	<script defer src="static/js/rel/callsign_inline.min.js"></script>
-	{% endblock %}
+{% endblock %}

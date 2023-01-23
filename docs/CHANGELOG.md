@@ -1,5 +1,10 @@
 ### Change log
-Date: 20/01/2023 
+Date: 23/01/2023 
+Release: v2.4.1.1
+- fixed issue #29  bug on callsign search
+
+___
+Date: 19/01/2023 
 Release: v2.4.1
 - changed dimensions of spots in world dx spost charts
 - managed empty data in data providers for charts
