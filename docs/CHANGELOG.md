@@ -4,6 +4,7 @@ Release: v2.4.1.2
 - Changed cache-control header
 - Fixed Layout scrolling (SEO)
 - First time spot load: not show cyan background
+- refactor of the plot code
 
 ___
 
