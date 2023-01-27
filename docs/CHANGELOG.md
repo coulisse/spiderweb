@@ -1,5 +1,13 @@
 ### Change log
-Date: 23/01/2023 
+Date: 27/01/2023 
+Release: v2.4.1.2
+- Changed cache-control header
+- Fixed Layout scrolling (SEO)
+- First time spot load: not show cyan background
+
+___
+
+Date: 25/01/2023 
 Release: v2.4.1.2
 - fixed issue #30  bug on callsign search
 

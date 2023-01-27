@@ -121,6 +121,7 @@ if [ "$1" == "-r" ]; then
 	echo 'remove some packages from requirements...'
 	sed -i '/certifi==/d' ../requirements.txt
 	sed -i '/staticjinja==/d' ../requirements.txt
+	sed -i '/lighthouse==/d' ../requirements.txt
 
 	if ! sed -i '13,20s/level=DEBUG/level=INFO/g' ${app_ini}; then               
 		echo 'ERROR settimg loglevel=INFO '

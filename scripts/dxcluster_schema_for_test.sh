@@ -20,7 +20,13 @@ db_insert () {
         spotteritu=$(shuf -i 1-90 -n 1)
         spottercq=$(shuf -i 1-40 -n 1)
         #for epoc use https://www.epochconverter.com/
-        timestamp=$(shuf -i 1673759569-1673763169 -n 1)
+        
+        curr_epoch_time=$(date +%s)
+        #timestamp=$(shuf -i 1673759569-1673763169 -n 1)
+        epoch_start=$((${curr_epoch_time}-3600))
+        echo ${curr_epoch_time}
+        echo ${epoch_start}
+        timestamp=$(shuf -i ${epoch_start}-${curr_epoch_time} -n 1)
 
         cs_letter_1=$(chr $(shuf -i 65-90 -n1))
         cs_letter_2=$(chr $(shuf -i 65-90 -n1))

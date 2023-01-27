@@ -6,6 +6,7 @@ class table_builder {
 	constructor(selector) {
 		this.selector = selector;
 		this.current_data = [];
+		this.first_time = true;
 	}
 	/**
 	 * @return last_rowid {integer} the last rowid 
@@ -36,25 +37,12 @@ class table_builder {
 	*/
 	#buildRow(line, isnew, dt_current, callsign = '') {
 		const row = document.createElement('tr');
-/*
-		row.id = line.rowid;
-
-		if (callsign.length > 0) {
-			if (callsign == line.de) {
-				row.id = line.rowid;
-			} else if (callsign == line.dx) {
-				row.id = line.rowid;
-			}
-		} else if (isnew) {
-			row.className = 'table-info';
-		}
-*/
 
 		if (callsign.length > 0) {
 			/* 
 			do not check new lines 
 			*/
-		} else if (isnew) {
+		} else if (isnew && !this.first_time) {
 			row.className = 'table-info';
 		}
 
@@ -256,6 +244,8 @@ class table_builder {
 			var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 				return new bootstrap.Popover(popoverTriggerEl);
 			});
+
+			this.first_time=false;
 		}
 	}
 } //end class
