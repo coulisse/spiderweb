@@ -1,13 +1,13 @@
 ### Change log
-Date: 27/01/2023 
+Date: 28/01/2023 
 Release: v2.4.1.2
-- Changed cache-control header
-- Fixed Layout scrolling (SEO)
-- First time spot load: not show cyan background
-- refactor of the plot code
+- changed cache-control header
+- fixed Layout scrolling (SEO)
+- first time spot load: not show cyan background
+- efactor of the plot code
+- fixed issue #31
 
 ___
-
 Date: 25/01/2023 
 Release: v2.4.1.2
 - fixed issue #30  bug on callsign search

@@ -77,14 +77,14 @@ def query_build_callsign(callsign):
     query_string = ""
     if len(callsign) <= 14:
         query_string = (
-            "(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE spotter='"
+            "(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from spot WHERE spotter='"
             + callsign
             + "'"
         )
         query_string += " ORDER BY rowid desc limit 10)"
         query_string += " UNION "
         query_string += (
-            "(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE spotcall='"
+            "(SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from spot WHERE spotcall='"
             + callsign
             + "'"
         )
@@ -175,7 +175,7 @@ def query_build():
             last_rowid = 0
 
         query_string = (
-            "SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from dxcluster.spot WHERE rowid > "
+            "SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from spot WHERE rowid > "
             + last_rowid
         )
 
