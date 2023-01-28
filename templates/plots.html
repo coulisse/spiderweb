@@ -6,12 +6,6 @@
 	{% endblock %}
 	{% block head %}
 	{{ super() }}
-	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.1/echarts.min.js"
-		integrity="sha512-OTbGFYPLe3jhy4bUwbB8nls0TFgz10kn0TLkmyA+l3FyivDs31zsXCjOis7YGDtE2Jsy0+fzW+3/OVoPVujPmQ=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<!--
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.1/echarts.js" integrity="sha512-ZYpFIosmEiTC+nL/30hJsFwTKXarRcUQeW1kV97gKOo6xzWhVzHwmEDLRMFceo9ALdXwyVLviVz6vm389kBexQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
--->
 	{% endblock %}
 
 </head>
@@ -92,5 +86,8 @@ var band_frequencies={{bands["bands"]|tojson|safe}};
 
 {% block app_scripts %}
 {{ super() }}
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.1/echarts.min.js"
+integrity="sha512-OTbGFYPLe3jhy4bUwbB8nls0TFgz10kn0TLkmyA+l3FyivDs31zsXCjOis7YGDtE2Jsy0+fzW+3/OVoPVujPmQ=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script defer src="static/js/rel/plot.min.js"></script>
 {% endblock app_scripts %}

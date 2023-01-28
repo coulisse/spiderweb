@@ -8,11 +8,11 @@ path_static='../static'
 path_static_html=${path_static}'/html'
 path_static_js=${path_static}'/js'
 path_static_css=${path_static}'/css'
+path_static_pwa=${path_static}'/pwa'
 path_cfg='../cfg'
 app_ini=${path_cfg}'/webapp_log_config.ini'
 path_docs='../docs'
 readme='../README.md'
-manifest=${path_static}'/manifest.webmanifest'
 changelog=${path_docs}'/'CHANGELOG.md
 
 html_change_references(){
@@ -31,7 +31,8 @@ html_change_references(){
 			if ! sed -i '/static\/css\/dev/s/\.css/\.min\.css/;s/static\/css\/dev/static\/css\/rel/g' ${i}; then               
 				echo 'ERROR  replacing .css to .min.css '
 				exit 6
-			fi			
+			fi	
+
 		elif [ "${1}" == "-d" ]; then
 			# concatenating 2 sed command with ";"
 			# 1) if found static/js/rel/ replace .min.js with .js
@@ -44,7 +45,8 @@ html_change_references(){
 			if ! sed -i '/static\/css\/rel/s/\.min\.css/\.css/;s/static\/css\/rel/static\/css\/dev/g' ${i}; then               
 				echo 'ERROR  replacing .min.css to .css'
 				exit 6
-			fi			
+			fi		
+
 		fi
 	done
 }
@@ -83,6 +85,7 @@ if [ "$1" == "-r" ]; then
 			exit 81
 		fi
 	done
+
 
 	#used to minify css                            
 	echo 'minify css...'
@@ -127,7 +130,6 @@ if [ "$1" == "-r" ]; then
 		echo 'ERROR settimg loglevel=INFO '
 		exit 12
 	fi
-
 fi
 
 if [ "$1" == "-d" ]; then
@@ -163,10 +165,10 @@ if [ ${ver} == "" ]; then
 fi
 echo 'version: '${ver}
 
-echo 'writing version in '${manifest} '...'
-if ! sed -i 's/v.*",/'$ver'",/g' ${manifest}
+echo 'writing version in '${path_static_pwa}/manifest.webmanifest '...'
+if ! sed -i 's/v.*",/'$ver'",/g' ${path_static_pwa}/manifest.webmanifest
 then                      
-	echo 'ERROR writing version in '${manifest} 
+	echo 'ERROR writing version in '${path_static_pwa}/manifest.webmanifest
 	exit 42
 fi
 

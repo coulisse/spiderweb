@@ -307,8 +307,7 @@ def spots():
 
 @app.route("/service-worker.js", methods=["GET"])
 def sw():
-    return app.send_static_file("service-worker.js")
-
+    return app.send_static_file("pwa/service-worker.js")
 
 @app.route("/offline.html")
 def root():
@@ -471,7 +470,7 @@ def add_security_headers(resp):
     resp.headers["X-Frame-Options"] = "SAMEORIGIN"
     resp.headers["X-Content-Type-Options"] = "nosniff"
     resp.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    resp.headers["Cache-Control"] = "public, no-cache, no-store, must-revalidate"
+    resp.headers["Cache-Control"] = "public, no-cache, must-revalidate, max-age=604800"
     resp.headers["Pragma"] = "no-cache"
 
     resp.headers["Content-Security-Policy"] = "\
