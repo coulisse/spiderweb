@@ -14,6 +14,7 @@ app_ini=${path_cfg}'/webapp_log_config.ini'
 path_docs='../docs'
 readme='../README.md'
 changelog=${path_docs}'/'CHANGELOG.md
+sw=${path_static_pwa}'/service-worker.js'
 
 html_change_references(){
 	for i in ${path_templates}/*.html
@@ -50,6 +51,7 @@ html_change_references(){
 		fi
 	done
 }
+
 
 
 if [ "$1" != "-r" ] && [ "$1" != "-d" ]; then
@@ -200,6 +202,46 @@ then
 	echo 'ERROR writing version in '${base_template} 
 	exit 40
 fi
+
+echo 'writing version in '${sw} '...'
+
+if ! sed -i  's/pwa-spiderweb_v.*/pwa-spiderweb_'$ver'\x27/g'  ${sw}
+then                            
+	echo 'ERROR writing date in '${sw}
+	exit 35
+fi
+
+echo "changing references to scripts in ${sw}"
+if [ "${1}" == "-r" ]; then
+	# concatenating 2 sed command with ";"
+	# 1) if found static/js/dev/ replace .js with .min.js
+	# 2) replace static/js/dev/ with static/js/rel/
+	if ! sed -i '/static\/js\/dev/s/\.js/\.min\.js/;s/static\/js\/dev/static\/js\/rel/g' ${sw}; then               
+		echo 'ERROR replacing .js to .min.js in ' ${sw}
+		exit 6
+	fi
+	# the same but for css
+	if ! sed -i '/static\/css\/dev/s/\.css/\.min\.css/;s/static\/css\/dev/static\/css\/rel/g' ${sw}; then               
+		echo 'ERROR  replacing .css to .min.css in ' ${sw}
+		exit 6
+	fi	
+
+elif [ "${1}" == "-d" ]; then
+	# concatenating 2 sed command with ";"
+	# 1) if found static/js/rel/ replace .min.js with .js
+	# 2) replace static/js/rel/ with static/js/dev/		
+	if ! sed -i '/static\/js\/rel/s/\.min\.js/\.js/;s/static\/js\/rel/static\/js\/dev/g' ${sw}; then               
+		echo 'ERROR  replacing .min.js to .js in ' ${sw}
+		exit 6
+	fi
+	# the same but for css
+	if ! sed -i '/static\/css\/rel/s/\.min\.css/\.css/;s/static\/css\/rel/static\/css\/dev/g' ${sw}; then               
+		echo 'ERROR  replacing .min.css to .css in ' ${sw}
+		exit 6
+	fi		
+
+fi
+
 
 echo 'generating static pages...'
 if ! python ../lib/static_build.py

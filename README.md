@@ -143,7 +143,7 @@ Create and edit a file named for example spiderweb.service (in the systemd folde
 ```console
 foo@bar:~$ sudo nano /etc/systemd/system/spiderweb.service
 ```
-Below an example of configuration:
+Below an example of configuration, keep in mind that it is just an example (you have to put your data for your application [here a little guide](https://linuxhandbook.com/create-systemd-services/)   ):
 ```console
 [Unit]
 Description=bjoern instance spiderweb

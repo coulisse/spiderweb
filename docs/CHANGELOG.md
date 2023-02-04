@@ -1,11 +1,12 @@
 ### Change log
-Date: 28/01/2023 
+Date: 04/02/2023 
 Release: v2.4.1.2
 - changed cache-control header
 - fixed Layout scrolling (SEO)
 - first time spot load: not show cyan background
 - efactor of the plot code
 - fixed issue #31
+- added PWA cache and improved service worker for offline
 
 ___
 Date: 25/01/2023 

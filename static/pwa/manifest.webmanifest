@@ -45,13 +45,13 @@
       "type": "image/png"
     },
     {
-      "src": "/static/images/icons/icon-512x512.png",
+      "src": "/static/images/icons/icon-512x512-transparent.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"      
     },
     {
-      "src": "/static/images/icons/icon-512x512.png",
+      "src": "/static/images/icons/icon-512x512-solid.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"      
