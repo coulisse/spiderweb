@@ -4,7 +4,7 @@ const CACHE_NAME = 'pwa-spiderweb_v2.4.1.2'
 // Dichiarazione della costante per gli URL da mettere in cache
 const URLS_TO_CACHE = [
 	'/static/images/background.webp',
-	'/static/css/rel/style.min.css',
+	'/static/css/dev/style.css',
 	'/static/images/icons/favicon.ico',
 	'/static/images/icons/icon-144x144.png',
 	'/static/images/icons/icon-152x152.png',
@@ -18,20 +18,14 @@ const URLS_TO_CACHE = [
 	'/static/images/icons/icon-96x96.png',
 	'/static/images/icons/icon-apple.png',
 	'/static/images/icons/spider_ico_master.svg',
-	'/static/js/rel/callsign_inline.min.js',
-	'/static/js/rel/callsign_search.min.js',
-	'/static/js/rel/common.min.js',
-	'/static/js/rel/cookie_consent.min.js',
-	'/static/js/rel/index_inline.min.js',
-	'/static/js/rel/load-sw.min.js',
-	'/static/js/rel/plot.min.js',
-	'/static/js/rel/table.min.js',
-	'/plots.html',
+	'/static/js/dev/callsign_inline.js',
+	'/static/js/dev/callsign_search.js',
+	'/static/js/dev/common.js',
 	'/privacy.html',
 	'/cookies.html',
-	'/callsign.html',
-	'/index.html'
+	'/offline.html',	
 ];
+
 
 // Install
 self.addEventListener('install', event => {
@@ -60,6 +54,7 @@ self.addEventListener('activate', event => {
 
 //Managing request
 self.addEventListener('fetch', event => {
+	console.log(event.request.url);				
 	event.respondWith(
 		caches.match(event.request)
 			.then(response => {
@@ -69,7 +64,8 @@ self.addEventListener('fetch', event => {
 				return fetch(event.request)
 					.then(response => {
 						if (response.status === 502) {
-							return caches.match('/index.html');
+							console.log("response status: " + response.status);
+							return caches.match('/offline.html');
 						}
 						if (!response || response.status !== 200 || response.type !== 'basic') {
 							console.log("response: " + response.status);
@@ -84,7 +80,7 @@ self.addEventListener('fetch', event => {
 					})
 					.catch(error => {
 						console.log(error);
-						return caches.match('/index.html');
+						return caches.match('/offline.html');
 					});
 			})
 	);
