@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+title: Spiderweb
+message: 'If you use this software, please cite it as below.'
+type: software
+authors:
+  - given-names: Corrado
+    family-names: Gerbaldo
+    email: corrado.gerbaldo@gmail.com
+repository-code: 'https://github.com/coulisse/spiderweb/'
+url: 'https://www.iu1bow.it'
+abstract: Ham radio cluster web viewer for DxSpider
+keywords:
+  - iu1bow
+  - mysql
+  - python
+  - radio
+  - bootstrap
+  - flask
+  - plots
+  - eCharts
+  - dx
+  - ham-radio
+  - dx-cluster
+  - dxcluster
+  - spiderweb
+license: GPL-3.0
+version: v2.4.2
+date-released: 2023-02-11

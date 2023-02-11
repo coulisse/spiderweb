@@ -14,6 +14,7 @@ app_ini=${path_cfg}'/webapp_log_config.ini'
 path_docs='../docs'
 readme='../README.md'
 changelog=${path_docs}'/'CHANGELOG.md
+citation='../CITATION.cff'
 sw=${path_static_pwa}'/service-worker.js'
 
 html_change_references(){
@@ -189,12 +190,29 @@ then
 fi
 
 echo 'writing date in '${changelog} '...'
-
 if ! sed -i  '1,4s/Date: [0-9][0-9]\/[0-9][0-9]\/[0-9][0-9][0-9][0-9]/Date: '$(date '+%d\/%m\/%Y')'/g'  ${changelog}
 then                            
 	echo 'ERROR writing date in '${changelog}
 	exit 35
 fi
+
+
+echo 'writing version in '${citation} '...'
+if ! sed -i '2,99s/version: v.*/version: '$ver'/g' ${citation}
+then                           
+	echo 'ERROR writing version in '${citation}
+	exit 35
+fi
+
+echo 'writing date in '${citation} '...'
+if ! sed -i  '2,99s/date-released: [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/date-released: '$(date '+%Y-%m-%d')'/g'  ${citation}
+then                            
+	echo 'ERROR writing date in '${citation}
+	exit 35
+fi
+
+
+
 
 echo 'writing version in '${base_template} '...'
 if ! sed -i 's/<span id="version">v.*<\/span>/<span id="version">'$ver'<\/span>/g' ${path_templates}/${base_template}
@@ -242,13 +260,32 @@ elif [ "${1}" == "-d" ]; then
 
 fi
 
+static_build_path_i=$(mktemp -d /tmp/spiderweb_static_build_i-XXXXXXXXX)
+static_build_path_o=$(mktemp -d /tmp/spiderweb_static_build_o-XXXXXXXXX)
+
+cp ${path_templates}/_base.html   ${static_build_path_i}
+cp ${path_templates}/offline.html ${static_build_path_i}
 
 echo 'generating static pages...'
-if ! python ../lib/static_build.py
+if ! python ../lib/static_build.py ${static_build_path_i}  ${static_build_path_o}
 then                               
 	echo 'ERROR generating static pages'                
+	rm -rf ${static_build_path_i}
+	rm -rf ${static_build_path_o}
 	exit 50
 fi
+
+if ! cp ${static_build_path_o}/offline.html ${path_static_html}
+then
+	echo 'ERROR copying static pages'                
+	rm -rf ${static_build_path_i}
+	rm -rf ${static_build_path_o}
+	exit 51
+fi
+
+rm -rf ${static_build_path_i}
+rm -rf ${static_build_path_o}
+
 
 echo
 echo Build ok

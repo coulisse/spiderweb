@@ -1,6 +1,6 @@
 ### Change log
-Date: 05/02/2023 
-Release: v2.4.1.2
+Date: 11/02/2023 
+Release: v2.4.2
 - changed cache-control header
 - fixed Layout scrolling (SEO)
 - first time spot load: not show cyan background

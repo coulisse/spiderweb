@@ -311,7 +311,7 @@ def sw():
 
 @app.route("/offline.html")
 def root():
-    return app.send_static_file("html/rel/offline.html")
+    return app.send_static_file("html/offline.html")
 
 
 @app.route("/world.json")
