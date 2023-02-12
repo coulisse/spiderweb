@@ -470,7 +470,7 @@ def add_security_headers(resp):
     resp.headers["X-Frame-Options"] = "SAMEORIGIN"
     resp.headers["X-Content-Type-Options"] = "nosniff"
     resp.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    resp.headers["Cache-Control"] = "public, no-cache, must-revalidate, max-age=604800"
+    resp.headers["Cache-Control"] = "public, no-cache"
     resp.headers["Pragma"] = "no-cache"
 
     resp.headers["Content-Security-Policy"] = "\
