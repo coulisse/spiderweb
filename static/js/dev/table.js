@@ -355,6 +355,7 @@ function refresh_timer() {
 
 
 	//Open a new connection, using the GET request on the URL endpoint
+	qryString=qryString.concat('&'.concat(Math.random()));   //used to prevent caching
 	fetch(qryString)
 		.then((response) => response.json())
 		.then((data_new) => {
