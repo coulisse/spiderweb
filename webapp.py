@@ -470,9 +470,12 @@ def add_security_headers(resp):
     resp.headers["X-Frame-Options"] = "SAMEORIGIN"
     resp.headers["X-Content-Type-Options"] = "nosniff"
     resp.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    resp.headers["Cache-Control"] = "public, no-cache"
+    #resp.headers["Cache-Control"] = "public, no-cache"
+    resp.headers['Cache-Control']='no-cache, no-store, must-revalidate'    
     resp.headers["Pragma"] = "no-cache"
 
+    
+    
     resp.headers["Content-Security-Policy"] = "\
     default-src 'self';\
     script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-"+inline_script_nonce+"';\
