@@ -471,7 +471,7 @@ def add_security_headers(resp):
     resp.headers["X-Content-Type-Options"] = "nosniff"
     resp.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     #resp.headers["Cache-Control"] = "public, no-cache"
-    resp.headers['Cache-Control']='no-cache, no-store, must-revalidate'    
+    resp.headers['Cache-Control']='no-store'    
     resp.headers["Pragma"] = "no-cache"
 
     
