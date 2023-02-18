@@ -1,4 +1,10 @@
 ### Change log
+Date: 18/02/2023 
+Release: v2.4.2
+- replaced multipart form post with url encoded for security reasons
+- fixed bands and continents in band activity chart
+- upgraded Werkzeug to 2.2.3
+
 Date: 11/02/2023 
 Release: v2.4.2
 - changed cache-control header

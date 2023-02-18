@@ -24,7 +24,7 @@
 <div class="row  mx-auto">
 	<!--Sidebar content-->
 	<div class="col-md-auto ml-2 collapse rounded-sm shadow mb-5 bg-body" id="collapseFilters">
-		<form method="POST" id="form-filters" enctype="multipart/form-data">
+		<form method="POST" id="form-filters" enctype="application/x-www-form-urlencoded">
 			<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 			<strong>Band</strong>
 			<select class="form-select overflow-hidden" id="band" size="14" multiple>
@@ -305,8 +305,8 @@ var band_frequencies={{bands["bands"]|tojson|safe}};
 {% endblock app_data %}
 {% block app_scripts %}
 {{ super() }}
-<script defer src="static/js/rel/table.min.js"></script>
+<script defer src="static/js/dev/table.js"></script>
 {% endblock %}
 {% block inline_scripts %}
-<script defer src="static/js/rel/index_inline.min.js"></script>
+<script defer src="static/js/dev/index_inline.js"></script>
 {% endblock %}

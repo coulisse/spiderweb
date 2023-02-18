@@ -20,7 +20,7 @@
 <div id="dashboard" class="d-flex flex-wrap  justify-content-around">
 	<div class="shadow-lg mb-5 rounded spider_chart" id="form-band_activity">
 		<div class="d-flex flex-column">
-			<form method="POST" id="form-continents" enctype="multipart/form-data">
+			<form method="POST" id="form-continents" enctype="application/x-www-form-urlencoded">
 				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 				<div class="container">
 					Your continent is:
@@ -89,5 +89,5 @@ var band_frequencies={{bands["bands"]|tojson|safe}};
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.1/echarts.min.js"
 integrity="sha512-OTbGFYPLe3jhy4bUwbB8nls0TFgz10kn0TLkmyA+l3FyivDs31zsXCjOis7YGDtE2Jsy0+fzW+3/OVoPVujPmQ=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script defer src="static/js/rel/plot.min.js"></script>
+<script defer src="static/js/dev/plot.js"></script>
 {% endblock app_scripts %}

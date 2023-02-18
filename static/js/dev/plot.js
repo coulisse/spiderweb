@@ -164,16 +164,18 @@ class band_activity extends plot_base {
 		super(chart_id,end_point);
 
 		//populate continents array
-		var continents=[];
+		let continents=[];
 		cont_cq.forEach(function myFunction(item, index) {
 			continents[index]=item['id'];
 		});
+		this.continents=continents;
 
 		//populate bands array
-		var bands=[];
+		let bands=[];
 		band_freq.forEach(function myFunction(item, index) {
 			bands[index]=item['id'];
 		});
+		this.bands=bands;
 
 		//managing region
 		var selectedContinent=getCookie('user_region');
