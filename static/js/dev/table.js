@@ -164,7 +164,7 @@ class table_builder {
 		const td_comm = document.createElement('td');
 		td_comm.className = 'd-none d-lg-table-cell d-xl-table-cell';
 		try {
-			td_comm.textContent = line.comm.substring(0,100);
+			td_comm.textContent = line.comm.substring(0, 100);
 		} catch (err) {
 			td_comm.textContent = '';
 		}
@@ -245,7 +245,7 @@ class table_builder {
 				return new bootstrap.Popover(popoverTriggerEl);
 			});
 
-			this.first_time=false;
+			this.first_time = false;
 		}
 	}
 } //end class
@@ -257,7 +257,7 @@ class table_builder {
 const adxo_url = 'https://www.ng3k.com/misc/adxo.html';
 const qrz_url = 'https://www.qrz.com/db/';
 const tb = new table_builder('bodyspot');
-var qryAll_sv = '';
+var params_sv = {};
 
 /**
  * Decode Announced Dx Operation (ng3k)
@@ -287,38 +287,42 @@ function mySearch(event) {
  * Function for construct query string for single value selection
  *
  * @param id {string} The html identifier used for filter
- * @param param {string}the parameter for the query
  * @param len {number} The maximum number of element that could be selected; use -1 if the filter permits a single selection
- * @param qrystr  {string} Th initial query string to be completed with the new filter
+ * @param qry_json {object} The input json 
  */
-function getFilter(id, param, len, qrystr) {
+function compose_filter(id, len, qry_json) {
 
 	try {
 		let selectedFilter = [].map.call(document.getElementById(id).selectedOptions, option => option.value);
-		let qryFilter = '';
-		if (selectedFilter.length < len || len == -1) {
-			qryFilter = selectedFilter.map(function (el) {
+		if (selectedFilter.length < len) {
+			qry_json[id] = [];
+			selectedFilter.map(function (el) {
 				if (el) {
-					return param + '=' + el;
+					qry_json[id].push(el);
 				} else {
 					return '';
 				}
-			}).join('&');
-			qrystr = qrystr.concat('&'.concat(qryFilter));
-			if (qrystr.substring(0, 1) == '&') {
-				qrystr = qrystr.substring(1);
-			}
-		}		
+			});
+		} else if (len == -1) {
+			selectedFilter.map(function (el) {
+				if (el) {
+					qry_json[id]=el;
+				} else {
+					return '';
+				}
+			});
+		}
 	}
 	catch (err) {
-		if (err.name == 'TypeError') { 
-			/* error managed: it is ok: probabilly ther is no filter on cq region */ 
+		if (err.name == 'TypeError') {
+			console.error(err.name);
+			/* error managed: it is ok: probabilly ther is no filter on cq region */
 		} else {
 			throw err;
 		}
-	} 
+	}
 
-	return qrystr;
+	return qry_json;
 }
 
 /**
@@ -328,34 +332,36 @@ function getFilter(id, param, len, qrystr) {
  */
 function refresh_timer() {
 
-	let qryAll = '';
+	let params = {};
 
 	//get other filters
-	qryAll = getFilter('band', 'b', 14, qryAll);
-	qryAll = getFilter('de_re', 'e', 7, qryAll);
-	qryAll = getFilter('dx_re', 'x', 7, qryAll);
-	qryAll = getFilter('mode', 'm', 3, qryAll);
-	qryAll = getFilter('cqdeInput', 'qe', -1, qryAll);
-	qryAll = getFilter('cqdxInput', 'qx', -1, qryAll);
+	params = compose_filter('band',  14, params);
+	params = compose_filter('de_re', 7, params);
+	params = compose_filter('dx_re',  7, params);
+	params = compose_filter('mode',  3, params);
+	params = compose_filter('cqdeInput',  -1, params); 
+	params = compose_filter('cqdxInput', -1, params);
 
-	//Composing query string
-	let qryString;
 
+	delete params_sv['lr'];  //remove line row number, for future param comparison	
 	//If the filter is changed we need to reset the data table and restart from rowid=0
-	if (qryAll != qryAll_sv) {
+	if (JSON.stringify(params) !== JSON.stringify(params_sv)) {
 		tb.resetData();
-		qryAll_sv = qryAll;
+		params_sv = params;
 	}
-
-	qryString = ('spotlist?lr=').concat(tb.getLastRowId());
-
-	if (qryAll) {
-		qryString = qryString.concat('&'.concat(qryAll));
-	}
-
-
+	params['lr']=tb.getLastRowId();
+	
 	//Open a new connection, using the GET request on the URL endpoint
-	fetch(qryString)
+	//let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");	
+	fetch('spotlist', {
+		method: 'POST',
+		cache: 'no-cache',
+		credentials: 'same-origin',
+		headers: {
+			'Content-Type': 'application/json'				
+		},
+		body: JSON.stringify( params )  
+	})
 		.then((response) => response.json())
 		.then((data_new) => {
 			try {

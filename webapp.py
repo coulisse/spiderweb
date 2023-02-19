@@ -30,6 +30,7 @@ app.config.update(
 inline_script_nonce = ""
 
 csrf = CSRFProtect(app)
+
 logger.debug(app.config)
 
 if app.config["DEBUG"]:
@@ -94,17 +95,24 @@ def query_build_callsign(callsign):
     return query_string
 
 
-def query_build():
+def query_build(parameters):
 
     try:
-        # get url parameters
-        last_rowid = request.args.get("lr")  # Last rowid fetched by front end
-        band = request.args.getlist("b")  # band filter
-        dere = request.args.getlist("e")  # DE continent filter
-        dxre = request.args.getlist("x")  # Dx continent filter
-        mode = request.args.getlist("m")  # mode filter
-        decq = request.args.getlist("qe")  # DE cq zone filter
-        dxcq = request.args.getlist("qx")  # DX cq zone filter
+        last_rowid = str(parameters["lr"])  # Last rowid fetched by front end
+
+        get_param = lambda parameters, parm_name: parameters[parm_name] if (parm_name in parameters) else []
+        band=get_param(parameters, "band")        
+        dere=get_param(parameters, "de_re")  
+        dxre=get_param(parameters, "dx_re")  
+        mode=get_param(parameters, "mode")
+        
+        decq = []
+        if "cqdeInput" in parameters:
+            decq[0] = parameters["cqdeInput"] 
+
+        dxcq = []
+        if "cqdxInput" in parameters:   
+            dxcq[0] = parameters["cqdxInput"] 
 
         query_string = ""
 
@@ -120,7 +128,6 @@ def query_build():
             )
 
         band_qry_string += "))"
-
         # construct mode query
         mode_qry_string = " AND  (("
         for i, item_mode in enumerate(mode):
@@ -138,7 +145,6 @@ def query_build():
                 )
 
         mode_qry_string += "))"
-
         # construct DE continent region query
         dere_qry_string = " AND spottercq IN ("
         for i, item_dere in enumerate(dere):
@@ -179,6 +185,7 @@ def query_build():
             + last_rowid
         )
 
+
         if len(band) > 0:
             query_string += band_qry_string
 
@@ -210,15 +217,15 @@ def query_build():
 # the main query to show spots
 # it gets url parameter in order to apply the build the right query
 # and apply the filter required. It returns a json with the spots
-def spotquery():
+def spotquery(parameters):
     try:
 
-        callsign = request.args.get("c")  # search specific callsign
-
-        if callsign:
-            query_string = query_build_callsign(callsign)
+        if 'callsign' in parameters:
+            logging.debug('search callsign')
+            query_string = query_build_callsign( parameters['callsign'] )
         else:
-            query_string = query_build()
+            logging.debug('search eith other filters')
+            query_string = query_build(parameters)
 
         qm.qry(query_string)
         data = qm.get_data()
@@ -246,10 +253,8 @@ def spotquery():
     except Exception as e:
         logger.error(e)
 
-
 # find adxo events
 adxo_events = None
-
 
 def get_adxo():
     global adxo_events
@@ -267,15 +272,19 @@ bubble_graph_hb = HourBand(logger, qm, band_frequencies)
 geo_graph_wdsl = WorldDxSpotsLive(logger, qm, pfxt)
 
 # ROUTINGS
-@app.route("/spotlist", methods=["GET"])
+@app.route("/spotlist", methods=["POST"])
+@csrf.exempt
 def spotlist():
-    response = flask.Response(json.dumps(spotquery()))
+    logger.debug(request.json)
+    response = flask.Response(json.dumps(spotquery(request.json)))
     return response
 
 
 def who_is_connected():
     host_port = cfg["telnet"].split(":")
     response = who(host_port[0], host_port[1], cfg["mycallsign"])
+    logger.debug("list of connected clusters:")
+    logger.debug(response)
     return response
 
 #Calculate nonce token used in inline script and in csp "script-src" header
@@ -313,7 +322,6 @@ def sw():
 def root():
     return app.send_static_file("html/offline.html")
 
-
 @app.route("/world.json")
 def world_data():
     return app.send_static_file("data/world.json")
@@ -336,7 +344,6 @@ def plots():
     )
     return response
 
-
 @app.route("/cookies.html", methods=["GET"])
 def cookies():
     response = flask.Response(
@@ -351,7 +358,6 @@ def cookies():
     )
     return response
 
-
 @app.route("/privacy.html", methods=["GET"])
 def privacy():
     response = flask.Response(
@@ -365,7 +371,6 @@ def privacy():
         )
     )
     return response
-
 
 @app.route("/sitemap.xml")
 def sitemap():
@@ -404,9 +409,12 @@ def find_callsign():
     return response
 
 
-@app.route("/plot_get_heatmap_data", methods=["GET"])
+@app.route("/plot_get_heatmap_data", methods=["POST"])
+@csrf.exempt
 def get_heatmap_data():
-    continent = request.args.get("continent")
+    #continent = request.args.get("continent")
+    continent = request.json['continent']
+    logger.debug(request.get_json());
     response = flask.Response(json.dumps(heatmap_cbp.get_data(continent)))
     logger.debug(response)
     if response is None:
@@ -414,7 +422,8 @@ def get_heatmap_data():
     return response
 
 
-@app.route("/plot_get_dx_spots_per_month", methods=["GET"])
+@app.route("/plot_get_dx_spots_per_month", methods=["POST"])
+@csrf.exempt
 def get_dx_spots_per_month():
     response = flask.Response(json.dumps(bar_graph_spm.get_data()))
     logger.debug(response)
@@ -423,7 +432,8 @@ def get_dx_spots_per_month():
     return response
 
 
-@app.route("/plot_get_dx_spots_trend", methods=["GET"])
+@app.route("/plot_get_dx_spots_trend", methods=["POST"])
+@csrf.exempt
 def get_dx_spots_trend():
     response = flask.Response(json.dumps(line_graph_st.get_data()))
     logger.debug(response)
@@ -432,7 +442,8 @@ def get_dx_spots_trend():
     return response
 
 
-@app.route("/plot_get_hour_band", methods=["GET"])
+@app.route("/plot_get_hour_band", methods=["POST"])
+@csrf.exempt
 def get_dx_hour_band():
     response = flask.Response(json.dumps(bubble_graph_hb.get_data()))
     logger.debug(response)
@@ -441,7 +452,8 @@ def get_dx_hour_band():
     return response
 
 
-@app.route("/plot_get_world_dx_spots_live", methods=["GET"])
+@app.route("/plot_get_world_dx_spots_live", methods=["POST"])
+@csrf.exempt
 def get_world_dx_spots_live():
     response = flask.Response(json.dumps(geo_graph_wdsl.get_data()))
     logger.debug(response)
