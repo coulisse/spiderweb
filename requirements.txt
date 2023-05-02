@@ -4,7 +4,7 @@ click==8.1.3
 dill==0.3.6
 docopt-ng==0.8.1
 easywatch==0.0.5
-Flask==2.2.2
+Flask==2.3.2
 Flask-Consent==0.0.3
 Flask-Minify==0.41
 Flask-WTF==1.0.1
