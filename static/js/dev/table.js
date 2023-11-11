@@ -354,10 +354,8 @@ function refresh_timer() {
 	params['lr']=tb.getLastRowId();
 	
 	//Open a new connection, using the GET request on the URL endpoint
-<<<<<<< HEAD
 	qryString=qryString.concat('&'.concat(Math.random()));   //used to prevent caching
 	fetch(qryString)
-=======
 	//let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");	
 	fetch('spotlist', {
 		method: 'POST',
@@ -368,7 +366,6 @@ function refresh_timer() {
 		},
 		body: JSON.stringify( params )  
 	})
->>>>>>> staging
 		.then((response) => response.json())
 		.then((data_new) => {
 			try {

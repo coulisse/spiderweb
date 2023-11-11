@@ -1,7 +1,4 @@
 ### Change log
-<<<<<<< HEAD
-Date: 12/02/2023 
-=======
 Date: 11/11/2023 
 Release: v2.4.5
 - added "back to top" button
