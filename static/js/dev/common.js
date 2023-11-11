@@ -49,7 +49,7 @@ function getCookie(cname) {
 function get_last_refresh(data) {
 	let dt_refresh = new Date(0); // The 0 there is the key, which sets the date to the epoch
 	//var dt_refresh;
-	dt_refresh.setUTCSeconds(data["last_refresh"]);
+	dt_refresh.setUTCSeconds(data['last_refresh']);
 	const pad = (n, s = 2) => (`${new Array(s).fill(0)}${n}`).slice(-s);
 	const hours = pad(dt_refresh.getHours());
 	const minutes = pad(dt_refresh.getMinutes());
@@ -57,7 +57,7 @@ function get_last_refresh(data) {
 	const month = months_names[dt_refresh.getMonth()];
 	const day = dt_refresh.getDate();
 	const year = dt_refresh.getFullYear();
-	const last_refresh = "Data refresh: " + day + " of " + month + " " + year + " at " + hours + ":" + minutes;
+	const last_refresh = 'Data refresh: ' + day + ' of ' + month + ' ' + year + ' at ' + hours + ':' + minutes;
 	return last_refresh;
 }
 
@@ -145,29 +145,46 @@ function setText(id, newvalue) {
 	s.innerHTML = newvalue;
 }
 
-function showTime(){
-	let date=new Date();
+function showTime() {
+	let date = new Date();
 	let utc = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
 	let time = utc.toTimeString().split(' ')[0];
-	time = time.split(':')[0]+':'+time.split(':')[1];
-	document.getElementById("MyClockDisplay").innerText = time;
-	document.getElementById("MyClockDisplay").textContent = time;
-	setTimeout(showTime, 1000); 
+	time = time.split(':')[0] + ':' + time.split(':')[1];
+	document.getElementById('MyClockDisplay').innerText = time;
+	document.getElementById('MyClockDisplay').textContent = time;
+	setTimeout(showTime, 1000);
 }
 
 
-document.getElementById('MyClockDisplay').addEventListener('load',showTime());
-document.getElementById('copyDate').innerHTML='2020-'.concat(new Date().getFullYear());
-/*
-function doRefresh(){
+document.getElementById('MyClockDisplay').addEventListener('load', showTime());
+document.getElementById('copyDate').innerHTML = '2020-'.concat(new Date().getFullYear());
 
-var chartDom = document.getElementById('chart-dx_spots_trend');
-var myChart = echarts.init(chartDom);
-plot_dst.refresh(myChart,'/plot_get_dx_spots_trend');
+//Get the button for return to top page
+let button_top = document.getElementById('btn-back-to-top');
 
-}; 
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () {
+	scrollFunction();
+};
 
-setInterval(function(){doRefresh()}, 5000);
+function scrollFunction() {
+	if (
+		document.body.scrollTop > 20 ||
+		document.documentElement.scrollTop > 20
+	) {
+		button_top.style.display = 'block';
+	} else {
+		button_top.style.display = 'none';
+	}
+}
+// When the user clicks on the button, scroll to the top of the document
+//button_top.addEventListener('click', backToTop);
 
-*/
+// When the user clicks on the button, scroll to the top of the document
+button_top.addEventListener('click', backToTop);
 
+
+function backToTop() {
+	document.body.scrollTop = 0;
+	document.documentElement.scrollTop = 0;
+}

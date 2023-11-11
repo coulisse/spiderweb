@@ -274,6 +274,8 @@ function findAdxo(adxo, callsign_to_find) {
 		}
 	}
 }
+
+
 /**
  * Function to filter spot when pressed the search button on filter
  * This function trigger the search, also triggered by timer

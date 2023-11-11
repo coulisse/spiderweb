@@ -129,6 +129,9 @@ if [ "$1" == "-r" ]; then
 	sed -i '/staticjinja==/d' ../requirements.txt
 	sed -i '/lighthouse==/d' ../requirements.txt
 
+	echo 'force some requirements...'
+	sed -i 's/mysql-connector-python==8.0.31/mysql-connector-python>=8.0.31/' ../requirements.txt
+
 	if ! sed -i '13,20s/level=DEBUG/level=INFO/g' ${app_ini}; then               
 		echo 'ERROR settimg loglevel=INFO '
 		exit 12
@@ -260,31 +263,31 @@ elif [ "${1}" == "-d" ]; then
 
 fi
 
-static_build_path_i=$(mktemp -d /tmp/spiderweb_static_build_i-XXXXXXXXX)
-static_build_path_o=$(mktemp -d /tmp/spiderweb_static_build_o-XXXXXXXXX)
-
-cp ${path_templates}/_base.html   ${static_build_path_i}
-cp ${path_templates}/offline.html ${static_build_path_i}
-
-echo 'generating static pages...'
-if ! python ../lib/static_build.py ${static_build_path_i}  ${static_build_path_o}
-then                               
-	echo 'ERROR generating static pages'                
-	rm -rf ${static_build_path_i}
-	rm -rf ${static_build_path_o}
-	exit 50
-fi
-
-if ! cp ${static_build_path_o}/offline.html ${path_static_html}
-then
-	echo 'ERROR copying static pages'                
-	rm -rf ${static_build_path_i}
-	rm -rf ${static_build_path_o}
-	exit 51
-fi
-
-rm -rf ${static_build_path_i}
-rm -rf ${static_build_path_o}
+#static_build_path_i=$(mktemp -d /tmp/spiderweb_static_build_i-XXXXXXXXX)
+#static_build_path_o=$(mktemp -d /tmp/spiderweb_static_build_o-XXXXXXXXX)
+#
+#cp ${path_templates}/_base.html   ${static_build_path_i}
+#cp ${path_templates}/offline.html ${static_build_path_i}
+#
+#echo 'generating static pages...'
+#if ! python ../lib/static_build.py ${static_build_path_i}  ${static_build_path_o}
+#then                               
+#	echo 'ERROR generating static pages'                
+#	rm -rf ${static_build_path_i}
+#	rm -rf ${static_build_path_o}
+#	exit 50
+#fi
+#
+#if ! cp ${static_build_path_o}/offline.html ${path_static_html}
+#then
+#	echo 'ERROR copying static pages'                
+#	rm -rf ${static_build_path_i}
+#	rm -rf ${static_build_path_o}
+#	exit 51
+#fi
+#
+#rm -rf ${static_build_path_i}
+#rm -rf ${static_build_path_o}
 
 
 echo
