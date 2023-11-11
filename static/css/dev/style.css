@@ -116,3 +116,11 @@ span.search-callsign {
 	width: 95%;
 	height: auto; 
 }
+
+#btn-back-to-top {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	display: none;
+	opacity: 0.7;
+ }

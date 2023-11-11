@@ -1,5 +1,5 @@
 // Dichiarazione della costante per il nome della cache
-const CACHE_NAME = 'pwa-spiderweb_v2.4.2'
+const CACHE_NAME = 'pwa-spiderweb_v2.4.5'
 
 // Dichiarazione della costante per gli URL da mettere in cache
 const URLS_TO_CACHE = [
@@ -21,9 +21,10 @@ const URLS_TO_CACHE = [
 	'/static/js/rel/callsign_inline.min.js',
 	'/static/js/rel/callsign_search.min.js',
 	'/static/js/rel/common.min.js',
+	'/index.html',	
+	'/plots.html',		
 	'/privacy.html',
-	'/cookies.html',
-	'/offline.html',	
+	'/cookies.html'
 ];
 
 
@@ -65,7 +66,7 @@ self.addEventListener('fetch', event => {
 					.then(response => {
 						if (response.status === 502) {
 							console.log("response status: " + response.status);
-							return caches.match('/offline.html');
+							return caches.match('/index.html');
 						}
 						if (!response || response.status !== 200 || response.type !== 'basic') {
 							console.log("response: " + response.status);
@@ -80,7 +81,7 @@ self.addEventListener('fetch', event => {
 					})
 					.catch(error => {
 						console.log(error);
-						return caches.match('/offline.html');
+						return caches.match('/index.html');
 					});
 			})
 	);

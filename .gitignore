@@ -4,3 +4,7 @@ config.json
 __init__/
 __pycache__/
 .vscode/
+*report.html
+venv/
+.idea/
+

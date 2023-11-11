@@ -1,5 +1,29 @@
 ### Change log
+<<<<<<< HEAD
 Date: 12/02/2023 
+=======
+Date: 11/11/2023 
+Release: v2.4.5
+- added "back to top" button
+- enancement request #44  :  added reset filter
+- fixed dependencie #32 : mysql connector
+- fixed FT8 frequency on CW 6 meter band #40
+- upgraded echarts library from 5.4.1 to 5.4.3
+- upgraded flag icons library from 6.6.0 to 6.15
+- upgraded bootstrap to 5.2.3
+
+___
+Date: 26/02/2023 
+Release: v2.4.4
+- replaced multipart form post with url encoded for security reasons
+- fixed bands and continents in band activity chart
+- upgraded Werkzeug to 2.2.3
+- changed some api call from get to post method in order to not caching it
+- fixed flags of Scothland and Northern Ireland
+
+___
+Date: 11/02/2023 
+>>>>>>> staging
 Release: v2.4.2
 - changed cache-control header
 - fixed Layout scrolling (SEO)

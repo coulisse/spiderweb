@@ -24,7 +24,7 @@
 <div class="row  mx-auto">
 	<!--Sidebar content-->
 	<div class="col-md-auto ml-2 collapse rounded-sm shadow mb-5 bg-body" id="collapseFilters">
-		<form method="POST" id="form-filters" enctype="multipart/form-data">
+		<form method="POST" id="form-filters" enctype="application/x-www-form-urlencoded">
 			<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 			<strong>Band</strong>
 			<select class="form-select overflow-hidden" id="band" size="14" multiple>
@@ -167,7 +167,14 @@
 				<button type="submit" class="btn btn-primary btn-block w-100" aria-pressed="true" data-toggle="collapse"
 					data-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters"
 					aria-label="filter">Search</button>
+					<p></p>
+					<button type="Reset" class="btn btn-primary btn-block w-100" aria-pressed="true" data-toggle="collapse"
+					data-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters"
+					aria-label="reset_filter">Reset</button>					
 			</div>
+			<div class="mx-auto">
+
+			</div>			
 		</form>
 	</div>
 
@@ -288,7 +295,6 @@
 				</tr>				
 				<tr>
 				</tr>				
-
 			</tbody>
 		</table>
 	</div>

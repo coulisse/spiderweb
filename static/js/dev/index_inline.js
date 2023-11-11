@@ -14,4 +14,5 @@ window.onload = () => {
 	document.getElementById('form-filters').addEventListener('submit', mySearch);
 };
 
+
 document.getElementById('MyClockDisplay').addEventListener('load',showTime());
