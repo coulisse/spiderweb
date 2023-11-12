@@ -12,7 +12,12 @@
     "mail":"foo@bar.com",
     "mail_token": "foobar",
     "enable_cq_filter":"n",
-	"telnet":"mysite:7300",
+    "telnet": {
+        "host": "mysite",
+        "port": "7300",
+        "user": "myuser",
+        "password": ""
+    },
         "menu": {
           "menu_list": [
             {"label":"Charts & stats", "link": "/plots.html", "external": false},

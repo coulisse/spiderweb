@@ -281,8 +281,11 @@ def spotlist():
 
 
 def who_is_connected():
-    host_port = cfg["telnet"].split(":")
-    response = who(host_port[0], host_port[1], cfg["mycallsign"])
+    host=cfg["telnet"]["host"]
+    port=cfg["telnet"]["port"]
+    user=cfg["telnet"]["user"]
+    password=cfg["telnet"]["password"]
+    response = who(host, port, user, password)
     logger.debug("list of connected clusters:")
     logger.debug(response)
     return response
@@ -301,7 +304,7 @@ def spots():
             "index.html",
             inline_script_nonce=get_nonce(),
             mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"],
+            telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
             enable_cq_filter=enable_cq_filter,
@@ -334,7 +337,7 @@ def plots():
             "plots.html",
             inline_script_nonce=get_nonce(),          
             mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"],
+            telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
             who=whoj,
@@ -351,7 +354,7 @@ def cookies():
             "cookies.html",
             inline_script_nonce=get_nonce(),          
             mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"],
+            telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
         )
@@ -365,7 +368,7 @@ def privacy():
             "privacy.html",
             inline_script_nonce=get_nonce(),          
             mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"],
+            telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
         )
@@ -386,7 +389,7 @@ def callsign():
             "callsign.html",
             inline_script_nonce=get_nonce(),              
             mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"],
+            telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
             timer_interval=cfg["timer"]["interval"],

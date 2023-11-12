@@ -8,17 +8,19 @@ from os import path
 import json
 
 configs = [
-    ("mycallsign", "Callsign_______________: "),
-    ("mysql/host", "MySql host_____________: "),
-    ("mysql/db", "MySql database_________: "),
-    ("mysql/user", "MySql user_____________: "),
-    ("mysql/passwd", "MySql password_________: "),
-    ("timer/interval", "Spot page refresh(ms)__: "),
-    ("plot_refresh_timer/interval", "Plot page refresh(ms)__: "),
-    ("mail", "Mail address___________: "),
-    ("mail_token", "token google 2FA auth__: "),
-    ("telnet", "Telnet address_________: "),
-    ("enable_cq_filter", "Enable cq filter______: "),
+    ("mycallsign", "Callsign____________________: "),
+    ("mysql/host", "MySql host__________________: "),
+    ("mysql/db", "MySql database______________: "),
+    ("mysql/user", "MySql user__________________: "),
+    ("mysql/passwd", "MySql password______________: "),
+    ("timer/interval", "Spot page refresh(ms)_______: "),
+    ("mail", "Mail address________________: "),
+    ("mail_token", "token google 2FA auth_______: "),
+    ("telnet/host", "Telnet host_________________: "),
+    ("telnet/port", "Telnet port_________________: "),
+    ("telnet/user", "Telnet user________________: "),
+    ("telnet/password", "Telnet password (optional)_: "),    
+    ("enable_cq_filter", "Enable cq filter___________: "),
 ]
 
 

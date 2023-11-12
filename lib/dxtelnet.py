@@ -5,7 +5,6 @@ __author__ = "IU1BOW - Corrado"
 
 import telnetlib
 import struct
-import json
 import logging
 
 
@@ -44,9 +43,11 @@ def parse_who(lines):
     return payload
 
 
-def who(host, port, user):
+def who(host, port, user, password):
 
     WAIT_FOR = b"dxspider >"
+    WAIT_PASS = b"password:"
+
     TIMEOUT = 1
     res = 0
 
@@ -55,6 +56,10 @@ def who(host, port, user):
         try:
             tn.read_until(b"login: ", TIMEOUT)
             tn.write(user.encode("ascii") + b"\n")
+            #if password:
+            tn.read_until(WAIT_PASS, TIMEOUT)
+            tn.write(password.encode("ascii") + b"\n")
+
             res = tn.read_until(WAIT_FOR, TIMEOUT)
             tn.write(b"who\n")
             res = tn.read_until(WAIT_FOR, TIMEOUT)
@@ -62,12 +67,12 @@ def who(host, port, user):
 
         except EOFError:
             logging.error(
-                "could not autenticate to telnet dxspider host: check user callsign "
+                "could not autenticate to telnet dxspider host: check configuration "
             )
             logging.error(res)
             res = 0
     except:
-        logging.error("could not connect to telnet dxspider host: check host/port")
+        logging.error("could not connect to telnet dxspider host: check telnet configuration")
         ret = ""
 
     if res != 0:
