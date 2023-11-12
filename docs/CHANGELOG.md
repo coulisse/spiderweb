@@ -1,7 +1,6 @@
 ### Change log
-### Change log
 Date: 12/11/2023 
-Release: v2.4.5
+Release: v2.4.5.1
 - managed telnet password
 - issue #34
 - issue #38
