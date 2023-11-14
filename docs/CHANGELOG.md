@@ -1,7 +1,8 @@
 ### Change log
 Date: 14/11/2023 
-Release: v2.4.5.1
+Release: v2.4.5.2
 - security issue #46
+- csp report
 
 ___
 Date: 12/11/2023 
