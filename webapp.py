@@ -464,6 +464,14 @@ def get_world_dx_spots_live():
         response = flask.Response(status=204)
     return response
 
+@app.route("/csp-reports", methods=['POST'])
+@csrf.exempt
+def csp_reports():
+    report_data = request.get_data(as_text=True)
+    logger.warning("CSP Report:")
+    logger.warning(report_data)
+    response=flask.Response(status=204)
+    return response
 
 @app.context_processor
 def inject_template_scope():
@@ -487,9 +495,6 @@ def add_security_headers(resp):
     resp.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     resp.headers["Cache-Control"] = "public, no-cache"
     resp.headers["Pragma"] = "no-cache"
-
-    
-    
     resp.headers["Content-Security-Policy"] = "\
     default-src 'self';\
     script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-"+inline_script_nonce+"';\
@@ -504,7 +509,10 @@ def add_security_headers(resp):
     manifest-src 'self';\
     media-src 'self';\
     worker-src 'self';\
+    worker-src 'self';\
+    report-uri /csp-reports;\
     "
+
     return resp
    
     #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-sedfGFG32xs';\

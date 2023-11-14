@@ -131,6 +131,7 @@ if [ "$1" == "-r" ]; then
 
 	echo 'force some requirements...'
 	sed -i 's/mysql-connector-python==8.0.31/mysql-connector-python>=8.0.31/' ../requirements.txt
+	sed -i 's/mysql-connector-python==8.2.0/mysql-connector-python>=8.2.0/' ../requirements.txt
 
 	if ! sed -i '13,20s/level=DEBUG/level=INFO/g' ${app_ini}; then               
 		echo 'ERROR settimg loglevel=INFO '
