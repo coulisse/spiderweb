@@ -289,22 +289,23 @@ if [ "$2" == "-c" ]; then
 		esac
 
 
-		if ! git add * ; then
+		if ! git add . ; then
 			echo 'Error on adding files'
 			exit 7
 		fi		
 		
-		if ! git tag ${ver}; then
+		echo 'Please, add comment for commit on tag ' ${ver}
+		read comm_tag_msg
+		if ! git commit -m "${comm_tag_msg}"; then
+			echo 'Error on commit'
+			exit 9
+		fi			
+
+		if ! git tag ${ver} HEAD -m "${comm_tag_msg}"; then
 			echo 'Error on tagging'
 			exit 8
 		fi			
 
-		echo 'Please, add comment for commit on tag ' ${ver}
-		read comm_msg
-		if ! git commit -m "${comm_msg}"; then
-			echo 'Error on commit'
-			exit 9
-		fi			
 
 		echo Commit ok
 	else
