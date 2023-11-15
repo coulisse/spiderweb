@@ -60,9 +60,9 @@ if [ "$1" != "-r" ] && [ "$1" != "-d" ]; then
 	exit 5
 fi
 
-if [ "$2" != "-p" ]  && [ "$2" != "" ]; then
+if [ "$2" != "-c" ]  && [ "$2" != "" ]; then
 	echo 'wrong options for second parameter. Option permitted:'
-	echo '   -p: deploy'
+	echo '   -c: commit'
 	exit 5
 fi
 
@@ -271,9 +271,24 @@ fi
 
 echo Build ok
 
-if [ "$2" == "-p" ]; then
+if [ "$2" == "-c" ]; then
 	if [ "$1" == "-r" ]; then
-		echo '*** SPIDERWEB  deploying process ***'
+		echo '*** SPIDERWEB  commit process ***'
+
+		read -p "Do you want to proceed to commit version ${ver} (yes/no) " yn
+
+		case $yn in 
+			yes ) echo ok, we will proceed;;
+			y ) echo ok, we will proceed;;
+			no ) echo exiting...;
+				exit;;
+			n ) echo exiting...;
+				exit;;
+			* ) echo invalid response;
+				exit 1;;
+		esac
+
+
 		if ! git add * ; then
 			echo 'Error on adding files'
 			exit 7
@@ -285,8 +300,9 @@ if [ "$2" == "-p" ]; then
 		fi			
 
 		echo 'Please, add comment for commit on tag ' ${ver}
-		if ! git commit; then
-			echo 'Error on tagging'
+		read comm_msg
+		if ! git commit -m "${comm_msg}"; then
+			echo 'Error on commit'
 			exit 9
 		fi			
 
