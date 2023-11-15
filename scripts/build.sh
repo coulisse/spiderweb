@@ -274,13 +274,26 @@ echo Build ok
 if [ "$2" == "-p" ]; then
 	if [ "$1" == "-r" ]; then
 		echo '*** SPIDERWEB  deploying process ***'
-		git tag ${ver}
+		if ! git add * ; then
+			echo 'Error on adding files'
+			exit 7
+		fi		
+		
+		if ! git tag ${ver}; then
+			echo 'Error on tagging'
+			exit 8
+		fi			
+
 		echo 'Please, add comment for commit on tag ' ${ver}
-		git commit 
+		if ! git commit; then
+			echo 'Error on tagging'
+			exit 9
+		fi			
+
 		echo Commit ok
 	else
 		echo 'Error: You can make a commit only if the first option is -r = release!!!'
-		exit 8
+		exit 10
 	fi
 fi
 
