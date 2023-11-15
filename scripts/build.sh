@@ -53,14 +53,19 @@ html_change_references(){
 	done
 }
 
-
-
 if [ "$1" != "-r" ] && [ "$1" != "-d" ]; then
-	echo 'wrong options:'
+	echo 'wrong options for first parameter. Options permitted:'
 	echo '   -d: debug'
 	echo '   -r: release'
 	exit 5
 fi
+
+if [ "$2" != "-p" ]  && [ "$2" != "" ]; then
+	echo 'wrong options for second parameter. Option permitted:'
+	echo '   -p: deploy'
+	exit 5
+fi
+
 
 echo '*** SPIDERWEB  building process ***'
 if [ "$1" == "-r" ]; then
@@ -159,13 +164,15 @@ fi
 #	exit 5
 #fi
 
-echo 'get version from git'
+echo 'get version from version.txt'
 #if ! ver=$(git describe --tags --abbrev=0)
-if ! ver=$(git tag|tail -1)
+#if ! ver=$(git tag|tail -1)
+if ! ver=$(head -1 ../cfg/version.txt)
 then
 	echo 'ERROR on get version from git'
 	exit 10
 fi
+
 if [ ${ver} == "" ]; then
 	echo 'ERROR git version is empty'
 	exit 20
@@ -216,8 +223,6 @@ then
 fi
 
 
-
-
 echo 'writing version in '${base_template} '...'
 if ! sed -i 's/<span id="version">v.*<\/span>/<span id="version">'$ver'<\/span>/g' ${path_templates}/${base_template}
 then                          
@@ -264,32 +269,21 @@ elif [ "${1}" == "-d" ]; then
 
 fi
 
-#static_build_path_i=$(mktemp -d /tmp/spiderweb_static_build_i-XXXXXXXXX)
-#static_build_path_o=$(mktemp -d /tmp/spiderweb_static_build_o-XXXXXXXXX)
-#
-#cp ${path_templates}/_base.html   ${static_build_path_i}
-#cp ${path_templates}/offline.html ${static_build_path_i}
-#
-#echo 'generating static pages...'
-#if ! python ../lib/static_build.py ${static_build_path_i}  ${static_build_path_o}
-#then                               
-#	echo 'ERROR generating static pages'                
-#	rm -rf ${static_build_path_i}
-#	rm -rf ${static_build_path_o}
-#	exit 50
-#fi
-#
-#if ! cp ${static_build_path_o}/offline.html ${path_static_html}
-#then
-#	echo 'ERROR copying static pages'                
-#	rm -rf ${static_build_path_i}
-#	rm -rf ${static_build_path_o}
-#	exit 51
-#fi
-#
-#rm -rf ${static_build_path_i}
-#rm -rf ${static_build_path_o}
+echo Build ok
+
+if [ "$2" == "-p" ]; then
+	if [ "$1" == "-r" ]; then
+		echo '*** SPIDERWEB  deploying process ***'
+		git tag ${ver}
+		echo 'Please, add comment for commit on tag ' ${ver}
+		git commit 
+		echo Commit ok
+	else
+		echo 'Error: You can make a commit only if the first option is -r = release!!!'
+		exit 8
+	fi
+fi
 
 
 echo
-echo Build ok
+
