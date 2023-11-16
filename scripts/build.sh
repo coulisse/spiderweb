@@ -289,7 +289,7 @@ if [ "$2" == "-c" ]; then
 		esac
 
 
-		if ! git add . ; then
+		if ! git add --all ; then
 			echo 'Error on adding files'
 			exit 7
 		fi		
@@ -300,14 +300,14 @@ if [ "$2" == "-c" ]; then
 			echo 'Error on commit'
 			exit 9
 		fi			
+		echo Commit ok
 
 		if ! git tag ${ver} HEAD -m "${comm_tag_msg}"; then
 			echo 'Error on tagging'
 			exit 8
 		fi			
+		echo Tagging ok
 
-
-		echo Commit ok
 	else
 		echo 'Error: You can make a commit only if the first option is -r = release!!!'
 		exit 10
