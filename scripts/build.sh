@@ -307,7 +307,8 @@ if [ "$2" == "-c" ]; then
 			exit 8
 		fi			
 		echo Tagging ok
-
+		echo If you would to push execute this command:
+		echo git push --atomic origin development ${ver}
 	else
 		echo 'Error: You can make a commit only if the first option is -r = release!!!'
 		exit 10
@@ -317,3 +318,4 @@ fi
 
 echo
 
+#git push --atomic origin development v2.4.5.71
