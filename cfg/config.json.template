@@ -21,6 +21,7 @@
         "menu": {
           "menu_list": [
             {"label":"Charts & stats", "link": "/plots.html", "external": false},
+            {"label": "Propagation", "link": "/propagation.html", "external": false},              
             {"label":"Sources", "link": "https://github.com/coulisse/spiderweb/" , "external": true},    
             {"label":"Cookies", "link": "/cookies.html", "external": false},
             {"label":"Privacy", "link": "/privacy.html", "external": false}

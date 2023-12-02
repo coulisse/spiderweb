@@ -13,8 +13,6 @@ from lib.adxo import get_adxo_events
 from lib.qry import query_manager
 from lib.cty import prefix_table
 from lib.plot_data_provider import ContinentsBandsProvider, SpotsPerMounthProvider, SpotsTrend, HourBand, WorldDxSpotsLive
-import requests
-import xmltodict
 
 logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
 logger = logging.getLogger(__name__)
@@ -29,8 +27,8 @@ app.config.update(
 )
 version_file = open("cfg/version.txt", "r")
 app.config["VERSION"] = version_file.read().strip()
-version_file.close
-logger.info("Version:"+app.config["VERSION"] )
+version_file.close()
+logger.info("Version:" + app.config["VERSION"])
 
 inline_script_nonce = ""
 
@@ -42,10 +40,6 @@ if app.config["DEBUG"]:
     minify(app=app, html=False, js=False, cssless=False)
 else:
     minify(app=app, html=True, js=True, cssless=False)
-
-#removing whitespace from jinja2 html rendered
-app.jinja_env.trim_blocks = True
-app.jinja_env.lstrip_blocks = True    
 
 # load config file
 with open("cfg/config.json") as json_data_file:
@@ -81,7 +75,6 @@ qm = query_manager()
 def find_id_json(json_object, name):
     return [obj for obj in json_object if obj["id"] == name][0]
 
-
 def query_build_callsign(callsign):
 
     query_string = ""
@@ -107,7 +100,7 @@ def query_build_callsign(callsign):
 def query_build(parameters):
 
     try:
-    
+
         last_rowid = str(parameters["lr"])  # Last rowid fetched by front end
 
         get_param = lambda parameters, parm_name: parameters[parm_name] if (parm_name in parameters) else []
@@ -121,16 +114,17 @@ def query_build(parameters):
         
         decq = []
         if "cqdeInput" in parameters:
-            decq[0] = parameters["cqdeInput"] 
+            decq.append(parameters["cqdeInput"])
 
         dxcq = []
         if "cqdxInput" in parameters:   
-            dxcq[0] = parameters["cqdxInput"] 
+            dxcq.append(parameters["cqdxInput"]) 
 
         query_string = ""
 
         #construct  callsign of spot dx callsign 
-        dxcalls_qry_string = " AND spotcall IN (" + ''.join(map(lambda x: "'" + x + "'," if x != dxcalls[-1] else "'" + x + "'", dxcalls)) + ")"
+        dxcalls_qry_string = " AND spotcall IN (" + ",".join(["%s" for _ in dxcalls]) + ")"
+        dxcalls_params = tuple(dxcalls)
 
         # construct band query decoding frequencies with json file
         band_qry_string = " AND (("
@@ -162,7 +156,7 @@ def query_build(parameters):
 
         mode_qry_string += "))"
 
-        #Exluding FT8 or FT4 connection
+        # Exluding FT8 or FT4 connection
         ft8_qry_string = " AND ("
         if exclft8:
             ft8_qry_string += "(comment NOT LIKE '%FT8%')"
@@ -175,7 +169,7 @@ def query_build(parameters):
                     + str(single_mode["freq"][j]["max"])
                     + ")"
                 )
-        ft8_qry_string += ")" 
+        ft8_qry_string += ")"
 
         ft4_qry_string = " AND ("
         if exclft4:
@@ -189,37 +183,32 @@ def query_build(parameters):
                     + str(single_mode["freq"][j]["max"])
                     + ")"
                 )
-        ft4_qry_string += ")" 
+        ft4_qry_string += ")"
 
         # construct DE continent region query
-        dere_qry_string = " AND spottercq IN ("
-        for i, item_dere in enumerate(dere):
-            continent = find_id_json(continents_cq["continents"], item_dere)
-            if i > 0:
-                dere_qry_string += ","
-            dere_qry_string += str(continent["cq"])
-        dere_qry_string += ")"
+        dere_qry_string = " AND spottercq IN (" + ",".join(["%s" for _ in dere]) + ")"
+        dere_params = tuple(dere)
 
         # construct DX continent region query
-        dxre_qry_string = " AND spotcq IN ("
-        for i, item_dxre in enumerate(dxre):
-            continent = find_id_json(continents_cq["continents"], item_dxre)
-            if i > 0:
-                dxre_qry_string += ","
-            dxre_qry_string += str(continent["cq"])
-        dxre_qry_string += ")"
+        dxre_qry_string = " AND spotcq IN (" + ",".join(["%s" for _ in dxre]) + ")"
+        dxre_params = tuple(dxre)
 
         if enable_cq_filter == "Y":
             # construct de cq query
             decq_qry_string = ""
+            decq_params = []
             if len(decq) == 1:
                 if decq[0].isnumeric():
-                    decq_qry_string = " AND spottercq =" + decq[0]
+                    decq_qry_string = " AND spottercq = %s"
+                    decq_params = (decq[0],)
+
             # construct dx cq query
             dxcq_qry_string = ""
+            dxcq_params = []
             if len(dxcq) == 1:
                 if dxcq[0].isnumeric():
-                    dxcq_qry_string = " AND spotcq =" + dxcq[0]
+                    dxcq_qry_string = " AND spotcq = %s"
+                    dxcq_params = (dxcq[0],)
 
         if last_rowid is None:
             last_rowid = "0"
@@ -227,8 +216,7 @@ def query_build(parameters):
             last_rowid = 0
 
         query_string = (
-            "SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from spot WHERE rowid > "
-            + last_rowid
+            "SELECT rowid, spotter AS de, freq, spotcall AS dx, comment AS comm, time, spotdxcc from spot WHERE rowid > %s"
         )
 
         if dxcalls:
@@ -255,19 +243,32 @@ def query_build(parameters):
         if enable_cq_filter == "Y":
             if len(decq_qry_string) > 0:
                 query_string += decq_qry_string
+                decq_params = (decq_params,)
 
             if len(dxcq_qry_string) > 0:
                 query_string += dxcq_qry_string
+                dxcq_params = (dxcq_params,)
 
         query_string += " ORDER BY rowid desc limit 50;"
 
-        logger.debug (query_string)
+        logger.debug(query_string)
 
     except Exception as e:
         logger.error(e)
         query_string = ""
 
-    return query_string
+    return query_string, (
+        last_rowid,
+        *dxcalls_params,
+        *band_params,
+        *mode_params,
+        *ft8_params,
+        *ft4_params,
+        *dere_params,
+        *dxre_params,
+        *decq_params,
+        *dxcq_params,
+    )
 
 
 # the main query to show spots
@@ -278,12 +279,12 @@ def spotquery(parameters):
 
         if 'callsign' in parameters:
             logging.debug('search callsign')
-            query_string = query_build_callsign( parameters['callsign'] )
+            query_string, params = query_build_callsign(parameters['callsign'])
         else:
             logging.debug('search eith other filters')
-            query_string = query_build(parameters)
+            query_string, params = query_build(parameters)
 
-        qm.qry(query_string)
+        qm.qry(query_string, params)
         data = qm.get_data()
         row_headers = qm.get_headers()
 
@@ -425,23 +426,8 @@ def plots():
     )
     return response
 
-
 @app.route("/propagation.html")
 def propagation():
-
-    #get solar data in XML format and convert to json
-    solar_data={}
-    url = "https://www.hamqsl.com/solarxml.php"
-    try:
-        logging.debug("connection to: " + url)
-        req = requests.get(url)
-        logger.debug(req.content)
-        solar_data = xmltodict.parse(req.content)    
-        logger.debug(solar_data)
-
-    except Exception as e1:
-        logging.error(e1)
-
     response = flask.Response(
         render_template(
             "propagation.html",
@@ -450,7 +436,6 @@ def propagation():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
-            solar_data=solar_data
         )
     )
     return response
@@ -601,9 +586,9 @@ def add_security_headers(resp):
     resp.headers["X-Frame-Options"] = "SAMEORIGIN"
     resp.headers["X-Content-Type-Options"] = "nosniff"
     resp.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    #resp.headers["Access-Control-Allow-Origin"]= "sidc.be prop.kc2g.com www.hamqsl.com"
     resp.headers["Cache-Control"] = "public, no-cache"
     resp.headers["Pragma"] = "no-cache"
+
     resp.headers["ETag"] = app.config["VERSION"]
     #resp.headers["Report-To"] = '{"group":"csp-endpoint", "max_age":10886400, "endpoints":[{"url":"/csp-reports"}]}'    
     resp.headers["Content-Security-Policy"] = "\
@@ -611,12 +596,12 @@ def add_security_headers(resp):
     script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-"+inline_script_nonce+"';\
     style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net;\
     object-src 'none';base-uri 'self';\
-    connect-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com sidc.be prop.kc2g.com www.hamqsl.com;\
+    connect-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com sidc.be;\
     font-src 'self' cdn.jsdelivr.net;\
     frame-src 'self';\
     frame-ancestors 'none';\
     form-action 'none';\
-    img-src 'self' data: cdnjs.cloudflare.com sidc.be prop.kc2g.com ;\
+    img-src 'self' data: cdnjs.cloudflare.com sidc.be;\
     manifest-src 'self';\
     media-src 'self';\
     worker-src 'self';\

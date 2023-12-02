@@ -138,7 +138,7 @@ if [ "$1" == "-r" ]; then
 	sed -i 's/mysql-connector-python==8.0.31/mysql-connector-python>=8.0.31/' ../requirements.txt
 	sed -i 's/mysql-connector-python==8.2.0/mysql-connector-python>=8.2.0/' ../requirements.txt
 
-	if ! sed -i '13,20s/level=DEBUG/level=INFO/g' ${app_ini}; then               
+	if ! sed -i '7,25s/level=DEBUG/level=INFO/g' ${app_ini}; then               
 		echo 'ERROR settimg loglevel=INFO '
 		exit 12
 	fi
@@ -148,7 +148,7 @@ if [ "$1" == "-d" ]; then
 	echo 'creating DEBUG application'
 	html_change_references -d
 
-	if ! sed -i '13,20s/level=INFO/level=DEBUG/g' ${app_ini}; then               
+	if ! sed -i '7,25s/level=INFO/level=DEBUG/g' ${app_ini}; then               
 		echo 'ERROR settimg loglevel=DEBUG '
 		exit 12
 	fi
@@ -169,12 +169,12 @@ echo 'get version from version.txt'
 #if ! ver=$(git tag|tail -1)
 if ! ver=$(head -1 ../cfg/version.txt)
 then
-	echo 'ERROR on get version from git'
+	echo 'ERROR on get version'
 	exit 10
 fi
 
 if [ ${ver} == "" ]; then
-	echo 'ERROR git version is empty'
+	echo 'ERROR version is empty'
 	exit 20
 fi
 echo 'version: '${ver}
@@ -274,6 +274,8 @@ echo Build ok
 if [ "$2" == "-c" ]; then
 	if [ "$1" == "-r" ]; then
 		echo '*** SPIDERWEB  commit process ***'
+
+		head -10 ../docs/CHANGELOG.md
 
 		read -p "Do you want to proceed to commit version ${ver} (yes/no) " yn
 

@@ -13,8 +13,7 @@ from lib.adxo import get_adxo_events
 from lib.qry import query_manager
 from lib.cty import prefix_table
 from lib.plot_data_provider import ContinentsBandsProvider, SpotsPerMounthProvider, SpotsTrend, HourBand, WorldDxSpotsLive
-import requests
-import xmltodict
+
 
 logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
 logger = logging.getLogger(__name__)
@@ -42,10 +41,6 @@ if app.config["DEBUG"]:
     minify(app=app, html=False, js=False, cssless=False)
 else:
     minify(app=app, html=True, js=True, cssless=False)
-
-#removing whitespace from jinja2 html rendered
-app.jinja_env.trim_blocks = True
-app.jinja_env.lstrip_blocks = True    
 
 # load config file
 with open("cfg/config.json") as json_data_file:
@@ -425,23 +420,8 @@ def plots():
     )
     return response
 
-
 @app.route("/propagation.html")
 def propagation():
-
-    #get solar data in XML format and convert to json
-    solar_data={}
-    url = "https://www.hamqsl.com/solarxml.php"
-    try:
-        logging.debug("connection to: " + url)
-        req = requests.get(url)
-        logger.debug(req.content)
-        solar_data = xmltodict.parse(req.content)    
-        logger.debug(solar_data)
-
-    except Exception as e1:
-        logging.error(e1)
-
     response = flask.Response(
         render_template(
             "propagation.html",
@@ -450,7 +430,6 @@ def propagation():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
-            solar_data=solar_data
         )
     )
     return response
@@ -601,9 +580,9 @@ def add_security_headers(resp):
     resp.headers["X-Frame-Options"] = "SAMEORIGIN"
     resp.headers["X-Content-Type-Options"] = "nosniff"
     resp.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    #resp.headers["Access-Control-Allow-Origin"]= "sidc.be prop.kc2g.com www.hamqsl.com"
     resp.headers["Cache-Control"] = "public, no-cache"
     resp.headers["Pragma"] = "no-cache"
+
     resp.headers["ETag"] = app.config["VERSION"]
     #resp.headers["Report-To"] = '{"group":"csp-endpoint", "max_age":10886400, "endpoints":[{"url":"/csp-reports"}]}'    
     resp.headers["Content-Security-Policy"] = "\
@@ -611,12 +590,12 @@ def add_security_headers(resp):
     script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-"+inline_script_nonce+"';\
     style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net;\
     object-src 'none';base-uri 'self';\
-    connect-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com sidc.be prop.kc2g.com www.hamqsl.com;\
+    connect-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com sidc.be;\
     font-src 'self' cdn.jsdelivr.net;\
     frame-src 'self';\
     frame-ancestors 'none';\
     form-action 'none';\
-    img-src 'self' data: cdnjs.cloudflare.com sidc.be prop.kc2g.com ;\
+    img-src 'self' data: cdnjs.cloudflare.com sidc.be;\
     manifest-src 'self';\
     media-src 'self';\
     worker-src 'self';\

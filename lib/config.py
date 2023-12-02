@@ -222,10 +222,6 @@ def menu_input_entry(entry, new_entry):
     while external != "y" and external != "n":
         external = str(user_input("open link external [y/n]: ")).lower()
 
-    #    if external == 'y':
-    #        external = True
-    #    else:
-    #        external = False
     external = is_external(external)
 
     entry["label"] = label

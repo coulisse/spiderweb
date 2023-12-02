@@ -6,7 +6,7 @@
 	{% endblock %}
 	{% block head %}
 	{{ super() }}
-	{% endblock %}
+	{% endblock %}				
 </head>
 {% block titles %}
 <h1 class="display-4 text-white">WEB DX Cluster</h1>
@@ -26,6 +26,13 @@
 	<div class="col-md-auto ml-2 collapse rounded-sm shadow mb-5 bg-body" id="collapseFilters">
 		<form method="POST" id="form-filters" enctype="application/x-www-form-urlencoded">
 			<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+			<strong>DX Call(s)</strong>
+			<select  id="dxcalls" data-placeholder="Choose callsign" autocomplete="off" multiple>
+				{% for item in dx_calls %}
+				<option>{{item}}</option>
+				{% endfor %}
+			</select>
+			<p></p>			
 			<strong>Band</strong>
 			<select class="form-select overflow-hidden" id="band" size="14" multiple>
 				{% for dict_item in bands['bands']|reverse %}
@@ -41,6 +48,10 @@
 				<option selected value="phone">PHONE</option>
 				<option selected value="digi">DIGI</option>
 			</select>
+			<div class="excl-container">
+				<input type="checkbox" id="exclft8"/><label for="exclft8"> Excl FT8</label>
+				<input type="checkbox" id="exclft4"/><label for="exclft4"> Excl FT4</label>
+			</div>			
 			<p></p>
 			<div class="row">
 				<div class="col">
@@ -309,6 +320,7 @@ var continents_cq={{continents["continents"]|tojson|safe}};
 var band_frequencies={{bands["bands"]|tojson|safe}};
 
 {% endblock app_data %}
+
 {% block app_scripts %}
 {{ super() }}
 <script defer src="static/js/rel/table.min.js"></script>

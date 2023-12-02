@@ -1,15 +1,20 @@
 ### Change log
-Date: 18/11/2023 
-Release: v2.4.5.72
-- security issue #46
+Date: 02/12/2023 
+Release: v2.5
+- security issue #46.
 - csp report
+- Added esclusion for FT4 and FT8. Thanks to HB9VVQ
+- Added filter on dx spot callsings. Thanks to HB9VVQ. Issue [#39](https://github.com/coulisse/spiderweb/issues/39).
+- Sanitized callsign input
+- Added propagation page with MUF Map. Issue [#27](https://github.com/coulisse/spiderweb/issues/27). Thanks to Paul Herman and Andrew Rodland 
+
 
 ___
 Date: 12/11/2023 
 Release: v2.4.5.1
 - managed telnet password
-- issue #34
-- issue #38
+- issue [#34](https://github.com/coulisse/spiderweb/issues/34)
+- issue [#38](https://github.com/coulisse/spiderweb/issues/38)
 
 ___
 Date: 11/11/2023 
@@ -33,7 +38,6 @@ Release: v2.4.4
 
 ___
 Date: 11/02/2023 
->>>>>>> staging
 Release: v2.4.2
 - changed cache-control header
 - fixed Layout scrolling (SEO)

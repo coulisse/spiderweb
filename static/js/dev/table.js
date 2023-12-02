@@ -295,24 +295,28 @@ function mySearch(event) {
 function compose_filter(id, len, qry_json) {
 
 	try {
-		let selectedFilter = [].map.call(document.getElementById(id).selectedOptions, option => option.value);
-		if (selectedFilter.length < len) {
-			qry_json[id] = [];
-			selectedFilter.map(function (el) {
-				if (el) {
-					qry_json[id].push(el);
-				} else {
-					return '';
-				}
-			});
-		} else if (len == -1) {
-			selectedFilter.map(function (el) {
-				if (el) {
-					qry_json[id]=el;
-				} else {
-					return '';
-				}
-			});
+		if (len == 0) {  //checkboxes
+			qry_json[id] = document.getElementById(id).checked; 
+		} else {
+			let selectedFilter = [].map.call(document.getElementById(id).selectedOptions, option => option.value);
+			if (selectedFilter.length < len) { //lists
+				qry_json[id] = [];
+				selectedFilter.map(function (el) {
+					if (el) {
+						qry_json[id].push(el);
+					} else {
+						return '';
+					}
+				});
+			} else if (len == -1) {    //combo-box
+				selectedFilter.map(function (el) {
+					if (el) {
+						qry_json[id] = el;
+					} else {
+						return '';
+					}
+				});
+			}
 		}
 	}
 	catch (err) {
@@ -337,12 +341,15 @@ function refresh_timer() {
 	let params = {};
 
 	//get other filters
-	params = compose_filter('band',  14, params);
+	params = compose_filter('dxcalls', 14, params);
+	params = compose_filter('band', 14, params);
 	params = compose_filter('de_re', 7, params);
-	params = compose_filter('dx_re',  7, params);
-	params = compose_filter('mode',  3, params);
-	params = compose_filter('cqdeInput',  -1, params); 
+	params = compose_filter('dx_re', 7, params);
+	params = compose_filter('mode', 3, params);
+	params = compose_filter('cqdeInput', -1, params);
 	params = compose_filter('cqdxInput', -1, params);
+	params = compose_filter('exclft8', 0, params);
+	params = compose_filter('exclft4', 0, params);
 
 
 	delete params_sv['lr'];  //remove line row number, for future param comparison	
@@ -351,8 +358,8 @@ function refresh_timer() {
 		tb.resetData();
 		params_sv = params;
 	}
-	params['lr']=tb.getLastRowId();
-	
+	params['lr'] = tb.getLastRowId();
+
 	//Open a new connection, using the GET request on the URL endpoint
 	//let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");	
 	fetch('spotlist', {
@@ -360,9 +367,9 @@ function refresh_timer() {
 		cache: 'no-cache',
 		credentials: 'same-origin',
 		headers: {
-			'Content-Type': 'application/json'				
+			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify( params )  
+		body: JSON.stringify(params)
 	})
 		.then((response) => response.json())
 		.then((data_new) => {

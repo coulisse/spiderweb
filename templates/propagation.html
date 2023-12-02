@@ -1,0 +1,213 @@
+{% extends "_base.html" %}
+
+<head>
+  {% block title %}
+  <title>DX Cluster from IU1BOW: Propagation</title>
+  {% endblock %}
+  {% block head %}
+  {{ super() }}
+  {% endblock %}
+</head>
+{% block titles %}
+<h1 class="display-4 text-white">Propagation</h1>
+<p class="lead text-light">WEB DX Cluster For HAM Radio</p>
+{% endblock %}
+{% block filters %}
+{% endblock %}
+{% block contents %}
+
+<div class="d-flex justify-content-center">
+  <div id="propagation-wrapper" class="row">
+      <div id="hamqsl-container" class="row shadow-lg mb-5 rounded justify-content-center">
+  
+      <!--  Macro used to generate color of a kpi card. -->
+      {% macro calculate_card_color(value, good=None, medium=None, no_good=None) %}
+      {# Usage: for string value, pass good, medium and no-good #}
+      {#        for numeric value, pass good and no-good #}
+      {% if value|float > 0 %}
+        {% set numeric_value = value|float %}    
+        {% if good is defined and no_good is defined %}
+          {% set numeric_good = good[0]|float %}
+          {% set numeric_no_good = no_good[0]|float %}
+          {% if numeric_good > numeric_no_good %}
+            {% if numeric_value >= numeric_good %}
+              good
+            {% elif numeric_value < numeric_no_good %}
+              no-good
+            {% else %}
+              medium
+            {% endif %}
+          {% else %}
+              {% if numeric_value < numeric_good %}
+              good
+            {% elif numeric_value >= numeric_no_good %}
+              no-good
+            {% else %}
+              medium
+            {% endif %}        
+          {% endif %}
+        {% endif %}
+      {% else %}
+        {# Check litteral values #}
+        {% if good is defined and value in good %}
+          good 
+        {% elif medium is defined and value in medium %}
+          medium
+        {% elif no_good is defined and value in no_good %}
+          no-good
+        {% else %}
+          grey-dark  
+        {% endif %}
+      {% endif %} 
+    {% endmacro %}
+
+      <!--  Macro used to generate a kpi card. -->
+      {% macro generate_kpi_card(card_data, good=None, medium=None, no_good=None) %}
+          {% set card_value = card_data.value|lower %}
+          {% if card_value != "norpt" and card_value != "no report" and card_value!= "no report" and  card_value!= "" %}
+            <div class="kpi-card {{ calculate_card_color(card_value, good, medium, no_good) }}" >
+              <span class="card-value">{{ card_data.value }}</span>
+              <span class="card-text">{{ card_data.text }}</span>
+              <!-- Aggiungi l'icona se necessario -->
+              {% if card_data.icon %}
+                <i class="fas fa-shopping-cart icon"></i>
+              {% endif %}
+            </div>
+          {% endif %}
+      {% endmacro %}
+
+      <!-- Card container  -->
+      <div id="card-container" class="col">
+          {% for card_data in [
+            {'value': solar_data.solar.solardata.solarflux, 'text': 'SFI', 'good': [100], 'no_good': [70]},   
+            {'value': solar_data.solar.solardata.aindex, 'text': 'A Index', 'good': [7], 'no_good': [50]},
+            {'value': solar_data.solar.solardata.kindex, 'text': 'K Index', 'good': [3], 'no_good': [7]},
+            {'value': solar_data.solar.solardata.kindexnt, 'text': 'K Index NT'},
+            {'value': solar_data.solar.solardata.sunspots, 'text': 'Sun spots', 'good': [101], 'no_good': [50]},
+            {'value': solar_data.solar.solardata.latdegree, 'text': 'Aurora latitude','good': [30], 'no_good': [60]},
+            {'value': solar_data.solar.solardata.solarwind, 'text': 'Solar wind (km/s)','good': [400], 'no_good': [500]},
+            {'value': solar_data.solar.solardata.magneticfield, 'text': 'Magnetic field','good': [0.30], 'no_good': [0.50]},
+            {'value': solar_data.solar.solardata.geomagfield, 'text': 'Geomagnetic field','good': ['vr quiet','quiet'], 'medium': ['unsettld','min strm'], 'no_good': ['stormy','very stormy']},
+            {'value': solar_data.solar.solardata.signalnoise, 'text': 'Signal noise', 'good': ['s0-s1','s1-s2'], 'medium': ['s2-s3','s3-s4'], 'no_good': ['s4-s6','s5-s6','s6-s7','s7-s8','s8-s9']},
+            {'value': solar_data.solar.solardata.fof2, 'text': 'Fof2 (Mhz)','good': [4], 'no_good': [2]}
+          ] %}
+            {{ generate_kpi_card(card_data, card_data.good, card_data.medium, card_data.no_good) }}
+          {% endfor %}
+      </div>   <!-- card container -->         
+
+      <div id="conditions-container" class="col">
+          <div id="hf-conditions" class="row">
+            <!-- HF Band -->
+            <!-- Macro for define band color  -->
+              {% macro color_band(value) %}
+                {% set value = value|lower %}
+                {% if value == "poor" %}
+                  badge bg-danger
+                {% elif value == "fair" %}
+                  badge bg-warning text-dark
+                {% else %}
+                  badge bg-success
+                {% endif %}
+              {% endmacro %}
+              <!-- HF Band table -->
+              <table class="table">
+                  <thead class="thead-dark">
+                      <tr>
+                          <th scope="col">
+                              <span >Band&nbsp;<i class="bi bi-reception-3"></i></span>
+                          </th>
+                          <th scope="col" class="text-center">
+                              <span >Day&nbsp;<i class="bi bi-sun-fill" ></i></span>
+                          </th>
+                          <th scope="col" class="text-center">
+                              <span >Night&nbsp;<i class="bi bi-moon-fill"></i></span>
+                          </th>
+                      </tr>
+                  </thead>
+
+              <!-- HF Band table body -->
+              <!-- parse dict in order to couple day and night conditions for each band 
+                  When found a band compose a table row, using macro color_band
+                  to define the color of the condition showed 
+              -->
+                  <tbody>
+                  {% set band_length = solar_data.solar.solardata.calculatedconditions.band | length / 2%}
+                  {% for i_band in range(0, band_length|int) %}
+                      {% set day_band = solar_data.solar.solardata.calculatedconditions.band | selectattr('@name', 'equalto', solar_data.solar.solardata.calculatedconditions.band[i_band]['@name']) | selectattr('@time', 'equalto', 'day') | first %}
+                      {% set night_band = solar_data.solar.solardata.calculatedconditions.band | selectattr('@name', 'equalto', solar_data.solar.solardata.calculatedconditions.band[i_band]['@name']) | selectattr('@time', 'equalto', 'night') | first %}
+                      <tr>
+                          <td><span>{{ day_band['@name'] }}</span></td>
+                          <td class="text-center"><span class="{{ color_band(day_band['#text']) }}">{{ day_band['#text'] }}</span></td>
+                          <td class="text-center"><span class="{{ color_band(night_band['#text']) }}">{{ night_band['#text'] }}</span></td>
+                      </tr>
+                  {% endfor %}
+                  </tbody>
+              </table>
+            </div>  <!-- hf conditions -->
+
+            <div id="vhf-conditions" class="row">
+              <!-- VHF Table -->
+              <table class="table">
+                  <thead class="thead-dark">
+                      <tr>
+                          <th scope="col">
+                              <span >Phenomenon&nbsp;<i class="bi bi-activity"></i></span>
+                          </th>                             
+                          <th scope="col" class="text-center">
+                              <span >Location&nbsp;<i class="bi bi-globe2"></i></span>
+                          </th>
+                          <th scope="col" class="text-center">
+                              <span >Condition&nbsp;<i class="bi bi-speedometer"></i></span>
+                          </th>                  
+                      </tr>
+                  </thead>
+
+              <!-- VHF Band table body -->
+                  <tbody>
+                  {% set vhf_phenomenon_length = solar_data.solar.solardata.calculatedvhfconditions.phenomenon | length %}
+                  {% for i_vhf_phenomenon in range(0, vhf_phenomenon_length) %}
+                      <tr>
+                          <td><span>{{solar_data.solar.solardata.calculatedvhfconditions.phenomenon[i_vhf_phenomenon]['@name'] }}</span></td>
+                          <td class="text-center"><span class="">{{ solar_data.solar.solardata.calculatedvhfconditions.phenomenon[i_vhf_phenomenon]['@location']| replace('_', ' ')|title }}</span></td>
+                          <td class="text-center"><span class="">{{ solar_data.solar.solardata.calculatedvhfconditions.phenomenon[i_vhf_phenomenon]['#text']| replace('_', ' '|title) }}</span></td>
+                      </tr>
+                  {% endfor %}
+                  </tbody>
+              </table>
+            </div> <!-- VHF conditions -->
+
+          </div> <!-- conditions container -->
+          <div class="row">
+            <span id="solar-data-updated-txt" >Updated: {{ solar_data.solar.solardata.updated }} </span>    
+            <span class="badge bg-secondary">Source:
+              <a class="link-light" href="{{ solar_data.solar.solardata.source['@url']|replace('http://','https://') }}" target="_blank"
+                rel="noopener noreferrer">{{ solar_data.solar.solardata.source['@url']|replace('http://','https://') }}</a>
+            </span>      
+          </div>      
+        </div>  <!--hamqsl container -->
+
+    <!-- MUF -->
+    <div id="muf-container" class="row shadow-lg mb-5 bg-body rounded">
+      <div class="col d-flex align-items-center justify-content-center">
+      <a href="https://prop.kc2g.com" target="_blank" rel="noopener noreferrer">
+        <img src="https://prop.kc2g.com/renders/current/mufd-normal-now.svg" id="muf-img" class="img-fluid" alt="muf map" loading="lazy">
+      </a>
+      </div>
+      <br class=”blank” />
+      <span class="badge bg-secondary">MUF map powered by
+        <a class="link-light" href="https://prop.kc2g.com" target="_blank"
+          rel="noopener noreferrer">https://prop.kc2g.com/</a>
+      </span>      
+    </div>   <!-- muf container -->
+
+  </div>  <!-- propagation-wrapper -->
+
+</div> <!-- entire page div -->
+
+{% endblock %}
+{% block app_data %}
+{% endblock %}
+{% block app_scritps %}
+{% endblock %}
+{% block inline_scripts %}
+{% endblock %}

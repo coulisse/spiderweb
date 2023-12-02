@@ -9,7 +9,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/coulisse/spiderweb/badge)](https://www.codefactor.io/repository/github/coulisse/spiderweb)
 
 
-- **Release:** v2.4.5.72
+- **Release:** v2.5
 - **Author:** Corrado Gerbaldo - [IU1BOW](https://www.qrz.com/db/IU1BOW)
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see [LICENSE](LICENSE) file.
@@ -27,6 +27,9 @@ For this application, I've used:
 - **flag-icon-css** [https://github.com/lipis/flag-icon-css](https://github.com/lipis/flag-icon-css) I used it to show the country flags 
 - **ng3k.com** [ng3k.com](http://ng3k.com/misc/adxo.html) I used to get information about "Announced Dx Operations". Thanks to Bill/NG3K !!!
 - **silso** [sidc.be/silso](https://sidc.be/silso/) used to show propagation trend in "Chart & stats" section
+- **hamqsl** [www.hamqsl.com/solar.html](https://www.hamqsl.com/solar.html/) used to show solar and band conditions
+- **kc2g** [prop.kc2g.com](https://prop.kc2g.com/) used to show MUF map
+
 
 You can find my web site at [https://www.iu1bow.it](https://www.i1bow.it)
 
@@ -221,11 +224,11 @@ This application is designed for desktop and mobile phone. It is a [PWA](https:/
 ### API
 **Spot list**
 
-You can retrieve last spots calling "**/spotlist**"; For example  [www.iu1bow.com/spotlist](https://www.iu1bow.com/spotlist)
+You can retrieve last spots calling "**/spotlist**"; For example  [www.iu1bow.it/spotlist](https://www.iu1bow.it/spotlist)
 
 **Country of a callsign**
 
-You can retrive some information about a callsign with **callsign**; for example:  [www.iu1bow.com/callsign?c=IU1BOW](https://www.iu1bow.com/callsign?c=IU1BOW)
+You can retrive some information about a callsign with **callsign**; for example:  [www.iu1bow.it/callsign?c=IU1BOW](https://www.iu1bow.it/callsign?c=IU1BOW)
 
 
 ### Development
