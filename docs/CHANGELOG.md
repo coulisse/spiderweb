@@ -1,6 +1,6 @@
 ### Change log
 Date: 02/12/2023 
-Release: v2.5
+Release: v2.5.1
 - security issue #46.
 - csp report
 - Added esclusion for FT4 and FT8. Thanks to HB9VVQ

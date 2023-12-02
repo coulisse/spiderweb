@@ -377,7 +377,7 @@ def spots():
 #Show all dx spot callsigns 
 def get_dx_calls():
     try:
-        query_string = "SELECT spotcall AS dx FROM spot GROUP BY spotcall ORDER BY count(spotcall) DESC LIMIT 500"
+        query_string = "SELECT spotcall AS dx FROM (select spotcall from spot  order by rowid desc limit 50000) s1  GROUP BY spotcall ORDER BY count(spotcall) DESC LIMIT 500"
         qm.qry(query_string)
         data = qm.get_data()
         row_headers = qm.get_headers()
