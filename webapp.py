@@ -390,20 +390,6 @@ def csp_reports():
     response=flask.Response(status=204)
     return response
 
-@app.route("/admin.html", methods=["GET"])
-def admin():
-    response = flask.Response(
-        render_template(
-            "admin.html",
-            inline_script_nonce=get_nonce(),          
-            mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
-            mail=cfg["mail"],
-            menu_list=cfg["menu"]["menu_list"],
-        )
-    )
-    return response
-
 @app.context_processor
 def inject_template_scope():
     injections = dict()

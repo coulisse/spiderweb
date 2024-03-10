@@ -3,7 +3,7 @@ Date: 10/03/2024
 Release: v2.5.3
 - adapted card size and text for mobile
 - removed monitor
-- issue [#51] (https://github.com/coulisse/spiderweb/issues/51)
+- issue [#51] (https://github.com/coulisse/spiderweb/issues/51)   -- just for caching
 - security [#22] (https://github.com/coulisse/spiderweb/security/dependabot/22)
   
 ___
