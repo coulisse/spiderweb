@@ -1,5 +1,14 @@
 ### Change log
-Date: 02/12/2023 
+Date: 10/03/2024 
+Release: v2.5.3
+- adapted card size and text for mobile
+- removed monitor
+- removed cookie consent banner, since this application uses only technical cookies
+- issue [#51] (https://github.com/coulisse/spiderweb/issues/51)   -- just for caching
+- security [#22] (https://github.com/coulisse/spiderweb/security/dependabot/22)
+  
+___
+Date: 03/12/2023 
 Release: v2.5.2
 - security issue #46.
 - csp report
@@ -7,7 +16,6 @@ Release: v2.5.2
 - Added filter on dx spot callsings. Thanks to HB9VVQ. Issue [#39](https://github.com/coulisse/spiderweb/issues/39).
 - Sanitized callsign input
 - Added propagation page with MUF Map. Issue [#27](https://github.com/coulisse/spiderweb/issues/27). Thanks to Paul Herman and Andrew Rodland 
-
 
 ___
 Date: 12/11/2023 

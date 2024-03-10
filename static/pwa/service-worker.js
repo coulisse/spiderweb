@@ -1,5 +1,5 @@
 // Dichiarazione della costante per il nome della cache
-const CACHE_NAME = 'pwa-spiderweb_v2.5.2'
+const CACHE_NAME = 'pwa-spiderweb_v2.5.3'
 
 // Dichiarazione della costante per gli URL da mettere in cache
 const URLS_TO_CACHE = [
@@ -27,7 +27,6 @@ const URLS_TO_CACHE = [
 	'/cookies.html'
 ];
 
-
 // Install
 self.addEventListener('install', event => {
 	event.waitUntil(
@@ -52,7 +51,7 @@ self.addEventListener('activate', event => {
 		})
 	);
 });
-
+/*
 //Managing request
 self.addEventListener('fetch', event => {
 	console.log(event.request.url);				
@@ -86,3 +85,24 @@ self.addEventListener('fetch', event => {
 			})
 	);
 });
+*/
+
+// Nel tuo service worker
+self.addEventListener('fetch', (event) => {
+	event.respondWith(networkFirstCacheFallback(event.request));
+  });
+  
+  async function networkFirstCacheFallback(request) {
+	try {
+		// Prova a recuperare la risposta dalla rete
+		const networkResponse = await fetch(request);		
+		// Se la risposta dalla rete è valida, restituiscila
+		return networkResponse;
+	} catch (error) {
+		// Se la rete fallisce, prova a recuperare la risposta dalla cache
+		const cacheResponse = await caches.match(request);
+		// Restituisci l'entry dalla cache (fallback)
+		return cacheResponse;
+	}
+  }
+  

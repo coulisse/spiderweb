@@ -10,7 +10,6 @@
         },
 	"mycallsign":"XXXXXX",
     "mail":"foo@bar.com",
-    "mail_token": "foobar",
     "enable_cq_filter":"n",
     "telnet": {
         "host": "mysite",
