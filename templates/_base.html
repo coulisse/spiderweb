@@ -123,35 +123,6 @@
 	{% endblock app_scripts %}
 	{% block inline_scripts %}
 	{% endblock inline_scripts %}
-	<!-- cookie consent management -->
-	{% block cookie %}
-	{% if cookies_check() %}
-	{# then user has already consented so no requirement for consent banner #}
-	{% else %}
-	{# show a cookie consent banner #}
-	<!-- Modal  for cookie consent-->
-	<div class="modal fade" id="cookie_consent_modal" tabindex="-1" aria-labelledby="cookie-consent-container"
-		aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<strong class="modal-title" id="exampleModalLabel">We use cookies</strong>
-				</div>
-				<div class="modal-body">
-					<p>We use only technical cookies.</p>
-					<p>Clicking &quot;I agree&quot;, you agree to the storing of cookies on your device. To learn more
-						about how we use cookies, please see our cookies policy.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="cookie_consent_btn">I agree</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<script defer src="static/js/rel/cookie_consent.min.js"></script>
-	{% endif %}
-	{% endblock cookie %}
 	<!-- Back to top button -->
 	<button type="button" class="btn btn-secondary btn-floating btn-lg" id="btn-back-to-top">
 		<i class="bi bi-arrow-up"></i>

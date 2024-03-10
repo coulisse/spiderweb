@@ -390,19 +390,6 @@ def csp_reports():
     response=flask.Response(status=204)
     return response
 
-@app.context_processor
-def inject_template_scope():
-    injections = dict()
-
-    def cookies_check():
-        value = request.cookies.get("cookie_consent")
-        return value == "true"
-
-    injections.update(cookies_check=cookies_check)
-    return injections
-
-
-
 @app.after_request
 def add_security_headers(resp):
 

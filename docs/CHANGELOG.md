@@ -3,6 +3,7 @@ Date: 10/03/2024
 Release: v2.5.3
 - adapted card size and text for mobile
 - removed monitor
+- removed cookie consent banner, since this application uses only technical cookies
 - issue [#51] (https://github.com/coulisse/spiderweb/issues/51)   -- just for caching
 - security [#22] (https://github.com/coulisse/spiderweb/security/dependabot/22)
   
