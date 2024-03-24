@@ -48,6 +48,7 @@ else:
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True    
 
+
 # load config file
 with open("cfg/config.json") as json_data_file:
     cfg = json.load(json_data_file)
@@ -65,6 +66,31 @@ with open("cfg/modes.json") as json_modes:
 # load continents-cq file
 with open("cfg/continents.json") as json_continents:
     continents_cq = json.load(json_continents)
+
+#load visitour counter
+visits_file_path = "data/visits.json"
+try:
+    # Load the visits data from the file
+    with open(visits_file_path) as json_visitors:
+        visits = json.load(json_visitors)
+except FileNotFoundError:
+    # If the file does not exist, create an empty visits dictionary
+    visits = {}
+
+#save visits
+def save_visits():
+    with open(visits_file_path, "w") as json_file:
+        json.dump(visits, json_file)
+    logging.info('visit saved on: '+ visits_file_path)
+
+# saving scheduled
+def schedule_save():
+    save_visits()
+    threading.Timer(1000, schedule_save).start()
+
+# Start scheduling
+schedule_save()
+
 
 # read and set default for enabling cq filter
 if cfg.get("enable_cq_filter"):
@@ -125,8 +151,10 @@ def get_adxo():
     adxo_events = get_adxo_events()
     threading.Timer(12 * 3600, get_adxo).start()
 
-
 get_adxo()
+
+
+
 
 # create data provider for charts
 heatmap_cbp = ContinentsBandsProvider(logger, qm, continents_cq, band_frequencies)
@@ -160,9 +188,22 @@ def get_nonce():
     inline_script_nonce = secrets.token_hex()
     return inline_script_nonce
 
+#check if it is a unique visitor
+def visitor_count():
+    user_ip = request.remote_addr
+    if user_ip not in visits:
+        visits[user_ip] = 1
+    else:
+        visits[user_ip] += 1        
+    
+
 @app.route("/", methods=["GET"])
 @app.route("/index.html", methods=["GET"])
 def spots():
+    
+    
+    visitor_count();
+
     response = flask.Response(
         render_template(
             "index.html",
@@ -171,6 +212,7 @@ def spots():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits),            
             enable_cq_filter=enable_cq_filter,
             timer_interval=cfg["timer"]["interval"],
             adxo_events=adxo_events,
@@ -211,7 +253,8 @@ def sw():
 def root():
     return app.send_static_file("html/offline.html")
 
-@app.route("/world.json")
+#used for plots
+@app.route("/world.json")  
 def world_data():
     return app.send_static_file("data/world.json")
 
@@ -226,6 +269,7 @@ def plots():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits),                     
             who=whoj,
             continents=continents_cq,
             bands=band_frequencies,
@@ -257,6 +301,7 @@ def propagation():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits),                     
             solar_data=solar_data
         )
     )
@@ -274,6 +319,7 @@ def cookies():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits),                     
         )
     )
     return response
@@ -288,6 +334,7 @@ def privacy():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits),                     
         )
     )
     return response
@@ -309,6 +356,7 @@ def callsign():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits),                     
             timer_interval=cfg["timer"]["interval"],
             callsign=callsign,
             adxo_events=adxo_events,

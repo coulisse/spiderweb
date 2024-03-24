@@ -9,7 +9,7 @@ chr() {
 }
 
 db_insert () {
-    n=10000
+    n=2000000
     for (( i=1; i<=${n}; i++ ))
     do
         freq=$(shuf -i 100-50000 -n 1)
@@ -25,8 +25,8 @@ db_insert () {
         #timestamp=$(shuf -i 1673759569-1673763169 -n 1)
         #epoch_start=$((${curr_epoch_time}-3600*24*365*2))
         epoch_start=$((${curr_epoch_time}-3600))
-        echo ${curr_epoch_time}
-        echo ${epoch_start}
+        #echo ${curr_epoch_time}
+        #echo ${epoch_start}
         timestamp=$(shuf -i ${epoch_start}-${curr_epoch_time} -n 1)
 
         cs_letter_1=$(chr $(shuf -i 65-90 -n1))
@@ -43,10 +43,10 @@ db_insert () {
         #sudo mysql -uroot dxcluster -e "INSERT INTO spot VALUES (${i},${freq},'${callsign}',UNIX_TIMESTAMP(),'DUMMY TEST','IU1BOW',${spotdxcc},${spotterdxcc},'IU1BOW-2',${spotitu},${spotcq},${spotteritu},${spottercq},NULL,NULL,'5.198.229.129');"
         sleep 3
         p=$(( ${i}*100/${n} ))
-        echo -ne ${p}'% \r'
+      #  echo -ne ${p}'% \r'
     done
 
-    echo -ne '\n'
+   # echo -ne '\n'
 }
 
 
