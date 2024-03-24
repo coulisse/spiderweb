@@ -52,6 +52,10 @@ $dbpass = "your-password";
 If you would change some MariaDB parameters, then you can find them in  `/etc/mysql/my.cnf` or `/etc/my.cnf`, depending on your distro.
 If the database will not be created automatically, please see ["DB_ISSUES.md"](docs/DB_ISSUES.md) 
 
+TODO: se installando i moduli python errore:
+sudo apt-get install libmariadb3 libmariadb-dev
+TODO: check number ADXO
+
 **3) Python modules**  
 You could install python modules using automatic or manual way.
 

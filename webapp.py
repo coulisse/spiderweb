@@ -190,13 +190,12 @@ def get_nonce():
 
 #check if it is a unique visitor
 def visitor_count():
-    user_ip = request.remote_addr
+    user_ip =request.environ.get('HTTP_X_REAL_IP', request.remote_addr)   
     if user_ip not in visits:
         visits[user_ip] = 1
     else:
         visits[user_ip] += 1        
     
-
 @app.route("/", methods=["GET"])
 @app.route("/index.html", methods=["GET"])
 def spots():
