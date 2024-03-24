@@ -37,19 +37,13 @@ class query_manager:
 
         self.__cnxpool = my.ConnectionPool(
             host=cfg["mysql"]["host"],
-            #port=3306,
             user=cfg["mysql"]["user"],
             passwd=cfg["mysql"]["passwd"],
             db=cfg["mysql"]["db"],
-#            charset="latin1",
             pool_name="spider_pool",
-#            use_pure=True,
-            pool_size=3,
+            pool_size=5,
             pool_validation_interval=250
         )
-
-
-
 
 
         logging.info("db connection pool created")

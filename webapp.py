@@ -17,6 +17,7 @@ import requests
 import xmltodict
 from lib.qry_builder import query_build, query_build_callsign, query_build_callsing_list
 
+
 logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
 logger = logging.getLogger(__name__)
 logger.info("Starting SPIDERWEB")
@@ -116,7 +117,6 @@ def spotquery(parameters):
         else:
             logging.debug('search eith other filters')
             query_string = query_build(logger,parameters,band_frequencies,modes_frequencies,continents_cq,enable_cq_filter)
-
         qm.qry(query_string)
         data = qm.get_data()
         row_headers = qm.get_headers()
@@ -226,8 +226,9 @@ def spots():
 
 #Show all dx spot callsigns 
 def get_dx_calls():
+    
     try:
-        query_string = query_build_callsing_list
+        query_string = query_build_callsing_list()
         qm.qry(query_string)
         data = qm.get_data()
         row_headers = qm.get_headers()

@@ -186,6 +186,4 @@ def query_build(logger,parameters,band_frequencies,modes_frequencies,continents_
     return query_string
 
 
-def query_build_callsing_list():
-    query_string = "SELECT spotcall AS dx FROM (select spotcall from spot  order by rowid desc limit 50000) s1  GROUP BY spotcall ORDER BY count(spotcall) DESC, spotcall LIMIT 100;"
-    return query_string
+query_build_callsing_list = lambda: 'SELECT spotcall AS dx FROM (select spotcall from spot  order by rowid desc limit 50000) s1  GROUP BY spotcall ORDER BY count(spotcall) DESC, spotcall LIMIT 100;'

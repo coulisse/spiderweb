@@ -13,7 +13,9 @@ def parse_who(lines):
 
     # create a list o lines and define the structure
     lines = lines.splitlines()
-    fmtstring = "2x 9s 10s 18s 9s 8s 15s"
+    #fmtstring = "2x 9s 10s 18s 9s 8s 15s"
+    #fmtstring = "10s 18s 9s 8s 15s"
+    fmtstring = "10s 18s 9s"
     fieldstruct = struct.Struct(fmtstring)
 
     row_headers = ("callsign", "type", "started", "name", "average_rtt", "link")
@@ -21,24 +23,27 @@ def parse_who(lines):
     # skip first lines and last line
     payload = []
     for i in range(3, len(lines) - 1):
-        line = lines[i]
-        ln = len(line)
-
-        padding = bytes(" " * (struct.calcsize(fmtstring) - ln), "utf-8")
-        line = line + padding
+        #line = lines[i]
+        line = lines[i].lstrip().decode("utf-8")
+        
+        line_splitted_by_first_space = line.split(" ", 1)
+        first_part = line_splitted_by_first_space[0]
+        second_part = line_splitted_by_first_space[1]
+        
+        ln = len(second_part)
 
         if ln > 10:
+            fields = [first_part.encode()]  #adding callsign
             parse = fieldstruct.unpack_from
-            fields = list(parse(line))
+            fields += list(parse(second_part.encode()))  #adding rest of informations
 
             for j, item_field in enumerate(fields):
                 try:
                     fields[j] = item_field.decode("utf-8").strip()
                 except AttributeError:
-                    print(item_field)
-            payload.append(dict(zip(row_headers, fields)))
+                    logging.error(item_field)
 
-    #   payload = json.dumps(payload)
+            payload.append(dict(zip(row_headers, fields)))
 
     return payload
 
