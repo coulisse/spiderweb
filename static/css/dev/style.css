@@ -170,7 +170,7 @@ span.search-callsign {
 .kpi-card {
 	overflow: hidden;
 	position: relative;
-	box-shadow: 1px 1px 3px rgba(0,0,0,0.75);;
+	box-shadow: 1px 1px 3px rgba(0,0,0,0.75);
 	display: inline-block;
 	padding: 1em;
 	border-radius: 0;

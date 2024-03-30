@@ -382,7 +382,7 @@ def find_callsign():
 def get_heatmap_data():
     #continent = request.args.get("continent")
     continent = request.json['continent']
-    logger.debug(request.get_json());
+    logger.debug(request.get_json())
     response = flask.Response(json.dumps(heatmap_cbp.get_data(continent)))
     logger.debug(response)
     if response is None:

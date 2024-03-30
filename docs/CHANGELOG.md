@@ -1,5 +1,5 @@
 ### Change log
-Date: 24/03/2024 
+Date: 29/03/2024 
 Release: v2.5.3
 - tested with Python 3.12
 - replaced mysql driver with mariadb driver
@@ -8,6 +8,7 @@ Release: v2.5.3
 - upgraded bootstrap to 5.3.3
 - issue [#51](https://github.com/coulisse/spiderweb/issues/51): added total number of users & nodes connected Issue
 - issue [#56](https://github.com/coulisse/spiderweb/issues/56): added a simple counter
+- issue [#58](https://github.com/coulisse/spiderweb/issues/58)
   
 ___
 Date: 10/03/2024 

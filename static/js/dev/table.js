@@ -320,9 +320,8 @@ function compose_filter(id, len, qry_json) {
 		}
 	}
 	catch (err) {
-		if (err.name == 'TypeError') {
-			console.error(err.name);
-			/* error managed: it is ok: probabilly ther is no filter on cq region */
+		if (err instanceof TypeError) {
+			console.log(err.name + ' managed - it is ok: probabilly ther is no filter on cq region');
 		} else {
 			throw err;
 		}

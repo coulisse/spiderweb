@@ -277,7 +277,7 @@ if [ "$2" == "-c" ]; then
 
 		head -10 ../docs/CHANGELOG.md
 
-		read -p "Do you want to proceed to commit version ${ver} (yes/no) " yn
+		read -r -p "Do you want to proceed to commit version ${ver} (yes/no) " yn
 
 		case $yn in 
 			yes ) echo ok, we will proceed;;
@@ -297,7 +297,7 @@ if [ "$2" == "-c" ]; then
 		fi		
 		
 		echo 'Please, add comment for commit on tag ' ${ver}
-		read comm_tag_msg
+		read -r comm_tag_msg
 		if ! git commit -m "${comm_tag_msg}"; then
 			echo 'Error on commit'
 			exit 9
