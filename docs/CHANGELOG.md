@@ -1,6 +1,6 @@
 ### Change log
-Date: 29/03/2024 
-Release: v2.5.3
+Date: 30/03/2024 
+Release: v2.5.4
 - tested with Python 3.12
 - replaced mysql driver with mariadb driver
 - upgraded Echarts lib from 5.3 to 5.5
