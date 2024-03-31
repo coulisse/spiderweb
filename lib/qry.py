@@ -1,10 +1,9 @@
 # *****************************************************************************************
-# module used to make query to mysql
+# module used to make query to mariadb
 # TODO: manage polymorfism and use only one qry sign
 # *****************************************************************************************
 # import MySQLdb as my
-import mysql.connector as my
-from mysql.connector import pooling
+import mariadb as my
 import logging
 import json
 import pandas as pd
@@ -34,18 +33,19 @@ class query_manager:
                 return
 
         logging.info("config file loaded")
-        self.__cnxpool = pooling.MySQLConnectionPool(
+
+
+        self.__cnxpool = my.ConnectionPool(
             host=cfg["mysql"]["host"],
             user=cfg["mysql"]["user"],
             passwd=cfg["mysql"]["passwd"],
             db=cfg["mysql"]["db"],
-            charset="latin1",
-            #                    charset='utf8mb4',
-            #                    collation = 'utf8mb4_general_ci',
             pool_name="spider_pool",
-            use_pure=True,
-            pool_size=3,
+            pool_size=5,
+            pool_validation_interval=250
         )
+
+
         logging.info("db connection pool created")
 
     # normal query

@@ -1,11 +1,23 @@
 ### Change log
+Date: 31/03/2024 
+Release: v2.5.4
+- tested with Python 3.12
+- replaced mysql driver with mariadb driver
+- upgraded Echarts lib from 5.3 to 5.5
+- upgraded flag-icon-css lib from to 7.2
+- upgraded bootstrap to 5.3.3
+- issue [#51](https://github.com/coulisse/spiderweb/issues/51): added total number of users & nodes connected Issue
+- issue [#56](https://github.com/coulisse/spiderweb/issues/56): added a simple counter
+- issue [#58](https://github.com/coulisse/spiderweb/issues/58)
+  
+___
 Date: 10/03/2024 
 Release: v2.5.3
 - adapted card size and text for mobile
 - removed monitor
 - removed cookie consent banner, since this application uses only technical cookies
-- issue [#51] (https://github.com/coulisse/spiderweb/issues/51)   -- just for caching
-- security [#22] (https://github.com/coulisse/spiderweb/security/dependabot/22)
+- issue [#51](https://github.com/coulisse/spiderweb/issues/51)   -- just for caching
+- security issue [#22](https://github.com/coulisse/spiderweb/security/dependabot/22)
   
 ___
 Date: 03/12/2023 

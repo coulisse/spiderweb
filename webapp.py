@@ -17,6 +17,7 @@ import requests
 import xmltodict
 from lib.qry_builder import query_build, query_build_callsign, query_build_callsing_list
 
+
 logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
 logger = logging.getLogger(__name__)
 logger.info("Starting SPIDERWEB")
@@ -48,6 +49,7 @@ else:
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True    
 
+
 # load config file
 with open("cfg/config.json") as json_data_file:
     cfg = json.load(json_data_file)
@@ -65,6 +67,31 @@ with open("cfg/modes.json") as json_modes:
 # load continents-cq file
 with open("cfg/continents.json") as json_continents:
     continents_cq = json.load(json_continents)
+
+#load visitour counter
+visits_file_path = "data/visits.json"
+try:
+    # Load the visits data from the file
+    with open(visits_file_path) as json_visitors:
+        visits = json.load(json_visitors)
+except FileNotFoundError:
+    # If the file does not exist, create an empty visits dictionary
+    visits = {}
+
+#save visits
+def save_visits():
+    with open(visits_file_path, "w") as json_file:
+        json.dump(visits, json_file)
+    logging.info('visit saved on: '+ visits_file_path)
+
+# saving scheduled
+def schedule_save():
+    save_visits()
+    threading.Timer(1000, schedule_save).start()
+
+# Start scheduling
+schedule_save()
+
 
 # read and set default for enabling cq filter
 if cfg.get("enable_cq_filter"):
@@ -90,7 +117,6 @@ def spotquery(parameters):
         else:
             logging.debug('search eith other filters')
             query_string = query_build(logger,parameters,band_frequencies,modes_frequencies,continents_cq,enable_cq_filter)
-
         qm.qry(query_string)
         data = qm.get_data()
         row_headers = qm.get_headers()
@@ -125,8 +151,10 @@ def get_adxo():
     adxo_events = get_adxo_events()
     threading.Timer(12 * 3600, get_adxo).start()
 
-
 get_adxo()
+
+
+
 
 # create data provider for charts
 heatmap_cbp = ContinentsBandsProvider(logger, qm, continents_cq, band_frequencies)
@@ -160,9 +188,21 @@ def get_nonce():
     inline_script_nonce = secrets.token_hex()
     return inline_script_nonce
 
+#check if it is a unique visitor
+def visitor_count():
+    user_ip =request.environ.get('HTTP_X_REAL_IP', request.remote_addr)   
+    if user_ip not in visits:
+        visits[user_ip] = 1
+    else:
+        visits[user_ip] += 1        
+    
 @app.route("/", methods=["GET"])
 @app.route("/index.html", methods=["GET"])
 def spots():
+    
+    
+    visitor_count();
+
     response = flask.Response(
         render_template(
             "index.html",
@@ -171,6 +211,7 @@ def spots():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits),            
             enable_cq_filter=enable_cq_filter,
             timer_interval=cfg["timer"]["interval"],
             adxo_events=adxo_events,
@@ -184,8 +225,9 @@ def spots():
 
 #Show all dx spot callsigns 
 def get_dx_calls():
+    
     try:
-        query_string = query_build_callsing_list
+        query_string = query_build_callsing_list()
         qm.qry(query_string)
         data = qm.get_data()
         row_headers = qm.get_headers()
@@ -211,7 +253,8 @@ def sw():
 def root():
     return app.send_static_file("html/offline.html")
 
-@app.route("/world.json")
+#used for plots
+@app.route("/world.json")  
 def world_data():
     return app.send_static_file("data/world.json")
 
@@ -226,6 +269,7 @@ def plots():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits),                     
             who=whoj,
             continents=continents_cq,
             bands=band_frequencies,
@@ -257,6 +301,7 @@ def propagation():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits),                     
             solar_data=solar_data
         )
     )
@@ -274,6 +319,7 @@ def cookies():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits),                     
         )
     )
     return response
@@ -288,6 +334,7 @@ def privacy():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits),                     
         )
     )
     return response
@@ -309,6 +356,7 @@ def callsign():
             telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits),                     
             timer_interval=cfg["timer"]["interval"],
             callsign=callsign,
             adxo_events=adxo_events,
@@ -334,7 +382,7 @@ def find_callsign():
 def get_heatmap_data():
     #continent = request.args.get("continent")
     continent = request.json['continent']
-    logger.debug(request.get_json());
+    logger.debug(request.get_json())
     response = flask.Response(json.dumps(heatmap_cbp.get_data(continent)))
     logger.debug(response)
     if response is None:

@@ -49,7 +49,11 @@
 
 	<div class="container-fluid">
 		<div class="shadow-lg mb-5 bg-body rounded">
-			<strong>Physically connected callsigns to {{ mycallsign }}</strong>
+			<strong>{{ mycallsign }} telnet nodes & users online. </strong>
+			<br>
+				Nodes: <strong>{{ who|selectattr('type', 'equalto', 'NODE DXSP')|map(attribute='type')|map('upper')|list|length }}</strong> 
+			<br>
+				Users: <strong> {{ who|selectattr('type', 'equalto', 'USER EXT')|map(attribute='type')|map('upper')|list|length }}</strong> 
 			<hr>
 			<table class="table table-striped table-borderless table-sm text-responsive table-hover">
 				<thead id="telnet-thead">
@@ -70,7 +74,7 @@
 						<td class="d-none d-lg-table-cell d-xl-table-cell">{{dict_item["name"]}}</td>
 						<td>{{dict_item["average_rtt"]}}</td>
 					</tr>
-					{% endfor %}
+					{% endfor %}					
 				</tbody>
 			</table>
 		</div>
@@ -86,8 +90,8 @@ var band_frequencies={{bands["bands"]|tojson|safe}};
 
 {% block app_scripts %}
 {{ super() }}
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"
-integrity="sha512-EmNxF3E6bM0Xg1zvmkeYD3HDBeGxtsG92IxFt1myNZhXdCav9MzvuH/zNMBU1DmIPN6njrhX1VTbqdJxQ2wHDg=="
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"
+integrity="sha512-k37wQcV4v2h6jgYf5IUz1MoSKPpDs630XGSmCaCCOXxy2awgAWKHGZWr9nMyGgk3IOxA1NxdkN8r1JHgkUtMoQ=="
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script defer src="static/js/rel/plot.min.js"></script>
 {% endblock app_scripts %}

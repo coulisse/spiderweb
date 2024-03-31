@@ -9,11 +9,11 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/coulisse/spiderweb/badge)](https://www.codefactor.io/repository/github/coulisse/spiderweb)
 
 
-- **Release:** v2.5.3
+- **Release:** v2.5.4
 - **Author:** Corrado Gerbaldo - [IU1BOW](https://www.qrz.com/db/IU1BOW)
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see [LICENSE](LICENSE) file.
-- **Languages:** This application is written in Python 3.11/flask,Javascript and HTML
+- **Languages:** This application is written in Python 3.12/flask,Javascript and HTML
 
 ___
 **DXSpider** is a great DX Cluster software that has useful telnet interface. 
@@ -52,6 +52,10 @@ $dbpass = "your-password";
 If you would change some MariaDB parameters, then you can find them in  `/etc/mysql/my.cnf` or `/etc/my.cnf`, depending on your distro.
 If the database will not be created automatically, please see ["DB_ISSUES.md"](docs/DB_ISSUES.md) 
 
+TODO: se installando i moduli python errore:
+sudo apt-get install libmariadb3 libmariadb-dev
+TODO: check number ADXO
+
 **3) Python modules**  
 You could install python modules using automatic or manual way.
 
@@ -73,12 +77,6 @@ foo@bar:~$ pip install flask
 foo@bar:~$ pip install Flask-minify
 foo@bar:~$ pip install flask_wtf
 foo@bar:~$ pip install pandas
-```
-Then you have to install mysql libraries**:
-```console
-foo@bar:~$ pip install mysql-connector-python
-foo@bar:~$ pip install --upgrade mysql-connector-python==8.0.12
-
 ```
 
 ### Configuration  

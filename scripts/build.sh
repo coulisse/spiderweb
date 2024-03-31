@@ -134,9 +134,9 @@ if [ "$1" == "-r" ]; then
 	sed -i '/staticjinja==/d' ../requirements.txt
 	sed -i '/lighthouse==/d' ../requirements.txt
 
-	echo 'force some requirements...'
-	sed -i 's/mysql-connector-python==8.0.31/mysql-connector-python>=8.0.31/' ../requirements.txt
-	sed -i 's/mysql-connector-python==8.2.0/mysql-connector-python>=8.2.0/' ../requirements.txt
+	#echo 'force some requirements...'
+	#sed -i 's/mysql-connector-python==8.0.31/mysql-connector-python>=8.0.31/' ../requirements.txt
+	#sed -i 's/mysql-connector-python==8.2.0/mysql-connector-python>=8.2.0/' ../requirements.txt
 
 	if ! sed -i '7,25s/level=DEBUG/level=INFO/g' ${app_ini}; then               
 		echo 'ERROR settimg loglevel=INFO '
@@ -277,7 +277,7 @@ if [ "$2" == "-c" ]; then
 
 		head -10 ../docs/CHANGELOG.md
 
-		read -p "Do you want to proceed to commit version ${ver} (yes/no) " yn
+		read -r -p "Do you want to proceed to commit version ${ver} (yes/no) " yn
 
 		case $yn in 
 			yes ) echo ok, we will proceed;;
@@ -297,7 +297,7 @@ if [ "$2" == "-c" ]; then
 		fi		
 		
 		echo 'Please, add comment for commit on tag ' ${ver}
-		read comm_tag_msg
+		read -r comm_tag_msg
 		if ! git commit -m "${comm_tag_msg}"; then
 			echo 'Error on commit'
 			exit 9

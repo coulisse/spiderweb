@@ -17,7 +17,7 @@ logging.basicConfig(
 )
 # TODO: url from conf parameter
 url = "https://www.country-files.com/cty/cty_wt_mod.dat"
-cty_local = os.path.dirname(__file__) + "/../static/data/cty_wt_mod.dat"
+cty_local = os.path.dirname(__file__) + "/../data/cty_wt_mod.dat"
 country_file = os.path.dirname(__file__) + "/../cfg/country.json"
 # -------------------------------------------------------------------------------------
 #  download country files cty.dat
@@ -166,6 +166,7 @@ def parse_alias(alias, master):
 #  load file from configuration, containing all world country, with related ISO codes
 # -------------------------------------------------------------------------------------
 def load_country():
+    logging.info('loading:' +country_file)
     with open(country_file) as json_country:
         return json.load(json_country)
 
