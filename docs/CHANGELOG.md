@@ -1,5 +1,5 @@
 ### Change log
-Date: 30/03/2024 
+Date: 31/03/2024 
 Release: v2.5.4
 - tested with Python 3.12
 - replaced mysql driver with mariadb driver
