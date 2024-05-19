@@ -173,10 +173,10 @@ def spotlist():
 
 
 def who_is_connected():
-    host=cfg["telnet"]["host"]
-    port=cfg["telnet"]["port"]
-    user=cfg["telnet"]["user"]
-    password=cfg["telnet"]["password"]
+    host=cfg["telnet"]["telnet_host"]
+    port=cfg["telnet"]["telnet_port"]
+    user=cfg["telnet"]["telnet_user"]
+    password=cfg["telnet"]["telnet_password"]
     response = who(host, port, user, password)
     logger.debug("list of connected clusters:")
     logger.debug(response)
