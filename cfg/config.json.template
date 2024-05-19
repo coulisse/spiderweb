@@ -12,15 +12,15 @@
     "mail":"foo@bar.com",
     "enable_cq_filter":"n",
     "telnet": {
-        "host": "mysite",
-        "port": "7300",
-        "user": "myuser",
-        "password": ""
+        "telnet_host": "mysite",
+        "telnet_port": "7300",
+        "telnet_user": "myuser",
+        "telnet_password": ""
     },
         "menu": {
           "menu_list": [
             {"label":"Charts & stats", "link": "/plots.html", "external": false},
-            {"label": "Propagation", "link": "/propagation.html", "external": false},              
+            {"label":"Propagation", "link": "/propagation.html", "external": false},              
             {"label":"Sources", "link": "https://github.com/coulisse/spiderweb/" , "external": true},    
             {"label":"Cookies", "link": "/cookies.html", "external": false},
             {"label":"Privacy", "link": "/privacy.html", "external": false}

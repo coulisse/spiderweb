@@ -173,10 +173,10 @@ def spotlist():
 
 
 def who_is_connected():
-    host=cfg["telnet"]["host"]
-    port=cfg["telnet"]["port"]
-    user=cfg["telnet"]["user"]
-    password=cfg["telnet"]["password"]
+    host=cfg["telnet"]["telnet_host"]
+    port=cfg["telnet"]["telnet_port"]
+    user=cfg["telnet"]["telnet_user"]
+    password=cfg["telnet"]["telnet_password"]
     response = who(host, port, user, password)
     logger.debug("list of connected clusters:")
     logger.debug(response)
@@ -208,7 +208,7 @@ def spots():
             "index.html",
             inline_script_nonce=get_nonce(),
             mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
+            telnet=cfg["telnet"]["telnet_host"]+":"+cfg["telnet"]["telnet_port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
             visits=len(visits),            
@@ -266,7 +266,7 @@ def plots():
             "plots.html",
             inline_script_nonce=get_nonce(),          
             mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
+            telnet=cfg["telnet"]["telnet_host"]+":"+cfg["telnet"]["telnet_port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
             visits=len(visits),                     
@@ -298,7 +298,7 @@ def propagation():
             "propagation.html",
             inline_script_nonce=get_nonce(),          
             mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
+            telnet=cfg["telnet"]["telnet_host"]+":"+cfg["telnet"]["telnet_port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
             visits=len(visits),                     
@@ -316,7 +316,7 @@ def cookies():
             "cookies.html",
             inline_script_nonce=get_nonce(),          
             mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
+            telnet=cfg["telnet"]["telnet_host"]+":"+cfg["telnet"]["telnet_port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
             visits=len(visits),                     
@@ -331,7 +331,7 @@ def privacy():
             "privacy.html",
             inline_script_nonce=get_nonce(),          
             mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
+            telnet=cfg["telnet"]["telnet_host"]+":"+cfg["telnet"]["telnet_port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
             visits=len(visits),                     
@@ -353,7 +353,7 @@ def callsign():
             "callsign.html",
             inline_script_nonce=get_nonce(),              
             mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"]["host"]+":"+cfg["telnet"]["port"],
+            telnet=cfg["telnet"]["telnet_host"]+":"+cfg["telnet"]["telnet_port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
             visits=len(visits),                     
