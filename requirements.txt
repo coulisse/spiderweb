@@ -20,7 +20,7 @@ ply==3.11
 python-dateutil==2.9.0.post0
 pytz==2024.1
 rcssmin==1.1.2
-requests==2.31.0
+requests==2.32.0
 setuptools==68.2.2
 sgmllib3k==1.0.0
 six==1.16.0
