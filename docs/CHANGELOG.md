@@ -1,4 +1,12 @@
 ### Change log
+___
+Date: 30/11/2024 
+Release: v2.5.5
+- merged modified of DocViper666 in order to manage different field name in config.json
+- fixed somr security issues
+- updated flag-icon css 
+- fixed issue reading corrupted visit json
+
 Date: 31/03/2024 
 Release: v2.5.4
 - tested with Python 3.12

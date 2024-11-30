@@ -57,6 +57,10 @@ def parse_who(lines):
 
 def who(host, port, user, password):
 
+    logging.debug("telnet host:" + host) 
+    logging.debug("telnet port:" + port) 
+    logging.debug("telnet user:" + user) 
+
     WAIT_FOR = b"dxspider >"
     WAIT_PASS = b"password:"
 

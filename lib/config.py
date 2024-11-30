@@ -16,10 +16,10 @@ configs = [
     ("timer/interval", "Spot page refresh(ms)_______: "),
     ("mail", "Mail address________________: "),
     ("mail_token", "token google 2FA auth_______: "),
-    ("telnet/host", "Telnet host_________________: "),
-    ("telnet/port", "Telnet port_________________: "),
-    ("telnet/user", "Telnet user________________: "),
-    ("telnet/password", "Telnet password (optional)_: "),    
+    ("telnet/telnet_host", "Telnet host_________________: "),
+    ("telnet/telnet_port", "Telnet port_________________: "),
+    ("telnet/telnet_user", "Telnet user________________: "),
+    ("telnet/telnet_password", "Telnet password (optional)_: "),    
     ("enable_cq_filter", "Enable cq filter___________: "),
 ]
 

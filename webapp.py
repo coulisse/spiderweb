@@ -54,8 +54,8 @@ app.jinja_env.lstrip_blocks = True
 with open("cfg/config.json") as json_data_file:
     cfg = json.load(json_data_file)
 
-logging.debug("CFG:")
-logging.debug(cfg)
+logger.debug("CFG:")
+logger.debug(cfg)
 # load bands file
 with open("cfg/bands.json") as json_bands:
     band_frequencies = json.load(json_bands)
@@ -78,11 +78,17 @@ except FileNotFoundError:
     # If the file does not exist, create an empty visits dictionary
     visits = {}
 
+except json.decoder.JSONDecodeError:
+    # If the file is not a valid json file
+    logger.warning("No valid data in visit json")
+    logger.warning("reset and creation of a new:" + visits_file_path )
+    visits = {}
+
 #save visits
 def save_visits():
     with open(visits_file_path, "w") as json_file:
         json.dump(visits, json_file)
-    logging.info('visit saved on: '+ visits_file_path)
+    logger.info('visit saved on: '+ visits_file_path)
 
 # saving scheduled
 def schedule_save():
@@ -112,10 +118,10 @@ def spotquery(parameters):
     try:
 
         if 'callsign' in parameters:
-            logging.debug('search callsign')
+            logger.debug('search callsign')
             query_string = query_build_callsign(logger,parameters['callsign'] )
         else:
-            logging.debug('search eith other filters')
+            logger.debug('search eith other filters')
             query_string = query_build(logger,parameters,band_frequencies,modes_frequencies,continents_cq,enable_cq_filter)
         qm.qry(query_string)
         data = qm.get_data()
@@ -173,12 +179,14 @@ def spotlist():
 
 
 def who_is_connected():
+    logger.debug("telnet connection to:" )
     host=cfg["telnet"]["telnet_host"]
     port=cfg["telnet"]["telnet_port"]
     user=cfg["telnet"]["telnet_user"]
+    logger.debug(host)
     password=cfg["telnet"]["telnet_password"]
     response = who(host, port, user, password)
-    logger.debug("list of connected clusters:")
+    logger.debug("telnet: list of connected clusters:")
     logger.debug(response)
     return response
 
@@ -284,14 +292,14 @@ def propagation():
     solar_data={}
     url = "https://www.hamqsl.com/solarxml.php"
     try:
-        logging.debug("connection to: " + url)
+        logger.debug("connection to: " + url)
         req = requests.get(url)
         logger.debug(req.content)
         solar_data = xmltodict.parse(req.content)    
         logger.debug(solar_data)
 
     except Exception as e1:
-        logging.error(e1)
+        logger.error(e1)
 
     response = flask.Response(
         render_template(
