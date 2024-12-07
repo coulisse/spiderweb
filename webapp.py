@@ -1,20 +1,21 @@
 __author__ = "IU1BOW - Corrado"
 import flask
-import secrets
 from flask import request, render_template
 from flask_wtf.csrf import CSRFProtect
 from flask_minify import minify
+import secrets
 import json
 import threading
 import logging
 import logging.config
+import asyncio
+import requests
+import xmltodict
 from lib.dxtelnet import who
 from lib.adxo import get_adxo_events
 from lib.qry import query_manager
 from lib.cty import prefix_table
 from lib.plot_data_provider import ContinentsBandsProvider, SpotsPerMounthProvider, SpotsTrend, HourBand, WorldDxSpotsLive
-import requests
-import xmltodict
 from lib.qry_builder import query_build, query_build_callsign, query_build_callsing_list
 
 
@@ -156,11 +157,7 @@ def get_adxo():
     global adxo_events
     adxo_events = get_adxo_events()
     threading.Timer(12 * 3600, get_adxo).start()
-
 get_adxo()
-
-
-
 
 # create data provider for charts
 heatmap_cbp = ContinentsBandsProvider(logger, qm, continents_cq, band_frequencies)
@@ -177,7 +174,6 @@ def spotlist():
     response = flask.Response(json.dumps(spotquery(request.json)))
     return response
 
-
 def who_is_connected():
     logger.debug("telnet connection to:" )
     host=cfg["telnet"]["telnet_host"]
@@ -185,7 +181,7 @@ def who_is_connected():
     user=cfg["telnet"]["telnet_user"]
     logger.debug(host)
     password=cfg["telnet"]["telnet_password"]
-    response = who(host, port, user, password)
+    response = asyncio.run(who(host, port, user, password))
     logger.debug("telnet: list of connected clusters:")
     logger.debug(response)
     return response
@@ -207,7 +203,6 @@ def visitor_count():
 @app.route("/", methods=["GET"])
 @app.route("/index.html", methods=["GET"])
 def spots():
-    
     
     visitor_count();
 
@@ -354,7 +349,7 @@ def sitemap():
 
 @app.route("/callsign.html", methods=["GET"])
 def callsign():
-    # payload=spotquery()
+
     callsign = request.args.get("c")
     response = flask.Response(
         render_template(
@@ -388,7 +383,6 @@ def find_callsign():
 @app.route("/plot_get_heatmap_data", methods=["POST"])
 @csrf.exempt
 def get_heatmap_data():
-    #continent = request.args.get("continent")
     continent = request.json['continent']
     logger.debug(request.get_json())
     response = flask.Response(json.dumps(heatmap_cbp.get_data(continent)))

@@ -1,12 +1,19 @@
 ### Change log
+Date: 07/12/2024 
+Release: v2.5.6
+- porting to python 3.13
+- managed strange string with 2 commas from ng3k
+- removed telnetlib and used telnetlib3
+- resolved issue #68
 ___
-Date: 30/11/2024 
+Date: 07/12/2024 
 Release: v2.5.5
 - merged modified of DocViper666 in order to manage different field name in config.json
 - fixed somr security issues
 - updated flag-icon css 
 - fixed issue reading corrupted visit json
 
+___
 Date: 31/03/2024 
 Release: v2.5.4
 - tested with Python 3.12
