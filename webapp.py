@@ -204,7 +204,7 @@ def visitor_count():
 @app.route("/index.html", methods=["GET"])
 def spots():
     
-    visitor_count();
+    visitor_count()
 
     response = flask.Response(
         render_template(

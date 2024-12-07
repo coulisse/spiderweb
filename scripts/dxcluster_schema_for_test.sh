@@ -57,7 +57,7 @@ echo "${bold}WARNING${normal}: this command will drop your dxcluster database"
 echo "Run it only on test environment!!!"
 
 while true; do
-    read -p "Would you procede? " yn
+    read -r -p "Would you procede? " yn
     case $yn in
         [Yy]* ) sudo mysql -uroot  <dxcluster_schema_for_test.sql;db_insert;break;;
         [Nn]* ) exit;;

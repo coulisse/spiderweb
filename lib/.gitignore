@@ -1,2 +1,10 @@
-__pycache__
-__init__.py
+.old
+.old2
+config.json
+__init__/
+__pycache__/
+.vscode/
+*report.html
+venv/
+.idea/
+

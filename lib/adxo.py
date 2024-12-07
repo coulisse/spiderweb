@@ -84,7 +84,7 @@ def get_adxo_events():
                 logging.debug("date_end: {}".format(date_end))          
 
             try:
-                prop["start"]  = datetime.strptime(date_start.strip(), "%b %d %Y")
+                prop["start"] = datetime.strptime(date_start.strip(), "%b %d %Y")
                 prop["end"] = datetime.strptime(date_end.strip(), "%b %d %Y")
 
             except Exception as eDate:
@@ -103,7 +103,7 @@ def get_adxo_events():
             logging.debug("date end: "+ str(prop["end"]) )                   
 
             #append only valids (in date) events
-            if prop["start"] <= now  and prop["end"] >= now:
+            if prop["start"] <= now and prop["end"] >= now:
                 events.append(prop)
                 logging.debug("Event added")
             else:

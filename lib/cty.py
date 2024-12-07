@@ -15,7 +15,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s]: %(message)s",
     datefmt="%m/%d/%Y %I:%M:%S",
 )
-# TODO: url from conf parameter
+
 url = "https://www.country-files.com/cty/cty_wt_mod.dat"
 cty_local = os.path.dirname(__file__) + "/../data/cty_wt_mod.dat"
 country_file = os.path.dirname(__file__) + "/../cfg/country.json"

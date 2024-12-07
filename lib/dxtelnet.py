@@ -108,6 +108,3 @@ if __name__ == "__main__":
     # Esegui l'asyncio event loop per chiamare la funzione who
     result = asyncio.run(who(host, port, user, password))
     print(result)
-
-#TODO: test with password
-#TODO: test forcing password

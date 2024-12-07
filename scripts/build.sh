@@ -1,6 +1,9 @@
 #! /bin/bash
 #***********************************************************************************
 # Script used to BUILD the progect (ie. replacing version, minify etc) 
+# ./build.sh -d       >>> debug mode
+# ./build.sh -r       >>> release mode
+# ./build.sh -r -c    >>> release and commit
 #***********************************************************************************
 path_templates='../templates'
 base_template='_base.html'
@@ -152,9 +155,7 @@ if [ "$1" == "-d" ]; then
 		echo 'ERROR settimg loglevel=DEBUG '
 		exit 12
 	fi
-
 fi
-
 
 #echo 'create modes.json from dxspider bands.pl'
 
@@ -319,5 +320,3 @@ fi
 
 
 echo
-
-#git push --atomic origin development v2.4.5.71

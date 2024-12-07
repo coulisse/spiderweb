@@ -1,6 +1,5 @@
-
 #!/bin/bash
-echo this script will convert your mysql db to sqllite databases
+#echo this script will convert your mysql db to sqllite databases
 
 
 #TODO: 
@@ -22,8 +21,12 @@ progress_bar() {
     local width=50
     local percent="$1"
     local filled_width=$((width * percent / 100))
-    local dots="$(printf '%*s' "$filled_width" | tr ' ' '=')"
-    local spaces="$(printf '%*s' "$((width - filled_width))" | tr ' ' ' ')"
+    #local dots="$(printf '%*s' "$filled_width" | tr ' ' '=')"
+    local spaces="$(printf '%*s' "$((width - filled_width))" '')"
+    #local spaces="$(printf '%*s' "$((width - filled_width))" | tr ' ' ' ')"
+    local spaces="$(printf '%*s' "$((width - filled_width))" '') | tr ' ' ' ')"
+
+
     echo -ne "[$dots$spaces] ($percent%)\r"
 }
 
@@ -88,7 +91,7 @@ echo 'Importing dump into Sqlite' ${max_insert} 'rows: '
 counter=0
 sv_perc=-1
 while IFS= read -r line; do
-    let "counter++"
+    (( "counter++" ))
     if ! sqlite3 ${sqlite_db} "${line}";
       then 
         echo '...at line: ' ${counter} ' | ' ${line}

@@ -11,8 +11,9 @@ if [ $# -gt 0 ]
 fi
 
 if [ "$1" == "-d" ]; then
-        rm -rf __pycache__
-	flask --app webapp.py --debug run --exclude-patterns *webapp.log*
+    rm -rf __pycache__
+	flask --app webapp.py --debug run --exclude-patterns ./*webapp.log*
+
 else
 	flask --app webapp.py run 
 fi

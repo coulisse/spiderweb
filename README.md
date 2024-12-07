@@ -13,7 +13,7 @@
 - **Author:** Corrado Gerbaldo - [IU1BOW](https://www.qrz.com/db/IU1BOW)
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see [LICENSE](LICENSE) file.
-- **Languages:** This application is written in Python 3.12/flask,Javascript and HTML
+- **Languages:** This application is written in Python 3.13/flask,Javascript and HTML
 
 ___
 **DXSpider** is a great DX Cluster software that has useful telnet interface. 

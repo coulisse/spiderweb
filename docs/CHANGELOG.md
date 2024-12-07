@@ -4,9 +4,10 @@ Release: v2.5.6
 - porting to python 3.13
 - managed strange string with 2 commas from ng3k
 - removed telnetlib and used telnetlib3
-- resolved issue #68
+- issue [#68](https://github.com/coulisse/spiderweb/security/dependabot/27)
+  
 ___
-Date: 07/12/2024 
+Date: 01/12/2024 
 Release: v2.5.5
 - merged modified of DocViper666 in order to manage different field name in config.json
 - fixed somr security issues
