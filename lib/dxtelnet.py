@@ -96,15 +96,3 @@ async def who(host, port, user, password=None):
         return parse_who(res.decode('utf-8'))
     else:
         return ""
-
-# Esempio di utilizzo
-if __name__ == "__main__":
-    host = "dxcluster.iu1bow.it"
-    port = 7300
-    user = "IU1BOW"
-    #password = None
-    password = "PROVA"  # Imposta la password se necessaria
-
-    # Esegui l'asyncio event loop per chiamare la funzione who
-    result = asyncio.run(who(host, port, user, password))
-    print(result)

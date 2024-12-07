@@ -14,7 +14,7 @@
 	<link rel="icon" href="/static/images/icons/spider_ico_master.svg" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="/static/images/icons/icon-apple.png">
 	<link rel="manifest" href="/static/pwa/manifest.webmanifest">
-	<link rel="stylesheet" href="/static/css/dev/style.css">
+	<link rel="stylesheet" href="/static/css/rel/style.min.css">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
 		integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous">
@@ -109,13 +109,13 @@
 			<span id="version">v2.5.6</span>
 		</div>					
 	</footer>
-	<script async src="static/js/dev/load-sw.js"></script>
+	<script async src="static/js/rel/load-sw.min.js"></script>
 	<script nonce="{{ inline_script_nonce }}">
 		{% block app_data %}
 		var my_callsign = '{{mycallsign}}';
 		{% endblock app_data %}
 	</script>
-	<script defer src="static/js/dev/common.js"></script>
+	<script defer src="static/js/rel/common.min.js"></script>
 
 	<!-- Bootstrap -->
 	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"
@@ -128,7 +128,7 @@
 		crossorigin="anonymous"></script>
 	</body>
 	{% block app_scripts %}
-	<script async src="static/js/dev/callsign_search.js"></script>
+	<script async src="static/js/rel/callsign_search.min.js"></script>
 	{% endblock app_scripts %}
 	{% block inline_scripts %}
 	{% endblock inline_scripts %}
