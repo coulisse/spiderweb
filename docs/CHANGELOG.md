@@ -5,6 +5,7 @@ Release: v2.5.6
 - managed strange string with 2 commas from ng3k
 - removed telnetlib and used telnetlib3
 - issue [#68](https://github.com/coulisse/spiderweb/security/dependabot/27)
+- issue [#62](https://github.com/coulisse/spiderweb/issues/62)
   
 ___
 Date: 01/12/2024 

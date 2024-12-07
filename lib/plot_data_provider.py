@@ -320,15 +320,15 @@ class SpotsTrend(BaseDataProvider):
 
         if len(df) == 0:
             self.logger.warning("no data found")
-
-        # normalize data eliminating peaks
-        df["day"] = pd.to_datetime(df["day"])
-        df = df.set_index("day")
-        df = df.resample("D").interpolate(
-            method="pad", limit_direction="forward", axis=0
-        )
-        df = df.rolling("30D").mean()
-        df["total"] = df["total"].round(0)
+        else:
+            # normalize data eliminating peaks
+            df["day"] = pd.to_datetime(df["day"])
+            df = df.set_index("day")
+            df = df.resample("D").interpolate(
+                method="pad", limit_direction="forward", axis=0
+            )
+            df = df.rolling("30D").mean()
+            df["total"] = df["total"].round(0)
 
         return df
 
@@ -518,7 +518,7 @@ class WorldDxSpotsLive(BaseDataProvider):
         df_grp = df.groupby(["lat", "lon"])["row_id"].count().reset_index(name="count")
 
         if df is None == 0:
-            logger.warning("no data found")
+            self.logger.warning("no data found")
 
         return df_grp
 

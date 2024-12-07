@@ -1,3 +1,4 @@
+bjoern==3.2.2
 blinker==1.9.0
 charset-normalizer==3.4.0
 click==8.1.7

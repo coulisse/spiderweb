@@ -6,7 +6,7 @@
 [![made-with-python](https://img.shields.io/badge/B.e.-Python-1f425f.svg)](https://www.python.org/)
 [![made-with-javascript](https://img.shields.io/badge/F.e.-JavaScript-yellow)](https://www.javascript.com)
 [![bootstrap](https://img.shields.io/badge/CSS%20Fwk-Bootstrap-purple)](https://getbootstrap.com/)
-[![CodeFactor](https://www.codefactor.io/repository/github/coulisse/spiderweb/badge)](https://www.codefactor.io/repository/github/coulisse/spiderweb)
+[![CodeFactor](https://www.codefactor.io/repository/github/coulisse/spiderweb/badge/development)](https://www.codefactor.io/repository/github/coulisse/spiderweb/overview/development)
 
 
 - **Release:** v2.5.6
