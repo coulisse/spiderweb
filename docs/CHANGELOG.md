@@ -1,12 +1,12 @@
 ### Change log
-Date: 07/12/2024 
+Date: 08/12/2024 
 Release: v2.5.6
 - porting to python 3.13
 - managed strange string with 2 commas from ng3k
 - removed telnetlib and used telnetlib3
 - issue [#68](https://github.com/coulisse/spiderweb/security/dependabot/27)
 - issue [#62](https://github.com/coulisse/spiderweb/issues/62)
-  
+- Tom Select library updated
 ___
 Date: 01/12/2024 
 Release: v2.5.5

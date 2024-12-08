@@ -23,9 +23,10 @@
 		integrity="sha512-bZBu2H0+FGFz/stDN/L0k8J0G8qVsAL0ht1qg5kTwtAheiXwiRKyCq1frwfbSFSJN3jooR5kauE0YjtPzhZtJQ=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!--  Tom-Select CSS -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" 
-		integrity="sha384-dC18+guBm9Lk5IBQfkKIOw2YSxXWMsiuPfIOZNPilutZQn6MgBvcx+vejNQYlrbc" 
-		crossorigin="anonymous" referrerpolicy="no-referrer">		
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.4.1/css/tom-select.min.css" 
+		integrity="sha512-dV0cHrb/JTqn0t9UxaPyHhP4aBjgeEpBpUVULdDnuNsQq55DdKEP4nkiPffoLGVN6FXAEUCPZEZSnI3fxY64vg==" crossorigin="anonymous" 
+		referrerpolicy="no-referrer" />
+	
 	{% endblock head %}
 </head>
 
@@ -123,10 +124,11 @@
 		crossorigin="anonymous"></script>
 
 	<!-- Tom-select library -->
-	<script defer src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js" 
-		integrity="sha384-cnROoUgVILyibe3J0zhzWoJ9p2WmdnK7j/BOTSWqVDbC1pVw2d+i6Q/1ESKJKCYf" 
-		crossorigin="anonymous"></script>
-	</body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.4.1/js/tom-select.complete.min.js" 
+		integrity="sha512-CzUoi6nF16H/slapry/mFOHL612D79pnWNTmaLuf6XEv7ThODevxvFNu26TkzIT/J25phJWjwYmX6DDXh6uQzA==" 
+		crossorigin="anonymous" 
+		referrerpolicy="no-referrer"></script>
+
 	{% block app_scripts %}
 	<script async src="static/js/rel/callsign_search.min.js"></script>
 	{% endblock app_scripts %}

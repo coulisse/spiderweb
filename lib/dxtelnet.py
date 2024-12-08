@@ -1,3 +1,8 @@
+# *************************************************************************************
+# Module used to interface with telnet cluster and get connected nodes
+# *************************************************************************************
+__author__ = "IU1BOW - Corrado"
+
 import telnetlib3
 import asyncio
 import struct
