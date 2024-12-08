@@ -24,6 +24,7 @@ logger = logging.getLogger(__name__)
 logger.info("Starting SPIDERWEB")
 
 app = flask.Flask(__name__)
+
 app.config["SECRET_KEY"] = secrets.token_hex(16)
 app.config.update(
     SESSION_COOKIE_SECURE=True,
