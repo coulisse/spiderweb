@@ -1,4 +1,9 @@
 ### Change log
+Date: 21/12/2024 
+Release: v2.5.7
+- Improved telnet connection - Issue [#69](https://github.com/coulisse/spiderweb/issues/69)
+___
+
 Date: 08/12/2024 
 Release: v2.5.6
 - porting to python 3.13

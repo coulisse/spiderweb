@@ -9,7 +9,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/coulisse/spiderweb/badge/development)](https://www.codefactor.io/repository/github/coulisse/spiderweb/overview/development)
 
 
-- **Release:** v2.5.6
+- **Release:** v2.5.7
 - **Author:** Corrado Gerbaldo - [IU1BOW](https://www.qrz.com/db/IU1BOW)
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see [LICENSE](LICENSE) file.
@@ -237,6 +237,7 @@ You can retrive some information about a callsign with **callsign**; for example
 ```
 /                 . main application files
 ├── cfg           . configuration files (put here your config.json with your setting)
+|── data          . data folder where all running information will be put (ie cty_wt_mod.dat, or visit.json)
 ├── docs          . documentation
 ├── lib           . python libs used for the application
 ├── log           . application log

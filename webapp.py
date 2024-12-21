@@ -18,6 +18,9 @@ from lib.cty import prefix_table
 from lib.plot_data_provider import ContinentsBandsProvider, SpotsPerMounthProvider, SpotsTrend, HourBand, WorldDxSpotsLive
 from lib.qry_builder import query_build, query_build_callsign, query_build_callsing_list
 
+TIMER_VISIT = 1000
+TIMER_ADXO = 12 * 3600
+TIMER_WHO = 5 * 60
 
 logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
 logger = logging.getLogger(__name__)
@@ -95,7 +98,7 @@ def save_visits():
 # saving scheduled
 def schedule_save():
     save_visits()
-    threading.Timer(1000, schedule_save).start()
+    threading.Timer(TIMER_VISIT, schedule_save).start()
 
 # Start scheduling
 schedule_save()
@@ -157,7 +160,7 @@ adxo_events = None
 def get_adxo():
     global adxo_events
     adxo_events = get_adxo_events()
-    threading.Timer(12 * 3600, get_adxo).start()
+    threading.Timer(TIMER_ADXO, get_adxo).start()
 get_adxo()
 
 # create data provider for charts
@@ -167,25 +170,30 @@ line_graph_st = SpotsTrend(logger, qm)
 bubble_graph_hb = HourBand(logger, qm, band_frequencies)
 geo_graph_wdsl = WorldDxSpotsLive(logger, qm, pfxt)
 
-# ROUTINGS
-@app.route("/spotlist", methods=["POST"])
-@csrf.exempt
-def spotlist():
-    logger.debug(request.json)
-    response = flask.Response(json.dumps(spotquery(request.json)))
-    return response
 
+#Find who is connected to the cluster (using a scheuled telnet connection)
+whoj = {}
+
+import time
 def who_is_connected():
-    logger.debug("telnet connection to:" )
+    global whoj
     host=cfg["telnet"]["telnet_host"]
     port=cfg["telnet"]["telnet_port"]
     user=cfg["telnet"]["telnet_user"]
-    logger.debug(host)
+    logger.info("refreshing list of users connected to: {}".format(host))
+
     password=cfg["telnet"]["telnet_password"]
-    response = asyncio.run(who(host, port, user, password))
-    logger.debug("telnet: list of connected clusters:")
-    logger.debug(response)
-    return response
+    try:
+        whoj = asyncio.run(who(host, port, user, password))
+    except Exception as e1:
+        logger.error(e1)  
+        logger.error("Error connecting to host")
+    finally:
+        threading.Timer(TIMER_WHO, who_is_connected).start()
+        logger.debug("telnet: list of connected clusters:")
+        logger.debug(whoj)
+
+who_is_connected()
 
 #Calculate nonce token used in inline script and in csp "script-src" header
 def get_nonce():
@@ -200,7 +208,16 @@ def visitor_count():
         visits[user_ip] = 1
     else:
         visits[user_ip] += 1        
-    
+
+
+# ROUTINGS
+@app.route("/spotlist", methods=["POST"])
+@csrf.exempt
+def spotlist():
+    logger.debug(request.json)
+    response = flask.Response(json.dumps(spotquery(request.json)))
+    return response
+   
 @app.route("/", methods=["GET"])
 @app.route("/index.html", methods=["GET"])
 def spots():
@@ -264,7 +281,6 @@ def world_data():
 
 @app.route("/plots.html")
 def plots():
-    whoj = who_is_connected()
     response = flask.Response(
         render_template(
             "plots.html",

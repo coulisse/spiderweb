@@ -1,5 +1,5 @@
 // Dichiarazione della costante per il nome della cache
-const CACHE_NAME = 'pwa-spiderweb_v2.5.6'
+const CACHE_NAME = 'pwa-spiderweb_v2.5.7'
 
 // Dichiarazione della costante per gli URL da mettere in cache
 const URLS_TO_CACHE = [
