@@ -15,7 +15,7 @@
 
 sqlite_db=dxcluster.db 
 mysql_dump_db=$(mktemp) 
-mysql_dump_db="mysql.sql"   #TODO: remove
+mysql_dump_db="mysql.sql"   
 
 progress_bar() {
     local width=50
@@ -123,7 +123,7 @@ fi
 
 exit  #TODO: remove exit
 #remove dump file
-rm ${mysql_dump_db}; 
+rm ${mysql_dump_db}
 
 echo done
 

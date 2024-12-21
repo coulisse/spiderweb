@@ -1,8 +1,6 @@
 # *****************************************************************************************
 # module used to make query to mariadb
-# TODO: manage polymorfism and use only one qry sign
 # *****************************************************************************************
-# import MySQLdb as my
 import mariadb as my
 import logging
 import json
