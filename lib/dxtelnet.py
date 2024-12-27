@@ -10,12 +10,13 @@ import logging
 
 def parse_who(lines):
     lines = lines.splitlines()
+    logging.debug(f"Response to 'who': {lines}")
     row_headers = ("callsign", "type", "started", "name", "average_rtt", "link")
     payload = []
 
-    for i in range(3, len(lines) - 1):
+    for i in range(2, len(lines) - 1):
         line = lines[i].lstrip()
-        logging.debug(line)
+        logging.debug(f"line ({i}): {line}")
         line_splitted_by_first_space = line.split(" ", 1)
         first_part = line_splitted_by_first_space[0]
         second_part = line_splitted_by_first_space[1]
@@ -82,7 +83,6 @@ async def who(host, port, user, password=None):
         writer.write(b'who\n')
         response = await reader.readuntil(WAIT_FOR)
         res = response
-        logging.debug(f"Response to 'who': {res}")
 
         writer.write(b'exit\n')
         await reader.readuntil(b'\n')

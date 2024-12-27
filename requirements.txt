@@ -25,6 +25,7 @@ requests==2.32.3
 setuptools==75.1.0
 sgmllib3k==1.0.0
 six==1.17.0
+svg.py==1.5.0
 svgwrite==1.4.3
 telnetlib3==2.0.4
 tzdata==2024.2
