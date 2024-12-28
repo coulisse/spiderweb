@@ -1,6 +1,6 @@
 ### Change log
 Date: 28/12/2024                    
-Release: v2.5.7.1
+Release: v2.5.7.2
 - Fixed Issue [#80](https://github.com/coulisse/spiderweb/issues/80)
 - Fixed Issue [#79](https://github.com/coulisse/spiderweb/issues/79)
 
