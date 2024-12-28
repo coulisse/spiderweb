@@ -136,7 +136,7 @@ def spotquery(parameters):
         logger.debug(data)
 
         if data is None or len(data) == 0:
-            logger.warning("no data found")
+            logger.debug("no data found")
 
         payload = []
         for result in data:
@@ -203,7 +203,8 @@ def get_nonce():
 
 #check if it is a unique visitor
 def visitor_count():
-    user_ip =request.environ.get('HTTP_X_REAL_IP', request.remote_addr)   
+    user_ip = request.environ.get('HTTP_X_FORWARDED_FOR') or request.environ.get('HTTP_X_REAL_IP') or request.remote_addr
+
     if user_ip not in visits:
         visits[user_ip] = 1
     else:
