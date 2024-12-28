@@ -1,8 +1,9 @@
 ### Change log
 Date: 28/12/2024                    
-Release: v2.5.7.2
+Release: v2.5.7.3
 - Fixed Issue [#80](https://github.com/coulisse/spiderweb/issues/80)
 - Fixed Issue [#79](https://github.com/coulisse/spiderweb/issues/79)
+- Ficex Security issue [81](https://github.com/coulisse/spiderweb/pull/81)
 
 ___
 
