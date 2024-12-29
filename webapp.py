@@ -201,14 +201,24 @@ def get_nonce():
     inline_script_nonce = secrets.token_hex()
     return inline_script_nonce
 
-#check if it is a unique visitor
+# Check if it is a unique visitor
 def visitor_count():
-    user_ip = request.environ.get('HTTP_X_FORWARDED_FOR') or request.environ.get('HTTP_X_REAL_IP') or request.remote_addr
+    forwarded_for = request.environ.get('HTTP_X_FORWARDED_FOR')
+    if forwarded_for:
+        # Separa gli IP e prendi il primo IP dalla lista
+        user_ip = forwarded_for.split(',')[0].strip()
+        logger.debug("Proxy found")
+        logger.debug(f"List of IP returned from proxy: {forwarded_for} ")
+    else:
+        user_ip = request.environ.get('HTTP_X_REAL_IP') or request.remote_addr
 
+    logger.debug(f"user IP: {user_ip}")
+    
     if user_ip not in visits:
         visits[user_ip] = 1
     else:
-        visits[user_ip] += 1        
+        visits[user_ip] += 1
+
 
 
 # ROUTINGS
