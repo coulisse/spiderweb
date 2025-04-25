@@ -9,7 +9,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/coulisse/spiderweb/badge/development)](https://www.codefactor.io/repository/github/coulisse/spiderweb/overview/development)
 
 
-- **Release:** v2.5.7.4
+- **Release:** v2.5.8
 - **Author:** Corrado Gerbaldo - [IU1BOW](https://www.qrz.com/db/IU1BOW)
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see [LICENSE](LICENSE) file.
@@ -19,6 +19,8 @@ ___
 **DXSpider** is a great DX Cluster software that has useful telnet interface. 
 I wrote this application in order to add a web user interface to DXSpider and show the spots collected.
 The user could see 50 spots at time and filter them by band, spotter continent and spotted continent.
+
+**NOTE:**   starting from this release it will works only from Dxspider version V1.57 build 560 or greater.
 
 For this application, I've used:
 - **Bootstrap** for stylesheet CSS

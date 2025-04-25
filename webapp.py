@@ -3,6 +3,7 @@ import flask
 from flask import request, render_template
 from flask_wtf.csrf import CSRFProtect
 from flask_minify import minify
+from datetime import datetime
 import secrets
 import json
 import threading
@@ -11,7 +12,7 @@ import logging.config
 import asyncio
 import requests
 import xmltodict
-from lib.dxtelnet import who
+from lib.dxtelnet import fetch_who_and_version
 from lib.adxo import get_adxo_events
 from lib.qry import query_manager
 from lib.cty import prefix_table
@@ -20,7 +21,7 @@ from lib.qry_builder import query_build, query_build_callsign, query_build_calls
 
 TIMER_VISIT = 1000
 TIMER_ADXO = 12 * 3600
-TIMER_WHO = 5 * 60
+TIMER_WHO = 7 * 60
 
 logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
 logger = logging.getLogger(__name__)
@@ -136,7 +137,7 @@ def spotquery(parameters):
         logger.debug(data)
 
         if data is None or len(data) == 0:
-            logger.debug("no data found")
+            logger.warning("no data found")
 
         payload = []
         for result in data:
@@ -170,29 +171,55 @@ line_graph_st = SpotsTrend(logger, qm)
 bubble_graph_hb = HourBand(logger, qm, band_frequencies)
 geo_graph_wdsl = WorldDxSpotsLive(logger, qm, pfxt)
 
+# Find who is connected to the cluster with DXSpider version (using a scheduled telnet connection)
+whoj = {"data": [], "version": "Unknown", "last_updated": "No data"}
 
-#Find who is connected to the cluster (using a scheuled telnet connection)
-whoj = {}
+import datetime
 
-import time
 def who_is_connected():
     global whoj
-    host=cfg["telnet"]["telnet_host"]
-    port=cfg["telnet"]["telnet_port"]
-    user=cfg["telnet"]["telnet_user"]
-    logger.info("refreshing list of users connected to: {}".format(host))
+    host = cfg["telnet"]["telnet_host"]
+    port = cfg["telnet"]["telnet_port"]
+    user = cfg["telnet"]["telnet_user"]
+    password = cfg["telnet"]["telnet_password"]
 
-    password=cfg["telnet"]["telnet_password"]
+    logger.info(f"Refreshing WHO list and DXSpider version from: {host}:{port}")
+
     try:
-        whoj = asyncio.run(who(host, port, user, password))
-    except Exception as e1:
-        logger.error(e1)  
-        logger.error("Error connecting to host")
+        parsed_data, dxspider_version = asyncio.run(fetch_who_and_version(host, port, user, password))
+
+        # Filter out the telnet_user from the parsed_data
+        if parsed_data:
+            whoj["data"] = [entry for entry in parsed_data if entry.get("callsign") != user]         
+        else:
+            logger.warning("WHO response was empty.")
+            whoj["data"] = []
+
+        # Check if version is valid
+        if dxspider_version and dxspider_version != "Unknown":
+            whoj["version"] = dxspider_version
+        else:
+            logger.warning("DXSpider version not found.")
+            whoj["version"] = "Unknown"
+
+        # Update last refresh time
+        whoj["last_updated"] = datetime.datetime.now(datetime.timezone.utc).strftime("%d-%b-%Y %H:%MZ")
+
+        logger.debug(f"WHO data: {whoj['data']}")
+        logger.debug(f"DXSpider version: {whoj['version']}")
+        logger.debug(f"Last updated: {whoj['last_updated']}")
+
+    except Exception as e:
+        logger.error(f"Error connecting to host {host}:{port} - {e}")
+        whoj["data"] = []
+        whoj["version"] = "Error fetching version"
+        whoj["last_updated"] = "Connection error"
+
     finally:
         threading.Timer(TIMER_WHO, who_is_connected).start()
-        logger.debug("telnet: list of connected clusters:")
-        logger.debug(whoj)
+        logger.debug(f"Final WHO data: {whoj}")
 
+# Call function once at startup
 who_is_connected()
 
 #Calculate nonce token used in inline script and in csp "script-src" header
@@ -201,25 +228,14 @@ def get_nonce():
     inline_script_nonce = secrets.token_hex()
     return inline_script_nonce
 
-# Check if it is a unique visitor
+#check if it is a unique visitor
 def visitor_count():
-    forwarded_for = request.environ.get('HTTP_X_FORWARDED_FOR')
-    if forwarded_for:
-        # Separa gli IP e prendi il primo IP dalla lista
-        user_ip = forwarded_for.split(',')[0].strip()
-        logger.debug("Proxy found")
-        logger.debug(f"List of IP returned from proxy: {forwarded_for} ")
-    else:
-        user_ip = request.environ.get('HTTP_X_REAL_IP') or request.remote_addr
-
-    logger.debug(f"user IP: {user_ip}")
-    
+#   user_ip =request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+    user_ip = request.environ.get('HTTP_X_FORWARDED_FOR')or request.environ.get('HTTP_X_REAL_IP') or request.remote_addr
     if user_ip not in visits:
         visits[user_ip] = 1
     else:
         visits[user_ip] += 1
-
-
 
 # ROUTINGS
 @app.route("/spotlist", methods=["POST"])
@@ -292,16 +308,19 @@ def world_data():
 
 @app.route("/plots.html")
 def plots():
+    global whoj
     response = flask.Response(
         render_template(
             "plots.html",
-            inline_script_nonce=get_nonce(),          
+            inline_script_nonce=get_nonce(),
             mycallsign=cfg["mycallsign"],
-            telnet=cfg["telnet"]["telnet_host"]+":"+cfg["telnet"]["telnet_port"],
+            telnet=f"{cfg['telnet']['telnet_host']}:{cfg['telnet']['telnet_port']}",
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
-            visits=len(visits),                     
-            who=whoj,
+            visits=len(visits),
+            who=whoj.get("data", []),
+            last_updated=whoj.get("last_updated", "No data"),
+            dxspider_version=whoj.get("version", "Unknown"),
             continents=continents_cq,
             bands=band_frequencies,
         )
@@ -504,4 +523,6 @@ def add_security_headers(resp):
     #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-sedfGFG32xs';\
     #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-"+inline_script_nonce+"';\
 if __name__ == "__main__":
-   app.run(host="0.0.0.0")
+    # Run the who_is_connected() function at startup
+    who_is_connected()
+    app.run(host="0.0.0.0")

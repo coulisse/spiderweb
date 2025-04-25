@@ -17,8 +17,8 @@
 	<link rel="apple-touch-icon" href="/static/images/icons/icon-apple.png">
 	<link rel="manifest" href="/static/pwa/manifest.webmanifest">
 
-	<link rel="preload" href="/static/css/rel/style.min.css" as="style">
-	<link rel="stylesheet" href="/static/css/rel/style.min.css">
+	<link rel="preload" href="/static/css/dev/style.css" as="style">
+	<link rel="stylesheet" href="/static/css/dev/style.css">
 		
 
 	<!-- lazy loading of cloudflare -->
@@ -141,16 +141,16 @@
 			&nbsp;
 			<a href="https://github.com/coulisse/spiderweb/" target="blank" rel="noopener">IU1BOW - Spiderweb</a>
 			&nbsp;
-			<span id="version">v2.5.7.4</span>
+			<span id="version">v2.5.8</span>
 		</div>					
 	</footer>
-	<script async src="static/js/rel/load-sw.min.js"></script>
+	<script async src="static/js/dev/load-sw.js"></script>
 	<script nonce="{{ inline_script_nonce }}">
 		{% block app_data %}
 		var my_callsign = '{{mycallsign}}';
 		{% endblock app_data %}
 	</script>
-	<script defer src="static/js/rel/common.min.js"></script>
+	<script defer src="static/js/dev/common.js"></script>
 
 	<!-- Bootstrap -->
 	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"
@@ -164,7 +164,7 @@
 		referrerpolicy="no-referrer"></script>
 
 	{% block app_scripts %}
-	<script async src="static/js/rel/callsign_search.min.js"></script>
+	<script async src="static/js/dev/callsign_search.js"></script>
 	{% endblock app_scripts %}
 	{% block inline_scripts %}
 	{% endblock inline_scripts %}

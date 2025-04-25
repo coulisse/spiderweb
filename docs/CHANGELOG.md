@@ -1,17 +1,21 @@
 ### Change log
+Date: 25/04/2025                    
+Release: v2.5.8
+
+**NOTE** this version works only from dxspider version 560+
+- Fixed Security Issue [#92](https://github.com/coulisse/spiderweb/pull/92)
+- Fixed Issue [#88](https://github.com/coulisse/spiderweb/issues/88)   **MANY THANKS** [@s50u](https://github.com/s50u)
+___
 Date: 29/12/2024                    
 Release: v2.5.7.4
 - Fixed Issue [#80](https://github.com/coulisse/spiderweb/issues/80)
 - Fixed Issue [#79](https://github.com/coulisse/spiderweb/issues/79)
 - Ficex Security issue [81](https://github.com/coulisse/spiderweb/pull/81)
-
 ___
-
 Date: 27/12/2024               
 Release: v2.5.7
 - Improved telnet connection - Issue [#69](https://github.com/coulisse/spiderweb/issues/69)
 ___
-
 Date: 08/12/2024 
 Release: v2.5.6
 - porting to python 3.13
@@ -27,7 +31,6 @@ Release: v2.5.5
 - fixed somr security issues
 - updated flag-icon css 
 - fixed issue reading corrupted visit json
-
 ___
 Date: 31/03/2024 
 Release: v2.5.4
