@@ -116,6 +116,48 @@ Make your choice:
 
 ```
 
+**Telnet** (for the list of connected users/nodes)
+
+With other necessary settings set up your spiderweb *telnet_user* Callsign and *telnet_password* in /cfg/config.json
+```console
+"telnet_host": "mysite",  
+"telnet_port": "7300",  
+"telnet_user": "myuser_call",  
+"telnet_password": "myuser_call_password"  
+```   
+Restart of the spiderweb application is needed for the changes to take effect.  
+
+**For a user to be assigned a password**, the SYSOP needs to use the command bellow **on the DX Spider Cluster**.   
+Password is not propagated across the network for security reasons. Use the command without brackets with a strong password e.g. SET/PASSWORD AB1CD 1234  
+```console
+SET/PASSWORD <myuser_call> <myuser_call_password>
+```  
+If we isolate our spiderweb user it will be able to connect to Node but it will not broadcast anything to the network, neither PC92 nor spots or ann. Everything will stay on our node and it will show up as a connected user. Use the command without brackets e.g. SET/ISOLATE AB1CD  
+
+```console
+SET/ISOLATE <myuser_call>
+```
+
+Maybe on this occasion we set up some basic user data with SPOOF command. This command allows SYSOP to pretend that you are doing the command as the user you specify. Use your own information for "myuser_call" e.g. SPOOF AB1CD SET/NAME Spiderweb  
+```console
+SPOOF <myuser_call> SET/NAME Spiderweb  
+SPOOF <myuser_call> SET/QTH Cerkno  
+SPOOF <myuser_call> SET/QRA JN66XD  
+SPOOF <myuser_call> SET/HOME S50CLX  
+```
+
+If for some reason the password for the spiderweb user on the DX Cluster Node needs to be changed, do so with the command:  
+```console
+SPOOF <myuser_call> SET/PASSWORD  
+```
+To change the password you must enter old and a new password.  
+```console
+Enter old password: 
+Enter new password:  
+Re-enter new password:  
+Password changed  
+```
+
 ### Crontab
 Starting from version 2.4, since all activities are managed by the application, you don't need to schedule anything.
 

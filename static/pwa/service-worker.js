@@ -4,7 +4,7 @@ const CACHE_NAME = 'pwa-spiderweb_v2.5.8'
 // Dichiarazione della costante per gli URL da mettere in cache
 const URLS_TO_CACHE = [
 	'/static/images/background.webp',
-	'/static/css/dev/style.css',
+	'/static/css/rel/style.min.css',
 	'/static/images/icons/favicon.ico',
 	'/static/images/icons/icon-144x144.png',
 	'/static/images/icons/icon-152x152.png',
@@ -18,9 +18,9 @@ const URLS_TO_CACHE = [
 	'/static/images/icons/icon-96x96.png',
 	'/static/images/icons/icon-apple.png',
 	'/static/images/icons/spider_ico_master.svg',
-	'/static/js/dev/callsign_inline.js',
-	'/static/js/dev/callsign_search.js',
-	'/static/js/dev/common.js',
+	'/static/js/rel/callsign_inline.min.js',
+	'/static/js/rel/callsign_search.min.js',
+	'/static/js/rel/common.min.js',
 	'/index.html',	
 	'/plots.html',		
 	'/privacy.html',
