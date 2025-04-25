@@ -1,0 +1,24 @@
+on:
+  push:
+    branches:
+      - master  # o "main"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Read version from file
+        id: version
+        run: echo "VERSION=$(cat cfg/version.txt)" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.VERSION }}
+          name: "Release ${{ env.VERSION }}"
+          body: "Nuova release automatica generata."
+        env:
+          GITHUB_TOKEN: ${{ secrets.spiderweb_release_token }}
