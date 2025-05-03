@@ -119,11 +119,9 @@ EOF
     echo 'Indexes created in sqlite db: ' ${sqlite_db}
 fi
 
-
-
 exit  #TODO: remove exit
 #remove dump file
 rm ${mysql_dump_db}
 
-echo done
+echo 'done'
 

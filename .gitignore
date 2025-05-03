@@ -1,5 +1,7 @@
 .old
+.old1
 .old2
+.old3
 config.json
 __init__/
 __pycache__/
@@ -7,4 +9,8 @@ __pycache__/
 *report.html
 venv/
 .idea/
-
+static/images/bandplan.svg
+cfg/bands_output.json
+cfg/modes_output.json
+scripts/bands.pl
+.bck

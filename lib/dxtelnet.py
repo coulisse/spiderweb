@@ -10,7 +10,7 @@ def parse_who(lines):
     row_headers = ("callsign", "type", "state", "started", "name", "average_rtt", "link")
     payload = []
 
-    filler =  " " * 50
+    filler = " " * 50
     # Skip the first line (header) and the last line (prompt)
     for i in range(1, len(lines) - 1):
         line = lines[i].lstrip()

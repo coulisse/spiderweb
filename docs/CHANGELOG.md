@@ -1,8 +1,16 @@
 ### Change log
+Date: 26/04/2025                    
+Release: v2.6
+
+- upgraded flag icon css
+- upgraded tom select css and js
+- added bandplan: remember you have to configure menu (starting from template)
+- added utility for confert DXSpider bandplan to Spiderweb configuration
+___
 Date: 25/04/2025                    
 Release: v2.5.8
 
-**NOTE** this version works only from dxspider version 560+
+**NOTE** starting from this version works only from dxspider version 560+
 - Fixed Security Issue [#92](https://github.com/coulisse/spiderweb/pull/92)
 - Fixed Issue [#88](https://github.com/coulisse/spiderweb/issues/88)   **MANY THANKS** [@s50u](https://github.com/s50u)
 ___

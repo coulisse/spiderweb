@@ -3,7 +3,7 @@ import flask
 from flask import request, render_template
 from flask_wtf.csrf import CSRFProtect
 from flask_minify import minify
-from datetime import datetime
+import datetime
 import secrets
 import json
 import threading
@@ -18,6 +18,7 @@ from lib.qry import query_manager
 from lib.cty import prefix_table
 from lib.plot_data_provider import ContinentsBandsProvider, SpotsPerMounthProvider, SpotsTrend, HourBand, WorldDxSpotsLive
 from lib.qry_builder import query_build, query_build_callsign, query_build_callsing_list
+from lib.bandplan import BandPlan
 
 TIMER_VISIT = 1000
 TIMER_ADXO = 12 * 3600
@@ -35,10 +36,16 @@ app.config.update(
     SESSION_COOKIE_HTTPONLY=False,
     SESSION_COOKIE_SAMESITE="Strict",
 )
-version_file = open("cfg/version.txt", "r")
-app.config["VERSION"] = version_file.read().strip()
-version_file.close
-logger.info("Version:"+app.config["VERSION"] )
+
+try:
+    version_file = open("cfg/version.txt", "r")
+    app.config["VERSION"] = version_file.read().strip()
+    version_file.close    
+except Exception as e:
+    logger.error("Error reading version file")
+
+
+logger.info("Version: "+app.config["VERSION"] )
 
 inline_script_nonce = ""
 
@@ -69,6 +76,17 @@ with open("cfg/bands.json") as json_bands:
 # load mode file
 with open("cfg/modes.json") as json_modes:
     modes_frequencies = json.load(json_modes)
+
+# creating bandplan
+bandplan_file = 'static/images/bandplan.svg'
+
+try:
+    bp=BandPlan(logger,band_frequencies, modes_frequencies, 'static/images/icons/icon-512x512-transparent.png')
+    bp.create(bandplan_file)
+    del bp
+except Exception as e:
+    logger.error("Bandplan not created")
+    logger.error(e)
 
 # load continents-cq file
 with open("cfg/continents.json") as json_continents:
@@ -174,7 +192,6 @@ geo_graph_wdsl = WorldDxSpotsLive(logger, qm, pfxt)
 # Find who is connected to the cluster with DXSpider version (using a scheduled telnet connection)
 whoj = {"data": [], "version": "Unknown", "last_updated": "No data"}
 
-import datetime
 
 def who_is_connected():
     global whoj
@@ -359,6 +376,22 @@ def propagation():
     #response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     return response
 
+@app.route("/bandplan.html",  methods=["GET"])
+def bandplan():
+    response = flask.Response(
+        render_template(
+            "bandplan.html",
+            inline_script_nonce=get_nonce(),          
+            mycallsign=cfg["mycallsign"],
+            telnet=cfg["telnet"]["telnet_host"]+":"+cfg["telnet"]["telnet_port"],
+            mail=cfg["mail"],
+            menu_list=cfg["menu"]["menu_list"],
+            visits=len(visits), 
+            bandplan_svg=bandplan_file                    
+        )
+    )
+    return response    
+
 @app.route("/cookies.html", methods=["GET"])
 def cookies():
     response = flask.Response(
@@ -523,6 +556,4 @@ def add_security_headers(resp):
     #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-sedfGFG32xs';\
     #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-"+inline_script_nonce+"';\
 if __name__ == "__main__":
-    # Run the who_is_connected() function at startup
-    who_is_connected()
     app.run(host="0.0.0.0")

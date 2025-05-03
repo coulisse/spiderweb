@@ -1,0 +1,323 @@
+__author__ = "S50U - Danilo / IU1BOW - Corrado"
+import re
+import json
+import datetime
+from datetime import datetime, timezone
+import os
+import sys
+import logging
+import shutil
+
+logging.basicConfig(level=logging.INFO,format='[%(levelname)s] %(message)s')
+
+ALL_MODE = 'all'
+bands_output="../cfg/bands.json"
+modes_output="../cfg/modes.json"
+
+#below is the correspondence between the band names of dxspider and those of spiderweb
+spiderweb_band_name = {
+    "160m": "160",
+    "80m": "80",
+    "60m": "60",
+    "40m": "40",
+    "30m": "30",
+    "20m": "20",
+    "17m": "17",
+    "15m": "15",
+    "12m": "12",
+    "10m": "10",
+    "6m": "6",
+    "2m": "VHF",
+    "70cm": "UHF",
+    "23cm": "UHF",
+    "13cm": "SHF",
+    "9cm": "SHF",
+    "6cm": "SHF",
+    "3cm": "SHF",
+}
+
+#below is the correspondence between the mode names of dxspider and those of spiderweb
+spiderweb_mode_name = {
+    "cw": "cw",    
+    "data": "digi",
+    "sstv": "digi",
+    "rtty": "digi",
+    "ft8": "digi-ft8",
+    "ft4": "digi-ft4",
+    "ssb": "phone",
+    "space": ALL_MODE,
+    "sat": ALL_MODE
+}
+
+def process_modes(mode_id, freqs, modes_data_raw):
+    """Processes frequencies and adds them to modes_data_raw for a given mode_id."""
+    for i in range(0, len(freqs), 2):
+        if i + 1 < len(freqs):
+            modes_data_raw.setdefault(mode_id, []).append({
+                "min": freqs[i],
+                "max": freqs[i+1]
+            })
+
+def modes_filter(modes_data_raw):
+    """Filters and merges overlapping/adjacent frequency ranges in modes_data_raw."""
+    logging.info("filtering modes")
+    filtered_modes_data_raw = {}
+    for mode_id, freqs in modes_data_raw.items():
+        if not freqs:
+            filtered_modes_data_raw[mode_id] = []
+            continue
+
+        # Sort the frequency ranges by their minimum values.
+        sorted_freqs = sorted(freqs, key=lambda x: x['min'])
+        merged_freqs = [sorted_freqs[0]]  # Start with the first range
+
+        for current_range in sorted_freqs[1:]:
+            last_merged_range = merged_freqs[-1]
+            if current_range['min'] <= last_merged_range['max']:
+                # Overlapping or adjacent:  Merge with the last merged range.
+                merged_freqs[-1] = {
+                    "min": last_merged_range['min'],
+                    "max": max(last_merged_range['max'], current_range['max'])
+                }
+            else:
+                # Not overlapping or adjacent: Add as a new range.
+                merged_freqs.append(current_range)
+        filtered_modes_data_raw[mode_id] = merged_freqs
+    return filtered_modes_data_raw
+
+def bands_filter(bands_data):
+    """Process raw band data to find the overall min and max for each band"""
+    logging.info("filtering bands")
+    for band_name, ranges in bands_data_raw.items():
+        min_freqs = [r[0] for r in ranges]
+        max_freqs = [r[1] for r in ranges]
+        bands_data[band_name] = (min(min_freqs), max(max_freqs))
+    return bands_data
+
+def sort_dict(guide_dict, dict_to_sort):
+    logging.info("sorting")
+    sorted_dict = {}
+    for dict_id in guide_dict.values():
+        try:
+            sorted_dict[dict_id] = dict_to_sort[dict_id]
+        except KeyError as ke:
+            pass #to ignore all mode
+
+    return sorted_dict
+
+def save_json_file(data, output_path):
+    """Saves a Python dictionary to a JSON file.
+
+    If the destination file already exists, it copies it by adding
+    a suffix with the current date and time (.bck) before saving the new file.
+
+    Args:
+        data (dict): The Python dictionary to save.
+        output_path (str): The full path of the output JSON file.
+    """
+    logging.info(f"Saving JSON file: {output_path}")
+    backup_path = None
+
+    try:
+        if os.path.exists(output_path):
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            backup_path = f"{output_path}_{timestamp}.bck"
+            try:
+                shutil.copy2(output_path, backup_path)
+                logging.info(f"Existing file copied to: {backup_path}")
+            except Exception as e:
+                logging.error(f"Error copying file '{output_path}' to '{backup_path}': {e}")
+                logging.error("Failed to create backup copy. New file might overwrite the existing one.")
+                raise
+
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+        logging.info(f"Successfully saved file to: {output_path}")
+
+    except Exception as e:
+        logging.error(f"Error during file saving: {output_path}")
+        logging.error(e)
+        raise
+
+#----- MAIN ---
+YELLOW = '\033[33m'
+RED_BOLD = '\033[1;91m'
+RESET = '\033[0m'
+BOLD = '\033[1m'
+
+print(f"{YELLOW}")
+print(f"═══════════════════════════════════════════════════════════════")
+print(f"           ✨ DISCLAIMER: PLEASE READ CAREFULLY! ✨")
+print(f"═══════════════════════════════════════════════════════════════")
+print(f"Please use this script {BOLD}{YELLOW}at your own risk{RESET}{YELLOW}. The author is not \nresponsible for any data loss, system damage, or other issues \nthat may arise from its use.{RESET}\n")
+print(f"{BOLD}Description: {RESET}")
+print(f"This script converts amateur radio band and mode data from the format used by Dxspider to the JSON format required by Spiderweb. It diligently reads a Dxspider configuration file, carefully extracts the band and mode information, transforms it into a well-structured format, and then saves it into two distinct JSON files. For your peace of mind, the script first {BOLD}creates a backup copy{RESET} of your existing files before proceeding to overwrite them. Finally, it generates a comprehensive report summarizing the outcome of this conversion process.\n")
+
+print(f"{RED_BOLD}{BOLD}🚨 WARNING: THIS IS A CRITICAL OPERATION! 🚨{RESET}")
+print(f"{RED_BOLD}This operation will {BOLD}PERMANENTLY REPLACE{RESET}{RED_BOLD} your {BOLD}bands.json and {BOLD}modes.json files.{RESET}\n")
+
+while True:
+    file_path = input(f"Enter the Dxspinder band.pl full path, (e.g. /home/sysop/spider/data/bands.pl) or type '{BOLD}exit{RESET}' to quit: ")
+
+    # Expand the user's home directory if the path starts with '~'
+    bands_pl = os.path.expanduser(file_path.strip())
+
+    if bands_pl.lower() == 'exit':
+        print("Exiting the operation.\n")
+        sys.exit()
+    elif os.path.exists(bands_pl):
+        print()
+        break
+    else:
+        print(f"The file '{bands_pl}' does not exist. Please enter a valid path.\n")
+
+# --- 1. Read the bands.pl file ---
+with open(bands_pl, "r", encoding="utf-8") as f:
+    content = f.read()
+
+# --- 2. Extract all bands and all mods ---
+band_entries = re.findall(r"'([^']+)'\s*=>\s*bless\s*\(\s*\{(.*?)\}\s*,\s*'Bands'\s*\)", content, re.DOTALL)
+
+bands_data_raw = {} # Temporarily store all band definitions
+modes_data_raw = {} # mode -> list of {min, max}
+
+not_converted_bands = []
+not_converted_modes = []
+
+logging.info("processing bands and modes")
+for band_name, band_content in band_entries:
+
+    #replacing band names with spiderweb names
+    try:
+        logging.debug("replacing band name: %s==>%s", band_name, spiderweb_band_name[band_name])
+        band_name =  spiderweb_band_name[band_name]
+        modes = re.findall(r"(\w+)\s*=>\s*\[(.*?)\]", band_content, re.DOTALL)
+        band_min = None
+        band_max = None
+        for mode_name, freqs_raw in modes:
+            freqs = [float(f.strip()) for f in freqs_raw.split(",") if f.strip()]
+
+            if mode_name.lower() == 'band':
+                #get band freq limits
+                if freqs:
+                    band_min = min(freqs)
+                    band_max = max(freqs)
+            else:
+                #get mode freq limits
+                mode_id = mode_name.lower()
+                try:
+                    logging.debug("replacing mode id %s==>%s", mode_id, spiderweb_mode_name[mode_id])
+                    mode_id = spiderweb_mode_name[mode_id]
+
+                    if mode_id == ALL_MODE:
+                        #here we manage modes like "space", where all modes are permitted
+                        mode_values = set(spiderweb_mode_name.values())
+                        mode_values.discard(ALL_MODE) 
+                        for current_mode_id in mode_values:
+                            process_modes(current_mode_id, freqs, modes_data_raw)
+                    else:
+                        process_modes(mode_id, freqs, modes_data_raw)
+
+                except KeyError as e:
+                    logging.debug ("mode not converted: %s", mode_id)
+                    if mode_id not in not_converted_modes:
+                        not_converted_modes.append(mode_id)
+
+        if band_min is not None and band_max is not None:
+            bands_data_raw.setdefault(band_name, []).append((band_min, band_max))
+
+    except KeyError as e:
+        logging.debug ("band not converted: %s", band_name)
+        if band_name not in not_converted_bands:
+            not_converted_bands.append(band_name)        
+
+# --- 3. Prepare BANDS JSON structures ---
+# Process raw band data to find the overall min and max for each band
+bands_filtered = bands_filter(bands_data_raw)
+bands_data = sort_dict(spiderweb_band_name,bands_filtered)
+
+comments = {
+    "creation_date": datetime.now(timezone.utc).isoformat(),
+    "script used": os.path.basename(__file__),
+    "input_file": bands_pl,
+}
+
+logging.info("creating bands json")
+bands_json = {
+    "_comments": comments,
+    "bands": [
+        {"id": band_id, "min": band_range[0], "max": band_range[1]}
+        for band_id, band_range in bands_data.items()
+    ]
+}
+
+# --- 3. Prepare MODES JSON structures ---
+modes_filtered = modes_filter(modes_data_raw)
+modes_data = sort_dict(spiderweb_mode_name,modes_filtered)
+
+logging.info("creating modes json")
+modes_json = {
+    "_comments": comments,
+    "modes": [
+        {"id": mode_id, "freq": freqs}
+        for mode_id, freqs in modes_data.items()   # Filter modes_data_raw here,removing overlappings
+    ]
+}
+
+# --- 4. Save JSON files ---
+save_json_file(bands_json, bands_output)
+save_json_file(modes_json, modes_output)
+
+# --- 6. CREATE MATCH REPORT ---
+band_ranges = {band_id: (band_min, band_max) for band_id, (band_min, band_max) in bands_data.items()}
+mode_coverage = {}
+
+for mode_id, freq_list in modes_data_raw.items():
+    for freq_range in freq_list:
+        for band_id, (band_min, band_max) in band_ranges.items():
+            if freq_range['min'] >= band_min and freq_range['max'] <= band_max:
+                mode_coverage.setdefault(band_id, set()).add(mode_id)
+
+# We find bands without mods
+bands_without_modes = [band_id for band_id in bands_data if band_id not in mode_coverage]
+
+# We find modes that are not covered in any band
+all_modes_used = set()
+for modes in mode_coverage.values():
+    all_modes_used.update(modes)
+
+modes_without_band = [mode_id for mode_id in modes_data_raw if mode_id not in all_modes_used]
+
+# Let's prepare a report
+report = {
+    "total_output_bands": len(bands_data),
+    "total_output_modes": len(modes_data),
+    "not_converted_bands": not_converted_bands,    
+    "not_converted_modes": not_converted_modes,
+    "bands_without_modes": bands_without_modes,
+    "modes_without_band": modes_without_band
+}
+
+print("\n==== REPORT ====")
+print(json.dumps(report, indent=2))
+print("================")
+
+# Ask the user if they want to save the report
+while True:
+    save_report = input("Do you want to save the report to a file? (y/n): ")
+    if save_report.lower() == 'y':
+        report_filename = input("Enter the name of the report file (e.g., report.json): ")
+        try:
+            # Assuming 'report' is defined elsewhere in your code
+            with open(report_filename, "w", encoding="utf-8") as f:
+                json.dump(report, f, indent=2)
+            print(f"Report saved to {report_filename}")
+            break  # Exit the loop after successful save
+        except Exception as e:
+            logging.error(f"Error saving report: {e}")
+            print("An error occurred while saving the report. Please try again.")
+    elif save_report.lower() == 'n':
+        print("Report not saved.")
+        break  # Exit the loop if the user chooses not to save
+    else:
+        print("Invalid input. Please enter 'y' for yes or 'n' for no.")

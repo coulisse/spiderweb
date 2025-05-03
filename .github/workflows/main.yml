@@ -1,7 +1,22 @@
+# GitHub Actions Workflow - Automatic Release Creation
+#
+# This workflow is triggered on every push to the "master" branch.
+# It performs the following actions:
+# . Checks out the repository.
+# . Extracts the changelog for the latest release.
+# . Reads the version from the cfg/version.txt file.
+# . Creates a new GitHub release using softprops/action-gh-release.
+#
+# Ensure that the correct GitHub token is available in secrets.
+
+
 on:
-  push:
+  push:    
     branches:
-      - master  # o "main"
+      - master  
+
+permissions:
+  contents: write
 
 jobs:
   release:
@@ -10,15 +25,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Extract latest changelog
+        run: awk 'NR>3 && /^___/{exit} NR>3' docs/CHANGELOG.md > /tmp/latest_changelog.txt
+
       - name: Read version from file
         id: version
         run: echo "VERSION=$(cat cfg/version.txt)" >> $GITHUB_ENV
+
+      - name: Show release version
+        run: echo "Release version --> '${{ env.VERSION }}'"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.VERSION }}
           name: "Release ${{ env.VERSION }}"
-          body: "Nuova release automatica generata."
+          body_path:  "/tmp/latest_changelog.txt"
         env:
           GITHUB_TOKEN: ${{ secrets.spiderweb_release_token }}
+
+      - name: Cleanup temporary file
+        run: rm /tmp/latest_changelog.txt

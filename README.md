@@ -9,7 +9,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/coulisse/spiderweb/badge/development)](https://www.codefactor.io/repository/github/coulisse/spiderweb/overview/development)
 
 
-- **Release:** v2.5.8
+- **Release:** v2.6
 - **Author:** Corrado Gerbaldo - [IU1BOW](https://www.qrz.com/db/IU1BOW)
 - **Mail:** <corrado.gerbaldo@gmail.com>
 - **Licensing:** Gpl V3.0 see [LICENSE](LICENSE) file.
@@ -20,7 +20,7 @@ ___
 I wrote this application in order to add a web user interface to DXSpider and show the spots collected.
 The user could see 50 spots at time and filter them by band, spotter continent and spotted continent.
 
-**NOTE:**   starting from this release it will works only from Dxspider version V1.57 build 560 or greater.
+**NOTE:**   starting from the version 2.5.8 it will works only from Dxspider version V1.57 build 560 or greater.
 
 For this application, I've used:
 - **Bootstrap** for stylesheet CSS
@@ -83,6 +83,36 @@ foo@bar:~$ pip install Flask-minify
 foo@bar:~$ pip install flask_wtf
 foo@bar:~$ pip install pandas
 ```
+
+*3.3) Optional: Utility for band and mode management (dx2sp\_bands-modes.py)*
+
+If you would reconfigure your band.json and mode.json basing on your DXSpider frequencie, you can use this utility, otherwhise you can use the standard "factory" frequencies.
+
+A Python utility (`dx2sp_bands-modes.py`) in scripts folders is available to convert amateur radio band and mode data from a Dxspider configuration file to the JSON format used by Spiderweb (`bands.json` and `modes.json`).
+
+**Warning:** Using this utility will overwrite the existing `bands.json` and `modes.json` files. Before proceeding, a backup copy of the original files will be created.
+
+To run the utility:
+
+1.  Ensure you have Python 3 installed.
+2.  Save the `dx2sp_bands-modes.py` file in the main Spiderweb directory.
+3.  Open a terminal in the main Spiderweb directory.
+4.  Execute the command:
+    ```console
+    python3 dx2sp_bands-modes.py
+    ```
+5.  Follow the on-screen instructions, entering the full path to your Dxspider `bands.pl` file (for example, `/home/sysop/spider/data/bands.pl`).
+
+The utility will perform the following operations:
+
+  * Reads the Dxspider `bands.pl` file.
+  * Extracts band and mode information.
+  * Converts it to the JSON format used by Spiderweb.
+  * Saves the converted data to the `cfg/bands.json` and `cfg/modes.json` files, creating a backup of the existing files first.
+  * Generates a report on the conversion process, indicating any unconverted bands or modes.
+  * Offers the option to save the report to a file.
+
+**Note:** You may need to adapt the default band and mode mappings within the Python script (`SPIDERWEB_BAND_MAP` and `SPIDERWEB_MODE_MAP`) if your Dxspider configuration uses different names or definitions.
 
 ### Configuration  
 
@@ -291,14 +321,12 @@ You can retrive some information about a callsign with **callsign**; for example
 │   │   ├── dev   . development css not minifyed/uglifyed
 │   │   └── rel   . release css minifyed/uglifyed  (do not change these files)
 │   ├── data      . application data (world.json)
-│   ├── html      .
-│   │   └── dev   . html templates used for build release static html (for offline)
-│   │   └── rel   . release static html (for offline)
 │   ├── images    . static images
 │   │   └── icons . static icons
-│   └── js        .
-│       ├── dev   . development js not minifyed/uglifyed
-│       └── rel   . release js minifyed/uglifyed  (do not change these files)
+│   ├─── js       .
+│   |   ├── dev   . development js not minifyed/uglifyed
+│   |   └── rel   . release js minifyed/uglifyed  (do not change these files)
+|   └─── pwa      . power web application in order to run offline      
 └── templates     . html templates used by python flask for serve the web pages
 ```
 **Application description**
@@ -319,7 +347,7 @@ For lint javascript I use **ESLint**. You can install with ```npm init @eslint/c
 Prerequisites:
 | **Component** | **Description**                                    | **Install command**             |
 |---------------|----------------------------------------------------|---------------------------------|
-| npm           | a packet manager for javascript                                  |  depend on your os. See [official page](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) |
+| npm           | a packet manager for javascript                    |  depend on your os. See [official page](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) |
 | uglify-js     | npm component used to minify and uglify javascript | ```npm install uglify-js -g```  |
 | css-minify    | npm component used to minify css                   | ```npm install css-minify -g``` |
 | staticjinja   | python module used to create static page starting from a html template                | ```pip install staticjinja```   |
