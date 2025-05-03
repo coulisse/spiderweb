@@ -204,7 +204,7 @@ class BandPlan:
 
             logo_size = 24 * 3 #same title height
             png_data_uri = f"data:image/png;base64,{encoded_string}"
-            logo = dwg.image(href=png_data_uri, insert=("10%", f"{self.margin_top  - logo_size / 1.5}"), size=(logo_size, logo_size))
+            logo = dwg.image(href=png_data_uri, insert=("10%", f"{self.margin_top - logo_size / 1.5}"), size=(logo_size, logo_size))
             font_group.add(logo)
         except FileNotFoundError:
             self.logger.warning(self.logo_path + " not found!")

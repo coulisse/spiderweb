@@ -376,7 +376,7 @@ def propagation():
     #response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     return response
 
-@app.route("/bandplan.html",  methods=["GET"])
+@app.route("/bandplan.html", methods=["GET"])
 def bandplan():
     response = flask.Response(
         render_template(
@@ -556,4 +556,5 @@ def add_security_headers(resp):
     #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-sedfGFG32xs';\
     #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-"+inline_script_nonce+"';\
 if __name__ == "__main__":
+    who_is_connected()
     app.run(host="0.0.0.0")
