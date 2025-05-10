@@ -12,6 +12,7 @@ import logging.config
 import asyncio
 import requests
 import xmltodict
+import os
 from lib.dxtelnet import fetch_who_and_version
 from lib.adxo import get_adxo_events
 from lib.qry import query_manager
@@ -38,7 +39,7 @@ app.config.update(
 )
 
 try:
-    version_file = open("cfg/version.txt", "r")
+    version_file = open("static/version.txt", "r")
     app.config["VERSION"] = version_file.read().strip()
     version_file.close    
 except Exception as e:
@@ -78,7 +79,7 @@ with open("cfg/modes.json") as json_modes:
     modes_frequencies = json.load(json_modes)
 
 # creating bandplan
-bandplan_file = 'static/images/bandplan.svg'
+bandplan_file = 'static/bandplan.svg'
 
 try:
     bp=BandPlan(logger,band_frequencies, modes_frequencies, 'static/images/icons/icon-512x512-transparent.png')
@@ -93,7 +94,7 @@ with open("cfg/continents.json") as json_continents:
     continents_cq = json.load(json_continents)
 
 #load visitour counter
-visits_file_path = "data/visits.json"
+visits_file_path = "cfg/visits.json"
 try:
     # Load the visits data from the file
     with open(visits_file_path) as json_visitors:
@@ -192,6 +193,15 @@ geo_graph_wdsl = WorldDxSpotsLive(logger, qm, pfxt)
 # Find who is connected to the cluster with DXSpider version (using a scheduled telnet connection)
 whoj = {"data": [], "version": "Unknown", "last_updated": "No data"}
 
+async def _fetch_who_and_version_with_timeout(host, port, user, password, timeout=5):
+    try:
+        return await asyncio.wait_for(fetch_who_and_version(host, port, user, password), timeout=timeout)
+    except asyncio.TimeoutError:
+        logger.warning(f"Timeout of {timeout} seconds reached during the connection to {host}:{port}")
+        return None, None
+    except Exception as e:
+        logger.error(f"Error in fetch with timeout: {e}")
+        return None, None
 
 def who_is_connected():
     global whoj
@@ -199,27 +209,27 @@ def who_is_connected():
     port = cfg["telnet"]["telnet_port"]
     user = cfg["telnet"]["telnet_user"]
     password = cfg["telnet"]["telnet_password"]
+    timeout_seconds = 10  # Imposta il timeout desiderato
 
-    logger.info(f"Refreshing WHO list and DXSpider version from: {host}:{port}")
+    logger.info(f"Refreshing WHO list and DXSpider version from: {host}:{port} with timeout {timeout_seconds} seconds")
 
     try:
-        parsed_data, dxspider_version = asyncio.run(fetch_who_and_version(host, port, user, password))
+        parsed_data, dxspider_version = asyncio.run(
+            _fetch_who_and_version_with_timeout(host, port, user, password, timeout_seconds)
+        )
 
-        # Filter out the telnet_user from the parsed_data
         if parsed_data:
-            whoj["data"] = [entry for entry in parsed_data if entry.get("callsign") != user]         
+            whoj["data"] = [entry for entry in parsed_data if entry.get("callsign") != user]
         else:
-            logger.warning("WHO response was empty.")
+            logger.warning("WHO response was empty or timed out.")
             whoj["data"] = []
 
-        # Check if version is valid
         if dxspider_version and dxspider_version != "Unknown":
             whoj["version"] = dxspider_version
         else:
-            logger.warning("DXSpider version not found.")
+            logger.warning("DXSpider version not found or timed out.")
             whoj["version"] = "Unknown"
 
-        # Update last refresh time
         whoj["last_updated"] = datetime.datetime.now(datetime.timezone.utc).strftime("%d-%b-%Y %H:%MZ")
 
         logger.debug(f"WHO data: {whoj['data']}")

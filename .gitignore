@@ -12,5 +12,6 @@ venv/
 static/images/bandplan.svg
 cfg/bands_output.json
 cfg/modes_output.json
+data/visit.json
 scripts/bands.pl
 .bck
