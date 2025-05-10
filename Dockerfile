@@ -10,7 +10,9 @@ RUN apt-get update && \
     mariadb-client && \
     locale-gen en_US.UTF-8 && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
-    dpkg-reconfigure --frontend=noninteractive locales
+    dpkg-reconfigure --frontend=noninteractive locales \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* 
 
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en

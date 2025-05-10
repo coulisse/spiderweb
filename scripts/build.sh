@@ -168,7 +168,7 @@ fi
 echo 'get version from version.txt'
 #if ! ver=$(git describe --tags --abbrev=0)
 #if ! ver=$(git tag|tail -1)
-if ! ver=$(head -1 ../cfg/version.txt)
+if ! ver=$(head -1 ../static/version.txt)
 then
 	echo 'ERROR on get version'
 	exit 10

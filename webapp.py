@@ -27,7 +27,7 @@ TIMER_ADXO = 12 * 3600
 TIMER_WHO = 7 * 60
 
 LOCAL = 'local'
-LOCAL_CFG =  LOCAL+'/cfg'
+LOCAL_CFG = LOCAL+'/cfg'
 LOCAL_DATA = LOCAL+'/data'
 
 def check_create_path(path):
@@ -86,8 +86,7 @@ else:
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True    
 
- #TODO: manage file not found
-# load config file
+ # load config file
 try:
     with open(LOCAL_CFG+"/config.json") as json_data_file:
         cfg = json.load(json_data_file)
@@ -157,7 +156,7 @@ else:
     enable_cq_filter = "N"
 
 # define country table for search info on callsigns
-pfxt = prefix_table(LOCAL_DATA+"/cty_wt_mod.dat",  LOCAL_CFG + "/country.json")  
+pfxt = prefix_table(LOCAL_DATA+"/cty_wt_mod.dat", LOCAL_CFG + "/country.json")  
 
 # create object query manager
 qm = query_manager()
