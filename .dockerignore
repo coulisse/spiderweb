@@ -1,0 +1,10 @@
+cfg/
+.git
+log/*
+!log/
+data/*
+!data/
+__pycache__
+.git
+.old
+local/

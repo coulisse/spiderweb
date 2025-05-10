@@ -12,6 +12,7 @@ import logging.config
 import asyncio
 import requests
 import xmltodict
+import os
 from lib.dxtelnet import fetch_who_and_version
 from lib.adxo import get_adxo_events
 from lib.qry import query_manager
@@ -19,14 +20,38 @@ from lib.cty import prefix_table
 from lib.plot_data_provider import ContinentsBandsProvider, SpotsPerMounthProvider, SpotsTrend, HourBand, WorldDxSpotsLive
 from lib.qry_builder import query_build, query_build_callsign, query_build_callsing_list
 from lib.bandplan import BandPlan
+from lib.util import copytree
 
 TIMER_VISIT = 1000
 TIMER_ADXO = 12 * 3600
 TIMER_WHO = 7 * 60
 
-logging.config.fileConfig("cfg/webapp_log_config.ini", disable_existing_loggers=True)
+LOCAL = 'local'
+LOCAL_CFG =  LOCAL+'/cfg'
+LOCAL_DATA = LOCAL+'/data'
+
+def check_create_path(path):
+    if not os.path.exists(path):
+        print(f"path %s not found",path)
+        try:
+            os.makedirs(path)
+        except Exception as e:
+            print("Error creating path")
+            print(e)
+            raise
+        finally:
+            return 1
+    else:
+        return 0
+    
+if check_create_path(LOCAL_CFG) == 1:
+    copytree('cfg',LOCAL_CFG)
+
+logging.config.fileConfig(LOCAL_CFG+"/webapp_log_config.ini", disable_existing_loggers=True)
 logger = logging.getLogger(__name__)
 logger.info("Starting SPIDERWEB")
+
+check_create_path(LOCAL_DATA)
 
 app = flask.Flask(__name__)
 
@@ -38,12 +63,11 @@ app.config.update(
 )
 
 try:
-    version_file = open("cfg/version.txt", "r")
+    version_file = open("static/version.txt", "r")
     app.config["VERSION"] = version_file.read().strip()
     version_file.close    
 except Exception as e:
     logger.error("Error reading version file")
-
 
 logger.info("Version: "+app.config["VERSION"] )
 
@@ -62,23 +86,27 @@ else:
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True    
 
-
+ #TODO: manage file not found
 # load config file
-with open("cfg/config.json") as json_data_file:
-    cfg = json.load(json_data_file)
+try:
+    with open(LOCAL_CFG+"/config.json") as json_data_file:
+        cfg = json.load(json_data_file)
+except FileNotFoundError as e:
+    logger.error("config.json not found in: "+LOCAL_CFG)
+    exit(1)
 
 logger.debug("CFG:")
 logger.debug(cfg)
 # load bands file
-with open("cfg/bands.json") as json_bands:
+with open(LOCAL_CFG+"/bands.json") as json_bands:
     band_frequencies = json.load(json_bands)
 
 # load mode file
-with open("cfg/modes.json") as json_modes:
+with open(LOCAL_CFG+"/modes.json") as json_modes:
     modes_frequencies = json.load(json_modes)
 
 # creating bandplan
-bandplan_file = 'static/images/bandplan.svg'
+bandplan_file = 'static/bandplan.svg'
 
 try:
     bp=BandPlan(logger,band_frequencies, modes_frequencies, 'static/images/icons/icon-512x512-transparent.png')
@@ -89,11 +117,11 @@ except Exception as e:
     logger.error(e)
 
 # load continents-cq file
-with open("cfg/continents.json") as json_continents:
+with open(LOCAL_CFG+"/continents.json") as json_continents:
     continents_cq = json.load(json_continents)
 
 #load visitour counter
-visits_file_path = "data/visits.json"
+visits_file_path = LOCAL_DATA+"/visits.json"
 try:
     # Load the visits data from the file
     with open(visits_file_path) as json_visitors:
@@ -122,7 +150,6 @@ def schedule_save():
 # Start scheduling
 schedule_save()
 
-
 # read and set default for enabling cq filter
 if cfg.get("enable_cq_filter"):
     enable_cq_filter = cfg["enable_cq_filter"].upper()
@@ -130,7 +157,7 @@ else:
     enable_cq_filter = "N"
 
 # define country table for search info on callsigns
-pfxt = prefix_table()
+pfxt = prefix_table(LOCAL_DATA+"/cty_wt_mod.dat",  LOCAL_CFG + "/country.json")  
 
 # create object query manager
 qm = query_manager()
@@ -192,6 +219,15 @@ geo_graph_wdsl = WorldDxSpotsLive(logger, qm, pfxt)
 # Find who is connected to the cluster with DXSpider version (using a scheduled telnet connection)
 whoj = {"data": [], "version": "Unknown", "last_updated": "No data"}
 
+async def _fetch_who_and_version_with_timeout(host, port, user, password, timeout=5):
+    try:
+        return await asyncio.wait_for(fetch_who_and_version(host, port, user, password), timeout=timeout)
+    except asyncio.TimeoutError:
+        logger.warning(f"Timeout of {timeout} seconds reached during the connection to {host}:{port}")
+        return None, None
+    except Exception as e:
+        logger.error(f"Error in fetch with timeout: {e}")
+        return None, None
 
 def who_is_connected():
     global whoj
@@ -199,27 +235,27 @@ def who_is_connected():
     port = cfg["telnet"]["telnet_port"]
     user = cfg["telnet"]["telnet_user"]
     password = cfg["telnet"]["telnet_password"]
+    timeout_seconds = 10  # Imposta il timeout desiderato
 
-    logger.info(f"Refreshing WHO list and DXSpider version from: {host}:{port}")
+    logger.info(f"Refreshing WHO list and DXSpider version from: {host}:{port} with timeout {timeout_seconds} seconds")
 
     try:
-        parsed_data, dxspider_version = asyncio.run(fetch_who_and_version(host, port, user, password))
+        parsed_data, dxspider_version = asyncio.run(
+            _fetch_who_and_version_with_timeout(host, port, user, password, timeout_seconds)
+        )
 
-        # Filter out the telnet_user from the parsed_data
         if parsed_data:
-            whoj["data"] = [entry for entry in parsed_data if entry.get("callsign") != user]         
+            whoj["data"] = [entry for entry in parsed_data if entry.get("callsign") != user]
         else:
-            logger.warning("WHO response was empty.")
+            logger.warning("WHO response was empty or timed out.")
             whoj["data"] = []
 
-        # Check if version is valid
         if dxspider_version and dxspider_version != "Unknown":
             whoj["version"] = dxspider_version
         else:
-            logger.warning("DXSpider version not found.")
+            logger.warning("DXSpider version not found or timed out.")
             whoj["version"] = "Unknown"
 
-        # Update last refresh time
         whoj["last_updated"] = datetime.datetime.now(datetime.timezone.utc).strftime("%d-%b-%Y %H:%MZ")
 
         logger.debug(f"WHO data: {whoj['data']}")
@@ -287,7 +323,6 @@ def spots():
     )
     return response
 
-
 #Show all dx spot callsigns 
 def get_dx_calls():
     
@@ -321,7 +356,7 @@ def root():
 #used for plots
 @app.route("/world.json")  
 def world_data():
-    return app.send_static_file("data/world.json")
+    return app.send_static_file(LOCAL_DATA+"/world.json")
 
 @app.route("/plots.html")
 def plots():
