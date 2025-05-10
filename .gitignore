@@ -15,3 +15,5 @@ cfg/modes_output.json
 data/visit.json
 scripts/bands.pl
 .bck
+Dockerfile.old
+local/

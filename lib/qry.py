@@ -18,13 +18,13 @@ class query_manager:
 
     def __init__(self):
         try:
-            with open("../cfg/config.json") as json_data_file:
+            with open("../local/cfg/config.json") as json_data_file:
                 cfg = json.load(json_data_file)
         except Exception as e1:
             logging.info(e1)
             logging.info("trying with other path...")
             try:
-                with open("cfg/config.json") as json_data_file:
+                with open("local/cfg/config.json") as json_data_file:
                     cfg = json.load(json_data_file)
             except Exception as e2:
                 logging.error(e2)
