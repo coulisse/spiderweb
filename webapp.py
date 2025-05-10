@@ -29,6 +29,7 @@ TIMER_WHO = 7 * 60
 LOCAL = 'local'
 LOCAL_CFG = LOCAL+'/cfg'
 LOCAL_DATA = LOCAL+'/data'
+LOCAL_LOG = LOCAL+'/log'
 
 def check_create_path(path):
     if not os.path.exists(path):
@@ -46,6 +47,8 @@ def check_create_path(path):
     
 if check_create_path(LOCAL_CFG) == 1:
     copytree('cfg',LOCAL_CFG)
+
+check_create_path(LOCAL_LOG)
 
 logging.config.fileConfig(LOCAL_CFG+"/webapp_log_config.ini", disable_existing_loggers=True)
 logger = logging.getLogger(__name__)

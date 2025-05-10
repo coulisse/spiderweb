@@ -1,11 +1,15 @@
 ### Change log
-Date: 03/05/2025                    
+Date: 10/05/2025                    
 Release: v2.6
 
 - upgraded flag icon css
 - upgraded tom select css and js
 - added bandplan: remember you have to configure menu (starting from template). Issue: [#47](https://github.com/coulisse/spiderweb/issues/47)
 - added utility for convert DXSpider bandplan to Spiderweb configuration
+- version.txt moved from cfg to static folder
+- modified path management. Non you don't have to modify cfg folder. When spiderweb start, it copy cfg to local/cfg and you can change config.json inside local/cfg
+- Also when it start, it create a local/data folder (if it not exist). In this folder you can find your data (like visits.json)
+- Added Dokerfile and .dockerignor in order to dockerize the application. You can dockerize it using scripts/docker_build.sh
 ___
 Date: 25/04/2025                    
 Release: v2.5.8

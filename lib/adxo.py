@@ -107,7 +107,7 @@ def get_adxo_events():
                 events.append(prop)
                 logging.debug("Event added")
             else:
-                logging.debug("Discarted because not in current date range")
+                logging.debug("Discarded because not in current date range")
 
         logging.debug(events)
         if len(events) > 0:
