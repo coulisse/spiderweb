@@ -1,5 +1,5 @@
 ### Change log
-Date: 10/05/2025                    
+Date: 17/05/2025                    
 Release: v2.6
 
 - upgraded flag icon css
@@ -10,6 +10,7 @@ Release: v2.6
 - modified path management. Non you don't have to modify cfg folder. When spiderweb start, it copy cfg to local/cfg and you can change config.json inside local/cfg
 - Also when it start, it create a local/data folder (if it not exist). In this folder you can find your data (like visits.json)
 - Added Dokerfile and .dockerignor in order to dockerize the application. You can dockerize it using scripts/docker_build.sh
+- upgrade flask to fixed security issue [#34](https://github.com/coulisse/spiderweb/security/dependabot/34)
 ___
 Date: 25/04/2025                    
 Release: v2.5.8

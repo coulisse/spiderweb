@@ -316,7 +316,7 @@ You can retrive some information about a callsign with **callsign**; for example
 ├── local         . local created at the first startup
 │   ├── cfg       . created copying cfg files form /cfg folder. put here your config.json with your setting
 │   ├── data      . created at the first startup. Your data like visits.json will put here
-    └── log       . application log
+│   └── log       . application log
 ├── scripts       . utility scripts for testing, build etc.
 ├── static        . static files css, js, data, html, images etc.
 │   ├── css       .
