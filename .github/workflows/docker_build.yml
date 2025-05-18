@@ -9,7 +9,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  IMAGE_TAG: spiderweb-$(date +%s)
 
 jobs:
 
@@ -21,6 +20,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Read version from file and adjust tag if development branch
+      run: |
+        VERSION=$(cat static/version.txt)
+        if [[ "${{ github.ref }}" == "refs/heads/development" ]]; then
+          VERSION="${VERSION}_dev"
+        fi
+        echo "IMAGE_TAG=$VERSION" >> $GITHUB_ENV
 
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
