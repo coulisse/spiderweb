@@ -1,5 +1,5 @@
 ### Change log
-Date: 17/05/2025                    
+Date: 20/05/2025                    
 Release: v2.6
 
 - upgraded flag icon css
