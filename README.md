@@ -296,7 +296,7 @@ For SSL, I'm using [Cloudflare](https://www.cloudflare.com/). This is a free ser
 
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker logo" width="96">
 
-Read the [Docker usage and MariaDB connection guide](docs/docker.md).
+Read the [Docker usage guide](docs/docker.md).
 
 ### Mobile
 This application is designed for desktop and mobile phone. It is a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app), so it could be installed and used like an app on mobile.
