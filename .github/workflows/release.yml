@@ -9,6 +9,7 @@
 #
 # Ensure that the correct GitHub token is available in secrets.
 
+name: Release creation CI
 
 on:
   push:    
