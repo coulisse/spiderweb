@@ -292,6 +292,11 @@ For SSL, I'm using [Cloudflare](https://www.cloudflare.com/). This is a free ser
 
 **Index on MySQL:** if you would to increase speed on callsign search, you could define some index on the table 'spot'. You can see more details on ["create_mysql_index.sql"](scripts/create_mysql_index.sql)
 
+### Docker
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker logo" width="96">
+
+Read the [Docker usage and MariaDB connection guide](docs/docker.md).
 
 ### Mobile
 This application is designed for desktop and mobile phone. It is a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app), so it could be installed and used like an app on mobile.
