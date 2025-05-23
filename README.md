@@ -116,7 +116,7 @@ The utility will perform the following operations:
 
 ### Configuration  
 
-In the path `spiderweb/cfg/` rename `config.json.template` in `config.json`:
+In the path `spiderweb/local/cfg/` rename `config.json.template` in `config.json`:
 ```console
 foo@bar:~$ mv config.json.template config.json
 ```
@@ -146,9 +146,23 @@ Make your choice:
 
 ```
 
+**The `local` Directory**
+
+The `local` directory is used to keep configuration, runtime data, and logs separate from the source code.  
+This structure allows you to personalize your installation and update the project without losing your local data or settings.
+
+- **local/cfg**: contains configuration files.  
+  On first run, if the `local` folder (or `local/cfg`) does not exist, it is created automatically and the main `cfg` folder is copied into `local/cfg`.  
+  **You do not need to modify the main `cfg` folder:** all customizations should be made only in `local/cfg`, since the main one is only used as an initial template.
+- **local/data**: contains data generated and persisted by the application (e.g., visits.json and other runtime files).
+- **local/log**: contains the application’s log files.
+
+- When you update the project, the `local` folder is not overwritten, so you can keep your custom settings and data.
+
+
 **Telnet** (for the list of connected users/nodes)
 
-With other necessary settings set up your spiderweb *telnet_user* Callsign and *telnet_password* in /cfg/config.json
+With other necessary settings set up your spiderweb *telnet_user* Callsign and *telnet_password* in /local/cfg/config.json
 ```console
 "telnet_host": "mysite",  
 "telnet_port": "7300",  
@@ -187,10 +201,6 @@ Enter new password:
 Re-enter new password:  
 Password changed  
 ```
-
-### Crontab
-Starting from version 2.4, since all activities are managed by the application, you don't need to schedule anything.
-
 
 ### Run test
 Now, you can run your web application with the following command:
