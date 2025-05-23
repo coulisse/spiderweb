@@ -44,11 +44,7 @@ For more details or additional options, check the [`scripts/docker_build.sh`](ht
 To start the container, you **must** mount the `local` folder from your host into the container and **must expose the port actually used by the WSGI server** (for example, 8080):
 
 ```console
-docker run -d \
-  --name spiderweb \
-  -p 8080:8080 \
-  -v $(pwd)/local:/app/local \
-  ghcr.io/coulisse/spiderweb:latest
+docker run -d --name spiderweb -p 8080:8080 -v $(pwd)/local:/app/local ghcr.io/coulisse/spiderweb:latest
 ```
 
 - `-p 8080:8080` exposes port 8080 of the container on the same port of the host. **Be sure to use the port configured in the WSGI server inside the container!**
