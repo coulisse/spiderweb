@@ -1,0 +1,128 @@
+{% extends "_base.html" %}
+
+<head>
+    {% block title %}
+    <title>DX Cluster from IU1BOW: Administration</title>
+    {% endblock %}
+    {% block head %}
+    {{ super() }}
+    {% endblock %}
+</head>
+{% block titles %}
+<h1 class="display-4 text-white">ADMINISTRATION PANEL</h1>
+<p class="lead text-light">DX Cluster User Management</p>
+{% endblock %}
+{% block filters %}
+{% endblock %}
+{% block contents %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-8">
+           
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="mb-3">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else ('success' if category == 'success' else 'info') }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <h2 class="mt-5 mb-3">Add New User</h2>
+            <form method="POST" action="{{ url_for('admin_add_user') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                {{ add_user_form.hidden_tag() }}
+                <div class="mb-3">
+                    {{ add_user_form.username.label(class="form-label") }}
+                    {{ add_user_form.username(class="form-control") }}
+                    {% for error in add_user_form.username.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    {{ add_user_form.password.label(class="form-label") }}
+                    {{ add_user_form.password(class="form-control") }}
+                    {% for error in add_user_form.password.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    {{ add_user_form.profile.label(class="form-label") }}
+                    {{ add_user_form.profile(class="form-select") }}
+                    {% for error in add_user_form.profile.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Add User</button>
+            </form>
+
+            <h2 class="mt-5 mb-3">Existing Users</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Profile</th>
+                            <th>Password Change Required</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.profile }}</td>
+                            <td>{{ 'Yes' if user.must_change_password else 'No' }}</td>
+                            <td>
+                                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                    <form method="POST" action="{{ url_for('admin_update_user_password', username=user.username) }}" class="flex-grow-1">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                        <div class="input-group">
+                                            <input type="password" name="new_password_for_{{ user.username }}" placeholder="New Password" required minlength="6" class="form-control form-control-sm">
+                                            <button type="submit" class="btn btn-warning btn-sm">Change Pass</button>
+                                        </div>
+                                    </form>
+                                    <form method="POST" action="{{ url_for('admin_update_user_profile', username=user.username) }}" class="flex-grow-1">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                        <div class="input-group">
+                                            <select name="new_profile_for_{{ user.username }}" class="form-select form-select-sm">
+                                                <option value="user" {% if user.profile == 'user' %}selected{% endif %}>Standard User</option>
+                                                <option value="editor" {% if user.profile == 'editor' %}selected{% endif %}>Editor</option>
+                                                <option value="admin" {% if user.profile == 'admin' %}selected{% endif %}>Administrator</option>
+                                            </select>
+                                            <button type="submit" class="btn btn-info btn-sm">Change Profile</button>
+                                        </div>
+                                    </form>
+                                    {% if user.username != current_user.username %}
+                                    <form method="POST" action="{{ url_for('admin_delete_user', username=user.username) }}" class="delete-user-form flex-grow-1">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                        <button type="submit" class="btn btn-danger btn-sm w-100">Delete</button>
+                                    </form>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-between">
+                <p><a href="{{ url_for('spots') }}" class="btn btn-secondary">Back to Home</a></p>
+                <p><a href="{{ url_for('logout') }}" class="btn btn-outline-secondary">Logout</a></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block app_data %}
+{% endblock %}
+{% block app_scritps %}
+    {{ super() }} 
+    <script async src="static/js/dev/admin_scripts.js'"></script>
+{% endblock %}

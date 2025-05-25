@@ -1,0 +1,57 @@
+{% extends "_base.html" %}
+
+<head>
+    {% block title %}
+    <title>DX Cluster from IU1BOW: Login</title>
+    {% endblock %}
+    {% block head %}
+    {{ super() }}
+    {% endblock %}
+</head>
+{% block titles %}
+<h1 class="display-4 text-white">Login</h1>
+<p class="lead text-light">WEB DX Cluster For HAM Radio</p>
+{% endblock %}
+{% block filters %}
+{% endblock %}
+{% block contents %}
+<div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4 px-2">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="mt-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <form method="POST" class="mt-4 p-4 border rounded shadow-sm bg-light">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <div class="mb-3">
+            {{ form.username.label(class="form-label") }}
+            {{ form.username(class="form-control", size=32) }}
+            {% for error in form.username.errors %}
+                <div class="text-danger small mt-1">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control", size=32) }}
+            {% for error in form.password.errors %}
+                <div class="text-danger small mt-1">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="d-grid gap-2">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+    <p class="mt-3 text-center text-muted">Utente di default: admin / password (cambia subito!)</p>
+</div>
+{% endblock %}
+{% block app_data %}
+{% endblock %}
+{% block app_scritps %}
+{% endblock %}

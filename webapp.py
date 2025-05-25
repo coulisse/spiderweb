@@ -1,6 +1,6 @@
 __author__ = "IU1BOW - Corrado"
 import flask
-from flask import request, render_template
+from flask import request, render_template, redirect, url_for, flash # Added redirect, url_for, flash
 from flask_wtf.csrf import CSRFProtect
 from flask_minify import minify
 import datetime
@@ -21,6 +21,12 @@ from lib.plot_data_provider import ContinentsBandsProvider, SpotsPerMounthProvid
 from lib.qry_builder import query_build, query_build_callsign, query_build_callsing_list
 from lib.bandplan import BandPlan
 from lib.util import copytree
+
+# Start additions for Login and Administration
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from lib.user_manager import UserManager, User
+from lib.forms import LoginForm, ChangePasswordForm, UserForm  
+# End additions for Login and Administration
 
 TIMER_VISIT = 1000
 TIMER_ADXO = 12 * 3600
@@ -61,7 +67,7 @@ app = flask.Flask(__name__)
 app.config["SECRET_KEY"] = secrets.token_hex(16)
 app.config.update(
     SESSION_COOKIE_SECURE=True,
-    SESSION_COOKIE_HTTPONLY=False,
+    SESSION_COOKIE_HTTPONLY=False, # To access the cookie from JS (if needed)
     SESSION_COOKIE_SAMESITE="Strict",
 )
 
@@ -237,7 +243,7 @@ def who_is_connected():
     port = cfg["telnet"]["telnet_port"]
     user = cfg["telnet"]["telnet_user"]
     password = cfg["telnet"]["telnet_password"]
-    timeout_seconds = 10  # Imposta il timeout desiderato
+    timeout_seconds = 10  # Set the desired timeout
 
     logger.info(f"Refreshing WHO list and DXSpider version from: {host}:{port} with timeout {timeout_seconds} seconds")
 
@@ -292,6 +298,207 @@ def visitor_count():
     else:
         visits[user_ip] += 1
 
+# --- Start Login and Administration Integration ---
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login' # The view to redirect to for login
+login_manager.login_message = "Please log in to access this page."
+login_manager.login_message_category = "info"
+
+user_manager = UserManager() # Initialize the user manager
+
+# Check and create the default admin user if it doesn't exist
+DEFAULT_ADMIN_USERNAME = 'admin'
+DEFAULT_ADMIN_PASSWORD = 'password' # This password MUST be changed
+
+# Instead of @app.before_first_request, we check and create the admin user here.
+# This runs when the module is imported, which happens when 'flask run' is used.
+admin_user = user_manager.get_user_by_username(DEFAULT_ADMIN_USERNAME)
+if not admin_user:
+    logger.warning(f"Creating default administrator user '{DEFAULT_ADMIN_USERNAME}'.")
+    success, message = user_manager.add_user(
+        DEFAULT_ADMIN_USERNAME, DEFAULT_ADMIN_PASSWORD, "admin", must_change_password=True
+    )
+    if success:
+        logger.info(message)
+    else:
+        logger.error(f"Error creating default admin user: {message}")
+
+@login_manager.user_loader
+def load_user(user_id):
+    return user_manager.get_user_by_id(user_id)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        user = user_manager.verify_user(username, password)
+        if user:
+            login_user(user)
+            logger.info(f"User {username} logged in successfully.")
+            flash('Login successful!', 'success')
+            
+            # Redirect to password change if required
+            if user.must_change_password:
+                return redirect(url_for('change_password'))
+            
+            next_page = request.args.get('next')
+            return redirect(next_page or url_for('spots')) # Redirect to the requested page or home
+        else:
+            flash('Login failed. Check your username and password.', 'danger')
+            logger.warning(f"Login attempt failed for username: {username}")
+    return render_template('login.html', form=form, inline_script_nonce=get_nonce())
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('spots'))
+
+@app.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        old_password = form.old_password.data
+        new_password = form.new_password.data
+
+        # Verify old password
+        if not user_manager.verify_user(current_user.username, old_password):
+            flash('Old password is not correct.', 'danger')
+            return render_template('change_password.html', form=form, inline_script_nonce=get_nonce())
+        
+        # Update password
+        success, message = user_manager.update_user_password(current_user.username, new_password, set_must_change_false=True)
+        if success:
+            flash('Password changed successfully! Please log in again with your new password.', 'success')
+            logout_user() # Force logout to make them log in with new password
+            return redirect(url_for('login'))
+        else:
+            flash(f'Error changing password: {message}', 'danger')
+            logger.error(f"Password change error for {current_user.username}: {message}")
+            
+    return render_template('change_password.html', form=form, inline_script_nonce=get_nonce())
+
+@app.route('/admin', methods=['GET'])
+@login_required
+def admin_dashboard():
+    # Check user role: only admins can access
+    if current_user.profile != 'admin':
+        flash('You do not have permission to access this page.', 'danger')
+        logger.warning(f"Unauthorized access to admin dashboard for user: {current_user.username}")
+        return redirect(url_for('spots')) # Or an error page
+    
+    users = user_manager.get_all_users()
+    add_user_form = UserForm() # Form for adding/modifying users
+    
+    return render_template('admin.html', 
+                           inline_script_nonce=get_nonce(), 
+                           users=users,
+                           add_user_form=add_user_form,
+                           mycallsign=cfg["mycallsign"], # Pass necessary data to the template
+                           menu_list=cfg["menu"]["menu_list"],
+                           visits=len(visits))
+
+@app.route('/admin/add_user', methods=['POST'])
+@login_required
+def admin_add_user():
+    if current_user.profile != 'admin':
+        flash('You do not have permission to perform this action.', 'danger')
+        return redirect(url_for('admin_dashboard'))
+
+    form = UserForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        profile = form.profile.data
+        
+        success, message = user_manager.add_user(username, password, profile)
+        if success:
+            flash(f'User "{username}" added successfully.', 'success')
+        else:
+            flash(f'Error: {message}', 'danger')
+            logger.error(f"Error adding user {username} by admin: {message}")
+    else:
+        # If validation fails, flash form errors
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"Error in field '{field}': {error}", 'danger')
+    
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/delete_user/<username>', methods=['POST'])
+@login_required
+def admin_delete_user(username):
+    if current_user.profile != 'admin':
+        flash('You do not have permission to perform this action.', 'danger')
+        return redirect(url_for('admin_dashboard'))
+
+    if username == current_user.username:
+        flash('You cannot delete your own account!', 'danger')
+        return redirect(url_for('admin_dashboard'))
+
+    success, message = user_manager.delete_user(username)
+    if success:
+        flash(f'User "{username}" deleted successfully.', 'success')
+    else:
+        flash(f'Error: {message}', 'danger')
+        logger.error(f"Error deleting user {username} by admin: {message}")
+    
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/update_user_password/<username>', methods=['POST'])
+@login_required
+def admin_update_user_password(username):
+    if current_user.profile != 'admin':
+        flash('You do not have permission to perform this action.', 'danger')
+        return redirect(url_for('admin_dashboard'))
+    
+    # This requires a separate form or sending the password via AJAX/form
+    # For simplicity, here I assume the password is passed as part of the form request
+    # In a real application, you would use a dedicated form.
+    new_password = request.form.get('new_password_for_' + username)
+    
+    if new_password:
+        success, message = user_manager.update_user_password(username, new_password, set_must_change_false=False)
+        if success:
+            flash(f'Password for "{username}" updated successfully.', 'success')
+        else:
+            flash(f'Error updating password: {message}', 'danger')
+            logger.error(f"Error updating password for {username} by admin: {message}")
+    else:
+        flash('New password not provided.', 'danger')
+    
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/update_user_profile/<username>', methods=['POST'])
+@login_required
+def admin_update_user_profile(username):
+    if current_user.profile != 'admin':
+        flash('You do not have permission to perform this action.', 'danger')
+        return redirect(url_for('admin_dashboard'))
+    
+    new_profile = request.form.get('new_profile_for_' + username) # Name of the field in the form
+    
+    if new_profile:
+        success, message = user_manager.update_user_profile(username, new_profile)
+        if success:
+            flash(f'Profile for "{username}" updated successfully to "{new_profile}".', 'success')
+        else:
+            flash(f'Error updating profile: {message}', 'danger')
+            logger.error(f"Error updating profile for {username} by admin: {message}")
+    else:
+        flash('New profile not provided.', 'danger')
+        
+    return redirect(url_for('admin_dashboard'))
+
+# --- End Login and Administration Integration ---
+
+
 # ROUTINGS
 @app.route("/spotlist", methods=["POST"])
 @csrf.exempt
@@ -321,6 +528,7 @@ def spots():
             continents=continents_cq,
             bands=band_frequencies,
             dx_calls=get_dx_calls(),
+            current_user=current_user # Pass the current_user object to the template
         )
     )
     return response
@@ -346,7 +554,6 @@ def get_dx_calls():
         return []
     
 
-
 @app.route("/service-worker.js", methods=["GET"])
 def sw():
     return app.send_static_file("pwa/service-worker.js")
@@ -358,7 +565,7 @@ def root():
 #used for plots
 @app.route("/world.json")  
 def world_data():
-    return app.send_static_file(LOCAL_DATA+"/world.json")
+    return app.send_static_file("data/world.json")
 
 @app.route("/plots.html")
 def plots():
@@ -377,6 +584,7 @@ def plots():
             dxspider_version=whoj.get("version", "Unknown"),
             continents=continents_cq,
             bands=band_frequencies,
+            current_user=current_user # Pass the current_user object to the template
         )
     )
     return response
@@ -406,7 +614,8 @@ def propagation():
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
             visits=len(visits),                     
-            solar_data=solar_data
+            solar_data=solar_data,
+            current_user=current_user # Pass the current_user object to the template
         )
     )
 
@@ -424,7 +633,8 @@ def bandplan():
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
             visits=len(visits), 
-            bandplan_svg=bandplan_file                    
+            bandplan_svg=bandplan_file,
+            current_user=current_user # Pass the current_user object to the template
         )
     )
     return response    
@@ -439,7 +649,8 @@ def cookies():
             telnet=cfg["telnet"]["telnet_host"]+":"+cfg["telnet"]["telnet_port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
-            visits=len(visits),                     
+            visits=len(visits),   
+            current_user=current_user # Pass the current_user object to the template                  
         )
     )
     return response
@@ -454,7 +665,8 @@ def privacy():
             telnet=cfg["telnet"]["telnet_host"]+":"+cfg["telnet"]["telnet_port"],
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
-            visits=len(visits),                     
+            visits=len(visits),    
+            current_user=current_user # Pass the current_user object to the template                 
         )
     )
     return response
@@ -482,6 +694,7 @@ def callsign():
             adxo_events=adxo_events,
             continents=continents_cq,
             bands=band_frequencies,
+            current_user=current_user # Pass the current_user object to the template
         )
     )
     return response
@@ -580,7 +793,7 @@ def add_security_headers(resp):
     font-src 'self' cdn.jsdelivr.net;\
     frame-src 'self';\
     frame-ancestors 'none';\
-    form-action 'none';\
+    form-action 'self';\
     img-src 'self' data: cdnjs.cloudflare.com sidc.be prop.kc2g.com ;\
     manifest-src 'self';\
     media-src 'self';\
