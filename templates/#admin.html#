@@ -122,8 +122,7 @@
 {% endblock %}
 {% block app_data %}
 {% endblock %}
-{% block app_scripts %}
-{% endblock %}
-{% block inline_scripts %}
-    <script defer src="static/js/dev/admin_scripts.js"></script>
+{% block app_scritps %}
+    {{ super() }} 
+    <script async src="static/js/rel/admin_scripts.min.js'"></script>
 {% endblock %}
