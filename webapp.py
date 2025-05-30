@@ -83,15 +83,20 @@ else:
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True    
 
- # load config file
-try:
-    with open(LOCAL_CFG+"/config.json") as json_data_file:
-        cfg = json.load(json_data_file)
-except FileNotFoundError as e:
-    logger.error("config.json not found in: "+LOCAL_CFG)
-    #exit(1)
-    cfg = None
+# load config file
 
+def load_config():
+    try:
+        with open(LOCAL_CFG+"/config.json") as json_data_file:
+            cfg = json.load(json_data_file)
+    except FileNotFoundError as e:
+        logger.error("config.json not found in: "+LOCAL_CFG)
+        try: #fallback on template
+            with open(LOCAL_CFG+"/config.json.template") as json_data_file:
+                cfg = json.load(json_data_file)
+        except:
+            cfg = None
+    return cfg
     
 def save_config(new_cfg_data):
     try:
@@ -102,6 +107,7 @@ def save_config(new_cfg_data):
         logger.error(f"Error saving configuration: {e}")
         return False
 
+cfg = load_config()
 logger.debug("CFG:")
 logger.debug(cfg)
 # load bands file
@@ -169,7 +175,7 @@ if cfg is not None:
 pfxt = prefix_table(LOCAL_DATA+"/cty_wt_mod.dat", LOCAL_CFG + "/country.json")  
 
 # create object query manager
-qm = query_manager()
+qm = query_manager(cfg)
 
 # the main query to show spots
 # it gets url parameter in order to apply the build the right query
@@ -405,6 +411,7 @@ def admin_dashboard():
     add_user_form = UserForm() # Form for adding/modifying users
     
     if cfg is None:
+        #TODO: load template
         mycallsign="Init mode"
         menu_list=[]
     else:

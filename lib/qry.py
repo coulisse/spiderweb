@@ -16,37 +16,22 @@ logging.basicConfig(
 class query_manager:
     # connection definition
 
-    def __init__(self):
+    def __init__(self,xxx):
         self.__data = dict()
         self.__row_headers = dict()
         try:
-            with open("../local/cfg/config.json") as json_data_file:
-                cfg = json.load(json_data_file)
-        except Exception as e1:
-            logging.info(e1)
-            logging.info("trying with other path...")
-            try:
-                with open("local/cfg/config.json") as json_data_file:
-                    cfg = json.load(json_data_file)
-            except Exception as e2:
-                logging.error(e2)
-                return
-
-        logging.info("config file loaded")
-
-
-        self.__cnxpool = my.ConnectionPool(
-            host=cfg["mysql"]["host"],
-            user=cfg["mysql"]["user"],
-            passwd=cfg["mysql"]["passwd"],
-            db=cfg["mysql"]["db"],
-            pool_name="spider_pool",
-            pool_size=5,
-            pool_validation_interval=250
-        )
-
-
-        logging.info("db connection pool created")
+            self.__cnxpool = my.ConnectionPool(
+                host=cfg["mysql"]["host"],
+                user=cfg["mysql"]["user"],
+                passwd=cfg["mysql"]["passwd"],
+                db=cfg["mysql"]["db"],
+                pool_name="spider_pool",
+                pool_size=5,
+                pool_validation_interval=250
+            )
+            logging.info("db connection pool created")
+        except Exception as e:
+            logging.error("Error creating db connection")
 
     # normal query
     def qry(self, qs, prepared_statement=False):

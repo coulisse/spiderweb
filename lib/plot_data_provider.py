@@ -4,7 +4,7 @@
 __author__ = "IU1BOW - Corrado"
 import threading
 import time
-from lib.qry import query_manager
+#from lib.qry import query_manager
 import pandas as pd
 import json
 
