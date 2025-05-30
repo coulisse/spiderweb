@@ -12,7 +12,7 @@ import logging.config
 import asyncio
 import requests
 import xmltodict
-import os
+import os, shutil
 from lib.dxtelnet import fetch_who_and_version
 from lib.adxo import get_adxo_events
 from lib.qry import query_manager
@@ -20,7 +20,7 @@ from lib.cty import prefix_table
 from lib.plot_data_provider import ContinentsBandsProvider, SpotsPerMounthProvider, SpotsTrend, HourBand, WorldDxSpotsLive
 from lib.qry_builder import query_build, query_build_callsign, query_build_callsing_list
 from lib.bandplan import BandPlan
-from lib.util import copytree
+from lib.util import copytree, check_create_path
 
 # Start additions for Login and Administration
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -37,21 +37,9 @@ LOCAL_CFG = LOCAL+'/cfg'
 LOCAL_DATA = LOCAL+'/data'
 LOCAL_LOG = LOCAL+'/log'
 
-def check_create_path(path):
-    if not os.path.exists(path):
-        print(f"path %s not found",path)
-        try:
-            os.makedirs(path)
-        except Exception as e:
-            print("Error creating path")
-            print(e)
-            raise
-        finally:
-            return 1
-    else:
-        return 0
-    
+
 if check_create_path(LOCAL_CFG) == 1:
+    print("Creating local path")
     copytree('cfg',LOCAL_CFG)
 
 check_create_path(LOCAL_LOG)
@@ -101,7 +89,18 @@ try:
         cfg = json.load(json_data_file)
 except FileNotFoundError as e:
     logger.error("config.json not found in: "+LOCAL_CFG)
-    exit(1)
+    #exit(1)
+    cfg = None
+
+    
+def save_config(new_cfg_data):
+    try:
+        with open(LOCAL_CFG+"/config.json", 'w') as f:
+            json.dump(new_cfg_data, f, indent=2)
+        return True
+    except Exception as e:
+        logger.error(f"Error saving configuration: {e}")
+        return False
 
 logger.debug("CFG:")
 logger.debug(cfg)
@@ -159,10 +158,12 @@ def schedule_save():
 schedule_save()
 
 # read and set default for enabling cq filter
-if cfg.get("enable_cq_filter"):
-    enable_cq_filter = cfg["enable_cq_filter"].upper()
-else:
-    enable_cq_filter = "N"
+enable_cq_filter = "N"
+if cfg is not None:
+    if cfg.get("enable_cq_filter"):
+        enable_cq_filter = cfg["enable_cq_filter"].upper()
+    else:
+        enable_cq_filter = "N"
 
 # define country table for search info on callsigns
 pfxt = prefix_table(LOCAL_DATA+"/cty_wt_mod.dat", LOCAL_CFG + "/country.json")  
@@ -239,10 +240,17 @@ async def _fetch_who_and_version_with_timeout(host, port, user, password, timeou
 
 def who_is_connected():
     global whoj
-    host = cfg["telnet"]["telnet_host"]
-    port = cfg["telnet"]["telnet_port"]
-    user = cfg["telnet"]["telnet_user"]
-    password = cfg["telnet"]["telnet_password"]
+    if cfg is None:
+        host = ""
+        port = ""
+        user = ""
+        password = ""
+    else:
+        host = cfg["telnet"]["telnet_host"]
+        port = cfg["telnet"]["telnet_port"]
+        user = cfg["telnet"]["telnet_user"]
+        password = cfg["telnet"]["telnet_password"]
+
     timeout_seconds = 10  # Set the desired timeout
 
     logger.info(f"Refreshing WHO list and DXSpider version from: {host}:{port} with timeout {timeout_seconds} seconds")
@@ -396,12 +404,20 @@ def admin_dashboard():
     users = user_manager.get_all_users()
     add_user_form = UserForm() # Form for adding/modifying users
     
+    if cfg is None:
+        mycallsign="Init mode"
+        menu_list=[]
+    else:
+        mycallsign=cfg["mycallsign"]
+        menu_list=cfg["menu"]["menu_list"]
+
     return render_template('admin.html', 
                            inline_script_nonce=get_nonce(), 
                            users=users,
                            add_user_form=add_user_form,
-                           mycallsign=cfg["mycallsign"], # Pass necessary data to the template
-                           menu_list=cfg["menu"]["menu_list"],
+                           mycallsign=mycallsign,
+                           menu_list=menu_list,
+                           cfg=json.dumps(cfg, indent=2),
                            visits=len(visits))
 
 @app.route('/admin/add_user', methods=['POST'])
@@ -496,6 +512,39 @@ def admin_update_user_profile(username):
         
     return redirect(url_for('admin_dashboard'))
 
+@app.route('/admin/update_config', methods=['POST'])
+@login_required 
+#@admin_required # Se solo gli admin possono modificare la config
+def admin_update_config():
+    global cfg # Dichiara che userai la variabile globale 'cfg'
+
+    if request.method == 'POST':
+        configurations_data = request.form.get('configurations_data')
+
+        if not configurations_data:
+            flash('No configuration data received.', 'error')
+            return redirect(url_for('admin_dashboard'))
+
+        try:
+            # Tenta di parsare la stringa JSON
+            new_cfg = json.loads(configurations_data)
+
+            # Qui puoi aggiungere validazioni aggiuntive al JSON se necessario
+            # es: if "mycallsign" not in new_cfg: ...
+
+            if save_config(new_cfg):
+                cfg = new_cfg # Aggiorna la variabile globale cfg
+                flash('Configuration updated!', 'success')
+            else:
+                flash('Error saving configuration.', 'error')
+
+        except json.JSONDecodeError as e:
+            flash(f'Not valid JSON: {e}', 'error')
+        except Exception as e:
+            flash(f'Unexpected error: {e}', 'error')
+
+    return redirect(url_for('admin_dashboard'))
+
 # --- End Login and Administration Integration ---
 
 
@@ -504,7 +553,10 @@ def admin_update_user_profile(username):
 @csrf.exempt
 def spotlist():
     logger.debug(request.json)
-    response = flask.Response(json.dumps(spotquery(request.json)))
+    if cfg is not None:
+        response = flask.Response(json.dumps(spotquery(request.json)))
+    else:
+        response = None
     return response
    
 @app.route("/", methods=["GET"])

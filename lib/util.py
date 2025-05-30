@@ -12,3 +12,17 @@ def copytree(src, dst, symlinks=False, ignore=None):
         else:
             if item != '.gitignore':
                 shutil.copy2(s, d)
+
+def check_create_path(path):
+    if not os.path.exists(path):
+        print(f"path %s not found",path)
+        try:
+            os.makedirs(path)
+        except Exception as e:
+            print("Error creating path")
+            print(e)
+            raise
+        finally:
+            return 1
+    else:
+        return 0

@@ -17,8 +17,8 @@
 {% block contents %}
 <div class="container mt-4">
     <div class="row justify-content-center">
-        <div class="col-md-9 col-lg-8">
-           
+        <div class="col-md-9 col-lg-8"> {# Questo div contiene tutte le sezioni principali #}
+            
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     <div class="mb-3">
@@ -111,12 +111,23 @@
                 </table>
             </div>
 
+	    <h2 class="mt-5 mb-3">Configuration</h2>
+            <form method="POST" action="{{ url_for('admin_update_config') }}" class="p-4 border rounded shadow-sm bg-light">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <div class="mb-3">
+                    <label for="configurationsTextarea" class="form-label">Edit Configurations</label>
+                    <textarea class="form-control bg-dark text-white" id="configurationsTextarea" rows="10" name="configurations_data">{{cfg}}</textarea>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
             <div class="mt-4 d-flex justify-content-between">
                 <p><a href="{{ url_for('spots') }}" class="btn btn-secondary">Back to Home</a></p>
                 <p><a href="{{ url_for('logout') }}" class="btn btn-outline-secondary">Logout</a></p>
             </div>
 
-        </div>
+        </div> 
     </div>
 </div>
 {% endblock %}
@@ -125,5 +136,5 @@
 {% block app_scripts %}
 {% endblock %}
 {% block inline_scripts %}
-    <script defer src="static/js/dev/admin_scripts.js"></script>
+    <script defer src="static/js/rel/admin_scripts.min.js"></script>
 {% endblock %}

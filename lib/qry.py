@@ -17,6 +17,8 @@ class query_manager:
     # connection definition
 
     def __init__(self):
+        self.__data = dict()
+        self.__row_headers = dict()
         try:
             with open("../local/cfg/config.json") as json_data_file:
                 cfg = json.load(json_data_file)
@@ -48,6 +50,9 @@ class query_manager:
 
     # normal query
     def qry(self, qs, prepared_statement=False):
+        cnx=None
+        self.__data = dict()
+        self.__row_headers = dict()
         try:
             cnx = self.__cnxpool.get_connection()
             cursor = cnx.cursor(prepared=prepared_statement)
@@ -60,7 +65,8 @@ class query_manager:
         except Exception as e2:
             logging.error(e2)
         finally:
-            cnx.close()
+            if cnx is not None:
+                cnx.close()
 
     def get_data(self):
         return self.__data
@@ -70,10 +76,14 @@ class query_manager:
 
     # query with pandas
     def qry_pd(self, qs):
+        self.__data = pd.DataFrame()
+        self.__row_headers = dict()
+        cnx=None
         try:
             cnx = self.__cnxpool.get_connection()
             self.__data = pd.read_sql(qs, con=cnx)
         except Exception as e2:
             logging.error(e2)
         finally:
-            cnx.close()
+            if cnx is not None:
+                cnx.close()
