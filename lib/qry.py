@@ -16,7 +16,7 @@ logging.basicConfig(
 class query_manager:
     # connection definition
 
-    def __init__(self,xxx):
+    def __init__(self,cfg):
         self.__data = dict()
         self.__row_headers = dict()
         try:

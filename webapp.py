@@ -176,7 +176,6 @@ pfxt = prefix_table(LOCAL_DATA+"/cty_wt_mod.dat", LOCAL_CFG + "/country.json")
 
 # create object query manager
 qm = query_manager(cfg)
-
 # the main query to show spots
 # it gets url parameter in order to apply the build the right query
 # and apply the filter required. It returns a json with the spots
