@@ -12,7 +12,6 @@ import logging.config
 import asyncio
 import requests
 import xmltodict
-import os, shutil
 from lib.dxtelnet import fetch_who_and_version
 from lib.adxo import get_adxo_events
 from lib.qry import query_manager
@@ -99,13 +98,63 @@ def load_config():
     return cfg
     
 def save_config(new_cfg_data):
+    
     try:
         with open(LOCAL_CFG+"/config.json", 'w') as f:
             json.dump(new_cfg_data, f, indent=2)
+            logger.info("Save configuration")
         return True
     except Exception as e:
         logger.error(f"Error saving configuration: {e}")
         return False
+
+def reinit_config_objects():
+
+    global cfg, band_frequencies, modes_frequencies, continents_cq
+    global pfxt, qm
+    global heatmap_cbp, bar_graph_spm, line_graph_st, bubble_graph_hb, geo_graph_wdsl
+    logger.info("reinit")
+    # Ricarica bands
+    with open(LOCAL_CFG+"/bands.json") as json_bands:
+        band_frequencies = json.load(json_bands)
+
+    # Ricarica modes
+    with open(LOCAL_CFG+"/modes.json") as json_modes:
+        modes_frequencies = json.load(json_modes)
+
+    # Ricarica continents
+    with open(LOCAL_CFG+"/continents.json") as json_continents:
+        continents_cq = json.load(json_continents)
+
+    # Ricrea country table e query manager
+    pfxt = prefix_table(LOCAL_DATA+"/cty_wt_mod.dat", LOCAL_CFG + "/country.json")
+
+    if 'qm' in globals() and qm is not None:
+        try:
+            qm.close() # Chiama il nuovo metodo close
+            logger.info("Existing query_manager instance closed.")
+        except Exception as e:
+            logger.warning(f"Failed to gracefully close existing query_manager: {e}")
+            # Se la chiusura fallisce, potremmo tentare di eliminare la variabile
+            # anche se non è l'ideale per le risorse di rete.
+            try:
+                del qm
+                logger.info("Existing query_manager instance deleted after failed close.")
+            except NameError:
+                pass # Non esiste, ok
+            except Exception as e_del:
+                logger.error(f"Error deleting qm after failed close: {e_del}")
+
+
+    qm = query_manager(cfg)    
+    print(qm)
+
+    # Ricrea data provider per i grafici
+    heatmap_cbp = ContinentsBandsProvider(logger, qm, continents_cq, band_frequencies)
+    bar_graph_spm = SpotsPerMounthProvider(logger, qm)
+    line_graph_st = SpotsTrend(logger, qm)
+    bubble_graph_hb = HourBand(logger, qm, band_frequencies)
+    geo_graph_wdsl = WorldDxSpotsLive(logger, qm, pfxt)
 
 cfg = load_config()
 logger.debug("CFG:")
@@ -534,13 +583,10 @@ def admin_update_config():
         try:
             # Tenta di parsare la stringa JSON
             new_cfg = json.loads(configurations_data)
-
-            # Qui puoi aggiungere validazioni aggiuntive al JSON se necessario
-            # es: if "mycallsign" not in new_cfg: ...
-
             if save_config(new_cfg):
                 cfg = new_cfg # Aggiorna la variabile globale cfg
-                flash('Configuration updated!', 'success')
+                reinit_config_objects() # <--- questa linea!
+                flash('Configuration updated!', 'success')            
             else:
                 flash('Error saving configuration.', 'error')
 

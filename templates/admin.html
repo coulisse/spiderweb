@@ -90,9 +90,11 @@
                                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                                         <div class="input-group">
                                             <select name="new_profile_for_{{ user.username }}" class="form-select form-select-sm">
+                                            <!--
                                                 <option value="user" {% if user.profile == 'user' %}selected{% endif %}>Standard User</option>
-                                                <option value="editor" {% if user.profile == 'editor' %}selected{% endif %}>Editor</option>
+                                            -->
                                                 <option value="admin" {% if user.profile == 'admin' %}selected{% endif %}>Administrator</option>
+                                            
                                             </select>
                                             <button type="submit" class="btn btn-info btn-sm">Change Profile</button>
                                         </div>
@@ -136,5 +138,5 @@
 {% block app_scripts %}
 {% endblock %}
 {% block inline_scripts %}
-    <script defer src="static/js/rel/admin_scripts.min.js"></script>
+    <script defer src="static/js/dev/admin_scripts.js"></script>
 {% endblock %}
