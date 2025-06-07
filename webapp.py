@@ -1,6 +1,6 @@
 __author__ = "IU1BOW - Corrado"
 import flask
-from flask import request, render_template, redirect, url_for, flash # Added redirect, url_for, flash
+from flask import request, render_template, redirect, url_for, flash
 from flask_wtf.csrf import CSRFProtect
 from flask_minify import minify
 import datetime
@@ -12,6 +12,7 @@ import logging.config
 import asyncio
 import requests
 import xmltodict
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from lib.dxtelnet import fetch_who_and_version
 from lib.adxo import get_adxo_events
 from lib.qry import query_manager
@@ -20,87 +21,26 @@ from lib.plot_data_provider import ContinentsBandsProvider, SpotsPerMounthProvid
 from lib.qry_builder import query_build, query_build_callsign, query_build_callsing_list
 from lib.bandplan import BandPlan
 from lib.util import copytree, check_create_path
-
-# Start additions for Login and Administration
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from lib.user_manager import UserManager, User
 from lib.forms import LoginForm, ChangePasswordForm, UserForm  
-# End additions for Login and Administration
-
-TIMER_VISIT = 1000
-TIMER_ADXO = 12 * 3600
-TIMER_WHO = 7 * 60
-
-LOCAL = 'local'
-LOCAL_CFG = LOCAL+'/cfg'
-LOCAL_DATA = LOCAL+'/data'
-LOCAL_LOG = LOCAL+'/log'
-
-
-if check_create_path(LOCAL_CFG) == 1:
-    print("Creating local path")
-    copytree('cfg',LOCAL_CFG)
-
-check_create_path(LOCAL_LOG)
-
-logging.config.fileConfig(LOCAL_CFG+"/webapp_log_config.ini", disable_existing_loggers=True)
-logger = logging.getLogger(__name__)
-logger.info("Starting SPIDERWEB")
-
-check_create_path(LOCAL_DATA)
-
-app = flask.Flask(__name__)
-
-app.config["SECRET_KEY"] = secrets.token_hex(16)
-app.config.update(
-    SESSION_COOKIE_SECURE=True,
-    SESSION_COOKIE_HTTPONLY=False, # To access the cookie from JS (if needed)
-    SESSION_COOKIE_SAMESITE="Strict",
-)
-
-try:
-    version_file = open("static/version.txt", "r")
-    app.config["VERSION"] = version_file.read().strip()
-    version_file.close    
-except Exception as e:
-    logger.error("Error reading version file")
-
-logger.info("Version: "+app.config["VERSION"] )
-
-inline_script_nonce = ""
-
-csrf = CSRFProtect(app)
-
-logger.debug(app.config)
-
-if app.config["DEBUG"]:
-    minify(app=app, html=False, js=False, cssless=False)
-else:
-    minify(app=app, html=True, js=True, cssless=False)
-
-#removing whitespace from jinja2 html rendered
-app.jinja_env.trim_blocks = True
-app.jinja_env.lstrip_blocks = True    
-
-# load config file
+import lib.constants as CONST
 
 def load_config():
     try:
-        with open(LOCAL_CFG+"/config.json") as json_data_file:
+        with open(CONST.CFG_JSON) as json_data_file:
             cfg = json.load(json_data_file)
     except FileNotFoundError as e:
-        logger.error("config.json not found in: "+LOCAL_CFG)
+        logger.error("config.json not found in: "+CONST.LOCAL_CFG)
         try: #fallback on template
-            with open(LOCAL_CFG+"/config.json.template") as json_data_file:
+            with open(CONST.CFG_JSON_TEMPLATE) as json_data_file:
                 cfg = json.load(json_data_file)
         except:
             cfg = None
     return cfg
     
 def save_config(new_cfg_data):
-    
     try:
-        with open(LOCAL_CFG+"/config.json", 'w') as f:
+        with open(CONST.CFG_JSON, 'w') as f:
             json.dump(new_cfg_data, f, indent=2)
             logger.info("Save configuration")
         return True
@@ -108,35 +48,32 @@ def save_config(new_cfg_data):
         logger.error(f"Error saving configuration: {e}")
         return False
 
-def reinit_config_objects():
-
+def init_config_objects():
     global cfg, band_frequencies, modes_frequencies, continents_cq
     global pfxt, qm
     global heatmap_cbp, bar_graph_spm, line_graph_st, bubble_graph_hb, geo_graph_wdsl
     logger.info("reinit")
-    # Ricarica bands
-    with open(LOCAL_CFG+"/bands.json") as json_bands:
+    
+    #load bands
+    with open(CONST.BANDS) as json_bands:
         band_frequencies = json.load(json_bands)
 
-    # Ricarica modes
-    with open(LOCAL_CFG+"/modes.json") as json_modes:
+    #load modes
+    with open(CONST.MODES) as json_modes:
         modes_frequencies = json.load(json_modes)
 
-    # Ricarica continents
-    with open(LOCAL_CFG+"/continents.json") as json_continents:
+    #load continents
+    with open(CONST.CONTINENTS) as json_continents:
         continents_cq = json.load(json_continents)
 
-    # Ricrea country table e query manager
-    pfxt = prefix_table(LOCAL_DATA+"/cty_wt_mod.dat", LOCAL_CFG + "/country.json")
+    pfxt = prefix_table(CONST.CTY_DATA, CONST.COUNTRIES)
 
     if 'qm' in globals() and qm is not None:
         try:
-            qm.close() # Chiama il nuovo metodo close
+            qm.close()
             logger.info("Existing query_manager instance closed.")
         except Exception as e:
             logger.warning(f"Failed to gracefully close existing query_manager: {e}")
-            # Se la chiusura fallisce, potremmo tentare di eliminare la variabile
-            # anche se non è l'ideale per le risorse di rete.
             try:
                 del qm
                 logger.info("Existing query_manager instance deleted after failed close.")
@@ -145,86 +82,26 @@ def reinit_config_objects():
             except Exception as e_del:
                 logger.error(f"Error deleting qm after failed close: {e_del}")
 
-
     qm = query_manager(cfg)    
-    print(qm)
 
-    # Ricrea data provider per i grafici
+    # create data provider for graphs
     heatmap_cbp = ContinentsBandsProvider(logger, qm, continents_cq, band_frequencies)
     bar_graph_spm = SpotsPerMounthProvider(logger, qm)
     line_graph_st = SpotsTrend(logger, qm)
     bubble_graph_hb = HourBand(logger, qm, band_frequencies)
     geo_graph_wdsl = WorldDxSpotsLive(logger, qm, pfxt)
 
-cfg = load_config()
-logger.debug("CFG:")
-logger.debug(cfg)
-# load bands file
-with open(LOCAL_CFG+"/bands.json") as json_bands:
-    band_frequencies = json.load(json_bands)
-
-# load mode file
-with open(LOCAL_CFG+"/modes.json") as json_modes:
-    modes_frequencies = json.load(json_modes)
-
-# creating bandplan
-bandplan_file = 'static/bandplan.svg'
-
-try:
-    bp=BandPlan(logger,band_frequencies, modes_frequencies, 'static/images/icons/icon-512x512-transparent.png')
-    bp.create(bandplan_file)
-    del bp
-except Exception as e:
-    logger.error("Bandplan not created")
-    logger.error(e)
-
-# load continents-cq file
-with open(LOCAL_CFG+"/continents.json") as json_continents:
-    continents_cq = json.load(json_continents)
-
-#load visitour counter
-visits_file_path = LOCAL_DATA+"/visits.json"
-try:
-    # Load the visits data from the file
-    with open(visits_file_path) as json_visitors:
-        visits = json.load(json_visitors)
-except FileNotFoundError:
-    # If the file does not exist, create an empty visits dictionary
-    visits = {}
-
-except json.decoder.JSONDecodeError:
-    # If the file is not a valid json file
-    logger.warning("No valid data in visit json")
-    logger.warning("reset and creation of a new:" + visits_file_path )
-    visits = {}
-
 #save visits
 def save_visits():
-    with open(visits_file_path, "w") as json_file:
+    with open(CONST.VISITS_FILE, "w") as json_file:
         json.dump(visits, json_file)
-    logger.info('visit saved on: '+ visits_file_path)
+    logger.info('visit saved on: '+ CONST.VISITS_FILE)
 
 # saving scheduled
 def schedule_save():
     save_visits()
-    threading.Timer(TIMER_VISIT, schedule_save).start()
+    threading.Timer(CONST.TIMER_VISIT, schedule_save).start()
 
-# Start scheduling
-schedule_save()
-
-# read and set default for enabling cq filter
-enable_cq_filter = "N"
-if cfg is not None:
-    if cfg.get("enable_cq_filter"):
-        enable_cq_filter = cfg["enable_cq_filter"].upper()
-    else:
-        enable_cq_filter = "N"
-
-# define country table for search info on callsigns
-pfxt = prefix_table(LOCAL_DATA+"/cty_wt_mod.dat", LOCAL_CFG + "/country.json")  
-
-# create object query manager
-qm = query_manager(cfg)
 # the main query to show spots
 # it gets url parameter in order to apply the build the right query
 # and apply the filter required. It returns a json with the spots
@@ -261,36 +138,12 @@ def spotquery(parameters):
 
         return payload
     except Exception as e:
-        logger.error(e)
-
-# find adxo events
-adxo_events = None
+        logger.error(e)    
 
 def get_adxo():
     global adxo_events
     adxo_events = get_adxo_events()
-    threading.Timer(TIMER_ADXO, get_adxo).start()
-get_adxo()
-
-# create data provider for charts
-heatmap_cbp = ContinentsBandsProvider(logger, qm, continents_cq, band_frequencies)
-bar_graph_spm = SpotsPerMounthProvider(logger, qm)
-line_graph_st = SpotsTrend(logger, qm)
-bubble_graph_hb = HourBand(logger, qm, band_frequencies)
-geo_graph_wdsl = WorldDxSpotsLive(logger, qm, pfxt)
-
-# Find who is connected to the cluster with DXSpider version (using a scheduled telnet connection)
-whoj = {"data": [], "version": "Unknown", "last_updated": "No data"}
-
-async def _fetch_who_and_version_with_timeout(host, port, user, password, timeout=5):
-    try:
-        return await asyncio.wait_for(fetch_who_and_version(host, port, user, password), timeout=timeout)
-    except asyncio.TimeoutError:
-        logger.warning(f"Timeout of {timeout} seconds reached during the connection to {host}:{port}")
-        return None, None
-    except Exception as e:
-        logger.error(f"Error in fetch with timeout: {e}")
-        return None, None
+    threading.Timer(CONST.TIMER_ADXO, get_adxo).start()
 
 def who_is_connected():
     global whoj
@@ -339,11 +192,8 @@ def who_is_connected():
         whoj["last_updated"] = "Connection error"
 
     finally:
-        threading.Timer(TIMER_WHO, who_is_connected).start()
+        threading.Timer(CONST.TIMER_WHO, who_is_connected).start()
         logger.debug(f"Final WHO data: {whoj}")
-
-# Call function once at startup
-who_is_connected()
 
 #Calculate nonce token used in inline script and in csp "script-src" header
 def get_nonce():
@@ -360,8 +210,120 @@ def visitor_count():
     else:
         visits[user_ip] += 1
 
-# --- Start Login and Administration Integration ---
 
+#--- MAIN ---  
+if check_create_path(CONST.LOCAL_CFG) == 1:
+    print("Creating local path")
+    copytree('cfg',CONST.LOCAL_CFG)
+
+check_create_path(CONST.LOCAL_LOG)
+
+logging.config.fileConfig(CONST.INI_CONFIG, disable_existing_loggers=True)
+logger = logging.getLogger(__name__)
+logger.info("Starting SPIDERWEB")
+
+check_create_path(CONST.LOCAL_DATA)
+
+app = flask.Flask(__name__)
+
+app.config["SECRET_KEY"] = secrets.token_hex(16)
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=False, # To access the cookie from JS (if needed)
+    SESSION_COOKIE_SAMESITE="Strict",
+)
+
+try:
+    version_file = open(CONST.VERSION_FILE, "r")
+    app.config["VERSION"] = version_file.read().strip()
+    version_file.close    
+except Exception as e:
+    logger.error("Error reading version file")
+
+logger.info("Version: "+app.config["VERSION"] )
+
+inline_script_nonce = ""
+
+csrf = CSRFProtect(app)
+
+logger.debug(app.config)
+
+if app.config["DEBUG"]:
+    minify(app=app, html=False, js=False, cssless=False)
+else:
+    minify(app=app, html=True, js=True, cssless=False)
+
+#removing whitespace from jinja2 html rendered
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True    
+
+cfg = load_config()
+
+init_config_objects()
+
+#Creating bandplan
+try:
+    bp=BandPlan(logger,band_frequencies, modes_frequencies, 'static/images/icons/icon-512x512-transparent.png')
+    bp.create(CONST.BANDPLAN)
+    del bp
+except Exception as e:
+    logger.error("Bandplan not created")
+    logger.error(e)
+
+#load visitour counter
+try:
+    # Load the visits data from the file
+    with open(CONST.VISITS_FILE) as json_visitors:
+        visits = json.load(json_visitors)
+except FileNotFoundError:
+    # If the file does not exist, create an empty visits dictionary
+    visits = {}
+
+except json.decoder.JSONDecodeError:
+    # If the file is not a valid json file
+    logger.warning("No valid data in visit json")
+    logger.warning("reset and creation of a new:" + CONST.VISITS_FILE )
+    visits = {}
+
+# Start scheduling
+schedule_save()
+
+# read and set default for enabling cq filter
+enable_cq_filter = "N"
+if cfg is not None:
+    if cfg.get("enable_cq_filter"):
+        enable_cq_filter = cfg["enable_cq_filter"].upper()
+    else:
+        enable_cq_filter = "N"
+
+# find adxo events
+adxo_events = None
+get_adxo()
+
+# create data provider for charts
+heatmap_cbp = ContinentsBandsProvider(logger, qm, continents_cq, band_frequencies)
+bar_graph_spm = SpotsPerMounthProvider(logger, qm)
+line_graph_st = SpotsTrend(logger, qm)
+bubble_graph_hb = HourBand(logger, qm, band_frequencies)
+geo_graph_wdsl = WorldDxSpotsLive(logger, qm, pfxt)
+
+# Find who is connected to the cluster with DXSpider version (using a scheduled telnet connection)
+whoj = {"data": [], "version": "Unknown", "last_updated": "No data"}
+
+async def _fetch_who_and_version_with_timeout(host, port, user, password, timeout=5):
+    try:
+        return await asyncio.wait_for(fetch_who_and_version(host, port, user, password), timeout=timeout)
+    except asyncio.TimeoutError:
+        logger.warning(f"Timeout of {timeout} seconds reached during the connection to {host}:{port}")
+        return None, None
+    except Exception as e:
+        logger.error(f"Error in fetch with timeout: {e}")
+        return None, None
+
+# Call function once at startup
+who_is_connected()
+
+# --- Start Login and Administration Integration ---
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login' # The view to redirect to for login
@@ -370,17 +332,13 @@ login_manager.login_message_category = "info"
 
 user_manager = UserManager() # Initialize the user manager
 
-# Check and create the default admin user if it doesn't exist
-DEFAULT_ADMIN_USERNAME = 'admin'
-DEFAULT_ADMIN_PASSWORD = 'password' # This password MUST be changed
-
 # Instead of @app.before_first_request, we check and create the admin user here.
 # This runs when the module is imported, which happens when 'flask run' is used.
-admin_user = user_manager.get_user_by_username(DEFAULT_ADMIN_USERNAME)
+admin_user = user_manager.get_user_by_username(CONST.DEFAULT_ADMIN_USERNAME)
 if not admin_user:
-    logger.warning(f"Creating default administrator user '{DEFAULT_ADMIN_USERNAME}'.")
+    logger.warning(f"Creating default administrator user '{CONST.DEFAULT_ADMIN_USERNAME}'.")
     success, message = user_manager.add_user(
-        DEFAULT_ADMIN_USERNAME, DEFAULT_ADMIN_PASSWORD, "admin", must_change_password=True
+        CONST.DEFAULT_ADMIN_USERNAME, CONST.DEFAULT_ADMIN_PASSWORD, "admin", must_change_password=True
     )
     if success:
         logger.info(message)
@@ -584,8 +542,8 @@ def admin_update_config():
             # Tenta di parsare la stringa JSON
             new_cfg = json.loads(configurations_data)
             if save_config(new_cfg):
-                cfg = new_cfg # Aggiorna la variabile globale cfg
-                reinit_config_objects() # <--- questa linea!
+                cfg = new_cfg 
+                init_config_objects() 
                 flash('Configuration updated!', 'success')            
             else:
                 flash('Error saving configuration.', 'error')
@@ -698,7 +656,7 @@ def propagation():
 
     #get solar data in XML format and convert to json
     solar_data={}
-    url = "https://www.hamqsl.com/solarxml.php"
+    url = CONST.SOLAR_DATA_URL
     try:
         logger.debug("connection to: " + url)
         req = requests.get(url)
@@ -722,7 +680,6 @@ def propagation():
             current_user=current_user # Pass the current_user object to the template
         )
     )
-
     #response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     return response
 
@@ -737,7 +694,7 @@ def bandplan():
             mail=cfg["mail"],
             menu_list=cfg["menu"]["menu_list"],
             visits=len(visits), 
-            bandplan_svg=bandplan_file,
+            bandplan_svg=CONST.BANDPLAN,
             current_user=current_user # Pass the current_user object to the template
         )
     )
@@ -775,11 +732,6 @@ def privacy():
     )
     return response
 
-@app.route("/sitemap.xml")
-def sitemap():
-    return app.send_static_file("sitemap.xml")
-
-
 @app.route("/callsign.html", methods=["GET"])
 def callsign():
 
@@ -803,6 +755,34 @@ def callsign():
     )
     return response
 
+@app.route('/sitemap.xml')
+def sitemap():
+    pages = set() 
+
+    for rule in app.url_map.iter_rules():
+        if "GET" in rule.methods and not rule.arguments:
+            pages.add(url_for(rule.endpoint, _external=True))  # add only distinct endpoints
+
+    # Remove some pages
+    exclude_list = ['/sitemap.xml', '/admin','/service-worker.js',
+                    '/change_password','/login','/logout','/callsign',
+                    '/offline.html','/world.json']
+    pages = {page for page in pages if not any(page.endswith(exclude) for exclude in exclude_list)}
+
+    # Construct XML sitemap
+    xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml_content += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    for page in pages:
+        priority = 1.0 if page.endswith('/index.html') or page.endswith('/') else 0.8  # Index has maximum priority
+        xml_content += f'   <url>\n'
+        xml_content += f'       <loc>{page}</loc>\n'
+        xml_content += f'       <lastmod>{datetime.datetime.now().date()}</lastmod>\n'
+        xml_content += f'       <changefreq>monthly</changefreq>\n'
+        xml_content += f'       <priority>{priority}</priority>\n'
+        xml_content += f'   </url>\n'
+    xml_content += '</urlset>'
+
+    return flask.Response(xml_content, mimetype='application/xml')
 
 # API that search a callsign and return all informations about that
 @app.route("/callsign", methods=["GET"])
@@ -812,7 +792,6 @@ def find_callsign():
     if response is None:
         response = flask.Response(status=204)
     return response
-
 
 @app.route("/plot_get_heatmap_data", methods=["POST"])
 @csrf.exempt
@@ -835,7 +814,6 @@ def get_dx_spots_per_month():
         response = flask.Response(status=204)
     return response
 
-
 @app.route("/plot_get_dx_spots_trend", methods=["POST"])
 @csrf.exempt
 def get_dx_spots_trend():
@@ -845,7 +823,6 @@ def get_dx_spots_trend():
         response = flask.Response(status=204)
     return response
 
-
 @app.route("/plot_get_hour_band", methods=["POST"])
 @csrf.exempt
 def get_dx_hour_band():
@@ -854,7 +831,6 @@ def get_dx_hour_band():
     if response is None:
         response = flask.Response(status=204)
     return response
-
 
 @app.route("/plot_get_world_dx_spots_live", methods=["POST"])
 @csrf.exempt

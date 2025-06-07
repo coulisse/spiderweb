@@ -1,5 +1,5 @@
 ### Change log
-Date: 31/05/2025                    
+Date: 07/06/2025                    
 Release: v2.6
 
 - upgraded flag icon css
@@ -12,6 +12,8 @@ Release: v2.6
 - added Dokerfile and .dockerignor in order to dockerize the application. You can dockerize it using scripts/docker_build.sh
 - added a login ad administration page, for edit configurations and users
 - upgrade flask to fixed security issue [#34](https://github.com/coulisse/spiderweb/security/dependabot/34)
+- added dynamic sytemap.xml (for search engines indexing)
+- code refactoring
 ___
 Date: 25/04/2025                    
 Release: v2.5.8
