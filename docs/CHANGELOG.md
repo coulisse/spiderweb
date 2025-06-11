@@ -1,5 +1,5 @@
 ### Change log
-Date: 07/06/2025                    
+Date: 11/06/2025                    
 Release: v2.6
 
 - upgraded flag icon css
@@ -14,6 +14,8 @@ Release: v2.6
 - upgrade flask to fixed security issue [#34](https://github.com/coulisse/spiderweb/security/dependabot/34)
 - added dynamic sytemap.xml (for search engines indexing)
 - code refactoring
+- removed config for cq_filter (we will use always cq filter)
+- managed a specific csp for echart plots 
 ___
 Date: 25/04/2025                    
 Release: v2.5.8

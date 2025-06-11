@@ -843,6 +843,7 @@ def csp_reports():
 
 @app.after_request
 def add_security_headers(resp):
+
     resp.headers["Strict-Transport-Security"] = "max-age=1000"
     resp.headers["X-Xss-Protection"] = "1; mode=block"
     resp.headers["X-Frame-Options"] = "SAMEORIGIN"
@@ -854,7 +855,7 @@ def add_security_headers(resp):
     resp.headers["Pragma"] = "no-cache"
     resp.headers["ETag"] = app.config["VERSION"]
     #resp.headers["Report-To"] = '{"group":"csp-endpoint", "max_age":10886400, "endpoints":[{"url":"/csp-reports"}]}'    
-    csp = "\
+    resp.headers["Content-Security-Policy"] = "\
     default-src 'self';\
     script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-"+inline_script_nonce+"';\
     style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net;\
@@ -870,19 +871,11 @@ def add_security_headers(resp):
     worker-src 'self';\
     report-uri /csp-reports;\
     "
-    #Manage unsafe-inlne for echarts 
-    if request.endpoint in ['plots', 'get_heatmap_data', 'get_dx_spots_per_month', 'get_dx_spots_trend', 'get_dx_hour_band', 'get_world_dx_spots_live']:
-        logger.debug(f"Applying 'unsafe-inline' style-src for endpoint: {request.endpoint}")
-        # Replace standard  policy
-        csp = csp.replace(
-            "style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net;",
-            "style-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'unsafe-inline';"
-        )
-        
-    resp.headers["Content-Security-Policy"] = csp
-
     return resp
-
+   
+    #report-to csp-endpoint;\
+    #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-sedfGFG32xs';\
+    #script-src 'self' cdnjs.cloudflare.com cdn.jsdelivr.net 'nonce-"+inline_script_nonce+"';\
 if __name__ == "__main__":
     who_is_connected()
     app.run(host="0.0.0.0")

@@ -74,7 +74,6 @@
 			</div>
 			<p></p>
 			<!-- cq filter -->
-			{% if enable_cq_filter == "Y" %}
 			<div class="row">
 				<strong>CQ De zone</strong>
 				<div class="col">
@@ -172,7 +171,6 @@
 					</select>
 				</div>
 			</div>
-			{% endif %}
 			<p></p>
 			<div class="mx-auto">
 				<button type="submit" class="btn btn-primary btn-block w-100" aria-pressed="true" data-toggle="collapse"
@@ -323,8 +321,8 @@ var band_frequencies={{bands["bands"]|tojson|safe}};
 
 {% block app_scripts %}
 {{ super() }}
-<script defer src="static/js/rel/table.min.js"></script>
+<script defer src="static/js/dev/table.js"></script>
 {% endblock %}
 {% block inline_scripts %}
-<script defer src="static/js/rel/index_inline.min.js"></script>
+<script defer src="static/js/dev/index_inline.js"></script>
 {% endblock %}

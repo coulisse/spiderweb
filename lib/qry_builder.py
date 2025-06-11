@@ -24,7 +24,7 @@ def query_build_callsign(logger,callsign):
     return query_string
 
 
-def query_build(logger,parameters,band_frequencies,modes_frequencies,continents_cq,enable_cq_filter):
+def query_build(logger,parameters,band_frequencies,modes_frequencies,continents_cq):
 
     try:
         last_rowid = str(parameters["lr"])  # Last rowid fetched by front end
@@ -127,17 +127,16 @@ def query_build(logger,parameters,band_frequencies,modes_frequencies,continents_
             dxre_qry_string += str(continent["cq"])
         dxre_qry_string += ")"
 
-        if enable_cq_filter == "Y":
             # construct de cq query
-            decq_qry_string = ""
-            if len(decq) == 1:
-                if decq[0].isnumeric():
-                    decq_qry_string = " AND spottercq =" + decq[0]
-            # construct dx cq query
-            dxcq_qry_string = ""
-            if len(dxcq) == 1:
-                if dxcq[0].isnumeric():
-                    dxcq_qry_string = " AND spotcq =" + dxcq[0]
+        decq_qry_string = ""
+        if len(decq) == 1:
+            if decq[0].isnumeric():
+                decq_qry_string = " AND spottercq =" + decq[0]
+        # construct dx cq query
+        dxcq_qry_string = ""
+        if len(dxcq) == 1:
+            if dxcq[0].isnumeric():
+                dxcq_qry_string = " AND spotcq =" + dxcq[0]
 
         if last_rowid is None:
             last_rowid = "0"
@@ -168,12 +167,11 @@ def query_build(logger,parameters,band_frequencies,modes_frequencies,continents_
         if len(dxre) > 0:
             query_string += dxre_qry_string
 
-        if enable_cq_filter == "Y":
-            if len(decq_qry_string) > 0:
-                query_string += decq_qry_string
+        if len(decq_qry_string) > 0:
+            query_string += decq_qry_string
 
-            if len(dxcq_qry_string) > 0:
-                query_string += dxcq_qry_string
+        if len(dxcq_qry_string) > 0:
+            query_string += dxcq_qry_string
 
         query_string += " ORDER BY rowid desc limit 50;"
 
