@@ -26,3 +26,5 @@ SOLAR_DATA_URL = "https://www.hamqsl.com/solarxml.php"
 
 DEFAULT_ADMIN_USERNAME = 'admin'
 DEFAULT_ADMIN_PASSWORD = 'password' # This password MUST be changed
+
+WHO_TIMEOUT = 10 #timeout in seconds
