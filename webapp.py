@@ -5,26 +5,21 @@ from flask_minify import minify
 import datetime
 import secrets
 import json
-import threading
 import logging
 import logging.config
-import asyncio
 import requests
 import xmltodict
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 # Assuming these are in the lib directory
-from lib.dxtelnet import fetch_who_and_version
-from lib.adxo import get_adxo_events
-from lib.qry import query_manager
-from lib.cty import prefix_table
-from lib.plot_data_provider import ContinentsBandsProvider, SpotsPerMounthProvider, SpotsTrend, HourBand, WorldDxSpotsLive
-from lib.qry_builder import query_build, query_build_callsign, query_build_callsing_list
+import lib.constants as CONST
 from lib.bandplan import BandPlan
 from lib.util import copytree, check_create_path
-from lib.user_manager import UserManager, User
+from lib.user_manager import UserManager
 from lib.forms import LoginForm, ChangePasswordForm, UserForm
-import lib.constants as CONST
+from lib.datamanager import DataManager
+from lib.backgroundtaskmanager import BackgroundTaskManager
+from lib.appconfig import AppConfig
 
 # --- Logging Setup ---
 # Step 1: Check if the log configuration file exists
@@ -52,242 +47,6 @@ except Exception as e:
     )
     logger = logging.getLogger(__name__)
     logger.error("Error loading log configuration from file (%s): %s. Using basic error logging.", CONST.INI_CONFIG, e)
-
-
-# --- Class Definitions (remain the same) ---
-
-class AppConfig:
-    """Manages application configuration loading and saving."""
-    def __init__(self, logger):
-        self.logger = logger
-        self.cfg = self._load_config()
-
-    def _load_config(self):
-        """Loads configuration from JSON files."""
-        try:
-            with open(CONST.CFG_JSON) as json_data_file:
-                cfg = json.load(json_data_file)
-        except FileNotFoundError:
-            self.logger.warning(f"config.json not found in: {CONST.LOCAL_CFG}. Falling back to template.")
-            try:
-                with open(CONST.CFG_JSON_TEMPLATE) as json_data_file:
-                    cfg = json.load(json_data_file)
-            except Exception as e:
-                self.logger.error(f"Error loading template config: {e}")
-                cfg = None
-        return cfg
-
-    def save_config(self, new_cfg_data):
-        """Saves new configuration data to the config file."""
-        try:
-            with open(CONST.CFG_JSON, 'w') as f:
-                json.dump(new_cfg_data, f, indent=2)
-            self.cfg = new_cfg_data  # Update the in-memory config
-            self.logger.info("Configuration saved successfully.")
-            return True
-        except Exception as e:
-            self.logger.error(f"Error saving configuration: {e}")
-            return False
-
-class DataManager:
-    """Manages various data objects and query functionalities."""
-    def __init__(self, logger, config):
-        self.logger = logger
-        self.config = config
-        self.band_frequencies = {}
-        self.modes_frequencies = {}
-        self.continents_cq = {}
-        self.pfxt = None
-        self.qm = None
-        self.heatmap_cbp = None
-        self.bar_graph_spm = None
-        self.line_graph_st = None
-        self.bubble_graph_hb = None
-        self.geo_graph_wdsl = None
-        self.visits = self._load_visits()
-        self.adxo_events = None
-
-        self._init_data_objects()
-
-    def _load_visits(self):
-        """Loads visit data from file."""
-        try:
-            with open(CONST.VISITS_FILE) as json_visitors:
-                visits = json.load(json_visitors)
-        except FileNotFoundError:
-            visits = {}
-        except json.decoder.JSONDecodeError:
-            self.logger.warning("No valid data in visit JSON. Resetting visits.")
-            visits = {}
-        return visits
-
-    def save_visits(self):
-        """Saves current visit data to file."""
-        with open(CONST.VISITS_FILE, "w") as json_file:
-            json.dump(self.visits, json_file)
-        self.logger.info(f'Visits saved to: {CONST.VISITS_FILE}')
-
-    def _init_data_objects(self):
-        """Initializes various data objects and managers."""
-        self.logger.info("Initializing data objects...")
-
-        with open(CONST.BANDS) as json_bands:
-            self.band_frequencies = json.load(json_bands)
-
-        with open(CONST.MODES) as json_modes:
-            self.modes_frequencies = json.load(json_modes)
-
-        with open(CONST.CONTINENTS) as json_continents:
-            self.continents_cq = json.load(json_continents)
-
-        self.pfxt = prefix_table(CONST.CTY_DATA, CONST.COUNTRIES)
-
-        if self.qm is not None:
-            try:
-                self.qm.close()
-                self.logger.info("Existing query_manager instance closed.")
-            except Exception as e:
-                self.logger.warning(f"Failed to gracefully close existing query_manager: {e}")
-                del self.qm
-        self.qm = query_manager(self.config.cfg)
-
-        self.heatmap_cbp = ContinentsBandsProvider(self.logger, self.qm, self.continents_cq, self.band_frequencies)
-        self.bar_graph_spm = SpotsPerMounthProvider(self.logger, self.qm)
-        self.line_graph_st = SpotsTrend(self.logger, self.qm)
-        self.bubble_graph_hb = HourBand(self.logger, self.qm, self.band_frequencies)
-        self.geo_graph_wdsl = WorldDxSpotsLive(self.logger, self.qm, self.pfxt)
-        self.logger.info("Data objects initialized.")
-
-    def spotquery(self, parameters):
-        """Executes a spot query based on provided parameters."""
-        try:
-            if 'callsign' in parameters:
-                self.logger.debug('Searching by callsign')
-                query_string = query_build_callsign(self.logger, parameters['callsign'])
-            else:
-                self.logger.debug('Searching with other filters')
-                query_string = query_build(self.logger, parameters, self.band_frequencies, self.modes_frequencies, self.continents_cq)
-
-            self.qm.qry(query_string)
-            data = self.qm.get_data()
-            row_headers = self.qm.get_headers()
-
-            if not data:
-                self.logger.warning("No data found for the query.")
-                return []
-
-            payload = []
-            for result in data:
-                main_result = dict(zip(row_headers, result))
-                search_prefix = self.pfxt.find(main_result["dx"])
-                main_result["country"] = search_prefix["country"]
-                main_result["iso"] = search_prefix["iso"]
-                payload.append(main_result)
-            return payload
-        except Exception as e:
-            self.logger.error(f"Error in spotquery: {e}")
-            return []
-
-    def get_dx_calls(self):
-        """Retrieves a list of DX callsigns."""
-        try:
-            query_string = query_build_callsing_list()
-            self.qm.qry(query_string)
-            data = self.qm.get_data()
-            row_headers = self.qm.get_headers()
-
-            payload = [dict(zip(row_headers, result))["dx"] for result in data]
-            self.logger.debug("Last DX Callsigns: %s", payload)
-            return payload
-        except Exception as e:
-            self.logger.error(f"Error fetching DX calls: {e}")
-            return []
-
-    def get_adxo_events_data(self):
-        """Fetches ADXO events."""
-        self.adxo_events = get_adxo_events()
-        self.logger.info("ADXO events fetched.")
-        return self.adxo_events
-
-    def increment_visitor_count(self, request_environ, remote_addr):
-        """Increments visitor count based on IP."""
-        user_ip = request_environ.get('HTTP_X_FORWARDED_FOR') or request_environ.get('HTTP_X_REAL_IP') or remote_addr
-        self.visits[user_ip] = self.visits.get(user_ip, 0) + 1
-
-
-class BackgroundTaskManager:
-    """Manages scheduled background tasks."""
-    def __init__(self, logger, data_manager, app_config):
-        self.logger = logger
-        self.data_manager = data_manager
-        self.app_config = app_config
-        self.whoj = {"data": [], "version": "Unknown", "last_updated": "No data"}
-        # Schedule initial runs and then recurring tasks
-        self.schedule_save()
-        self.get_adxo_scheduled()
-        # Initial call to who_is_connected_scheduled needs to be outside threading.Timer for immediate execution
-        self.who_is_connected_scheduled()
-
-
-    def schedule_save(self):
-        """Schedules periodic saving of visit data."""
-        self.data_manager.save_visits()
-        threading.Timer(CONST.TIMER_VISIT, self.schedule_save).start()
-
-    def get_adxo_scheduled(self):
-        """Schedules periodic fetching of ADXO events."""
-        self.data_manager.get_adxo_events_data()
-        threading.Timer(CONST.TIMER_ADXO, self.get_adxo_scheduled).start()
-
-    async def _fetch_who_and_version_with_timeout(self, host, port, user, password, timeout=5):
-        """Fetches WHO data with a timeout."""
-        try:
-            return await asyncio.wait_for(fetch_who_and_version(host, port, user, password), timeout=timeout)
-        except asyncio.TimeoutError:
-            self.logger.warning(f"Timeout of {timeout} seconds reached during connection to {host}:{port}")
-            return None, None
-        except Exception as e:
-            self.logger.error(f"Error in fetch with timeout: {e}")
-            return None, None
-
-    def who_is_connected_scheduled(self):
-        """Schedules periodic fetching of connected users and DXSpider version."""
-        cfg = self.app_config.cfg
-        host = cfg["telnet"]["telnet_host"] if cfg else ""
-        port = cfg["telnet"]["telnet_port"] if cfg else ""
-        user = cfg["telnet"]["telnet_user"] if cfg else ""
-        password = cfg["telnet"]["telnet_password"] if cfg else ""
-
-        self.logger.info(f"Refreshing WHO list and DXSpider version from: {host}:{port} with timeout {CONST.WHO_TIMEOUT} seconds")
-
-        try:
-            parsed_data, dxspider_version = asyncio.run(
-                self._fetch_who_and_version_with_timeout(host, port, user, password, CONST.WHO_TIMEOUT)
-            )
-
-            if parsed_data:
-                self.whoj["data"] = [entry for entry in parsed_data if entry.get("callsign") != user]
-            else:
-                self.logger.warning("WHO response was empty or timed out.")
-                self.whoj["data"] = []
-
-            if dxspider_version and dxspider_version != "Unknown":
-                self.whoj["version"] = dxspider_version
-            else:
-                self.logger.warning("DXSpider version not found or timed out.")
-                self.whoj["version"] = "Unknown"
-
-            self.whoj["last_updated"] = datetime.datetime.now(datetime.timezone.utc).strftime("%d-%b-%Y %H:%MZ")
-
-        except Exception as e:
-            self.logger.error(f"Error connecting to host {host}:{port} - {e}")
-            self.whoj["data"] = []
-            self.whoj["version"] = "Error fetching version"
-            self.whoj["last_updated"] = "Connection error"
-        finally:
-            threading.Timer(CONST.TIMER_WHO, self.who_is_connected_scheduled).start()
-            self.logger.debug(f"Final WHO data: {self.whoj}")
-
 
 class FlaskApp:
     """Main Flask application class."""
@@ -865,12 +624,9 @@ check_create_path(CONST.LOCAL_LOG)
 check_create_path(CONST.LOCAL_DATA)
 
 # Step 2: Create the FlaskApp instance. This instance will handle all setup.
-# This part *must* be outside the `if __name__ == "__main__":` block
-# for `flask run` to find the 'app' object during module import.
 _flask_app_wrapper_instance = FlaskApp(logger)
 
 # Step 3: Expose the actual Flask application object.
-# Flask CLI looks for an object named 'app' at the top level of the module.
 app = _flask_app_wrapper_instance.app
 
 # --- Direct Execution (optional, for `python webapp2.py`) ---
