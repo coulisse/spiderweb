@@ -168,6 +168,240 @@
 	{% endblock app_scripts %}
 	{% block inline_scripts %}
 	{% endblock inline_scripts %}
+	<script nonce="{{ inline_script_nonce }}">
+	(function () {
+		'use strict';
+		var COOKIE_NAME = 'spiderweb_filters';
+		var COOKIE_DAYS = 365;
+
+		function findForm() {
+			var form = document.getElementById('form-filters');
+			if (!form) {
+				form = document.querySelector('#collapseFilters form');
+			}
+			if (!form) {
+				form = document.querySelector('form[id*="filter"], form[class*="filter"]');
+			}
+			return form;
+		}
+
+		function isIgnored(el) {
+			if (!el || el.disabled) {
+				return true;
+			}
+			var key = el.name || el.id;
+			if (!key || key === 'csrf_token') {
+				return true;
+			}
+			var ignoredTypes = ['hidden', 'submit', 'button', 'reset', 'image', 'file', 'password'];
+			return ignoredTypes.indexOf(el.type) !== -1;
+		}
+
+		function collect(form) {
+			var data = {};
+			var elements = form.elements;
+			for (var i = 0; i < elements.length; i += 1) {
+				var el = elements[i];
+				var key = el.name || el.id;
+				if (!key || isIgnored(el)) {
+					continue;
+				}
+				if (el.type === 'checkbox') {
+					var val = el.value || 'on';
+					if (el.checked) {
+						if (!Array.isArray(data[key])) {
+							data[key] = data[key] === undefined ? [] : [data[key]];
+						}
+						if (data[key].indexOf(val) === -1) {
+							data[key].push(val);
+						}
+					} else if (Array.isArray(data[key])) {
+						data[key] = data[key].filter(function (v) { return v !== val; });
+						if (data[key].length === 0) {
+							delete data[key];
+						}
+					} else {
+						delete data[key];
+					}
+				} else if (el.type === 'radio') {
+					if (el.checked) {
+						data[key] = el.value;
+					}
+				} else if (el.tagName === 'SELECT' && el.multiple) {
+					var values = Array.prototype.slice.call(el.selectedOptions).map(function (o) { return o.value; });
+					if (values.length > 0) {
+						data[key] = values;
+					}
+				} else {
+					var value = el.value;
+					if (value !== '') {
+						data[key] = value;
+					}
+				}
+			}
+			return data;
+		}
+
+		function setCookie(name, value, days) {
+			var expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
+			document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+		}
+
+		function deleteCookie(name) {
+			document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax';
+		}
+
+		function save(form) {
+			var data = collect(form);
+			if (Object.keys(data).length === 0) {
+				deleteCookie(COOKIE_NAME);
+			} else {
+				setCookie(COOKIE_NAME, JSON.stringify(data), COOKIE_DAYS);
+			}
+		}
+
+		function getCookie(name) {
+			var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+			if (!match) {
+				return null;
+			}
+			try {
+				return JSON.parse(decodeURIComponent(match[1]));
+			} catch (e) {
+				return null;
+			}
+		}
+
+		function getUrlData() {
+			var urlData = {};
+			if (window.URLSearchParams) {
+				var params = new URLSearchParams(window.location.search);
+				params.forEach(function (value, key) {
+					if (key === 'csrf_token') {
+						return;
+					}
+					if (urlData[key] === undefined) {
+						urlData[key] = value;
+					} else if (Array.isArray(urlData[key])) {
+						urlData[key].push(value);
+					} else {
+						urlData[key] = [urlData[key], value];
+					}
+				});
+			}
+			return urlData;
+		}
+
+		function urlMatches(urlData, data) {
+			var keys = Object.keys(data);
+			for (var k = 0; k < keys.length; k += 1) {
+				var key = keys[k];
+				var stored = data[key];
+				var current = urlData[key];
+				if (Array.isArray(stored)) {
+					if (!Array.isArray(current)) {
+						return false;
+					}
+					var missing = stored.some(function (v) { return current.indexOf(v) === -1; });
+					var extra = current.some(function (v) { return stored.indexOf(v) === -1; });
+					if (missing || extra) {
+						return false;
+					}
+				} else if (typeof current === 'string') {
+					if (current !== stored) {
+						return false;
+					}
+				} else if (Array.isArray(current) && current.length === 1) {
+					if (current[0] !== stored) {
+						return false;
+					}
+				} else {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		function apply(form, data) {
+			if (!data || typeof data !== 'object') {
+				return;
+			}
+			var elements = form.elements;
+			for (var i = 0; i < elements.length; i += 1) {
+				var el = elements[i];
+				var key = el.name || el.id;
+				if (!key || el.disabled || !Object.prototype.hasOwnProperty.call(data, key)) {
+					continue;
+				}
+				var value = data[key];
+				if (el.type === 'checkbox') {
+					var val = el.value || 'on';
+					el.checked = Array.isArray(value) ? value.indexOf(val) !== -1 : (value === val || value === true);
+				} else if (el.type === 'radio') {
+					el.checked = value === el.value;
+				} else if (el.tagName === 'SELECT') {
+					if (el.multiple) {
+						var values = Array.isArray(value) ? value : (value === undefined || value === null ? [] : [value]);
+						Array.prototype.slice.call(el.options).forEach(function (opt) {
+							opt.selected = values.indexOf(opt.value) !== -1;
+						});
+					} else {
+						el.value = typeof value === 'string' ? value : '';
+					}
+				} else if (!isIgnored(el)) {
+					el.value = typeof value === 'string' ? value : (value === undefined || value === null ? '' : String(value));
+				}
+			}
+			Array.prototype.slice.call(form.querySelectorAll('select')).forEach(function (sel) {
+				if (sel.tomselect && typeof sel.tomselect.refresh === 'function') {
+					sel.tomselect.refresh();
+				}
+			});
+		}
+
+		function init() {
+			var form = findForm();
+			if (!form) {
+				return;
+			}
+			var timer = null;
+			var scheduleSave = function () {
+				if (timer) {
+					window.clearTimeout(timer);
+				}
+				timer = window.setTimeout(function () { save(form); }, 150);
+			};
+			form.addEventListener('change', scheduleSave, true);
+			form.addEventListener('input', scheduleSave, true);
+			form.addEventListener('submit', function () { save(form); }, true);
+			form.addEventListener('reset', function () {
+				window.setTimeout(function () { deleteCookie(COOKIE_NAME); }, 0);
+			}, true);
+			if (window.URLSearchParams) {
+				var initialParams = new URLSearchParams(window.location.search);
+				if (initialParams.has('reset')) {
+					deleteCookie(COOKIE_NAME);
+					return;
+				}
+			}
+			var stored = getCookie(COOKIE_NAME);
+			if (stored) {
+				apply(form, stored);
+				var urlData = getUrlData();
+				if (form.method && form.method.toLowerCase() === 'get' && !urlMatches(urlData, stored)) {
+					save(form);
+					form.submit();
+				}
+			}
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', init);
+		} else {
+			init();
+		}
+	})();
+	</script>
 	<!-- Back to top button -->
 	<button type="button" class="btn btn-secondary btn-floating btn-lg" id="btn-back-to-top">
 		<i class="bi bi-arrow-up"></i>
